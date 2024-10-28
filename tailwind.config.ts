@@ -8,15 +8,15 @@ export default {
         main: "Urbanist, sans-serif",
       },
       colors: {
-        primary: {
-          60: "#FF7A00",
-          65: "#1A64FF",
-          70: "#FF9533",
-          75: "#FFCa99",
-          90: "#FFE4CC",
-          95: "#FFF1E5",
-          97: "#FFF7F0",
-          99: "#FFFCFA",
+        pprimary: {
+          60: "#703BF7",
+          65: "#8254F8",
+          70: "#946CF9",
+          75: "#A685FA",
+          90: "#DBCEFD",
+          95: "#EDE7FE",
+          97: "#F4F0FE",
+          99: "#FBFAFF",
         },
         swhite: {
           90: "#E4E4E7",

@@ -33,7 +33,7 @@ function App({ children }: { children: React.ReactNode }) {
         <Links />
         <ThemeSwitcherScript />
       </head>
-      <body className={"bg-sgrey-8 text-swhite-99 font-main"}>
+      <body className={"bg-sgrey-8 text-white font-main"}>
         <GlobalPendingIndicator />
         <Header />
         {children}
