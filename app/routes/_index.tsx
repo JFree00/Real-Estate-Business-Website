@@ -7,6 +7,13 @@ import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import circle from "@/assets/circleText.svg";
 import * as React from "react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
+import { InfoCards } from "@/components/infoCards";
+import {
+  BanknotesIcon,
+  BuildingOffice2Icon,
+  BuildingStorefrontIcon,
+  SunIcon,
+} from "@heroicons/react/20/solid";
 export const meta: MetaFunction = () => {
   return [
     { title: title() },
@@ -17,10 +24,10 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <main>
-      <div className={"grid grid-cols-12 relative"}>
+      <div className={"grid grid-cols-12 grid-rows-1 relative"}>
         <div
           className={
-            "rounded-full bg-sgrey-8 border border-sgrey-15 size-40 absolute mx-auto left-0 right-0 bottom-2/3 "
+            "rounded-full bg-sgrey-8 border border-sgrey-15 size-40 absolute mx-auto left-0 right-0 top-40"
           }
         >
           <div
@@ -37,34 +44,36 @@ export default function Index() {
             <ArrowUpRightIcon className={"mx-4 my-4 size-8"} />
           </div>
         </div>
-        <div className={"col-span-5 col-start-2"}>
+        <div className={"col-span-5 row-span-1 col-start-2"}>
           <div
-            className={" w-10/12 grid grid-cols-6 grid-rows-4 mt-36 gap-x-4"}
+            className={" w-11/12 grid grid-cols-6 grid-rows-4 mt-36 gap-x-4"}
           >
-            <div
-              className={"font-semibold text-balance max-w-prose col-span-6"}
-            >
-              <p className={"text-6xl"}>
+            <div className={"font-semibold text-balance col-span-6 h-1/4"}>
+              <p className={"text-6xl"} style={{ lineHeight: "1.2" }}>
                 Discover Your Dream Property with Estatein
               </p>
             </div>
-            <h5 className={"col-span-6 self-center text-sgrey-60"}>
+            <h5
+              className={"col-span-6 self-center text-sgrey-60 -mt-5 text-lg"}
+            >
               Your journey to finding the perfect property begins here. Explore
               our listings to find the home that matches your dreams.
             </h5>
-            <div className={"col-span-6 flex gap-x-3 items-center"}>
-              <div className={"basis-1/5"}>
-                <Button variant={"active"} className={"px-7 h-14"}>
-                  Learn More
-                </Button>
-              </div>
-              <div className={"basis-3/4"}>
-                <Button
-                  variant={"default"}
-                  className={"h-14 bg-pprimary-60 px-7"}
-                >
-                  Browse Properties
-                </Button>
+            <div className={"col-span-6 h-2/4"}>
+              <div className={"flex gap-x-3 items-center"}>
+                <div className={"basis-1/5"}>
+                  <Button variant={"active"} className={"px-7 h-14"}>
+                    Learn More
+                  </Button>
+                </div>
+                <div className={"basis-3/4"}>
+                  <Button
+                    variant={"default"}
+                    className={"h-14 bg-pprimary-60 px-7"}
+                  >
+                    Browse Properties
+                  </Button>
+                </div>
               </div>
             </div>
             <div className={"col-span-2"}>
@@ -94,13 +103,36 @@ export default function Index() {
           </div>
         </div>
 
-        <div className={"col-span-6"}>
+        <div
+          className={"col-span-6 row-span-1 overflow-hidden"}
+          style={{ maxHeight: "100%" }}
+        >
           <img
             src={homeBuildings}
             loading={"lazy"}
             alt={"Real Estate"}
             width={"100%"}
           />
+        </div>
+        <div className={"col-span-12 border border-sgrey-15 w-full h-1/12"}>
+          <div className={"mx-4 my-4 flex gap-x-5 h-full"}>
+            <InfoCards
+              text={"Find Your Dream Home"}
+              icon={<BuildingStorefrontIcon />}
+            />
+            <InfoCards
+              text={"Unlock Property Value"}
+              icon={<BanknotesIcon />}
+            />
+            <InfoCards
+              text={"Effortless Property Management"}
+              icon={<BuildingOffice2Icon />}
+            />
+            <InfoCards
+              text={"Smart Investments, Informed Decisions"}
+              icon={<SunIcon />}
+            />
+          </div>
         </div>
       </div>
     </main>
