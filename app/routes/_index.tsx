@@ -14,6 +14,10 @@ import {
   SunIcon,
 } from "@heroicons/react/20/solid";
 import { BanknotesIcon } from "@heroicons/react/24/solid";
+import { SectionDesignation } from "@/components/Designations/sectionDesignation";
+import { SectionHeader } from "@/components/Designations/sectionHeader";
+import { SectionDescription } from "@/components/Designations/sectionDescription";
+import { SectionContent } from "@/components/Designations/sectionContent";
 export const meta: MetaFunction = () => {
   return [
     { title: title() },
@@ -24,7 +28,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <main>
-      <div className={"grid grid-cols-12 grid-rows-5 relative"}>
+      <div className={"grid grid-cols-12 grid-rows-12 relative"}>
         <div
           className={
             "rounded-full bg-sgrey-8 border border-sgrey-15 size-40 absolute mx-auto left-0 right-0 top-40"
@@ -120,7 +124,7 @@ export default function Index() {
             height: "95%",
           }}
         >
-          <div className={"mx-4 my-4 flex gap-x-5 h-full"}>
+          <div className={"mx-4 mt-5 flex gap-x-5 h-full"}>
             <InfoCards
               text={"Find Your Dream Home"}
               icon={<BuildingStorefrontIcon />}
@@ -139,6 +143,20 @@ export default function Index() {
             />
           </div>
         </div>
+        <SectionDesignation>
+          <SectionHeader>Featured Properties</SectionHeader>
+          <SectionDescription>
+            Explore our handpicked selection of featured properties. Each
+            listing offers a glimpse into exceptional homes and investments
+            available through Estatein. Click "View Details" for more
+            information.
+          </SectionDescription>
+          <SectionContent columns={6}>
+            <div className={"col-span-2"}>
+              <Card className={"size-full"}></Card>
+            </div>
+          </SectionContent>
+        </SectionDesignation>
       </div>
     </main>
   );

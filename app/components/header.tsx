@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { LogoSvg } from "@/components/ui/logoSvg";
 import { useState } from "react";
 import wavesComponent from "@/assets/waves.svg";
-import { XCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 const routes = ["Home", "About Us", "Properties", "Services"];
 export function Header() {
   const [route] = useState("Home");
