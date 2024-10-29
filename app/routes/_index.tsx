@@ -9,11 +9,11 @@ import * as React from "react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { InfoCards } from "@/components/infoCards";
 import {
-  BanknotesIcon,
   BuildingOffice2Icon,
   BuildingStorefrontIcon,
   SunIcon,
 } from "@heroicons/react/20/solid";
+import { BanknotesIcon } from "@heroicons/react/24/solid";
 export const meta: MetaFunction = () => {
   return [
     { title: title() },
@@ -24,7 +24,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <main>
-      <div className={"grid grid-cols-12 grid-rows-1 relative"}>
+      <div className={"grid grid-cols-12 grid-rows-5 relative"}>
         <div
           className={
             "rounded-full bg-sgrey-8 border border-sgrey-15 size-40 absolute mx-auto left-0 right-0 top-40"
@@ -44,7 +44,7 @@ export default function Index() {
             <ArrowUpRightIcon className={"mx-4 my-4 size-8"} />
           </div>
         </div>
-        <div className={"col-span-5 row-span-1 col-start-2"}>
+        <div className={"col-span-5 row-span-3 col-start-2"}>
           <div
             className={" w-11/12 grid grid-cols-6 grid-rows-4 mt-36 gap-x-4"}
           >
@@ -62,14 +62,14 @@ export default function Index() {
             <div className={"col-span-6 h-2/4"}>
               <div className={"flex gap-x-3 items-center"}>
                 <div className={"basis-1/5"}>
-                  <Button variant={"active"} className={"px-7 h-14"}>
+                  <Button variant={"active"} className={"px-6 h-16"}>
                     Learn More
                   </Button>
                 </div>
                 <div className={"basis-3/4"}>
                   <Button
                     variant={"default"}
-                    className={"h-14 bg-pprimary-60 px-7"}
+                    className={"bg-pprimary-60 px-6 h-16"}
                   >
                     Browse Properties
                   </Button>
@@ -104,7 +104,7 @@ export default function Index() {
         </div>
 
         <div
-          className={"col-span-6 row-span-1 overflow-hidden"}
+          className={"col-span-6 row-span-3 overflow-hidden"}
           style={{ maxHeight: "100%" }}
         >
           <img
@@ -114,7 +114,12 @@ export default function Index() {
             width={"100%"}
           />
         </div>
-        <div className={"col-span-12 border border-sgrey-15 w-full h-1/12"}>
+        <div
+          className={"col-span-12 border border-sgrey-15"}
+          style={{
+            height: "95%",
+          }}
+        >
           <div className={"mx-4 my-4 flex gap-x-5 h-full"}>
             <InfoCards
               text={"Find Your Dream Home"}

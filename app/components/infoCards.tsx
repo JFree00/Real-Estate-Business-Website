@@ -1,5 +1,7 @@
 // @flow
 import * as React from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   text: string;
@@ -10,11 +12,14 @@ export function InfoCards(props: Props) {
   return (
     <div
       className={
-        "w-1/4 h-5/6 bg-sgrey-10 border-sgrey-15 border pt-4 rounded-2xl"
+        "w-1/4 h-5/6 bg-sgrey-10 border-sgrey-15 border pt-4 rounded-xl relative"
       }
     >
+      <Button size={"icon"} className={"absolute right-5 text-sgrey-30"}>
+        <ArrowUpRightIcon />
+      </Button>
       <div className={"flex flex-nowrap justify-center items-center h-3/5"}>
-        <div className={" basis-1/4 h-full mx-auto"}>
+        <div className={" basis-1/5 h-3/4 mx-auto"}>
           <div
             className={
               "size-full text-pprimary-75  bg-gradient-to-tr from-pprimary-75 from-0% via-transparent via-30% rounded-full"
@@ -28,7 +33,7 @@ export function InfoCards(props: Props) {
               <div
                 className={"rounded-full bg-sgrey-10 mx-auto flex items-center"}
                 style={{
-                  flexBasis: "96%",
+                  flexBasis: "98%",
                   marginTop: "1%",
                   marginBottom: "1%",
                 }}
@@ -44,21 +49,24 @@ export function InfoCards(props: Props) {
                     }
                   >
                     <div
-                      className={"rounded-full size-full bg-sgrey-10 mx-auto"}
+                      className={
+                        "flex justify-center items-center rounded-full bg-sgrey-10 mx-auto my-px"
+                      }
                       style={{
                         flexBasis: "96%",
                       }}
-                    ></div>
+                    >
+                      <div className={" size-1/2"}>{props.icon}</div>
+                    </div>
                   </div>
                 </div>
-                {/*props.icon*/}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className={"flex justify-center items-center h-2/5"}>
-        <div className={"text-lg"}>{props.text}</div>
+      <div className={"flex justify-center items-center h-1/5"}>
+        <div className={"text-xl font-semibold"}>{props.text}</div>
       </div>
     </div>
   );
