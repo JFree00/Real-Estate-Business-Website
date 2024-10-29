@@ -4,9 +4,12 @@ import { Button } from "@/components/ui/button";
 import { LogoSvg } from "@/components/ui/logoSvg";
 import { useState } from "react";
 import wavesComponent from "@/assets/waves.svg";
+import { XCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 const routes = ["Home", "About Us", "Properties", "Services"];
 export function Header() {
   const [route] = useState("Home");
+  const [opened, toggle] = useState(true);
+
   const buttons = routes.map((buttonRoute) => {
     return (
       <Button
@@ -20,34 +23,59 @@ export function Header() {
   });
 
   return (
-    <header className="bg-sgrey-10 h-40">
-      <div
-        className={"overflow-hidden relative "}
-        style={{
-          height: "40%",
-        }}
-      >
-        <div className={"flex justify-center h-full z-10 absolute w-full "}>
-          <h3 className={"font-medium text-lg self-center"}>
-            ✨Discover Your Dream Property with Estatein
-          </h3>
-          <Button size={"sm"} variant={"permlink"} className={"h-full text-lg"}>
-            Learn More
-          </Button>
-        </div>
+    <header
+      className="bg-sgrey-10"
+      style={{
+        height: !opened ? "5rem" : "10rem",
+      }}
+    >
+      {opened && (
         <div
-          className={" bg-contain  w-full absolute -top-48"}
+          className={"overflow-hidden relative "}
           style={{
-            backgroundImage: `url('${wavesComponent}')`,
-            paddingTop: "99%",
-            top: "calc(50% - 1282px/2 - 0.5px)",
+            height: "40%",
           }}
-        ></div>
-      </div>
+        >
+          <div
+            className={
+              "flex justify-between items-center h-full z-10 absolute w-full "
+            }
+          >
+            <div className={"basis-1/3"} />
+            <div className={" flex text-lg"}>
+              <h3 className={" self-center"}>
+                ✨Discover Your Dream Property with Estatein
+              </h3>
+              <Button size={"sm"} variant={"permlink"} className={"text-lg"}>
+                Learn More
+              </Button>
+            </div>
+            <div className={"flex basis-1/3 justify-end mr-3"}>
+              <Button
+                size={"icon"}
+                className={"bg-opacity-30 bg-sgrey-40 rounded-full"}
+                onClick={() => {
+                  toggle(!opened);
+                }}
+              >
+                <XMarkIcon className={"size-2/3"} />
+              </Button>
+            </div>
+          </div>
+          <div
+            className={" w-full absolute -top-48"}
+            style={{
+              backgroundImage: `url('${wavesComponent}')`,
+              paddingTop: "99%",
+              top: "calc(50% - 1282px/2 - 0.5px)",
+            }}
+          ></div>
+        </div>
+      )}
       <div
         className={"flex items-center  border-b border-t border-sgrey-15"}
         style={{
-          height: "60%",
+          height: !opened ? "100%" : "60%",
         }}
       >
         <div className="basis-1/4">
