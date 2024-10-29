@@ -31,7 +31,7 @@ export function Header() {
           <h3 className={"font-medium text-lg self-center"}>
             ✨Discover Your Dream Property with Estatein
           </h3>
-          <Button variant={"permlink"} className={"h-full text-lg"}>
+          <Button size={"sm"} variant={"permlink"} className={"h-full text-lg"}>
             Learn More
           </Button>
         </div>
