@@ -45,7 +45,7 @@ export default function Index() {
               className={"font-semibold text-balance max-w-prose col-span-6"}
             >
               <p className={"text-6xl"}>
-                Discover You Dream Property with Estatein
+                Discover Your Dream Property with Estatein
               </p>
             </div>
             <h5 className={"col-span-6 self-center text-sgrey-60"}>
