@@ -9,7 +9,7 @@ export type testimonialProps = {
   location: string;
   title: string;
   testimonial: string;
-  image: string;
+  image?: string;
   rating: number;
 };
 
@@ -17,7 +17,7 @@ export function TestimonialCards({
   name,
   testimonial,
   rating,
-  image,
+  image = undefined,
   location,
   title,
 }: testimonialProps) {
@@ -30,7 +30,7 @@ export function TestimonialCards({
           <p className={"pt-3 text-left min-h-32 max-h-32"}>{testimonial}</p>
         </CardHeader>
         <CardContent className={"flex justify-start items-center my-9"}>
-          <CircleIcon className={"size-16"} />
+          {<CircleIcon className={"size-16"} />}
           <div className={"px-2 text-xl"}>
             {name}
             <br />

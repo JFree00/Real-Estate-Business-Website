@@ -1,6 +1,5 @@
 // @flow
 import * as React from "react";
-import { Button } from "@/components/ui/button";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 
 type Props = {
