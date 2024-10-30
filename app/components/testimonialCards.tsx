@@ -30,7 +30,7 @@ export function TestimonialCards({
           <p className={"pt-3 text-left min-h-32 max-h-32"}>{testimonial}</p>
         </CardHeader>
         <CardContent className={"flex justify-start items-center my-9"}>
-          {<CircleIcon className={"size-16"} />}
+          {image ? image : <CircleIcon className="size-16" />}
           <div className={"px-2 text-xl"}>
             {name}
             <br />
