@@ -6,3 +6,9 @@
 body::-webkit-scrollbar {
   display: none;
 }
+
+@layer base {
+  p {
+    @apply text-sm 2xl:text-lg;
+  }
+}
