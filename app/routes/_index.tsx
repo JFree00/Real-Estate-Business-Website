@@ -13,11 +13,85 @@ import {
   BuildingStorefrontIcon,
   SunIcon,
 } from "@heroicons/react/20/solid";
+import villa from "@/assets/villa.png";
+import metropolitan from "@/assets/MetropolitanHaven.png";
+import rusticCottage from "@/assets/RusticCottage.png";
+
+import wadeWarren from "@/assets/wadeWarren.png";
+import emelieThomson from "@/assets/emelieThomson.png";
+import johnMans from "@/assets/johnMans.png";
 import { BanknotesIcon } from "@heroicons/react/24/solid";
 import { SectionDesignation } from "@/components/Designations/sectionDesignation";
 import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
 import { SectionContent } from "@/components/Designations/sectionContent";
+import { PropertiesCard, PropertyProps } from "@/components/propertiesCard";
+import {
+  TestimonialCards,
+  testimonialProps,
+} from "@/components/testimonialCards";
+
+const testimonials: testimonialProps[] = [
+  {
+    name: "Wade Warren",
+    location: "USA, California",
+    title: "Exceptional Service!",
+    testimonial:
+      "Our experience with Estatein was outstanding. Their team's dedication and professionalism made finding our dream home a breeze. Highly recommended!",
+    rating: 5,
+    image: wadeWarren,
+  },
+  {
+    name: "Emelie Thomson",
+    location: "USA, Florida",
+    title: "Efficient and Reliable",
+    testimonial:
+      "Estatein provided us with top-notch service. They helped us sell our property quickly and at a great price. We couldn't be happier with the results.",
+    rating: 5,
+    image: emelieThomson,
+  },
+  {
+    name: "John Mans",
+    location: "USA, Nevada",
+    title: "Trusted Advisors",
+    testimonial:
+      "The Estatein team guided us through the entire buying process. Their knowledge and commitment to our needs were impressive. Thank you for your support",
+    rating: 5,
+    image: johnMans,
+  },
+];
+const properties: PropertyProps[] = [
+  {
+    bedrooms: 4,
+    bathrooms: 3,
+    propertyType: "Villa",
+    price: "$500,000",
+    name: "Seaside Serenity Villa",
+    description:
+      "A stunning 4-bedroom, 3-bathroom villa in a peaceful suburban neighborhood...",
+    image: villa,
+  },
+  {
+    bedrooms: 2,
+    bathrooms: 2,
+    propertyType: "Villa",
+    price: "$500,000",
+    name: "Metropolitan Haven",
+    description:
+      "A chic and fully-furnished 2-bedroom apartment with panoramic city views...",
+    image: metropolitan,
+  },
+  {
+    bedrooms: 2,
+    bathrooms: 2,
+    propertyType: "Villa",
+    price: "$500,000",
+    name: "Rustic Retreat Cottage",
+    description:
+      "A charming 2-bedroom, 2-bathroom cottage nestled in a serene countryside setting...",
+    image: rusticCottage,
+  },
+];
 export const meta: MetaFunction = () => {
   return [
     { title: title() },
@@ -26,6 +100,30 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const propertyCards = properties.map((property) => (
+    <PropertiesCard
+      key={property.name}
+      bedrooms={property.bedrooms}
+      bathrooms={property.bathrooms}
+      propertyType={property.propertyType}
+      description={property.description}
+      name={property.name}
+      price={property.price}
+      image={property.image}
+    />
+  ));
+
+  const testimonialCards = testimonials.map((testimonial) => (
+    <TestimonialCards
+      key={testimonial.name}
+      name={testimonial.name}
+      location={testimonial.location}
+      title={testimonial.title}
+      testimonial={testimonial.testimonial}
+      image={testimonial.image}
+      rating={testimonial.rating}
+    />
+  ));
   return (
     <main>
       <div className={"grid grid-cols-12 grid-rows-12 relative"}>
@@ -109,13 +207,13 @@ export default function Index() {
 
         <div
           className={"col-span-6 row-span-3 overflow-hidden"}
-          style={{ maxHeight: "100%" }}
+          style={{ maxHeight: "100%%" }}
         >
           <img
             src={homeBuildings}
-            loading={"lazy"}
-            alt={"Real Estate"}
             width={"100%"}
+            style={{ objectFit: "contain" }}
+            alt={"Real Estate"}
           />
         </div>
         <div
@@ -143,7 +241,7 @@ export default function Index() {
             />
           </div>
         </div>
-        <SectionDesignation>
+        <SectionDesignation className={"mt-20"} rows={4}>
           <SectionHeader>Featured Properties</SectionHeader>
           <SectionDescription>
             Explore our handpicked selection of featured properties. Each
@@ -151,10 +249,20 @@ export default function Index() {
             available through Estatein. Click "View Details" for more
             information.
           </SectionDescription>
-          <SectionContent columns={6}>
-            <div className={"col-span-2"}>
-              <Card className={"size-full"}></Card>
-            </div>
+          <SectionContent columns={6} rows={2}>
+            {propertyCards}
+          </SectionContent>
+        </SectionDesignation>
+        <SectionDesignation rows={4}>
+          <SectionHeader>What Our Clients Say</SectionHeader>
+          <SectionDescription>
+            Read the success stories and heartfelt testimonials from our valued
+            clients. Discover why they chose Estatein for their real estate
+            needs.
+          </SectionDescription>
+
+          <SectionContent columns={6} rows={2}>
+            {testimonialCards}
           </SectionContent>
         </SectionDesignation>
       </div>

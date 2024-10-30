@@ -26,7 +26,7 @@ export function TestimonialCards({
       <Card className={"bg-sgrey-8 px-6 "}>
         <CardHeader className={"mr-3"}>
           <Ratings amountOfRatings={5} ratings={rating} />
-          <body className={"text-2xl font-semibold"}>{title}</body>
+          <p className={"text-2xl font-semibold"}>{title}</p>
           <p className={"pt-3 text-left min-h-32 max-h-32"}>{testimonial}</p>
         </CardHeader>
         <CardContent className={"flex justify-start items-center my-9"}>

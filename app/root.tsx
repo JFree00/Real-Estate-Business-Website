@@ -15,6 +15,12 @@ import {
   ThemeSwitcherScript,
 } from "@/components/theme-switcher";
 import "./tailwind.css";
+import type { LinksFunction } from "@remix-run/cloudflare";
+import homeBuildings from "@/assets/homeBuildings.jpg";
+
+export const links: LinksFunction = () => {
+  return [{ rel: "preload", as: "image", href: homeBuildings }];
+};
 
 function App({ children }: { children: React.ReactNode }) {
   return (
@@ -30,6 +36,7 @@ function App({ children }: { children: React.ReactNode }) {
           href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
         />
+
         <Links />
         <ThemeSwitcherScript />
       </head>

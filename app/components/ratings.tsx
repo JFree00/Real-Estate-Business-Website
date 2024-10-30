@@ -10,9 +10,6 @@ type Props = {
 export function Ratings({ amountOfRatings, ratings }: Props) {
   const ratingButtons = [];
   for (let i = 0; i < amountOfRatings; i++) {
-    console.log(i);
-    console.log(ratings);
-    console.log(i < ratings);
     ratingButtons.push(
       <div
         key={i}
