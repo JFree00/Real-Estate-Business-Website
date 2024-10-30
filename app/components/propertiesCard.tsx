@@ -10,8 +10,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { BuildingOfficeIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/components/ui/button";
-import BedIcon from "@/assets/icons/bedIcon.svg?react";
-import BathroomIcon from "@/assets/icons/BathroomIcon.svg?react";
+import BedIcon from "@/assets/icons/bedIcon.svg";
+import BathroomIcon from "@/assets/icons/BathroomIcon.svg";
 
 export type PropertyProps = {
   bedrooms: number;
@@ -54,11 +54,19 @@ export function PropertiesCard({
             }
           >
             <Badge variant={"card"} className={" border-sgrey-15"}>
-              <BedIcon className={"mr-1 size-3 2xl:size-6"} />
+              <img
+                alt={"Bed Icon"}
+                src={BedIcon}
+                className={"mr-1 size-3 2xl:size-6"}
+              />
               {bedrooms}-Bedroom
             </Badge>
             <Badge variant={"card"} className={" border-sgrey-15"}>
-              <BathroomIcon className={"mr-1 size-3 2xl:size-6"} />
+              <img
+                alt={"Bathroom Icon"}
+                src={BathroomIcon}
+                className={"mr-1 size-3 2xl:size-6"}
+              />
               {bathrooms}-Bathroom
             </Badge>
             <Badge variant={"card"} className={" border-sgrey-15"}>
