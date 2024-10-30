@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { BuildingOfficeIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/components/ui/button";
 import BedIcon from "@/assets/icons/bedIcon.svg";
-import BathroomIcon from "@/assets/icons/BathroomIcon.svg";
+import BathroomIcon from "@/assets/icons/bathroomIcon.svg";
 
 export type PropertyProps = {
   bedrooms: number;

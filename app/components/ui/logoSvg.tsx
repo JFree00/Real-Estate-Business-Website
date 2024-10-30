@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import symbol from "@/assets/icons/Symbol.svg";
+import symbol from "@/assets/icons/symbol.svg";
 import logoSm from "@/assets/icons/LogoSm.svg";
 import logoMd from "@/assets/icons/LogoMd.svg";
 import logoLg from "@/assets/icons/LogoLg.svg";
