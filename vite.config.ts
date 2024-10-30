@@ -5,7 +5,7 @@ import {
 import { defineConfig } from "vite";
 import envOnly from "vite-env-only";
 import tsconfigPaths from "vite-tsconfig-paths";
-
+import svgr from "vite-plugin-svgr";
 import type { Env } from "./context";
 
 export default defineConfig({
@@ -29,5 +29,6 @@ export default defineConfig({
         v3_throwAbortReason: true,
       },
     }),
+    svgr(),
   ],
 });
