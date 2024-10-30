@@ -1,21 +1,23 @@
 // @flow
 import * as React from "react";
-import { LogoLg, LogoMd, LogoSm, Symbol } from "@/assets/icons";
-
+import symbol from "@/assets/icons/Symbol.svg";
+import logoSm from "@/assets/icons/LogoSm.svg";
+import logoMd from "@/assets/icons/LogoMd.svg";
+import logoLg from "@/assets/icons/LogoLg.svg";
 type props = {
   size: "xs" | "sm" | "md" | "lg";
 };
 
 export function LogoSvg({ size }: props) {
   return size === "xs" ? (
-    <Symbol />
+    <img src={symbol} alt={"Logo"} />
   ) : size === "sm" ? (
-    <LogoSm />
+    <img src={logoSm} alt={"Logo"} />
   ) : size === "md" ? (
-    <LogoMd />
+    <img src={logoMd} alt={"Logo"} />
   ) : size === "lg" ? (
-    <LogoLg />
+    <img src={logoLg} alt={"Logo"} />
   ) : (
-    <Symbol />
+    <img src={symbol} alt={"Logo"} />
   );
 }
