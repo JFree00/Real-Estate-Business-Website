@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { LogoLg, LogoMd, LogoSm, Symbol } from "@/assets";
+import { LogoLg, LogoMd, LogoSm, Symbol } from "@/assets/icons";
 
 type props = {
   size: "xs" | "sm" | "md" | "lg";
