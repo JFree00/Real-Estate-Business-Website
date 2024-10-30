@@ -1,9 +1,9 @@
 // @flow
 import * as React from "react";
 import symbol from "@/assets/icons/symbol.svg";
-import logoSm from "@/assets/icons/LogoSm.svg";
-import logoMd from "@/assets/icons/LogoMd.svg";
-import logoLg from "@/assets/icons/LogoLg.svg";
+import logoSm from "@/assets/icons/logoSm.svg";
+import logoMd from "@/assets/icons/logoMd.svg";
+import logoLg from "@/assets/icons/logoLg.svg";
 type props = {
   size: "xs" | "sm" | "md" | "lg";
 };
