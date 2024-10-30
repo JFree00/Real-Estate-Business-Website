@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { StarFilledIcon } from "@radix-ui/react-icons";
+import { StarIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   amountOfRatings: number;
@@ -15,7 +15,7 @@ export function Ratings({ amountOfRatings, ratings }: Props) {
         key={i}
         className="rounded-full border border-sgrey-15 bg-sgrey-10 mr-2"
       >
-        <StarFilledIcon
+        <StarIcon
           className={
             i < ratings ? "text-yellow-300 size-6 m-2.5" : " size-6 m-3"
           }
