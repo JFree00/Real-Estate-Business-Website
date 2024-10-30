@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Ratings } from "@/components/ratings";
-import { CircleIcon } from "@radix-ui/react-icons";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 export type testimonialProps = {
   name: string;
@@ -30,7 +30,11 @@ export function TestimonialCards({
           <p className={"pt-3 text-left min-h-32 max-h-32"}>{testimonial}</p>
         </CardHeader>
         <CardContent className={"flex justify-start items-center my-9"}>
-          {image ? <img src={image} /> : <CircleIcon className="size-16" />}
+          {image ? (
+            <img alt={"Customer Headshot"} src={image} />
+          ) : (
+            <UserCircleIcon className="size-16" />
+          )}
           <div className={"px-2 text-xl"}>
             {name}
             <br />
