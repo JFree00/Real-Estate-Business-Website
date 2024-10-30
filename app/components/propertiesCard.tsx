@@ -36,7 +36,7 @@ export function PropertiesCard({
     <div className={"col-span-2 row-span-2"}>
       <Card className={"size-fit bg-sgrey-8"}>
         <CardHeader className={"m-0 2xl:m-4 "}>
-          <img src={image} />
+          <img alt={"property Image"} src={image} />
           <CardTitle className={"font-semibold text-2xl pt-5"}>
             {name}
           </CardTitle>
