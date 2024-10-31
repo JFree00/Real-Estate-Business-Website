@@ -3,12 +3,35 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 
-type Props = {
+export type infoCardProps = {
   text: string;
   icon: React.ReactNode;
 };
+type InfoCardAreaProps = {
+  children?: React.ReactNode;
+  cardData?: infoCardProps[];
+};
 
-export function InfoCards(props: Props) {
+function InfoCardArea({ children, cardData = [] }: InfoCardAreaProps) {
+  const cards = cardData?.map((data) => {
+    return <InfoCards text={data.text} icon={data.icon} />;
+  });
+  return (
+    <div
+      className={"col-span-12 border border-sgrey-15"}
+      style={{
+        height: "95%",
+      }}
+    >
+      <div className={"mx-4 mt-5 flex gap-x-5 h-full"}>
+        {children}
+        {cards}
+      </div>
+    </div>
+  );
+}
+
+function InfoCards(props: infoCardProps) {
   return (
     <div
       className={
@@ -71,3 +94,6 @@ export function InfoCards(props: Props) {
     </div>
   );
 }
+
+InfoCards.InfoCardsArea = InfoCardArea;
+export default InfoCards;
