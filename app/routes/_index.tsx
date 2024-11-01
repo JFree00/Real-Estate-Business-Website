@@ -7,7 +7,7 @@ import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import circle from "@/assets/circleText.svg";
 import * as React from "react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
-import { InfoCards } from "@/components/infoCards";
+import InfoCards, { infoCardProps } from "@/components/infoCards";
 import {
   BuildingOffice2Icon,
   BuildingStorefrontIcon,
@@ -30,6 +30,7 @@ import {
   TestimonialCards,
   testimonialProps,
 } from "@/components/testimonialCards";
+import { sectionCardProps, SectionCards } from "@/components/sectionCards";
 
 const testimonials: testimonialProps[] = [
   {
@@ -98,7 +99,45 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
+const infoCards: infoCardProps[] = [
+  {
+    text: "Find Your Dream Home",
+    icon: <BuildingStorefrontIcon />,
+  },
+  {
+    text: "Unlock Property Value",
+    icon: <BanknotesIcon />,
+  },
+  {
+    text: "Effortless Property Management",
+    icon: <BuildingOffice2Icon />,
+  },
+  {
+    text: "Smart Investments, Informed Decisions",
+    icon: <SunIcon />,
+  },
+];
 
+const faqCards: sectionCardProps[] = [
+  {
+    name: "How do I search for properties on Estatein?",
+    description:
+      "Learn how to use our user-friendly search tools to find properties that match your criteria.",
+    buttonText: "Read More",
+  },
+  {
+    name: "What documents do I need to sell my property through Estatein?",
+    description:
+      "Find out about the necessary documentation for listing your property with us.",
+    buttonText: "Read More",
+  },
+  {
+    name: "How can I contact an Estatein agent? ",
+    description:
+      "Discover the different ways you can get in touch with our experienced agents.",
+    buttonText: "Read More",
+  },
+];
 export default function Index() {
   const propertyCards = properties.map((property) => (
     <PropertiesCard
@@ -126,7 +165,7 @@ export default function Index() {
   ));
   return (
     <main>
-      <div className={"grid grid-cols-12 grid-rows-12 relative"}>
+      <div className={"grid grid-cols-12 relative"}>
         <div
           className={
             "rounded-full bg-sgrey-8 border border-sgrey-15 size-40 absolute mx-auto left-0 right-0 top-40"
@@ -216,32 +255,9 @@ export default function Index() {
             alt={"Real Estate"}
           />
         </div>
-        <div
-          className={"col-span-12 border border-sgrey-15"}
-          style={{
-            height: "95%",
-          }}
-        >
-          <div className={"mx-4 mt-5 flex gap-x-5 h-full"}>
-            <InfoCards
-              text={"Find Your Dream Home"}
-              icon={<BuildingStorefrontIcon />}
-            />
-            <InfoCards
-              text={"Unlock Property Value"}
-              icon={<BanknotesIcon />}
-            />
-            <InfoCards
-              text={"Effortless Property Management"}
-              icon={<BuildingOffice2Icon />}
-            />
-            <InfoCards
-              text={"Smart Investments, Informed Decisions"}
-              icon={<SunIcon />}
-            />
-          </div>
-        </div>
-        <SectionDesignation className={"mt-20"} rows={4}>
+        <InfoCards.InfoCardsArea cardData={infoCards} />
+
+        <SectionDesignation buttonText={"View All Properties"} rows={3}>
           <SectionHeader>Featured Properties</SectionHeader>
           <SectionDescription>
             Explore our handpicked selection of featured properties. Each
@@ -249,11 +265,11 @@ export default function Index() {
             available through Estatein. Click "View Details" for more
             information.
           </SectionDescription>
-          <SectionContent columns={6} rows={2}>
+          <SectionContent columns={6} rows={1}>
             {propertyCards}
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation rows={4}>
+        <SectionDesignation buttonText={"View All Testimonials"} rows={2}>
           <SectionHeader>What Our Clients Say</SectionHeader>
           <SectionDescription>
             Read the success stories and heartfelt testimonials from our valued
@@ -261,8 +277,19 @@ export default function Index() {
             needs.
           </SectionDescription>
 
-          <SectionContent columns={6} rows={2}>
+          <SectionContent columns={6} rows={1}>
             {testimonialCards}
+          </SectionContent>
+        </SectionDesignation>
+        <SectionDesignation rows={4} buttonText={"View All FAQ’s"}>
+          <SectionHeader>Frequently Asked Questions</SectionHeader>
+          <SectionDescription>
+            Find answers to common questions about Estatein's services, property
+            listings, and the real estate process. We're here to provide clarity
+            and assist you every step of the way.
+          </SectionDescription>
+          <SectionContent columns={3} rows={2}>
+            <SectionCards cardData={faqCards} />
           </SectionContent>
         </SectionDesignation>
       </div>
