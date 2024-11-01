@@ -6,6 +6,7 @@ type Props = {
   columns?: number;
   rows?: number;
   className?: string;
+  buttonText?: string;
 };
 
 export function SectionDesignation({
@@ -13,10 +14,11 @@ export function SectionDesignation({
   columns = 10,
   children,
   className,
+  buttonText,
 }: Props) {
   return (
     <div
-      className={"col-start-2 relative" + " " + className}
+      className={"col-start-2 relative py-20" + " " + className}
       style={{
         gridRow: `span ${rows} / span ${rows}`,
         gridColumn: ` ${12 - columns < 2 ? 0 : 2} / span ${columns}`,
@@ -24,9 +26,9 @@ export function SectionDesignation({
     >
       <Button
         variant={"outline"}
-        className={" absolute right-0 top-8 py-8 bg-sgrey-10 font-medium"}
+        className={" absolute right-0 top-28 py-8 bg-sgrey-10 font-medium"}
       >
-        View All Testimonials
+        {buttonText || "View All"}
       </Button>
       {children}
     </div>
