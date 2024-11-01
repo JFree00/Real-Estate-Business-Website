@@ -9,7 +9,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border border-sgrey-15 bg-sgrey-10 text-card-foreground shadow",
+      "rounded-xl border border-sgrey-15 bg-sgrey-10 text-card-foreground shadow leading-loose",
       className,
     )}
     {...props}
@@ -24,7 +24,7 @@ const CardHeader = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "flex flex-col space-y-1.5 px-4 2xl:px-6 2xl:pb-2 pt-4 2xl:pt-6",
+      "flex flex-col space-y-1.5 px-4 2xl:px-6 2xl:pb-2 pt-4 2xl:pt-6 ",
       className,
     )}
     {...props}
