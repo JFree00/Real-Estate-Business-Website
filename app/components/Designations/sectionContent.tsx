@@ -12,11 +12,11 @@ export function SectionContent({
   rows = 12,
   columns = 10,
   children,
-  gap = 1,
+  gap = 2,
 }: Props) {
   return (
     <div
-      className={"grid w-full h-full  mt-20"}
+      className={"grid w-full h-full mt-20 max-h-[700px]"}
       style={{
         gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
