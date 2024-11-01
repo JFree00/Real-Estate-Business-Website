@@ -8,7 +8,7 @@ type Props = {
 };
 
 export function SectionHeader({
-  columns = 4,
+  columns = 10,
   children,
   initial = false,
 }: Props) {

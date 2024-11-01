@@ -14,15 +14,10 @@ type InfoCardAreaProps = {
 
 function InfoCardArea({ children, cardData = [] }: InfoCardAreaProps) {
   const cards = cardData?.map((data) => {
-    return <InfoCards text={data.text} icon={data.icon} />;
+    return <InfoCards key={data.text} text={data.text} icon={data.icon} />;
   });
   return (
-    <div
-      className={"col-span-12 border border-sgrey-15"}
-      style={{
-        height: "95%",
-      }}
-    >
+    <div className={"col-span-12 border border-sgrey-15 h-44  2xl:h-64"}>
       <div className={"mx-4 mt-5 flex gap-x-5 h-full"}>
         {children}
         {cards}
@@ -38,7 +33,11 @@ function InfoCards(props: infoCardProps) {
         "w-1/4 h-5/6 bg-sgrey-10 border-sgrey-15 border pt-4 rounded-xl relative"
       }
     >
-      <Button size={"icon"} className={"absolute right-5 text-sgrey-30"}>
+      <Button
+        size={"icon"}
+        variant={"ghost"}
+        className={"absolute right-5 text-sgrey-30"}
+      >
         <ArrowUpRightIcon />
       </Button>
       <div className={"flex flex-nowrap justify-center items-center h-3/5"}>
