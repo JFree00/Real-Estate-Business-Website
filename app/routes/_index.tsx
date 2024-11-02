@@ -190,7 +190,10 @@ export default function Index() {
             className={" w-11/12 grid grid-cols-6 grid-rows-4 mt-36 gap-x-4"}
           >
             <div className={"font-semibold text-balance col-span-6 h-1/4"}>
-              <p className={"text-6xl"} style={{ lineHeight: "1.2" }}>
+              <p
+                className={"text-5xl 2xl:text-6xl"}
+                style={{ lineHeight: "1.2" }}
+              >
                 Discover Your Dream Property with Estatein
               </p>
             </div>
@@ -281,14 +284,14 @@ export default function Index() {
             {testimonialCards}
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation rows={4} buttonText={"View All FAQ’s"}>
+        <SectionDesignation rows={3} buttonText={"View All FAQ’s"}>
           <SectionHeader>Frequently Asked Questions</SectionHeader>
           <SectionDescription>
             Find answers to common questions about Estatein's services, property
             listings, and the real estate process. We're here to provide clarity
             and assist you every step of the way.
           </SectionDescription>
-          <SectionContent columns={3} rows={2}>
+          <SectionContent columns={3} rows={1}>
             <SectionCards cardData={faqCards} />
           </SectionContent>
         </SectionDesignation>
