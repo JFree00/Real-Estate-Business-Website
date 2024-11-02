@@ -17,6 +17,7 @@ import {
 import "./tailwind.css";
 import type { LinksFunction } from "@remix-run/cloudflare";
 import homeBuildings from "@/assets/homeBuildings.jpg";
+import { Footer } from "@/components/ui/footer";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: homeBuildings }];
@@ -44,6 +45,7 @@ function App({ children }: { children: React.ReactNode }) {
         <GlobalPendingIndicator />
         <Header />
         {children}
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>
