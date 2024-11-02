@@ -23,15 +23,11 @@ export function SectionCards({ cardData }: Props) {
           >
             {data.name}
           </text>
-          <p
-            className={
-              "pt-6 text-left max-h-32 text-sgrey-60 mb-6  min-h-[80px]"
-            }
-          >
+          <p className={"pt-6 text-left max-h-32 text-sgrey-60  min-h-[80px]"}>
             {data.description}
           </p>
         </CardHeader>
-        <CardContent className={"flex justify-start items-center mx-5"}>
+        <CardContent className={"flex justify-start items-center mx-5 mb-14"}>
           {data.buttonText ? (
             <Button
               size={"section"}

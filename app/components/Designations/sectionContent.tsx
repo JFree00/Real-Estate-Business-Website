@@ -16,10 +16,10 @@ export function SectionContent({
 }: Props) {
   return (
     <div
-      className={"grid w-full h-full mt-20 max-h-[700px]"}
+      className={"grid w-full pt-20 max-h-[700px]"}
       style={{
         gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-        gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
+        //gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
         columnGap: gap + "rem",
       }}
     >
