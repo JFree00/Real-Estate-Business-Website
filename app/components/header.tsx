@@ -15,7 +15,7 @@ export function Header() {
       <Button
         key={buttonRoute}
         size={"nav"}
-        variant={route === buttonRoute ? "active" : "secondary"}
+        variant={route === buttonRoute ? "active" : "ghost"}
       >
         {buttonRoute}
       </Button>
