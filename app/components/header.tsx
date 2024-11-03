@@ -5,6 +5,8 @@ import { LogoSvg } from "@/components/ui/logoSvg";
 import { useState } from "react";
 import wavesComponent from "@/assets/waves.svg";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import burgerIcon from "@/assets/icons/burger.svg";
+import { cn } from "@/lib/styles";
 const routes = ["Home", "About Us", "Properties", "Services"];
 export function Header() {
   const [route] = useState("Home");
@@ -31,26 +33,34 @@ export function Header() {
     >
       {opened && (
         <div
-          className={"overflow-hidden relative "}
+          className={" overflow-hidden relative "}
           style={{
             height: "40%",
           }}
         >
           <div
             className={
-              "flex justify-between items-center h-full z-10 absolute w-full "
+              "offset flex justify-between items-center h-full z-10 absolute w-full "
             }
           >
-            <div className={"basis-1/3"} />
-            <div className={" flex text-lg"}>
-              <h3 className={" self-center"}>
+            <div className={"basis-1/12 hidden lg:block"}></div>
+            <div
+              className={
+                "grow flex justify-center items-center text-sm md:text-xl "
+              }
+            >
+              <h3 className={"text-xs md:text-lg"}>
                 ✨Discover Your Dream Property with Estatein
               </h3>
-              <Button size={"sm"} variant={"permlink"} className={"text-lg"}>
+              <Button
+                size={"sm"}
+                variant={"permlink"}
+                className={"text-xs sm:pl-2 md:text-lg"}
+              >
                 Learn More
               </Button>
             </div>
-            <div className={"flex basis-1/3 justify-end mr-3"}>
+            <div className={"flex basis-1/12 justify-center lg:justify-end"}>
               <Button
                 size={"icon"}
                 className={"bg-opacity-30 bg-sgrey-40 rounded-full"}
@@ -73,21 +83,28 @@ export function Header() {
         </div>
       )}
       <div
-        className={"flex items-center  border-b border-t border-sgrey-15"}
+        className={
+          "offset flex items-center justify-between border-b border-t border-sgrey-15"
+        }
         style={{
           height: !opened ? "100%" : "60%",
         }}
       >
         <div className="basis-1/4">
-          <Link className="flex justify-center space-x-2" to="/">
+          <Link className="flex  space-x-2" to="/">
             <LogoSvg size={"lg"} />
           </Link>
         </div>
-        <div className={"basis-1/2 flex space-x-2 justify-center"}>
+        <div
+          className={
+            "hidden lg:visible basis-1/2 lg:flex space-x-2 justify-center"
+          }
+        >
           {buttons}
         </div>
-        <div className={"basis-1/4 flex justify-center"}>
-          <Button variant={"active"} className={"h-14"}>
+        <MobileHeader className={"basis-1/12"} />
+        <div className={" hidden lg:visible basis-1/4 lg:flex justify-center"}>
+          <Button variant={"active"} className={"h-14 "}>
             Contact Us
           </Button>
         </div>
@@ -95,3 +112,20 @@ export function Header() {
     </header>
   );
 }
+
+const MobileHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className }, ref) => {
+  return (
+    <div ref={ref} className={cn("lg:hidden", className)}>
+      <Button
+        size={"icon"}
+        variant={"ghost"}
+        className={"size-full justify-center"}
+      >
+        <img alt={"navigation Button"} src={burgerIcon} />
+      </Button>
+    </div>
+  );
+});
