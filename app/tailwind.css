@@ -11,4 +11,27 @@ body::-webkit-scrollbar {
   p {
     @apply text-sm 2xl:text-lg;
   }
+  li {
+    @apply text-sm xl:text-base 2xl:text-lg;
+  }
+}
+
+@layer components {
+  .offset {
+    @apply mx-10 lg:mx-20 2xl:mx-40;
+  }
+  .offset-hero {
+    @apply ml-10 lg:ml-20 2xl:ml-40;
+  }
+}
+
+@layer base {
+  footer {
+    .seperator {
+      @apply lg:hidden
+    }
+    .footerList {
+      @apply lg:border-0
+    }
+  }
 }
