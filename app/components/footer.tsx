@@ -51,11 +51,11 @@ export function Footer() {
           />
           <div
             className={
-              "border-b border-sgrey-15 h-[367px] flex items-center justify-around  px-20"
+              "border-b border-sgrey-15 h-[367px] flex flex-col lg:flex-row items-center justify-around offset"
             }
           >
-            <div className={"basis-2/3"}>
-              <h3 className={"text-5xl font-semibold mb-6"}>
+            <div className={" lg:basis-2/3"}>
+              <h3 className={"text-3xl lg:text-5xl font-semibold mb-6"}>
                 Start Your Real Estate Journey Today
               </h3>
               <p className={"text-sgrey-60"}>
@@ -67,11 +67,10 @@ export function Footer() {
                 personalized assistance.
               </p>
             </div>
-            <div>
-              <Button variant={"primary"} className={"h-16"}>
-                Explore Properties
-              </Button>
-            </div>
+
+            <Button variant={"primary"} size={"responsive"} className={""}>
+              Explore Properties
+            </Button>
           </div>
         </div>
         <div className={"lg:h-[454px] offset xl:pt-20"}>
