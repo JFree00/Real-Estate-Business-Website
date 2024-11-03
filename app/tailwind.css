@@ -18,10 +18,10 @@ body::-webkit-scrollbar {
 
 @layer components {
   .offset {
-    @apply mx-10 lg:mx-20 2xl:mx-40;
+    @apply px-4 lg:px-20 2xl:px-40;
   }
   .offset-hero {
-    @apply ml-10 lg:ml-20 2xl:ml-40;
+    @apply pl-10 lg:pl-10 2xl:pl-40;
   }
 }
 
