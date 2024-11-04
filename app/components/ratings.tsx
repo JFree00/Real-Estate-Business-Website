@@ -17,7 +17,7 @@ export function Ratings({ amountOfRatings, ratings }: Props) {
       >
         <StarIcon
           className={
-            i < ratings ? "text-yellow-300 size-6 m-2.5" : " size-6 m-3"
+            i < ratings ? "text-yellow-300 size-6 2xl:m-2.5" : " size-6 m-2.5"
           }
         />
       </div>,
