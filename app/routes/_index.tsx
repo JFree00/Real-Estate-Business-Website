@@ -40,10 +40,10 @@ import { sectionCardProps, SectionCards } from "@/components/sectionCards";
 import { useLoaderData } from "@remix-run/react";
 
 export async function loader({ context }: LoaderFunctionArgs) {
-  const { deploymentPage } = context.env;
+  const { CF_PAGES_URL } = context.env;
   // const value = await deploymentPage.get("my-key");
   console.log(context);
-  return json({ deploymentPage });
+  return json({ CF_PAGES_URL });
 }
 
 const testimonials: testimonialProps[] = [
