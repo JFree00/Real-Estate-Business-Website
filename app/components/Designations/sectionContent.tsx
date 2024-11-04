@@ -8,20 +8,12 @@ type Props = {
   gap?: number;
 };
 
-export function SectionContent({
-  rows = 12,
-  columns = 10,
-  children,
-  gap = 2,
-}: Props) {
+export function SectionContent({ children }: Props) {
   return (
     <div
-      className={"grid w-full pt-20 max-h-[700px]"}
-      style={{
-        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-        //gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
-        columnGap: gap + "rem",
-      }}
+      className={
+        "flex basis-full overflow-hidden gap-x-5 flex-nowrap w-full pt-20 max-h-[700px]"
+      }
     >
       {children}
     </div>
