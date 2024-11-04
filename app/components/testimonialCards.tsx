@@ -22,7 +22,7 @@ export function TestimonialCards({
   title,
 }: testimonialProps) {
   return (
-    <div className={"col-span-2 row-span-2"}>
+    <div className={"basis-full shrink-0 lg:shrink"}>
       <Card className={"bg-sgrey-8 px-6 "}>
         <CardHeader className={"mr-3"}>
           <Ratings amountOfRatings={5} ratings={rating} />

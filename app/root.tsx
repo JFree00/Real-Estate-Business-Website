@@ -17,7 +17,7 @@ import {
 import "./tailwind.css";
 import type { LinksFunction } from "@remix-run/cloudflare";
 import homeBuildings from "@/assets/homeBuildings.jpg";
-import { Footer } from "@/components/ui/footer";
+import { Footer } from "@/components/footer";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: homeBuildings }];
