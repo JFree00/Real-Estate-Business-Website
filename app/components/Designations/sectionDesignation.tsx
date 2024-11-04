@@ -11,17 +11,17 @@ type Props = {
 
 export function SectionDesignation({
   rows = 3,
-  columns = 10,
+  columns = 12,
   children,
   className,
   buttonText,
 }: Props) {
   return (
     <div
-      className={"col-start-2 relative py-20" + " " + className}
+      className={"offset relative py-20" + " " + className}
       style={{
         gridRow: `span ${rows} / span ${rows}`,
-        gridColumn: ` ${12 - columns < 2 ? 0 : 2} / span ${columns}`,
+        gridColumn: ` 1 / span ${columns}`,
       }}
     >
       <Button

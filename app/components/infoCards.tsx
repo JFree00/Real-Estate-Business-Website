@@ -17,10 +17,18 @@ function InfoCardArea({ children, cardData = [] }: InfoCardAreaProps) {
     return <InfoCards key={data.text} text={data.text} icon={data.icon} />;
   });
   return (
-    <div className={"col-span-12 border border-sgrey-15 h-44  2xl:h-64"}>
-      <div className={"mx-4 mt-5 flex gap-x-5 h-full"}>
-        {children}
+    <div
+      className={
+        "col-span-12 mx-5 lg:mx-0 rounded-2xl lg:rounded-none border border-sgrey-15 h-fit xl:h-[190px] 2xl:h-[252px]"
+      }
+    >
+      <div
+        className={
+          "lg:mx-4 py-4 flex flex-wrap lg:flex-nowrap justify-center gap-5 h-full"
+        }
+      >
         {cards}
+        {children}
       </div>
     </div>
   );
@@ -30,7 +38,7 @@ function InfoCards(props: infoCardProps) {
   return (
     <div
       className={
-        "w-1/4 h-5/6 bg-sgrey-10 border-sgrey-15 border pt-4 rounded-xl relative"
+        " px-4  shrink-0 lg:shrink basis-[45%] h-fit lg:h-full bg-sgrey-10 border-sgrey-15 border pt-4 rounded-xl relative"
       }
     >
       <Button
@@ -41,7 +49,7 @@ function InfoCards(props: infoCardProps) {
         <ArrowUpRightIcon />
       </Button>
       <div className={"flex flex-nowrap justify-center items-center h-3/5"}>
-        <div className={" basis-1/5 h-3/4 mx-auto"}>
+        <div className={"size-16 2xl:size-24"}>
           <div
             className={
               "size-full text-pprimary-75  bg-gradient-to-tr from-pprimary-75 from-0% via-transparent via-30% rounded-full"
@@ -88,7 +96,9 @@ function InfoCards(props: infoCardProps) {
         </div>
       </div>
       <div className={"flex justify-center items-center h-1/5"}>
-        <div className={"text-xl font-semibold"}>{props.text}</div>
+        <div className={"text-base text-center 2xl:text-xl font-semibold"}>
+          {props.text}
+        </div>
       </div>
     </div>
   );
