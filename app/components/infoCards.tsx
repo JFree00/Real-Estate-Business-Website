@@ -19,12 +19,12 @@ function InfoCardArea({ children, cardData = [] }: InfoCardAreaProps) {
   return (
     <div
       className={
-        "col-span-12 mx-5 lg:mx-0 rounded-2xl lg:rounded-none border border-sgrey-15 h-fit xl:h-[190px] 2xl:h-[252px]"
+        "offset p-2.5 mt-10 tablet:mt-0 col-span-12 tablet:mx-0 rounded-2xl tablet:rounded-none border border-sgrey-15 h-fit xl:h-[190px] 2xl:h-[252px]"
       }
     >
       <div
         className={
-          "lg:mx-4 py-4 flex flex-wrap lg:flex-nowrap justify-center gap-5 h-full"
+          "tablet:mx-2 laptop:py-2 grid grid-cols-2 grid-rows-2 tablet:grid-rows-1 tablet:grid-cols-4 justify-center h-full gap-2.5 laptop:gap-5"
         }
       >
         {cards}
@@ -38,18 +38,18 @@ function InfoCards(props: infoCardProps) {
   return (
     <div
       className={
-        " px-4  shrink-0 lg:shrink basis-[45%] h-fit lg:h-full bg-sgrey-10 border-sgrey-15 border pt-4 rounded-xl relative"
+        "row-span-1 tablet:shrink h-full tablet:h-full bg-sgrey-10 border-sgrey-15 border tablet:py-1 rounded-xl relative"
       }
     >
       <Button
         size={"icon"}
         variant={"ghost"}
-        className={"absolute right-5 text-sgrey-30"}
+        className={"absolute right-4 text-sgrey-30"}
       >
         <ArrowUpRightIcon />
       </Button>
       <div className={"flex flex-nowrap justify-center items-center h-3/5"}>
-        <div className={"size-16 2xl:size-24"}>
+        <div className={"size-12 laptop:size-20"}>
           <div
             className={
               "size-full text-pprimary-75  bg-gradient-to-tr from-pprimary-75 from-0% via-transparent via-30% rounded-full"
@@ -95,10 +95,14 @@ function InfoCards(props: infoCardProps) {
           </div>
         </div>
       </div>
-      <div className={"flex justify-center items-center h-1/5"}>
-        <div className={"text-base text-center 2xl:text-xl font-semibold"}>
+      <div className={" min-h-12 overflow-hidden  justify-center items-center"}>
+        <p
+          className={
+            "h-full shrink text-sm text-center desktop:text-xl font-semibold "
+          }
+        >
           {props.text}
-        </div>
+        </p>
       </div>
     </div>
   );

@@ -36,6 +36,12 @@ export default {
           60: "#999999",
         },
       },
+      screens: {
+        "2xl": "1700px",
+        tablet: "700px",
+        laptop: "1245px",
+        desktop: "1700px",
+      },
     },
   },
   plugins: [],
