@@ -1,5 +1,5 @@
 import { title } from "@/config.shared";
-import type { MetaFunction } from "@remix-run/cloudflare";
+import { json, LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 
 import homeBuildings from "@/assets/homeBuildings.jpg";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,14 @@ import {
   testimonialProps,
 } from "@/components/testimonialCards";
 import { sectionCardProps, SectionCards } from "@/components/sectionCards";
+import { useLoaderData } from "@remix-run/react";
+
+export async function loader({ context }: LoaderFunctionArgs) {
+  const { deploymentPage } = context.env;
+  // const value = await deploymentPage.get("my-key");
+  console.log(context);
+  return json({ deploymentPage });
+}
 
 const testimonials: testimonialProps[] = [
   {
@@ -145,6 +153,9 @@ const faqCards: sectionCardProps[] = [
   },
 ];
 export default function Index() {
+  const loader = useLoaderData()<loader>;
+  console.log(loader);
+
   const propertyCards = properties.map((property) => (
     <PropertiesCard
       key={property.name}
