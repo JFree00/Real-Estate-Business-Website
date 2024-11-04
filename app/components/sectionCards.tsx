@@ -18,11 +18,9 @@ export function SectionCards({ cardData }: Props) {
     return (
       <Card key={data.name} className={"grid-cols-1 bg-sgrey-8"}>
         <CardHeader className={"mx-6 my-6"}>
-          <text
-            className={"text-2xl font-semibold leading-normal min-h-[72px]"}
-          >
+          <p className={"text-2xl font-semibold leading-normal min-h-[72px]"}>
             {data.name}
-          </text>
+          </p>
           <p className={"pt-6 text-left max-h-32 text-sgrey-60  min-h-[80px]"}>
             {data.description}
           </p>
