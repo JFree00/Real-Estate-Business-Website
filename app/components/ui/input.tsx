@@ -16,9 +16,10 @@ export function Input({ placeholder, className }: Props) {
         className,
       )}
     >
-      <img src={emailIcon} className={"mr-4 flex-none"} />
+      <img src={emailIcon} className={"mr-4 "} />
       <input
-        className={"bg-transparent focus:outline-0 grow"}
+        size={1}
+        className={"bg-transparent focus:outline-0 grow shrink"}
         placeholder={placeholder}
       />
       <Button className={"flex-none"} size={"icon"} variant={"ghost"}>

@@ -40,7 +40,7 @@ export function Header() {
         >
           <div
             className={
-              "offset flex justify-between items-center h-full z-10 absolute w-full "
+              " flex justify-between items-center h-full z-10 absolute w-full "
             }
           >
             <div className={"basis-1/12 hidden lg:block"}></div>
@@ -49,7 +49,7 @@ export function Header() {
                 "grow flex justify-center items-center text-sm md:text-xl "
               }
             >
-              <h3 className={"text-xs md:text-lg"}>
+              <h3 className={"text-xs tablet:text-lg"}>
                 ✨Discover Your Dream Property with Estatein
               </h3>
               <Button
@@ -60,7 +60,9 @@ export function Header() {
                 Learn More
               </Button>
             </div>
-            <div className={"flex basis-1/12 justify-center lg:justify-end"}>
+            <div
+              className={"flex basis-1/12 justify-center laptop:justify-center"}
+            >
               <Button
                 size={"icon"}
                 className={"bg-opacity-30 bg-sgrey-40 rounded-full"}
@@ -103,7 +105,7 @@ export function Header() {
           {buttons}
         </div>
         <MobileHeader className={"basis-1/12"} />
-        <div className={" hidden lg:visible basis-1/4 lg:flex justify-center"}>
+        <div className={" hidden basis-1/4 laptop:flex"}>
           <Button variant={"active"} className={"h-14 "}>
             Contact Us
           </Button>
@@ -122,7 +124,7 @@ const MobileHeader = React.forwardRef<
       <Button
         size={"icon"}
         variant={"ghost"}
-        className={"size-full justify-center"}
+        className={"size-full justify-end"}
       >
         <img alt={"navigation Button"} src={burgerIcon} />
       </Button>

@@ -23,13 +23,13 @@ export function TestimonialCards({
 }: testimonialProps) {
   return (
     <div className={"basis-full shrink-0 lg:shrink"}>
-      <Card className={"bg-sgrey-8 px-6 "}>
+      <Card className={"bg-sgrey-8 "}>
         <CardHeader className={"mr-3"}>
           <Ratings amountOfRatings={5} ratings={rating} />
-          <p className={"text-2xl font-semibold"}>{title}</p>
-          <p className={"pt-3 text-left min-h-32 max-h-32"}>{testimonial}</p>
+          <p className={"text-xl laptop:text-2xl font-semibold "}>{title}</p>
+          <p className={"pt-3 text-left min-h-24 max-h-32"}>{testimonial}</p>
         </CardHeader>
-        <CardContent className={"flex justify-start items-center my-9"}>
+        <CardContent className={"flex justify-start items-center mt-9"}>
           {image ? (
             <img alt={"Customer Headshot"} src={image} />
           ) : (

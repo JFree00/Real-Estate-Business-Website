@@ -7,20 +7,13 @@ type Props = {
   initial?: boolean;
 };
 
-export function SectionHeader({
-  columns = 10,
-  children,
-  initial = false,
-}: Props) {
+export function SectionHeader({ columns = 12, children }: Props) {
   return (
     <div
       className={`font-semibold text-balance h-fit`}
       style={{ width: columns * 8.33333 + "%" }}
     >
-      <p
-        className={!initial ? `text-5xl` : "text-6xl"}
-        style={{ lineHeight: "1.2" }}
-      >
+      <p className={"title"} style={{ lineHeight: "1.2" }}>
         {children}
       </p>
     </div>

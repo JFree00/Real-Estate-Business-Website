@@ -33,11 +33,11 @@ export function PropertiesCard({
   bathrooms,
 }: PropertyProps) {
   return (
-    <div className={"col-span-2 row-span-2"}>
-      <Card className={"size-fit bg-sgrey-8"}>
-        <CardHeader className={"m-0 2xl:m-4 "}>
+    <div className={"basis-full shrink-0 lg:shrink "}>
+      <Card className={"bg-sgrey-8"}>
+        <CardHeader className={" 2xl:px-6 2xl:pb-2 2xl:pt-6 "}>
           <img alt={"property Image"} src={image} />
-          <CardTitle className={"font-semibold text-2xl pt-5"}>
+          <CardTitle className={"font-semibold text-2xl pt-2"}>
             {name}
           </CardTitle>
           <CardDescription className={"text-sgrey-60"}>
@@ -47,12 +47,13 @@ export function PropertiesCard({
             </a>
           </CardDescription>
         </CardHeader>
-        <div className={"mx-auto"}>
-          <CardContent
-            className={
-              "flex flex-wrap gap-y-10 justify-start m-0 2xl:m-4 gap-x-2 justify-items-stretch"
-            }
-          >
+
+        <CardContent
+          className={
+            "flex flex-wrap gap-y-5 laptop:gap-y-8 justify-start gap-x-2 justify-items-stretch pt-4"
+          }
+        >
+          <div className={"basis-full gap-2 flex flex-wrap"}>
             <Badge variant={"card"} className={" border-sgrey-15"}>
               <img
                 alt={"Bed Icon"}
@@ -73,19 +74,20 @@ export function PropertiesCard({
               <BuildingOfficeIcon className={"mr-1 size-3 2xl:size-6"} />
               {propertyType}
             </Badge>
-            <div className={"basis-1/3 text-sgrey-60"}>
-              <p>Price</p>
-              <span className={"text-white text-xl 2xl:text-2xl font-semibold"}>
-                {price}
-              </span>
-            </div>
-            <div className={" grow"}>
-              <Button className={"bg-pprimary-60 size-full"}>
-                View Property Details
-              </Button>
-            </div>
-          </CardContent>
-        </div>
+          </div>
+
+          <div className={"laptop:basis-1/3 text-sgrey-60"}>
+            <p>Price</p>
+            <span className={"text-white text-xl 2xl:text-2xl font-semibold"}>
+              {price}
+            </span>
+          </div>
+          <div className={" grow"}>
+            <Button className={"bg-pprimary-60 size-full"} size={"responsive"}>
+              View Property Details
+            </Button>
+          </div>
+        </CardContent>
       </Card>
     </div>
   );

@@ -18,16 +18,19 @@ body::-webkit-scrollbar {
 
 @layer components {
   .offset {
-    @apply px-4 lg:px-20 2xl:px-40;
+    @apply mx-4 tablet:mx-20 desktop:mx-40;
   }
   .offset-hero {
-    @apply pl-10 lg:pl-10 2xl:pl-40;
+    @apply px-4 tablet:px-20 desktop:pl-40;
   }
   .seperator {
     @apply lg:hidden
   }
   .footerList {
     @apply border-r-2 lg:border-0 border-r-sgrey-15
+  }
+  .title {
+    @apply text-2xl laptop:text-3xl desktop:text-4xl
   }
 
 }

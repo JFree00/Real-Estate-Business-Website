@@ -23,5 +23,5 @@ export function Ratings({ amountOfRatings, ratings }: Props) {
       </div>,
     );
   }
-  return <div className={"flex items-stretch py-6"}>{ratingButtons}</div>;
+  return <div className={"flex laptop:py-6"}>{ratingButtons}</div>;
 }
