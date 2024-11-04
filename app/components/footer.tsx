@@ -10,6 +10,7 @@ import twitter from "@/assets/icons/twitter.svg";
 import linkedIn from "@/assets/icons/linkedIn.svg";
 import youtube from "@/assets/icons/youtube.svg";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/styles";
 
 type routes = "Home" | "About Us" | "Properties" | "Services" | "Contact Us";
 const subRoutes: Record<routes, Array<string>> = {
@@ -83,14 +84,9 @@ export function Footer() {
               ></Input>
             </div>
             <div className={"basis-1/12"} />
-            <div
-              className={
-                "basis-full grid grid-cols-2 lg:grid-cols-5 gap-1 py-16"
-              }
-            >
+            <div className={"basis-full grid grid-cols-2 lg:grid-cols-5 py-16"}>
               {Object.keys(subRoutes).map((route, index) => {
-                const border =
-                  index % 2 === 0 ? "border-r-2 border-r-sgrey-15 " : "";
+                const border = index % 2 === 0;
                 const contactUs = subRoutes["Contact Us"].map(
                   (subRoute: string) => (
                     <li key={subRoute} className={"  my-5  "}>
@@ -101,18 +97,23 @@ export function Footer() {
                 return (
                   <div
                     key={route}
-                    className={
-                      border +
-                      (route === "Contact Us"
-                        ? "hidden lg:block footerList"
-                        : "footerList")
-                    }
+                    className={cn(
+                      route === "Contact Us" ? "hidden lg:block" : "",
+                      border ? "footerList my-3" : "my-3",
+                    )}
                   >
-                    <h4 className={"text-xl text-sgrey-60 my-5"}>{route}</h4>
-                    <ul>
+                    <h4
+                      className={cn(
+                        "text-xl text-sgrey-60 ",
+                        !border ? "ml-5" : undefined,
+                      )}
+                    >
+                      {route}
+                    </h4>
+                    <ul className={cn("my-5", !border ? "mx-5" : undefined)}>
                       {(subRoutes as Record<string, string[]>)[route].map(
                         (subRoute: string) => (
-                          <li key={subRoute} className={"  my-5  "}>
+                          <li key={subRoute} className={"my-5"}>
                             {subRoute}
                           </li>
                         ),
@@ -121,14 +122,20 @@ export function Footer() {
 
                     {route === "Properties" && (
                       <div className={"lg:hidden"}>
-                        <Separator className={"my-10"} />
+                        <Separator className={"w-[95%] seperator"} />
                         <h4 className={"text-xl text-sgrey-60 my-5"}>
                           {"Contact Us"}
                         </h4>
                         <ul>{contactUs}</ul>
                       </div>
                     )}
-                    <Separator />
+                    <Separator
+                      className={
+                        !border
+                          ? "w-[91%] mx-auto seperator"
+                          : "w-[95%] seperator"
+                      }
+                    />
                   </div>
                 );
               })}
