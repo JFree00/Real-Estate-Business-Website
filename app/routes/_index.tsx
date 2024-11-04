@@ -3,7 +3,13 @@ import type { MetaFunction } from "@remix-run/cloudflare";
 
 import homeBuildings from "@/assets/homeBuildings.jpg";
 import { Button } from "@/components/ui/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import circle from "@/assets/circleText.svg";
 import * as React from "react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
@@ -165,7 +171,7 @@ export default function Index() {
   ));
   return (
     <main>
-      <div className={"grid grid-cols-12 relative"}>
+      <div className={" grid grid-cols-12 relative "}>
         <div
           className={
             "rounded-full bg-sgrey-8 border border-sgrey-15 size-40 absolute mx-auto left-0 right-0 top-40"
@@ -185,70 +191,101 @@ export default function Index() {
             <ArrowUpRightIcon className={"mx-4 my-4 size-8"} />
           </div>
         </div>
-        <div className={"col-span-5 row-span-3 col-start-2"}>
+        <div
+          className={
+            "offset-hero col-span-full row-start-2 laptop:row-start-1 laptop:col-span-6"
+          }
+        >
           <div
-            className={" w-11/12 grid grid-cols-6 grid-rows-4 mt-36 gap-x-4"}
+            className={
+              "w-full grid grid-cols-6 mt-14 laptop:mt-20 desktop:mt-36 gap-y-8 laptop:gap-y-12"
+            }
           >
-            <div className={"font-semibold text-balance col-span-6 h-1/4"}>
+            <div className={"font-semibold text-balance col-span-full h-1/4"}>
               <p
-                className={"text-5xl 2xl:text-6xl"}
+                className={
+                  "text-3xl tablet:text-6xl laptop:text-5xl desktop:text-6xl"
+                }
                 style={{ lineHeight: "1.2" }}
               >
                 Discover Your Dream Property with Estatein
               </p>
             </div>
             <h5
-              className={"col-span-6 self-center text-sgrey-60 -mt-5 text-lg"}
+              className={
+                "col-span-full self-center text-sgrey-60 -mt-5 text-lg"
+              }
             >
               Your journey to finding the perfect property begins here. Explore
               our listings to find the home that matches your dreams.
             </h5>
-            <div className={"col-span-6 h-2/4"}>
-              <div className={"flex gap-x-3 items-center"}>
-                <div className={"basis-1/5"}>
-                  <Button variant={"active"} className={"px-6 h-16"}>
+            <div className={"col-span-6 h-full"}>
+              <div className={"flex flex-wrap gap-3 items-center"}>
+                <div
+                  className={"basis-full tablet:basis-auto grow laptop:grow-0 "}
+                >
+                  <Button
+                    variant={"active"}
+                    size={"responsive"}
+                    className={"laptop:px-6 laptop:h-16"}
+                  >
                     Learn More
                   </Button>
                 </div>
-                <div className={"basis-3/4"}>
+                <div className={"grow "}>
                   <Button
                     variant={"default"}
-                    className={"bg-pprimary-60 px-6 h-16"}
+                    size={"responsive"}
+                    className={"bg-pprimary-60 laptop:px-6 laptop:h-16"}
                   >
                     Browse Properties
                   </Button>
                 </div>
               </div>
             </div>
-            <div className={"col-span-2"}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>200+</CardTitle>
-                </CardHeader>
-                <CardFooter>Happy Customers</CardFooter>
-              </Card>
-            </div>
-            <div className={"col-span-2"}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>10k+</CardTitle>
-                </CardHeader>
-                <CardFooter>Properties For Clients</CardFooter>
-              </Card>
-            </div>
-            <div className={"col-span-2"}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>16+</CardTitle>
-                </CardHeader>
-                <CardFooter>Years Of Experience</CardFooter>
-              </Card>
+            <div
+              className={
+                "flex col-span-full flex-wrap gap-y-4 laptop:text-left text-center"
+              }
+            >
+              <div className={"basis-1/2 laptop:basis-1/3 px-2"}>
+                <Card className={" p-4 pb-0"}>
+                  <CardHeader>
+                    <CardTitle>200+</CardTitle>
+                  </CardHeader>
+                  <CardFooter className={"min-h-14"}>
+                    <CardDescription>Happy Customers</CardDescription>
+                  </CardFooter>
+                </Card>
+              </div>
+              <div className={"basis-1/2  laptop:basis-1/3 px-2"}>
+                <Card className={" p-4 pb-0"}>
+                  <CardHeader>
+                    <CardTitle>10k+</CardTitle>
+                  </CardHeader>
+                  <CardFooter className={"min-h-14"}>
+                    <CardDescription>Properties For Clients</CardDescription>
+                  </CardFooter>
+                </Card>
+              </div>
+              <div className={"grow laptop:grow-0 laptop:basis-1/3 px-2"}>
+                <Card className={" p-4 pb-0"}>
+                  <CardHeader>
+                    <CardTitle>16+</CardTitle>
+                  </CardHeader>
+                  <CardFooter className={"min-h-14"}>
+                    <CardDescription>Years Of Experience</CardDescription>
+                  </CardFooter>
+                </Card>
+              </div>
             </div>
           </div>
         </div>
 
         <div
-          className={"col-span-6 row-span-3 overflow-hidden"}
+          className={
+            "row-start-1 col-span-full laptop:col-span-6 laptop:row-span-3 overflow-hidden"
+          }
           style={{ maxHeight: "100%%" }}
         >
           <img
