@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import BedIcon from "@/assets/icons/bedIcon.svg";
 import BathroomIcon from "@/assets/icons/bathroomIcon.svg";
 
-export type PropertyProps = {
+export type propertyProps = {
   bedrooms: number;
   bathrooms: number;
   propertyType: string;
@@ -22,26 +22,21 @@ export type PropertyProps = {
   description: string;
   image: string;
 };
+type props = {
+  data: propertyProps;
+};
 
-export function PropertiesCard({
-  bedrooms,
-  image,
-  propertyType,
-  description,
-  name,
-  price,
-  bathrooms,
-}: PropertyProps) {
+export function PropertiesCard({ data }: props) {
   return (
-    <div className={"basis-full shrink-0 lg:shrink "}>
+    <div key={data.name} className={"basis-full shrink-0 lg:shrink "}>
       <Card className={"bg-sgrey-8"}>
         <CardHeader className={" 2xl:px-6 2xl:pb-2 2xl:pt-6 "}>
-          <img alt={"property Image"} src={image} />
+          <img alt={"property Image"} src={data.image} />
           <CardTitle className={"font-semibold text-2xl pt-2"}>
-            {name}
+            {data.name}
           </CardTitle>
           <CardDescription className={"text-sgrey-60"}>
-            {description}
+            {data.description}
             <a href={"/"} className={"underline ml-1 text-white"}>
               Read More
             </a>
@@ -60,7 +55,7 @@ export function PropertiesCard({
                 src={BedIcon}
                 className={"mr-1 size-3 2xl:size-6"}
               />
-              {bedrooms}-Bedroom
+              {data.bedrooms}-Bedroom
             </Badge>
             <Badge variant={"card"} className={" border-sgrey-15"}>
               <img
@@ -68,18 +63,18 @@ export function PropertiesCard({
                 src={BathroomIcon}
                 className={"mr-1 size-3 2xl:size-6"}
               />
-              {bathrooms}-Bathroom
+              {data.bathrooms}-Bathroom
             </Badge>
             <Badge variant={"card"} className={" border-sgrey-15"}>
               <BuildingOfficeIcon className={"mr-1 size-3 2xl:size-6"} />
-              {propertyType}
+              {data.propertyType}
             </Badge>
           </div>
 
           <div className={"laptop:basis-1/3 text-sgrey-60"}>
             <p>Price</p>
             <span className={"text-white text-xl 2xl:text-2xl font-semibold"}>
-              {price}
+              {data.price}
             </span>
           </div>
           <div className={" grow"}>

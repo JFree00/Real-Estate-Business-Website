@@ -12,33 +12,33 @@ export type testimonialProps = {
   image?: string;
   rating: number;
 };
+type props = {
+  data: testimonialProps;
+};
 
-export function TestimonialCards({
-  name,
-  testimonial,
-  rating,
-  image = undefined,
-  location,
-  title,
-}: testimonialProps) {
+export function TestimonialCards({ data }: props) {
   return (
     <div className={"basis-full shrink-0 lg:shrink"}>
       <Card className={"bg-sgrey-8 "}>
         <CardHeader className={"mr-3"}>
-          <Ratings amountOfRatings={5} ratings={rating} />
-          <p className={"text-xl laptop:text-2xl font-semibold "}>{title}</p>
-          <p className={"pt-3 text-left min-h-24 max-h-32"}>{testimonial}</p>
+          <Ratings amountOfRatings={5} ratings={data.rating} />
+          <p className={"text-xl laptop:text-2xl font-semibold "}>
+            {data.title}
+          </p>
+          <p className={"pt-3 text-left min-h-24 max-h-32"}>
+            {data.testimonial}
+          </p>
         </CardHeader>
         <CardContent className={"flex justify-start items-center mt-9"}>
-          {image ? (
-            <img alt={"Customer Headshot"} src={image} />
+          {data.image ? (
+            <img alt={"Customer Headshot"} src={data.image} />
           ) : (
             <UserCircleIcon className="size-16" />
           )}
           <div className={"px-2 text-xl"}>
-            {name}
+            {data.name}
             <br />
-            <p className={"text-sgrey-60 text-lg"}> {location}</p>
+            <p className={"text-sgrey-60 text-lg"}> {data.location}</p>
           </div>
         </CardContent>
       </Card>
