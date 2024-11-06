@@ -16,8 +16,8 @@ type Props = {
 export function SectionCards({ cardData }: Props) {
   return cardData.map((data) => {
     return (
-      <div className={"basis-full shrink-0 lg:shrink"}>
-        <Card key={data.name} className={"bg-sgrey-8 "}>
+      <div key={data.name} className={"basis-full shrink-0 lg:shrink"}>
+        <Card className={"bg-sgrey-8 "}>
           <CardHeader className={" 2xl:px-6 2xl:pb-2 2xl:pt-6 "}>
             <CardTitle
               className={

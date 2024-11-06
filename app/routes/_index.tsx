@@ -1,5 +1,5 @@
 import { title } from "@/config.shared";
-import { json, LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 
 import homeBuildings from "@/assets/homeBuildings.jpg";
 import { Button } from "@/components/ui/button";
@@ -13,173 +13,71 @@ import {
 import circle from "@/assets/circleText.svg";
 import * as React from "react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
-import InfoCards, { infoCardProps } from "@/components/infoCards";
-import {
-  BuildingOffice2Icon,
-  BuildingStorefrontIcon,
-  SunIcon,
-} from "@heroicons/react/20/solid";
-import villa from "@/assets/villa.png";
-import metropolitan from "@/assets/MetropolitanHaven.png";
-import rusticCottage from "@/assets/RusticCottage.png";
-
-import wadeWarren from "@/assets/wadeWarren.png";
-import emelieThomson from "@/assets/emelieThomson.png";
-import johnMans from "@/assets/johnMans.png";
-import { BanknotesIcon } from "@heroicons/react/24/solid";
 import { SectionDesignation } from "@/components/Designations/sectionDesignation";
 import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
 import { SectionContent } from "@/components/Designations/sectionContent";
-import { PropertiesCard, PropertyProps } from "@/components/propertiesCard";
+import { PropertiesCard, propertyProps } from "@/components/propertiesCard";
 import {
   TestimonialCards,
   testimonialProps,
 } from "@/components/testimonialCards";
-import { sectionCardProps, SectionCards } from "@/components/sectionCards";
-import { useLoaderData } from "@remix-run/react";
+import { Await, useLoaderData } from "@remix-run/react";
+import { defaultProperties } from "../../KV/properties";
+import { Suspense } from "react";
+import { defaultTestimonials } from "../../KV/testimonials";
+import { SectionCards } from "@/components/sectionCards";
+import { faqCards } from "../../KV/faq";
 
+type template =
+  | testimonialProps
+  | propertyProps
+  | {
+      name: string;
+      [key: string]: unknown;
+    };
+
+function getInitialKeys(k: KVNamespace, template: Readonly<template[]>) {
+  const keys = template.map((key) => {
+    return k.get(key.name, "json");
+  }) as Promise<template>[];
+  const initialKey = Promise.race(keys).catch(() => {
+    return template[0];
+  });
+  const keysPromiseAll = Promise.all(keys);
+
+  return { initialKey, keys: keysPromiseAll };
+}
 export async function loader({ context }: LoaderFunctionArgs) {
-  const { CF_PAGES_URL } = context.env;
-  // const value = await deploymentPage.get("my-key");
-  console.log(context);
-  return json({ CF_PAGES_URL });
+  const env = context.env;
+  const propertiesPromises = getInitialKeys(env.properties, defaultProperties);
+  const testimonialsPromises = getInitialKeys(
+    env.testimonials,
+    defaultTestimonials,
+  );
+  const testimonials = {
+    ...testimonialsPromises,
+    initialKey: await testimonialsPromises.initialKey,
+  };
+  const properties = {
+    ...propertiesPromises,
+    initialKey: await propertiesPromises.initialKey,
+  };
+
+  return {
+    properties,
+    testimonials,
+  };
 }
 
-const testimonials: testimonialProps[] = [
-  {
-    name: "Wade Warren",
-    location: "USA, California",
-    title: "Exceptional Service!",
-    testimonial:
-      "Our experience with Estatein was outstanding. Their team's dedication and professionalism made finding our dream home a breeze. Highly recommended!",
-    rating: 5,
-    image: wadeWarren,
-  },
-  {
-    name: "Emelie Thomson",
-    location: "USA, Florida",
-    title: "Efficient and Reliable",
-    testimonial:
-      "Estatein provided us with top-notch service. They helped us sell our property quickly and at a great price. We couldn't be happier with the results.",
-    rating: 5,
-    image: emelieThomson,
-  },
-  {
-    name: "John Mans",
-    location: "USA, Nevada",
-    title: "Trusted Advisors",
-    testimonial:
-      "The Estatein team guided us through the entire buying process. Their knowledge and commitment to our needs were impressive. Thank you for your support",
-    rating: 5,
-    image: johnMans,
-  },
-];
-const properties: PropertyProps[] = [
-  {
-    bedrooms: 4,
-    bathrooms: 3,
-    propertyType: "Villa",
-    price: "$500,000",
-    name: "Seaside Serenity Villa",
-    description:
-      "A stunning 4-bedroom, 3-bathroom villa in a peaceful suburban neighborhood...",
-    image: villa,
-  },
-  {
-    bedrooms: 2,
-    bathrooms: 2,
-    propertyType: "Villa",
-    price: "$500,000",
-    name: "Metropolitan Haven",
-    description:
-      "A chic and fully-furnished 2-bedroom apartment with panoramic city views...",
-    image: metropolitan,
-  },
-  {
-    bedrooms: 2,
-    bathrooms: 2,
-    propertyType: "Villa",
-    price: "$500,000",
-    name: "Rustic Retreat Cottage",
-    description:
-      "A charming 2-bedroom, 2-bathroom cottage nestled in a serene countryside setting...",
-    image: rusticCottage,
-  },
-];
 export const meta: MetaFunction = () => {
   return [
     { title: title() },
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
-const infoCards: infoCardProps[] = [
-  {
-    text: "Find Your Dream Home",
-    icon: <BuildingStorefrontIcon />,
-  },
-  {
-    text: "Unlock Property Value",
-    icon: <BanknotesIcon />,
-  },
-  {
-    text: "Effortless Property Management",
-    icon: <BuildingOffice2Icon />,
-  },
-  {
-    text: "Smart Investments, Informed Decisions",
-    icon: <SunIcon />,
-  },
-];
-
-const faqCards: sectionCardProps[] = [
-  {
-    name: "How do I search for properties on Estatein?",
-    description:
-      "Learn how to use our user-friendly search tools to find properties that match your criteria.",
-    buttonText: "Read More",
-  },
-  {
-    name: "What documents do I need to sell my property through Estatein?",
-    description:
-      "Find out about the necessary documentation for listing your property with us.",
-    buttonText: "Read More",
-  },
-  {
-    name: "How can I contact an Estatein agent? ",
-    description:
-      "Discover the different ways you can get in touch with our experienced agents.",
-    buttonText: "Read More",
-  },
-];
 export default function Index() {
-  const loader = useLoaderData()<loader>;
-  console.log(loader);
-
-  const propertyCards = properties.map((property) => (
-    <PropertiesCard
-      key={property.name}
-      bedrooms={property.bedrooms}
-      bathrooms={property.bathrooms}
-      propertyType={property.propertyType}
-      description={property.description}
-      name={property.name}
-      price={property.price}
-      image={property.image}
-    />
-  ));
-
-  const testimonialCards = testimonials.map((testimonial) => (
-    <TestimonialCards
-      key={testimonial.name}
-      name={testimonial.name}
-      location={testimonial.location}
-      title={testimonial.title}
-      testimonial={testimonial.testimonial}
-      image={testimonial.image}
-      rating={testimonial.rating}
-    />
-  ));
+  const { properties, testimonials } = useLoaderData<typeof loader>();
   return (
     <main>
       <div className={" grid grid-cols-12 relative "}>
@@ -292,7 +190,6 @@ export default function Index() {
             </div>
           </div>
         </div>
-
         <div
           className={
             "row-start-1 col-span-full laptop:col-span-6 laptop:row-span-3 overflow-hidden"
@@ -306,8 +203,7 @@ export default function Index() {
             alt={"Real Estate"}
           />
         </div>
-        <InfoCards.InfoCardsArea cardData={infoCards} />
-
+        {/*<InfoCards.InfoCardsArea cardData={infoCards} />*/}
         <SectionDesignation buttonText={"View All Properties"} rows={3}>
           <SectionHeader>Featured Properties</SectionHeader>
           <SectionDescription>
@@ -317,7 +213,24 @@ export default function Index() {
             information.
           </SectionDescription>
           <SectionContent columns={6} rows={1}>
-            {propertyCards}
+            <PropertiesCard data={properties.initialKey as propertyProps} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Await resolve={properties.keys}>
+                {(propertiesMap) => {
+                  return propertiesMap.map((property) => {
+                    if (property === properties.initialKey) {
+                      return null;
+                    }
+                    return (
+                      <PropertiesCard
+                        key={property.name}
+                        data={property as propertyProps}
+                      />
+                    );
+                  });
+                }}
+              </Await>
+            </Suspense>
           </SectionContent>
         </SectionDesignation>
         <SectionDesignation buttonText={"View All Testimonials"} rows={2}>
@@ -329,7 +242,26 @@ export default function Index() {
           </SectionDescription>
 
           <SectionContent columns={6} rows={1}>
-            {testimonialCards}
+            <TestimonialCards
+              data={testimonials.initialKey as testimonialProps}
+            />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Await resolve={testimonials.keys}>
+                {(testimonialMap) => {
+                  return testimonialMap.map((testimonial) => {
+                    if (testimonial === testimonials.initialKey) {
+                      return null;
+                    }
+                    return (
+                      <TestimonialCards
+                        key={testimonial.name}
+                        data={testimonial as testimonialProps}
+                      />
+                    );
+                  });
+                }}
+              </Await>
+            </Suspense>
           </SectionContent>
         </SectionDesignation>
         <SectionDesignation rows={3} buttonText={"View All FAQ’s"}>
