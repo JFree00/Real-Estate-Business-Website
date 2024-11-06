@@ -1,8 +1,25 @@
 import { AppLoadContext } from "@remix-run/cloudflare";
 
 // biome-ignore lint/suspicious/noEmptyInterface: Fill this in with your own types for your use-case
-// eslint-disable-next-line   @typescript-eslint/no-empty-object-type
-export interface Env {}
+
+export interface Env {
+  testimonials: KVNamespace;
+  properties: KVNamespace;
+}
+declare module "@remix-run/cloudflare" {
+  interface AppLoadContext {
+    env: Env;
+  }
+}
+declare module "@remix-run/cloudflare" {
+  interface Future {
+    v3_singleFetch: true;
+  }
+}
+type getLoadContext = (args: {
+  request: Request;
+  context: { env: Env };
+}) => AppLoadContext;
 
 export function getLoadContext(env: Env): AppLoadContext {
   return { env };

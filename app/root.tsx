@@ -15,13 +15,36 @@ import {
   ThemeSwitcherScript,
 } from "@/components/theme-switcher";
 import "./tailwind.css";
-import type { LinksFunction } from "@remix-run/cloudflare";
+import { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import homeBuildings from "@/assets/homeBuildings.jpg";
 import { Footer } from "@/components/footer";
+import { defaultProperties } from "../KV/properties";
+import { defaultTestimonials } from "../KV/testimonials";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: homeBuildings }];
 };
+
+export async function loader({ context }: LoaderFunctionArgs) {
+  const env = context.env;
+
+  const checkProperties = await env.properties.get(defaultProperties[0].name);
+  const testimonials = await env.testimonials.get(defaultTestimonials[0].name);
+  if (testimonials === null) {
+    console.log("testimonials are null");
+    defaultTestimonials.map(async (data) => {
+      await env.testimonials.put(data.name, JSON.stringify(data));
+    });
+  }
+  if (checkProperties === null) {
+    console.log("properties are null");
+    defaultProperties.map(async (data) => {
+      return await env.properties.put(data.name, JSON.stringify(data));
+    });
+  }
+
+  return null;
+}
 
 function App({ children }: { children: React.ReactNode }) {
   return (
