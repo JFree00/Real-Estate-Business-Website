@@ -1,7 +1,7 @@
 import { propertyProps } from "@/components/propertiesCard";
-import villa from "@/assets/villa.png";
-import metropolitan from "@/assets/MetropolitanHaven.png";
-import rusticCottage from "@/assets/RusticCottage.png";
+import villa from "@/assets/villa.webp";
+import metropolitan from "@/assets/MetropolitanHaven.webp";
+import rusticCottage from "@/assets/RusticCottage.webp";
 
 export const defaultProperties: propertyProps[] = [
   {

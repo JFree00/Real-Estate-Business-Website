@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import globeLeft from "@/assets/globeLeft.png";
-import globeRight from "@/assets/globeRight.png";
+import globeLeft from "@/assets/globeLeft.webp";
+import globeRight from "@/assets/globeRight.webp";
 import logoLg from "@/assets/icons/logoLg.svg";
 import { Input } from "@/components/ui/input";
 import facebook from "@/assets/icons/facebook.svg";

@@ -1,7 +1,7 @@
 import { testimonialProps } from "@/components/testimonialCards";
-import wadeWarren from "@/assets/wadeWarren.png";
-import emelieThomson from "@/assets/emelieThomson.png";
-import johnMans from "@/assets/johnMans.png";
+import wadeWarren from "@/assets/wadeWarren.webp";
+import emelieThomson from "@/assets/emelieThomson.webp";
+import johnMans from "@/assets/johnMans.webp";
 
 export const defaultTestimonials: testimonialProps[] = [
   {
