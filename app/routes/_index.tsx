@@ -1,7 +1,7 @@
 import { title } from "@/config.shared";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 
-import homeBuildings from "@/assets/homeBuildings.jpg";
+import homeBuildings from "@/assets/homeBuildings.webp";
 import { Button } from "@/components/ui/button";
 import {
   Card,
