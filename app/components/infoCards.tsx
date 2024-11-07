@@ -38,7 +38,7 @@ function InfoCards(props: infoCardProps) {
   return (
     <div
       className={
-        "row-span-1 tablet:shrink h-full tablet:h-full bg-sgrey-10 border-sgrey-15 border tablet:py-1 rounded-xl relative"
+        "row-span-1 my-1 tablet:shrink h-full tablet:h-full bg-sgrey-10 border-sgrey-15 border tablet:py-1 rounded-xl relative"
       }
     >
       <Button
