@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'urbanist';
+  src: url('./assets/fonts/Urbanist-VariableFont_wght.ttf')
+}
 
 body::-webkit-scrollbar {
   display: none;

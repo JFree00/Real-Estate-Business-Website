@@ -1,11 +1,10 @@
 import type { Config } from "tailwindcss";
-
 export default {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        main: "Urbanist, sans-serif",
+        sans: "Urbanist, sans-serif",
       },
       colors: {
         pprimary: {
