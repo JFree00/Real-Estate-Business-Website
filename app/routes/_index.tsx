@@ -28,6 +28,8 @@ import { Suspense } from "react";
 import { defaultTestimonials } from "../../KV/testimonials";
 import { SectionCards } from "@/components/sectionCards";
 import { faqCards } from "../../KV/faq";
+import { indexInfoCard } from "../../KV/info.ts";
+import InfoCards from "@/components/infoCards";
 
 type template =
   | testimonialProps
@@ -212,7 +214,7 @@ export default function Index() {
             />
           </div>
         </div>
-        {/*<InfoCards.InfoCardsArea cardData={infoCards} />*/}
+        <InfoCards.InfoCardsArea cardData={indexInfoCard} />
         <SectionDesignation buttonText={"View All Properties"} rows={3}>
           <SectionHeader>Featured Properties</SectionHeader>
           <SectionDescription>
