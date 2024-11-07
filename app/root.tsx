@@ -16,7 +16,7 @@ import {
 } from "@/components/theme-switcher";
 import "./tailwind.css";
 import { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
-import homeBuildings from "@/assets/homeBuildings.jpg";
+import homeBuildings from "@/assets/homeBuildings.webp";
 import { Footer } from "@/components/footer";
 import { defaultProperties } from "../KV/properties";
 import { defaultTestimonials } from "../KV/testimonials";
@@ -54,17 +54,10 @@ function App({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet"
-        />
-
         <Links />
         <ThemeSwitcherScript />
       </head>
-      <body className={"bg-sgrey-8 text-white font-main box-border"}>
+      <body className={"bg-sgrey-8 text-white box-border"}>
         <GlobalPendingIndicator />
         <Header />
         {children}

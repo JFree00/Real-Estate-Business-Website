@@ -6,7 +6,7 @@ compatibility_date = "2024-10-27"
 
 [[kv_namespaces]]
 binding = "testimonials"
-id = "a2682be0dff741e7b87e7c58d2e5b75c"
+id = "d823f962715f45caa3ec9346179f5496"
 [[kv_namespaces]]
 binding = "properties"
-id = "d491f9979c7947269c9f067d30195b20"
+id = "9b8994c6b53d47c8bfb7b4abbb954d6e"
