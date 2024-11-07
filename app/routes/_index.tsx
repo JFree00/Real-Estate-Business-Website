@@ -83,25 +83,6 @@ export default function Index() {
       <div className={" grid grid-cols-12 relative "}>
         <div
           className={
-            "rounded-full bg-sgrey-8 border border-sgrey-15 size-40 absolute mx-auto left-0 right-0 top-40"
-          }
-        >
-          <div
-            className={" bg-cover bg-no-repeat mx-4 my-4 size-32"}
-            style={{
-              backgroundImage: `url('${circle}')`,
-            }}
-          ></div>
-          <div
-            className={
-              "rounded-full bg-sgrey-10 border border-sgrey-15 size-16 mx-auto absolute  left-0 right-0 bottom-1/3"
-            }
-          >
-            <ArrowUpRightIcon className={"mx-4 my-4 size-8"} />
-          </div>
-        </div>
-        <div
-          className={
             "offset-hero col-span-full row-start-2 laptop:row-start-1 laptop:col-span-6"
           }
         >
@@ -192,16 +173,44 @@ export default function Index() {
         </div>
         <div
           className={
-            "row-start-1 col-span-full laptop:col-span-6 laptop:row-span-3 overflow-hidden"
+            "row-start-1  m-4 laptop:m-0 col-span-full laptop:col-span-6 laptop:row-span-3  relative"
           }
           style={{ maxHeight: "100%%" }}
         >
-          <img
-            src={homeBuildings}
-            width={"100%"}
-            style={{ objectFit: "contain" }}
-            alt={"Real Estate"}
-          />
+          <div
+            className={
+              "rounded-full bg-sgrey-8 border border-sgrey-15 size-32 laptop:size-40 absolute laptop:-left-20 -bottom-12 laptop:-bottom-20 laptop:top-40 flex"
+            }
+          >
+            <div
+              className={
+                " bg-cover bg-no-repeat size-[80%] mx-auto my-auto flex"
+              }
+              style={{
+                backgroundImage: `url('${circle}')`,
+              }}
+            >
+              <div
+                className={
+                  "rounded-full bg-sgrey-10 border border-sgrey-15 size-[50%] m-auto left-0 right-0 flex"
+                }
+              >
+                <ArrowUpRightIcon className={"m-auto size-[50%]"} />
+              </div>
+            </div>
+          </div>
+          <div
+            className={
+              " size-full overflow-hidden border border-sgrey-15 rounded-xl laptop:border-0 laptop:rounded-none"
+            }
+          >
+            <img
+              src={homeBuildings}
+              width={"100%"}
+              style={{ objectFit: "contain" }}
+              alt={"Real Estate"}
+            />
+          </div>
         </div>
         {/*<InfoCards.InfoCardsArea cardData={infoCards} />*/}
         <SectionDesignation buttonText={"View All Properties"} rows={3}>
