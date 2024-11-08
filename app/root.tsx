@@ -21,10 +21,6 @@ import { Footer } from "@/components/footer";
 import { defaultProperties } from "../KV/properties";
 import { defaultTestimonials } from "../KV/testimonials";
 
-export const links: LinksFunction = () => {
-  return [{ rel: "preload", as: "image", href: homeBuildings }];
-};
-
 export async function loader({ context }: LoaderFunctionArgs) {
   const env = context.env;
 
