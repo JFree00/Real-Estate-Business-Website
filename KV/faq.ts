@@ -1,4 +1,4 @@
-import { sectionCardProps } from "@/components/sectionCards";
+import { sectionCardProps } from "@/components/cards/sectionCards";
 
 export const faqCards: sectionCardProps[] = [
   {

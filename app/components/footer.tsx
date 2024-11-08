@@ -36,7 +36,9 @@ const subRoutes: Record<routes, Array<string>> = {
 export function Footer() {
   return (
     <footer>
-      <div className={" h-[925px] border-t border-sgrey-15 flex flex-col "}>
+      <div
+        className={" h-[925px] border-t border-sgrey-15 flex flex-col mt-20"}
+      >
         <div className={"relative"}>
           <img
             src={globeLeft}

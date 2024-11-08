@@ -13,19 +13,20 @@ export type testimonialProps = {
   rating: number;
 };
 type props = {
-  data: testimonialProps;
+  data?: testimonialProps;
 };
 
 export function TestimonialCards({ data }: props) {
+  data = data as testimonialProps;
   return (
-    <div className={"basis-full shrink-0 lg:shrink"}>
-      <Card className={"bg-sgrey-8 "}>
+    <div className={"dataCard"}>
+      <Card className={"bg-sgrey-8 dataCardComponent"}>
         <CardHeader className={"mr-3"}>
           <Ratings amountOfRatings={5} ratings={data.rating} />
-          <p className={"text-xl laptop:text-2xl font-semibold "}>
+          <p className={"text-xl laptop:text-2xl font-semibold"}>
             {data.title}
           </p>
-          <p className={"pt-3 text-left min-h-24 max-h-32"}>
+          <p className={"pt-3 text-left min-h-32 max-h-32"}>
             {data.testimonial}
           </p>
         </CardHeader>

@@ -20,7 +20,7 @@ export function SectionDesignation({
 }: Props) {
   return (
     <div
-      className={cn("offset relative py-20", className)}
+      className={cn("offset relative pt-20", className)}
       style={{
         gridRow: `span ${rows} / span ${rows}`,
         gridColumn: ` 1 / span ${columns}`,
@@ -29,7 +29,7 @@ export function SectionDesignation({
       <Button
         variant={"outline"}
         className={
-          " absolute right-0 top-28 py-8 bg-sgrey-10 font-medium hidden lg:flex"
+          " absolute right-0 top-28 py-8 bg-sgrey-10 font-medium hidden laptop:flex"
         }
       >
         {buttonText || "View All"}

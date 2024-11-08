@@ -6,11 +6,10 @@ type Props = {
   columns?: number;
 };
 
-export function SectionDescription({ columns = 12, children }: Props) {
+export function SectionDescription({ children }: Props) {
   return (
     <h5
-      className={`self-center text-sgrey-60 text-sm 2xl:text-lg pt-4`}
-      style={{ width: columns * 8.3333 + "%" }}
+      className={`self-center text-sgrey-60 text-sm 2xl:text-lg pt-4 tablet:w-[75%]`}
     >
       {children}
     </h5>

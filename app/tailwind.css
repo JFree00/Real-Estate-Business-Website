@@ -34,7 +34,13 @@ body::-webkit-scrollbar {
     @apply border-r-2 lg:border-0 border-r-sgrey-15
   }
   .title {
-    @apply text-2xl laptop:text-3xl desktop:text-4xl
+    @apply text-2xl laptop:text-3xl desktop:text-5xl
+  }
+  .dataCardComponent {
+    @apply  p-6 tablet:p-10
+  }
+  .dataCard {
+    @apply basis-full shrink-0 laptop:shrink
   }
 
 }

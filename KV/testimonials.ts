@@ -1,4 +1,4 @@
-import { testimonialProps } from "@/components/testimonialCards";
+import { testimonialProps } from "@/components/cards/testimonialCards";
 import wadeWarren from "@/assets/wadeWarren.webp";
 import emelieThomson from "@/assets/emelieThomson.webp";
 import johnMans from "@/assets/johnMans.webp";
