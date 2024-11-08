@@ -1,5 +1,9 @@
 import { title } from "@/config.shared";
-import { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import {
+  LinksFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from "@remix-run/cloudflare";
 
 import homeBuildings from "@/assets/homeBuildings.webp";
 import { Button } from "@/components/ui/button";
@@ -32,6 +36,10 @@ import { SectionCards } from "@/components/cards/sectionCards";
 import { faqCards } from "../../KV/faq";
 import { indexInfoCard } from "../../KV/info.ts";
 import InfoCards from "@/components/cards/infoCards";
+
+export const links: LinksFunction = () => {
+  return [{ rel: "preload", as: "image", href: homeBuildings }];
+};
 
 export type template =
   | testimonialProps
