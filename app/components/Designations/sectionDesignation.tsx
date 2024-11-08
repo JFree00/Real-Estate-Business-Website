@@ -10,14 +10,13 @@ import { Await } from "@remix-run/react";
 import { loaderData } from "@/routes/_index";
 import { assumedData } from "@/components/Designations/sectionContent";
 
-export type designationProps = {
-  children: React.ReactNode;
+export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
+  children?: React.ReactNode;
   columns?: number;
   rows?: number;
-  className?: string;
   buttonText?: string;
   paginationDisplayAmount?: number;
-  data:
+  data?:
     | {
         [K in keyof loader[keyof loader]]: loader[keyof loader][Awaited<K>];
       }
@@ -32,7 +31,7 @@ export function SectionDesignation({
   className,
   buttonText,
   paginationDisplayAmount = 3,
-  data,
+  data = [],
 }: designationProps) {
   const [currentPage, setCurrentPage] = React.useState(1);
 
@@ -44,34 +43,40 @@ export function SectionDesignation({
         gridColumn: ` 1 / span ${columns}`,
       }}
     >
-      <Button
-        variant={"outline"}
-        className={
-          " absolute right-0 top-28 py-8 bg-sgrey-10 font-medium hidden laptop:flex"
-        }
-      >
-        {buttonText || "View All"}
-      </Button>
-      <PaginationContext.Provider
-        value={{
-          current: currentPage,
-          max: data.length,
-          amountToDisplay: paginationDisplayAmount,
-        }}
-      >
-        {data && Array.isArray(data) ? (
-          <DataContext.Provider value={data}> {children}</DataContext.Provider>
-        ) : (
-          <Suspense>
-            <Await resolve={data.keys}>{children}</Await>
-          </Suspense>
-        )}
-        <Separator className={"mt-10"} />
-        <Pagination
-          setPage={(page) => setCurrentPage(page)}
-          buttonText={buttonText}
-        />
-      </PaginationContext.Provider>
+      {buttonText ? (
+        <Button
+          variant={"outline"}
+          className={
+            " absolute right-0 top-28 py-8 bg-sgrey-10 font-medium hidden laptop:flex"
+          }
+        >
+          {buttonText}
+        </Button>
+      ) : null}
+      {data && data.length > 0 ? (
+        <PaginationContext.Provider
+          value={{
+            current: currentPage,
+            max: data.length,
+            amountToDisplay: paginationDisplayAmount,
+          }}
+        >
+          {data && Array.isArray(data) ? (
+            <DataContext.Provider value={data}>{children}</DataContext.Provider>
+          ) : (
+            <Suspense>
+              <Await resolve={data.keys}>{children}</Await>
+            </Suspense>
+          )}
+          <Separator className={"mt-10"} />
+          <Pagination
+            setPage={(page) => setCurrentPage(page)}
+            buttonText={buttonText}
+          />
+        </PaginationContext.Provider>
+      ) : (
+        children
+      )}
     </div>
   );
 }

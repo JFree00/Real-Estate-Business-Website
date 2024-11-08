@@ -15,8 +15,7 @@ import {
   ThemeSwitcherScript,
 } from "@/components/theme-switcher";
 import "./tailwind.css";
-import { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
-import homeBuildings from "@/assets/homeBuildings.webp";
+import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Footer } from "@/components/footer";
 import { defaultProperties } from "../KV/properties";
 import { defaultTestimonials } from "../KV/testimonials";
