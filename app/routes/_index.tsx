@@ -141,7 +141,7 @@ export default function Index() {
               }
             >
               <div className={"basis-1/2 laptop:basis-1/3 px-2"}>
-                <Card className={" p-4 pb-0"}>
+                <Card className={" pb-0  p-4 "}>
                   <CardHeader>
                     <CardTitle>200+</CardTitle>
                   </CardHeader>
