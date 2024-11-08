@@ -17,21 +17,23 @@ import { SectionDesignation } from "@/components/Designations/sectionDesignation
 import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
 import { SectionContent } from "@/components/Designations/sectionContent";
-import { PropertiesCard, propertyProps } from "@/components/propertiesCard";
+import {
+  PropertiesCard,
+  propertyProps,
+} from "@/components/cards/propertiesCard";
 import {
   TestimonialCards,
   testimonialProps,
-} from "@/components/testimonialCards";
-import { Await, useLoaderData } from "@remix-run/react";
+} from "@/components/cards/testimonialCards";
+import { useLoaderData } from "@remix-run/react";
 import { defaultProperties } from "../../KV/properties";
-import { Suspense } from "react";
 import { defaultTestimonials } from "../../KV/testimonials";
-import { SectionCards } from "@/components/sectionCards";
+import { SectionCards } from "@/components/cards/sectionCards";
 import { faqCards } from "../../KV/faq";
 import { indexInfoCard } from "../../KV/info.ts";
-import InfoCards from "@/components/infoCards";
+import InfoCards from "@/components/cards/infoCards";
 
-type template =
+export type template =
   | testimonialProps
   | propertyProps
   | {
@@ -41,6 +43,7 @@ type template =
 
 function getInitialKeys(k: KVNamespace, template: Readonly<template[]>) {
   const keys = template.map((key) => {
+    //alternatively limit the amount of keys to fetch, but right now the average keys size is 300 bytes and there aren't many
     return k.get(key.name, "json");
   }) as Promise<template>[];
   const initialKey = Promise.race(keys).catch(() => {
@@ -48,7 +51,7 @@ function getInitialKeys(k: KVNamespace, template: Readonly<template[]>) {
   });
   const keysPromiseAll = Promise.all(keys);
 
-  return { initialKey, keys: keysPromiseAll };
+  return { initialKey, keys: keysPromiseAll, length: keys.length };
 }
 export async function loader({ context }: LoaderFunctionArgs) {
   const env = context.env;
@@ -71,6 +74,8 @@ export async function loader({ context }: LoaderFunctionArgs) {
     testimonials,
   };
 }
+
+export type loaderData = typeof loader;
 
 export const meta: MetaFunction = () => {
   return [
@@ -215,7 +220,12 @@ export default function Index() {
           </div>
         </div>
         <InfoCards.InfoCardsArea cardData={indexInfoCard} />
-        <SectionDesignation buttonText={"View All Properties"} rows={3}>
+        <SectionDesignation
+          buttonText={"View All Properties"}
+          rows={3}
+          paginationDisplayAmount={properties.length}
+          data={properties}
+        >
           <SectionHeader>Featured Properties</SectionHeader>
           <SectionDescription>
             Explore our handpicked selection of featured properties. Each
@@ -224,27 +234,15 @@ export default function Index() {
             information.
           </SectionDescription>
           <SectionContent columns={6} rows={1}>
-            <PropertiesCard data={properties.initialKey as propertyProps} />
-            <Suspense fallback={<div>Loading...</div>}>
-              <Await resolve={properties.keys}>
-                {(propertiesMap) => {
-                  return propertiesMap.map((property) => {
-                    if (property === properties.initialKey) {
-                      return null;
-                    }
-                    return (
-                      <PropertiesCard
-                        key={property.name}
-                        data={property as propertyProps}
-                      />
-                    );
-                  });
-                }}
-              </Await>
-            </Suspense>
+            <PropertiesCard />
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation buttonText={"View All Testimonials"} rows={2}>
+        <SectionDesignation
+          buttonText={"View All Testimonials"}
+          rows={2}
+          paginationDisplayAmount={testimonials.length}
+          data={testimonials}
+        >
           <SectionHeader>What Our Clients Say</SectionHeader>
           <SectionDescription>
             Read the success stories and heartfelt testimonials from our valued
@@ -253,29 +251,15 @@ export default function Index() {
           </SectionDescription>
 
           <SectionContent columns={6} rows={1}>
-            <TestimonialCards
-              data={testimonials.initialKey as testimonialProps}
-            />
-            <Suspense fallback={<div>Loading...</div>}>
-              <Await resolve={testimonials.keys}>
-                {(testimonialMap) => {
-                  return testimonialMap.map((testimonial) => {
-                    if (testimonial === testimonials.initialKey) {
-                      return null;
-                    }
-                    return (
-                      <TestimonialCards
-                        key={testimonial.name}
-                        data={testimonial as testimonialProps}
-                      />
-                    );
-                  });
-                }}
-              </Await>
-            </Suspense>
+            <TestimonialCards />
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation rows={3} buttonText={"View All FAQ’s"}>
+        <SectionDesignation
+          rows={3}
+          buttonText={"View All FAQ’s"}
+          paginationDisplayAmount={3}
+          data={faqCards}
+        >
           <SectionHeader>Frequently Asked Questions</SectionHeader>
           <SectionDescription>
             Find answers to common questions about Estatein's services, property
@@ -283,7 +267,7 @@ export default function Index() {
             and assist you every step of the way.
           </SectionDescription>
           <SectionContent columns={3} rows={1}>
-            <SectionCards cardData={faqCards} />
+            <SectionCards />
           </SectionContent>
         </SectionDesignation>
       </div>
