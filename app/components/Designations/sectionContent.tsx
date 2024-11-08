@@ -6,20 +6,20 @@ import { useAsyncValue } from "@remix-run/react";
 import { cn } from "@/lib/styles";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
-  columns?: number;
-  rows?: number;
-  gap?: number;
   children: React.ReactElement;
   amountToDisplay?: number;
+  iterate?: boolean;
 };
 
-export type assumedData = {
-  name: string;
-  [key: string]: string;
-};
+export type assumedData =
+  | {
+      name: string;
+      [key: string]: string;
+    }
+  | { name: string; [key: string]: string }[];
 
-export function SectionContent({ children, className }: Props) {
-  const deferredData = useAsyncValue() as Array<assumedData>;
+export function SectionContent({ children, className, iterate = true }: Props) {
+  const deferredData = useAsyncValue() as assumedData;
   const [dataArray, setArray] = React.useState(deferredData);
   const context = useContext(DataContext);
   if (!dataArray) setArray(context);
@@ -32,14 +32,17 @@ export function SectionContent({ children, className }: Props) {
         className,
       )}
     >
-      {dataArray && dataArray.length > 0
+      {Array.isArray(dataArray) && dataArray.length > 0 && iterate
         ? childrenToDisplay(
-            deferredData || context,
+            dataArray,
             page.current - 1,
             page.amountToDisplay,
             children,
           )
-        : children}
+        : React.cloneElement(children, {
+            key: `SectionChild`,
+            data: dataArray,
+          })}
     </div>
   );
 }
