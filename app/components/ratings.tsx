@@ -17,11 +17,13 @@ export function Ratings({ amountOfRatings, ratings }: Props) {
       >
         <StarIcon
           className={
-            i < ratings ? "text-yellow-300 size-6 2xl:m-2.5" : " size-6 m-2.5"
+            i < ratings
+              ? "text-yellow-300 size-6 laptop:size-6 m-1  laptop:m-2.5"
+              : " size-6 m-2.5"
           }
         />
       </div>,
     );
   }
-  return <div className={"flex laptop:py-6"}>{ratingButtons}</div>;
+  return <div className={"flex my-3 laptop:my-7"}>{ratingButtons}</div>;
 }

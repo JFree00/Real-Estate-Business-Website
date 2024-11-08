@@ -1,4 +1,4 @@
-import { infoCardProps } from "@/components/infoCards";
+import { infoCardProps } from "@/components/cards/infoCards";
 import {
   BuildingOffice2Icon,
   BuildingStorefrontIcon,

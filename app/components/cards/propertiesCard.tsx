@@ -23,16 +23,17 @@ export type propertyProps = {
   image: string;
 };
 type props = {
-  data: propertyProps;
+  data?: propertyProps;
 };
 
 export function PropertiesCard({ data }: props) {
+  data = data as propertyProps;
   return (
-    <div key={data.name} className={"basis-full shrink-0 lg:shrink "}>
-      <Card className={"bg-sgrey-8"}>
-        <CardHeader className={" 2xl:px-6 2xl:pb-2 2xl:pt-6 "}>
+    <div key={data.name} className={"dataCard"}>
+      <Card className={"bg-sgrey-8 dataCardComponent"}>
+        <CardHeader className={""}>
           <img alt={"property Image"} src={data.image} />
-          <CardTitle className={"font-semibold text-2xl pt-2"}>
+          <CardTitle className={"font-semibold text-2xl pt-4"}>
             {data.name}
           </CardTitle>
           <CardDescription className={"text-sgrey-60"}>
@@ -45,15 +46,15 @@ export function PropertiesCard({ data }: props) {
 
         <CardContent
           className={
-            "flex flex-wrap gap-y-5 laptop:gap-y-8 justify-start gap-x-2 justify-items-stretch pt-4"
+            "flex flex-wrap gap-y-5 laptop:gap-y-8 gap-x-3 justify-start justify-items-stretch pt-4"
           }
         >
-          <div className={"basis-full gap-2 flex flex-wrap"}>
+          <div className={"basis-full gap-1.5 laptop:gap-2 flex flex-wrap"}>
             <Badge variant={"card"} className={" border-sgrey-15"}>
               <img
                 alt={"Bed Icon"}
                 src={BedIcon}
-                className={"mr-1 size-3 2xl:size-6"}
+                className={"mr-1 size-5 2xl:size-6"}
               />
               {data.bedrooms}-Bedroom
             </Badge>
@@ -61,12 +62,12 @@ export function PropertiesCard({ data }: props) {
               <img
                 alt={"Bathroom Icon"}
                 src={BathroomIcon}
-                className={"mr-1 size-3 2xl:size-6"}
+                className={"mr-1 size-5 2xl:size-6"}
               />
               {data.bathrooms}-Bathroom
             </Badge>
             <Badge variant={"card"} className={" border-sgrey-15"}>
-              <BuildingOfficeIcon className={"mr-1 size-3 2xl:size-6"} />
+              <BuildingOfficeIcon className={"mr-1 size-5 2xl:size-6"} />
               {data.propertyType}
             </Badge>
           </div>
@@ -78,7 +79,10 @@ export function PropertiesCard({ data }: props) {
             </span>
           </div>
           <div className={" grow"}>
-            <Button className={"bg-pprimary-60 size-full"} size={"responsive"}>
+            <Button
+              className={"bg-pprimary-60 laptop:h-full laptop:w-full"}
+              size={"responsive"}
+            >
               View Property Details
             </Button>
           </div>

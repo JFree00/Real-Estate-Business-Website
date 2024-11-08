@@ -10,7 +10,7 @@ export type sectionCardProps = {
 };
 
 type Props = {
-  cardData: sectionCardProps[];
+  data?: sectionCardProps;
 };
 
 export function SectionCards({ cardData }: Props) {
@@ -49,4 +49,7 @@ export function SectionCards({ cardData }: Props) {
       </div>
     );
   });
+  data = data as sectionCardProps;
+    <div key={data.name} className={"dataCard"}>
+      <Card className={"bg-sgrey-8 dataCardComponent"}>
 }

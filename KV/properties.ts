@@ -1,4 +1,4 @@
-import { propertyProps } from "@/components/propertiesCard";
+import { propertyProps } from "@/components/cards/propertiesCard";
 import villa from "@/assets/villa.webp";
 import metropolitan from "@/assets/MetropolitanHaven.webp";
 import rusticCottage from "@/assets/RusticCottage.webp";

@@ -13,9 +13,7 @@ export function SectionHeader({ columns = 12, children }: Props) {
       className={`font-semibold text-balance h-fit`}
       style={{ width: columns * 8.33333 + "%" }}
     >
-      <p className={"title"} style={{ lineHeight: "1.2" }}>
-        {children}
-      </p>
+      <p className={"title"}>{children}</p>
     </div>
   );
 }
