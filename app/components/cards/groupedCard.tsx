@@ -3,7 +3,6 @@ import * as React from "react";
 import { useContext } from "react";
 import { DataContext } from "@/context/paginationContext";
 import { valuesProps } from "../../../KV/values";
-import { UserGroupIcon } from "@heroicons/react/24/solid";
 import { Separator } from "@/components/ui/separator";
 
 export function GroupedCard() {
@@ -11,7 +10,7 @@ export function GroupedCard() {
   return (
     <div
       className={
-        "basis-11/12 outline outline-[6px] outline-sgrey-10 rounded-xl border border-sgrey-15"
+        "basis-full outline outline-[6px] outline-sgrey-10 rounded-xl border border-sgrey-15"
       }
     >
       <div className={" mx-auto my-1 w-full flex flex-col"}>
@@ -23,7 +22,9 @@ export function GroupedCard() {
                   "size-10 rounded-full border border-pprimary-60 flex"
                 }
               >
-                <UserGroupIcon className={"m-auto size-6 text-pprimary-75"} />
+                <div className={"m-auto size-6 text-pprimary-75"}>
+                  {item.icon}
+                </div>
               </div>
               <p className={" text-lg font-semibold"}>{item.name}</p>
             </div>
