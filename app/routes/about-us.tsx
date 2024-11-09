@@ -78,7 +78,7 @@ export default function AboutUs() {
           </SectionContent>
         </SectionDesignation>
 
-        <SectionDesignation data={values}>
+        <SectionDesignation data={values} pagination={false}>
           <SectionHeader>Our Values</SectionHeader>
           <SectionDescription>
             Our story is one of continuous growth and evolution. We started as a
