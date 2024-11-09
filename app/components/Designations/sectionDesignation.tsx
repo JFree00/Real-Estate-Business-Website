@@ -15,12 +15,13 @@ export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
   columns?: number;
   rows?: number;
   buttonText?: string;
+  pagination?: boolean;
   paginationDisplayAmount?: number;
   data?:
     | {
         [K in keyof loader[keyof loader]]: loader[keyof loader][Awaited<K>];
       }
-    | assumedData[];
+    | assumedData;
 };
 type loader = Awaited<ReturnType<loaderData>>;
 
@@ -31,6 +32,7 @@ export function SectionDesignation({
   className,
   buttonText,
   paginationDisplayAmount = 3,
+  pagination = true,
   data = [],
 }: designationProps) {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -53,7 +55,7 @@ export function SectionDesignation({
           {buttonText}
         </Button>
       ) : null}
-      {data && data.length > 0 ? (
+      {pagination ? (
         <PaginationContext.Provider
           value={{
             current: currentPage,
@@ -74,8 +76,12 @@ export function SectionDesignation({
             buttonText={buttonText}
           />
         </PaginationContext.Provider>
+      ) : data && Array.isArray(data) ? (
+        <DataContext.Provider value={data}>{children}</DataContext.Provider>
       ) : (
-        children
+        <Suspense>
+          <Await resolve={data.keys}>{children}</Await>
+        </Suspense>
       )}
     </div>
   );

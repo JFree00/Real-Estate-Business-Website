@@ -10,19 +10,16 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   amountToDisplay?: number;
   iterate?: boolean;
 };
-
-export type assumedData =
-  | {
-      name: string;
-      [key: string]: string;
-    }
-  | { name: string; [key: string]: string }[];
+export type assumedData = {
+  name: string;
+  [key: string]: unknown;
+}[];
 
 export function SectionContent({ children, className, iterate = true }: Props) {
   const deferredData = useAsyncValue() as assumedData;
   const [dataArray, setArray] = React.useState(deferredData);
   const context = useContext(DataContext);
-  if (!dataArray) setArray(context);
+  if (!dataArray) setArray(context as assumedData);
 
   const page = useContext(PaginationContext);
   return (
@@ -48,7 +45,7 @@ export function SectionContent({ children, className, iterate = true }: Props) {
 }
 
 const childrenToDisplay = (
-  data: Array<assumedData>,
+  data: assumedData,
   page: number,
   amountToDisplay: number,
   children: React.ReactElement,
