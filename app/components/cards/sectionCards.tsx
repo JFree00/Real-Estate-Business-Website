@@ -3,7 +3,7 @@ import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export type sectionCardProps = {
+export type sectionCardProps = React.HTMLAttributes<HTMLDivElement> & {
   name: string;
   description: string;
   buttonText?: string;
