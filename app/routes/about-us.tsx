@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
 import { SectionContent } from "@/components/Designations/sectionContent";
 import house from "@/assets/house.webp";
+
 import { LinksFunction } from "@remix-run/cloudflare";
 import {
   Card,
@@ -19,6 +20,8 @@ import { SectionCards } from "@/components/cards/sectionCards";
 import { achievements } from "../../KV/achievements";
 import { NteeCard } from "@/components/cards/NTEECard";
 import { steps } from "../../KV/steps";
+import { TeamCard } from "@/components/cards/teamCard";
+import { team } from "../../KV/team";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: house }];
@@ -112,6 +115,23 @@ export default function AboutUs() {
           </SectionDescription>
           <SectionContent className={"flex-col gap-y-8"}>
             <NteeCard />
+          </SectionContent>
+        </SectionDesignation>
+        <SectionDesignation
+          pagination={false}
+          data={team}
+          paginationDisplayAmount={4}
+        >
+          <SectionHeader>Meet the Estatein Team</SectionHeader>
+          <SectionDescription>
+            At Estatein, our success is driven by the dedication and expertise
+            of our team. Get to know the people behind our mission to make your
+            real estate dreams a reality.At Estatein, our success is driven by
+            the dedication and expertise of our team. Get to know the people
+            behind our mission to make your real estate dreams a reality.
+          </SectionDescription>
+          <SectionContent className={"flex-col"} amountToDisplay={4}>
+            <TeamCard />
           </SectionContent>
         </SectionDesignation>
       </div>
