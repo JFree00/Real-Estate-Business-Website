@@ -4,7 +4,8 @@
 
 @font-face {
   font-family: 'urbanist';
-  src: url('./assets/fonts/Urbanist-VariableFont_wght.ttf')
+  src: url('./assets/fonts/Urbanist-VariableFont_wght.ttf');
+  font-display: swap;
 }
 
 body::-webkit-scrollbar {
