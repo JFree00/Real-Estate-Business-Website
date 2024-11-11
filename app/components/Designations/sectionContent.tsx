@@ -15,15 +15,19 @@ export type assumedData = {
   [key: string]: unknown;
 }[];
 
-export function SectionContent({ children, className, iterate = true }: Props) {
+export function SectionContent({
+  children,
+  className,
+  iterate = true,
+  amountToDisplay = 3,
+}: Props) {
   const deferredData = useAsyncValue() as assumedData;
   const dataArray = deferredData ?? useContext(DataContext);
-
   const page = useContext(PaginationContext);
   return (
     <div
       className={cn(
-        "flex basis-full overflow-hidden gap-x-7 flex-nowrap w-full mt-10 lg:mt-20 shrink-0 ",
+        "flex basis-full overflow-hidden gap-7 flex-nowrap w-full mt-10 lg:mt-20 shrink-0 ",
         className,
       )}
     >
@@ -31,7 +35,7 @@ export function SectionContent({ children, className, iterate = true }: Props) {
         ? childrenToDisplay(
             dataArray,
             page.current - 1,
-            page.amountToDisplay,
+            amountToDisplay ?? page.amountToDisplay,
             children,
           )
         : React.cloneElement(children, {
