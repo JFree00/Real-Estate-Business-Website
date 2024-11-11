@@ -14,7 +14,6 @@ type props = {
 
 export function NteeCard({ data }: props) {
   data = data as stepsProps;
-  console.log(data);
   return (
     <div>
       <div className={"border-l border-l-pprimary-60 h-16 flex items-center"}>
