@@ -275,12 +275,12 @@ export default function Index() {
             and assist you every step of the way.
           </SectionDescription>
           <SectionContent>
-            <SectionCards>
+            <SectionCards
+              className={"border border-sgrey-15 rounded-xl dataCardComponent"}
+            >
               <SectionCards.Header>
-                <SectionCards.Header.Title
-                  className={" min-h-[72px]"}
-                ></SectionCards.Header.Title>
-                <SectionCards.Header.Title></SectionCards.Header.Title>
+                <SectionCards.Header.Title className={" min-h-[72px]"} />
+                <SectionCards.Header.Description />
               </SectionCards.Header>
 
               <SectionCards.Content />
