@@ -19,7 +19,7 @@ function InfoCardArea({ children, cardData = [] }: InfoCardAreaProps) {
   return (
     <div
       className={
-        "offset p-2.5 mt-10 tablet:mt-0 col-span-12 tablet:mx-0 rounded-2xl tablet:rounded-none border border-sgrey-15 h-fit xl:h-[190px] 2xl:h-[252px]"
+        "offset p-3 pb-5 mt-10 tablet:mt-0 col-span-12 tablet:mx-0 rounded-2xl tablet:rounded-none border border-sgrey-15 h-fit xl:h-[190px] 2xl:h-[252px]"
       }
     >
       <div

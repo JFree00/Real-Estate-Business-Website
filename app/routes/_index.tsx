@@ -154,9 +154,9 @@ export default function Index() {
               }
             >
               <div className={"basis-1/2 laptop:basis-1/3 px-2"}>
-                <Card className={" pb-0  p-4 "}>
+                <Card className={"  p-4 pb-0 h-fit"}>
                   <CardHeader>
-                    <CardTitle>200+</CardTitle>
+                    <CardTitle className={"text-4xl"}>200+</CardTitle>
                   </CardHeader>
                   <CardFooter className={"min-h-14"}>
                     <CardDescription>Happy Customers</CardDescription>
@@ -164,9 +164,9 @@ export default function Index() {
                 </Card>
               </div>
               <div className={"basis-1/2  laptop:basis-1/3 px-2"}>
-                <Card className={" p-4 pb-0"}>
+                <Card className={" p-4 pb-0 h-fit"}>
                   <CardHeader>
-                    <CardTitle>10k+</CardTitle>
+                    <CardTitle className={"text-4xl"}>10k+</CardTitle>
                   </CardHeader>
                   <CardFooter className={"min-h-14"}>
                     <CardDescription>Properties For Clients</CardDescription>
@@ -174,9 +174,9 @@ export default function Index() {
                 </Card>
               </div>
               <div className={"grow laptop:grow-0 laptop:basis-1/3 px-2"}>
-                <Card className={" p-4 pb-0"}>
+                <Card className={" p-4 pb-0 h-fit"}>
                   <CardHeader>
-                    <CardTitle>16+</CardTitle>
+                    <CardTitle className={"text-4xl"}>16+</CardTitle>
                   </CardHeader>
                   <CardFooter className={"min-h-14"}>
                     <CardDescription>Years Of Experience</CardDescription>
