@@ -17,9 +17,7 @@ export type assumedData = {
 
 export function SectionContent({ children, className, iterate = true }: Props) {
   const deferredData = useAsyncValue() as assumedData;
-  const [dataArray, setArray] = React.useState(deferredData);
-  const context = useContext(DataContext);
-  if (!dataArray) setArray(context as assumedData);
+  const dataArray = deferredData ?? useContext(DataContext);
 
   const page = useContext(PaginationContext);
   return (
