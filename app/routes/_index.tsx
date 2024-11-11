@@ -241,7 +241,7 @@ export default function Index() {
             available through Estatein. Click "View Details" for more
             information.
           </SectionDescription>
-          <SectionContent columns={6} rows={1}>
+          <SectionContent>
             <PropertiesCard />
           </SectionContent>
         </SectionDesignation>
@@ -258,7 +258,7 @@ export default function Index() {
             needs.
           </SectionDescription>
 
-          <SectionContent columns={6} rows={1}>
+          <SectionContent>
             <TestimonialCards />
           </SectionContent>
         </SectionDesignation>
@@ -274,8 +274,17 @@ export default function Index() {
             listings, and the real estate process. We're here to provide clarity
             and assist you every step of the way.
           </SectionDescription>
-          <SectionContent columns={3} rows={1}>
-            <SectionCards />
+          <SectionContent>
+            <SectionCards>
+              <SectionCards.Header>
+                <SectionCards.Header.Title
+                  className={" min-h-[72px]"}
+                ></SectionCards.Header.Title>
+                <SectionCards.Header.Title></SectionCards.Header.Title>
+              </SectionCards.Header>
+
+              <SectionCards.Content />
+            </SectionCards>
           </SectionContent>
         </SectionDesignation>
       </div>
