@@ -15,6 +15,10 @@ import {
 } from "@/components/ui/card";
 import { GroupedCard } from "@/components/cards/groupedCard";
 import { values } from "../../KV/values";
+import { SectionCards } from "@/components/cards/sectionCards";
+import { achievements } from "../../KV/achievements";
+import { NteeCard } from "@/components/cards/NTEECard";
+import { steps } from "../../KV/steps";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: house }];
@@ -77,7 +81,6 @@ export default function AboutUs() {
             </div>
           </SectionContent>
         </SectionDesignation>
-
         <SectionDesignation data={values} pagination={false}>
           <SectionHeader>Our Values</SectionHeader>
           <SectionDescription>
@@ -87,6 +90,28 @@ export default function AboutUs() {
           </SectionDescription>
           <SectionContent iterate={false} className={"overflow-visible"}>
             <GroupedCard />
+          </SectionContent>
+        </SectionDesignation>
+        <SectionDesignation data={achievements} pagination={false}>
+          <SectionHeader>Our Achievements</SectionHeader>
+          <SectionDescription>
+            Our story is one of continuous growth and evolution. We started as a
+            small team with big dreams, determined to create a real estate
+            platform that transcended the ordinary.
+          </SectionDescription>
+          <SectionContent className={"flex-col gap-5"}>
+            <SectionCards></SectionCards>
+          </SectionContent>
+        </SectionDesignation>
+        <SectionDesignation pagination={false} data={steps}>
+          <SectionHeader>Navigating the Estatein Experience</SectionHeader>
+          <SectionDescription>
+            At Estatein, we've designed a straightforward process to help you
+            find and purchase your dream property with ease. Here's a
+            step-by-step guide to how it all works.
+          </SectionDescription>
+          <SectionContent className={"flex-col gap-y-8"}>
+            <NteeCard />
           </SectionContent>
         </SectionDesignation>
       </div>
