@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
 import { SectionContent } from "@/components/Designations/sectionContent";
 import house from "@/assets/house.webp";
+import aboutUsWaves from "@/assets/waves.svg";
 
 import { LinksFunction } from "@remix-run/cloudflare";
 import {
@@ -34,10 +35,16 @@ export default function AboutUs() {
     <div>
       <div className={" grid grid-cols-12 relative "}>
         <SectionDesignation pagination={false}>
-          <div className={"rounded-xl border border-sgrey-15"}>
+          <div
+            className={"rounded-xl border border-sgrey-15"}
+            style={{
+              backgroundImage: `url(${aboutUsWaves})`,
+              backgroundRepeat: "no-repeat",
+            }}
+          >
             <img src={house} width={"100%"} alt={"House"} />
           </div>
-          <SectionHeader>Our Journey</SectionHeader>
+          <SectionHeader className={"mt-5"}>Our Journey</SectionHeader>
           <SectionDescription>
             Our story is one of continuous growth and evolution. We started as a
             small team with big dreams, determined to create a real estate
@@ -46,7 +53,7 @@ export default function AboutUs() {
             trust of countless clients.
           </SectionDescription>
           <SectionContent>
-            <div>
+            <div className={"w-full"}>
               <div
                 className={
                   "flex col-span-full flex-wrap gap-y-4 laptop:text-left text-center"
