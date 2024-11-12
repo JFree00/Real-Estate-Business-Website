@@ -22,6 +22,8 @@ import { NteeCard } from "@/components/cards/NTEECard";
 import { steps } from "../../KV/steps";
 import { TeamCard } from "@/components/cards/teamCard";
 import { team } from "../../KV/team";
+import { clientsData } from "../../KV/clients";
+import { ClientsCard } from "@/components/cards/clientsCard";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: house }];
@@ -132,6 +134,17 @@ export default function AboutUs() {
           </SectionDescription>
           <SectionContent className={"flex-col"} amountToDisplay={4}>
             <TeamCard />
+          </SectionContent>
+        </SectionDesignation>
+        <SectionDesignation data={clientsData} paginationDisplayAmount={1}>
+          <SectionHeader>Our Valued Clients</SectionHeader>
+          <SectionDescription>
+            At Estatein, we have had the privilege of working with a diverse
+            range of clients across various industries. Here are some of the
+            clients we've had the pleasure of serving
+          </SectionDescription>
+          <SectionContent className={"overflow-visible"}>
+            <ClientsCard />
           </SectionContent>
         </SectionDesignation>
       </div>
