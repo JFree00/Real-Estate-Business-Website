@@ -15,7 +15,7 @@ type props = {
 export function NteeCard({ data }: props) {
   data = data as stepsProps;
   return (
-    <div>
+    <div className={"laptop:basis-1/4 grow"}>
       <div className={"border-l border-l-pprimary-60 h-12 flex items-center"}>
         <p className={"font-medium text-base px-7"}>Step 0{data.step}</p>
       </div>
@@ -37,7 +37,7 @@ export function NteeCard({ data }: props) {
         >
           <Card className={" bg-transparent rounded-none border-0  p-7"}>
             <CardHeader className={"justify-center"}>
-              <CardTitle className={"basis-1/3 font-semibold text-lg"}>
+              <CardTitle className={"basis-1/3 font-semibold text-lg py-4"}>
                 {data.name}
               </CardTitle>
               <CardDescription className={"text-base text-sgrey-60"}>
