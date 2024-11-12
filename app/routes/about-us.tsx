@@ -185,14 +185,34 @@ export default function AboutUs() {
             <TeamCard />
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation data={clientsData} paginationDisplayAmount={1}>
+
+        <SectionDesignation
+          data={clientsData}
+          paginationDisplayAmount={1}
+          className={"laptop:hidden"}
+        >
           <SectionHeader>Our Valued Clients</SectionHeader>
           <SectionDescription>
             At Estatein, we have had the privilege of working with a diverse
             range of clients across various industries. Here are some of the
             clients we've had the pleasure of serving
           </SectionDescription>
-          <SectionContent className={"overflow-visible"}>
+          <SectionContent className={"overflow-visible gap-x-12"}>
+            <ClientsCard />
+          </SectionContent>
+        </SectionDesignation>
+        <SectionDesignation
+          data={clientsData}
+          paginationDisplayAmount={2}
+          className={"hidden laptop:block"}
+        >
+          <SectionHeader>Our Valued Clients</SectionHeader>
+          <SectionDescription>
+            At Estatein, we have had the privilege of working with a diverse
+            range of clients across various industries. Here are some of the
+            clients we've had the pleasure of serving
+          </SectionDescription>
+          <SectionContent className={"overflow-visible gap-x-12"}>
             <ClientsCard />
           </SectionContent>
         </SectionDesignation>
