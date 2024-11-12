@@ -44,7 +44,7 @@ function InfoCards(props: infoCardProps) {
       <Button
         size={"icon"}
         variant={"ghost"}
-        className={"absolute right-4 text-sgrey-30"}
+        className={"absolute right-2 top-2 text-sgrey-30"}
       >
         <ArrowUpRightIcon />
       </Button>
