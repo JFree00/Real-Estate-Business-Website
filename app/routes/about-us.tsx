@@ -144,7 +144,9 @@ export default function AboutUs() {
             small team with big dreams, determined to create a real estate
             platform that transcended the ordinary.
           </SectionDescription>
-          <SectionContent className={"flex-col gap-5 overflow-visible"}>
+          <SectionContent
+            className={"flex-col laptop:flex-row gap-5 overflow-visible"}
+          >
             <SectionCards
               className={"outline outline-sgrey-10 border border-sgrey-15"}
             ></SectionCards>
