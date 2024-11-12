@@ -3,7 +3,6 @@ import * as React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { clientsProps } from "../../../KV/clients";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { BoltIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
 
 type Props = {
