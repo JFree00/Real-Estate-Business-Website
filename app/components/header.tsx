@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link, useLocation } from "@remix-run/react";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { LogoSvg } from "@/components/ui/logoSvg";
@@ -8,19 +8,25 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import burgerIcon from "@/assets/icons/burger.svg";
 import { cn } from "@/lib/styles";
 const routes = ["Home", "About Us", "Properties", "Services"];
+const realRoutes = ["", "about-us", "#", "#"];
 export function Header() {
-  const [route] = useState("Home");
+  const currentRoute = useLocation();
   const [opened, toggle] = useState(true);
 
-  const buttons = routes.map((buttonRoute) => {
+  const buttons = routes.map((buttonRoute, index) => {
     return (
-      <Button
-        key={buttonRoute}
-        size={"nav"}
-        variant={route === buttonRoute ? "active" : "ghost"}
-      >
-        {buttonRoute}
-      </Button>
+      <Link key={buttonRoute} to={realRoutes[index]}>
+        <Button
+          size={"nav"}
+          variant={
+            "/" + realRoutes[index] === currentRoute.pathname
+              ? "active"
+              : "ghost"
+          }
+        >
+          {buttonRoute}
+        </Button>
+      </Link>
     );
   });
 
