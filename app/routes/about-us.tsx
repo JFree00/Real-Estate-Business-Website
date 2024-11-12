@@ -33,7 +33,7 @@ export default function AboutUs() {
   return (
     <div>
       <div className={" grid grid-cols-12 relative "}>
-        <SectionDesignation>
+        <SectionDesignation pagination={false}>
           <div className={"rounded-xl border border-sgrey-15"}>
             <img src={house} width={"100%"} alt={"House"} />
           </div>
@@ -104,8 +104,10 @@ export default function AboutUs() {
             small team with big dreams, determined to create a real estate
             platform that transcended the ordinary.
           </SectionDescription>
-          <SectionContent className={"flex-col gap-5"}>
-            <SectionCards></SectionCards>
+          <SectionContent className={"flex-col gap-5 overflow-visible"}>
+            <SectionCards
+              className={"outline outline-sgrey-10 border border-sgrey-15"}
+            ></SectionCards>
           </SectionContent>
         </SectionDesignation>
         <SectionDesignation pagination={false} data={steps}>

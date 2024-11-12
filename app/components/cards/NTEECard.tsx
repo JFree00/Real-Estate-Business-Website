@@ -16,7 +16,7 @@ export function NteeCard({ data }: props) {
   data = data as stepsProps;
   return (
     <div>
-      <div className={"border-l border-l-pprimary-60 h-16 flex items-center"}>
+      <div className={"border-l border-l-pprimary-60 h-12 flex items-center"}>
         <p className={"font-medium text-base px-7"}>Step 0{data.step}</p>
       </div>
       <div
