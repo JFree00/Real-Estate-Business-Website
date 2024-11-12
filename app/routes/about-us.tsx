@@ -159,7 +159,9 @@ export default function AboutUs() {
             find and purchase your dream property with ease. Here's a
             step-by-step guide to how it all works.
           </SectionDescription>
-          <SectionContent className={"flex-col gap-y-8"}>
+          <SectionContent
+            className={"flex-col laptop:flex-row laptop:flex-wrap gap-y-8"}
+          >
             <NteeCard />
           </SectionContent>
         </SectionDesignation>
