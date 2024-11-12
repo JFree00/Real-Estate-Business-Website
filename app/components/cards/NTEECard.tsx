@@ -30,16 +30,22 @@ export function NteeCard({ data }: props) {
           backgroundClip: "padding-box, border-box",
         }}
       >
-        <Card className={" bg-transparent rounded-none border-0  p-7"}>
-          <CardHeader className={"justify-center"}>
-            <CardTitle className={"basis-1/3 font-semibold text-lg"}>
-              {data.name}
-            </CardTitle>
-            <CardDescription className={"text-base text-sgrey-60"}>
-              {data.description}
-            </CardDescription>
-          </CardHeader>
-        </Card>
+        <div
+          className={
+            "size-[99%]  bg-transparent bg-gradient-to-br from-pprimary-60/50 to-15%"
+          }
+        >
+          <Card className={" bg-transparent rounded-none border-0  p-7"}>
+            <CardHeader className={"justify-center"}>
+              <CardTitle className={"basis-1/3 font-semibold text-lg"}>
+                {data.name}
+              </CardTitle>
+              <CardDescription className={"text-base text-sgrey-60"}>
+                {data.description}
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
       </div>
     </div>
   );
