@@ -82,10 +82,10 @@ function Header({ data, className, children }: Props) {
 function SectionCards({ data, children, className }: Props) {
   data = data as sectionCardProps;
   return (
-    <div key={data.name} className={cn("dataCard", className)}>
+    <div key={data.name} className={"dataCard"}>
       <SectionData.Provider value={data}>
         {!children ? (
-          <Card className={"bg-sgrey-8 dataCardComponent"}>
+          <Card className={cn("bg-sgrey-8 dataCardComponent", className)}>
             <Header data={data} />
             <Content data={data} />
           </Card>
