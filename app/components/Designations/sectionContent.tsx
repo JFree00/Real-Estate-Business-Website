@@ -19,7 +19,7 @@ export function SectionContent({
   children,
   className,
   iterate = true,
-  amountToDisplay = 3,
+  amountToDisplay,
 }: Props) {
   const deferredData = useAsyncValue() as assumedData;
   const dataArray = deferredData ?? useContext(DataContext);
