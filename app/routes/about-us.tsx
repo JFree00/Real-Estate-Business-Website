@@ -178,7 +178,10 @@ export default function AboutUs() {
             the dedication and expertise of our team. Get to know the people
             behind our mission to make your real estate dreams a reality.
           </SectionDescription>
-          <SectionContent className={"flex-col"} amountToDisplay={4}>
+          <SectionContent
+            className={"flex-col laptop:flex-row"}
+            amountToDisplay={4}
+          >
             <TeamCard />
           </SectionContent>
         </SectionDesignation>

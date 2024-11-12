@@ -34,9 +34,11 @@ export function TeamCard({ data }: props) {
         </div>
       </div>
       <CardHeader
-        className={"text-center gap-y-1 pt-10 pb-5 text-lg font-semibold"}
+        className={
+          "text-center gap-y-1 laptop:gap-y-0 pt-10 laptop:pt-8 pb-5  text-lg font-semibold"
+        }
       >
-        <CardTitle>{data.name}</CardTitle>
+        <CardTitle className={"laptop:text-xl"}>{data.name}</CardTitle>
         <CardDescription className={" text-sgrey-60 font-medium"}>
           {data.role}
         </CardDescription>
@@ -44,7 +46,7 @@ export function TeamCard({ data }: props) {
       <CardContent className={"mt-0"}>
         <div
           className={
-            "h-16 rounded-full basis-full border border-sgrey-15 bg-sgrey-10 flex px-2"
+            "h-16 laptop:h-12 rounded-full basis-full border border-sgrey-15 bg-sgrey-10 flex px-2"
           }
         >
           <input
