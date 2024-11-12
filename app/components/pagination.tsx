@@ -44,7 +44,7 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
           onClick={() => paginate(false)}
           disabled={current === 1}
         >
-          <ArrowLeftIcon className={"size-7 "} />
+          <ArrowLeftIcon className={"size-6 "} />
         </Button>
         <p className={"text-sgrey-60 my-auto text-xl laptop:hidden"}>
           <span className={"text-white"}>
@@ -60,7 +60,7 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
           onClick={() => paginate(true)}
           disabled={current === max}
         >
-          <ArrowRightIcon className={"size-7"} />
+          <ArrowRightIcon className={"size-6"} />
         </Button>
       </div>
     </div>
