@@ -12,16 +12,8 @@ import { BuildingOfficeIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/components/ui/button";
 import BedIcon from "@/assets/icons/bedIcon.svg";
 import BathroomIcon from "@/assets/icons/bathroomIcon.svg";
+import { propertyProps } from "../../../KV/properties";
 
-export type propertyProps = {
-  bedrooms: number;
-  bathrooms: number;
-  propertyType: string;
-  price: string;
-  name: string;
-  description: string;
-  image: string;
-};
 type props = {
   data?: propertyProps;
 };
