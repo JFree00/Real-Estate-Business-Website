@@ -36,6 +36,7 @@ import { SectionCards } from "@/components/cards/sectionCards";
 import { faqCards } from "../../KV/faq";
 import { indexInfoCard } from "../../KV/info.ts";
 import InfoCards from "@/components/cards/infoCards";
+import { KVNamespaceGetWithMetadataResult } from "@cloudflare/workers-types";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: homeBuildings }];
@@ -52,8 +53,10 @@ export type template =
 function getInitialKeys(k: KVNamespace, template: Readonly<template[]>) {
   const keys = template.map((key) => {
     //alternatively limit the amount of keys to fetch, but right now the average keys size is 300 bytes and there aren't many
-    return k.get(key.name, "json");
-  }) as Promise<template>[];
+    return k.getWithMetadata(key.name, "json") as Promise<
+      KVNamespaceGetWithMetadataResult<never, propertyProps>
+    >;
+  });
   const initialKey = Promise.race(keys).catch(() => {
     return template[0];
   });

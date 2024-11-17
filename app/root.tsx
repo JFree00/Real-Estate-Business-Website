@@ -19,22 +19,40 @@ import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Footer } from "@/components/footer";
 import { defaultProperties } from "../KV/properties";
 import { defaultTestimonials } from "../KV/testimonials";
+import { Env } from "../context";
 
 export async function loader({ context }: LoaderFunctionArgs) {
   const env = context.env;
 
-  const checkProperties = await env.properties.get(defaultProperties[0].name);
-  const testimonials = await env.testimonials.get(defaultTestimonials[0].name);
-  if (testimonials === null) {
-    console.log("testimonials are null");
-    defaultTestimonials.map(async (data) => {
-      await env.testimonials.put(data.name, JSON.stringify(data));
+  const checkIfNamespacePopulated = async (
+    index: number,
+    namespace: keyof Env,
+    checkFor: Array<{ name: string }>,
+  ) => await env[namespace].get(checkFor[index].name);
+  if (
+    !(await checkIfNamespacePopulated(
+      0,
+      "testimonials",
+      defaultTestimonials,
+    )) ||
+    !(await checkIfNamespacePopulated(1, "testimonials", defaultTestimonials))
+  ) {
+    console.warn("testimonials not populated");
+    defaultTestimonials.map((data) => {
+      env.testimonials.put(data.name, "", {
+        metadata: JSON.stringify(data),
+      });
     });
   }
-  if (checkProperties === null) {
-    console.log("properties are null");
-    defaultProperties.map(async (data) => {
-      return await env.properties.put(data.name, JSON.stringify(data));
+  if (
+    !(await checkIfNamespacePopulated(0, "properties", defaultProperties)) ||
+    !(await checkIfNamespacePopulated(1, "properties", defaultProperties))
+  ) {
+    console.warn("properties not populated");
+    defaultProperties.forEach((data) => {
+      env.properties.put(data.name, "", {
+        metadata: JSON.stringify(data),
+      });
     });
   }
 
