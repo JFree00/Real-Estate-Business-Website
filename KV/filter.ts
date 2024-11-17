@@ -11,9 +11,9 @@ export type filterCategories =
   | "price"
   | "size";
 //parsed cursor KV value
-type cursorType = Array<Array<string | Array<string>>>;
+export type filteredData = Array<Array<string | Array<string>>>;
 
-type clientFilters = [string, string[]];
+//type clientFilters = [string, string[]];
 export type convertedFilter = Map<filterKey, string[]>;
 
 export class FilterClass {
@@ -24,25 +24,22 @@ export class FilterClass {
     price: "PR",
     size: "PS",
   } as const;
-  cursor = "filter_cursor";
+  static readonly cursor: string = "filter_cursor" as const;
 
   static abbreviate(filter: filterCategories, value: string): filterKey {
     return `${this.keys[filter]}-${value}`;
   }
-  static toCursor(data: cursorType): string {
+  static toCursor(data: filteredData): string {
     return JSON.stringify(data);
   }
-  static fromCursor(cursor: string): cursorType {
+  static fromCursor(cursor: string): filteredData {
     return JSON.parse(cursor);
   }
-  static toClient(filter: convertedFilter): clientFilters[] {
-    return Array.from(filter);
-  }
-  static filterArray(
+  static mapAllFilters(
     properties: propertyProps[],
     filter?: Array<filterCategories>,
-  ): convertedFilter {
-    const filterValues = new Map<filterKey, string[]>();
+  ): filteredData {
+    const filterValues = new Map() as convertedFilter;
     if (filter) {
       properties.forEach((property) => {
         filter.forEach((f) => {
@@ -68,6 +65,6 @@ export class FilterClass {
         });
       });
     }
-    return new Map([...filterValues.entries()].sort());
+    return Array.from(filterValues).sort();
   }
 }

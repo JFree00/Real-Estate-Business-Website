@@ -5,6 +5,7 @@ import { AppLoadContext } from "@remix-run/cloudflare";
 export interface Env {
   testimonials: KVNamespace;
   properties: KVNamespace;
+  metadata: KVNamespace;
 }
 declare module "@remix-run/cloudflare" {
   interface AppLoadContext {
