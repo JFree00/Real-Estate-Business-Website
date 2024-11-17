@@ -10,3 +10,7 @@ id = "d823f962715f45caa3ec9346179f5496"
 [[kv_namespaces]]
 binding = "properties"
 id = "9b8994c6b53d47c8bfb7b4abbb954d6e"
+[[kv_namespaces]]
+binding = "metadata"
+id = "44634d0828d141358c5984c158d50198"
+preview_id = "5783b807e42a40f6afe412da900a55ed"
