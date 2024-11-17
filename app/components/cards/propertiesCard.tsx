@@ -60,7 +60,7 @@ export function PropertiesCard({ data }: props) {
             </Badge>
             <Badge variant={"card"} className={" border-sgrey-15"}>
               <BuildingOfficeIcon className={"mr-1 size-5 2xl:size-6"} />
-              {data.propertyType}
+              {data.property_type}
             </Badge>
           </div>
 

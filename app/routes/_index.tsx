@@ -21,16 +21,13 @@ import { SectionDesignation } from "@/components/Designations/sectionDesignation
 import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
 import { SectionContent } from "@/components/Designations/sectionContent";
-import {
-  PropertiesCard,
-  propertyProps,
-} from "@/components/cards/propertiesCard";
+import { PropertiesCard } from "@/components/cards/propertiesCard";
 import {
   TestimonialCards,
   testimonialProps,
 } from "@/components/cards/testimonialCards";
 import { useLoaderData } from "@remix-run/react";
-import { defaultProperties } from "../../KV/properties";
+import { defaultProperties, propertyProps } from "../../KV/properties";
 import { defaultTestimonials } from "../../KV/testimonials";
 import { SectionCards } from "@/components/cards/sectionCards";
 import { faqCards } from "../../KV/faq";
