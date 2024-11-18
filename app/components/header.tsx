@@ -7,8 +7,9 @@ import wavesComponent from "@/assets/waves.svg";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import burgerIcon from "@/assets/icons/burger.svg";
 import { cn } from "@/lib/styles";
+import { Separator } from "@/components/ui/separator";
 const routes = ["Home", "About Us", "Properties", "Services"];
-const realRoutes = ["", "about-us", "#", "#"];
+const realRoutes = ["", "about-us", "properties", "#"];
 export function Header() {
   const currentRoute = useLocation();
   const [opened, toggle] = useState(true);
@@ -90,10 +91,9 @@ export function Header() {
           ></div>
         </div>
       )}
+      <Separator />
       <div
-        className={
-          "offset flex items-center justify-between border-b border-t border-sgrey-15"
-        }
+        className={"offset flex items-center justify-between"}
         style={{
           height: !opened ? "100%" : "60%",
         }}
@@ -117,6 +117,7 @@ export function Header() {
           </Button>
         </div>
       </div>
+      <Separator />
     </header>
   );
 }
