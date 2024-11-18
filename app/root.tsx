@@ -28,7 +28,8 @@ export async function loader({ context }: LoaderFunctionArgs) {
     index: number,
     namespace: keyof Env,
     checkFor: Array<{ name: string }>,
-  ) => await env[namespace].get(checkFor[index].name);
+  ) => await env[namespace].getWithMetadata(checkFor[index].name);
+
   if (
     !(await checkIfNamespacePopulated(
       0,
