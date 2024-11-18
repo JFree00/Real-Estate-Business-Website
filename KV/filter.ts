@@ -1,20 +1,15 @@
-//cursor name in KV
-import { propertyProps } from "./properties";
-//abbreviations stored in the KV to reduce the amount of data stored (ex. "build_year: 1997" -> "PT-1997")
-type filterTypes = "L" | "PT" | "PR" | "PS" | "BY";
-export type filterKey = `${filterTypes}-${string}`;
-//merge into propertyProps
-export type filterCategories =
-  | "property_type"
-  | "location"
-  | "build_year"
-  | "price"
-  | "size";
-//parsed cursor KV value
-export type filteredData = Array<[filterKey, string[]]>;
-
-//type clientFilters = [string, string[]];
-export type convertedFilter = Map<filterKey, string[]>;
+type filterTypes = "L" | "PT" | "PR" | "PS" | "BY"; //abbreviations stored in the KV to reduce the total length (ex. "build_year: 1997" -> "BY-1997")
+export type abbreviatedFilterKey = `${filterTypes}-${string}`;
+export type nonAbbreviatedFilterKey = `${filterCategories}-${string}`;
+export type filterCategories = //required props in propertyProps
+  "property_type" | "location" | "build_year" | "price" | "size";
+export type filteredData = Array<[abbreviatedFilterKey, string[]]>; //parsed cursor KV value
+export type convertedFilter = Map<abbreviatedFilterKey, string[]>; //type clientFilters = [string, string[]];
+type filterDataParams = {
+  [key in filterCategories]: string | number;
+} & {
+  name: string;
+};
 
 export class FilterClass {
   static readonly keys: { [key in filterCategories]: filterTypes } = {
@@ -26,10 +21,24 @@ export class FilterClass {
   } as const;
   static readonly cursor: string = "filter_cursor" as const;
 
-  static abbreviate(filter: filterCategories, value: string): filterKey {
-    return `${this.keys[filter]}-${value}`;
+  static abbreviate( //client -> server
+    nonAbbreviated: nonAbbreviatedFilterKey,
+  ): abbreviatedFilterKey;
+  static abbreviate(key: filterCategories, value: string): abbreviatedFilterKey; //server -> KV
+  static abbreviate(filter: string, value?: string): abbreviatedFilterKey {
+    if (!value) {
+      const split = filter.split("-");
+      return this.keys[split[0] as filterCategories].concat(
+        "-",
+        split[1],
+      ) as abbreviatedFilterKey;
+    }
+    return `${this.keys[filter as filterCategories]}-${value}`;
   }
-  static undoAbbreviate(abbreviated: filterKey): [filterCategories, string[]] {
+
+  static expandAbbreviate(
+    abbreviated: abbreviatedFilterKey,
+  ): [filterCategories, string[]] {
     const [key, value] = abbreviated.split("-");
     return [
       Object.keys(this.keys).find(
@@ -45,8 +54,8 @@ export class FilterClass {
     return JSON.parse(cursor);
   }
   static mapAllFilters(
-    properties: propertyProps[],
-    filter?: Array<filterCategories>,
+    properties: filterDataParams[],
+    filter?: filterCategories[],
   ): filteredData {
     const filterValues = new Map() as convertedFilter;
     if (filter) {
@@ -63,7 +72,7 @@ export class FilterClass {
       });
     } else {
       properties.forEach((property) => {
-        Object.entries(FilterClass.keys).forEach(([key, value]) => {
+        Object.entries(this.keys).forEach(([key, value]) => {
           const currentFilter = filterValues.get(
             `${value}-${property[key as filterCategories].toString()}`,
           );
@@ -76,9 +85,10 @@ export class FilterClass {
     }
     return Array.from(filterValues).sort();
   }
-  static filterData(cursor: filteredData, filters: Array<filterKey> | null) {
-    //console.log(cursor);
-    if (!filters) return cursor;
+  static filteredResult(
+    cursor: filteredData,
+    filters: Array<abbreviatedFilterKey>,
+  ) {
     const dataIndexes = new Array<string | null>();
     filters.map((f) => {
       const descendantIndexes = new Array<string>();
@@ -97,14 +107,14 @@ export class FilterClass {
         });
       } else dataIndexes.push(...descendantIndexes);
     });
-    return dataIndexes.filter((data) => data);
+    return dataIndexes.filter((data) => data) as string[];
   }
   static toFiltersMapped(
     cursor: filteredData,
   ): Array<[filterCategories, string[]]> {
     const filtersArray = new Map<filterCategories, string[]>();
     cursor.forEach(([filterName]) => {
-      const convertAbbreviation = this.undoAbbreviate(filterName);
+      const convertAbbreviation = this.expandAbbreviate(filterName);
       if (!filtersArray.has(convertAbbreviation[0])) {
         filtersArray.set(convertAbbreviation[0], convertAbbreviation[1]);
       } else {
