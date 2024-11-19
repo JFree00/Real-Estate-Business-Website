@@ -66,31 +66,27 @@ export class Filter {
     filter?: filterCategories[],
   ): filteredData {
     const filterValues: convertedFilter = new Map();
-    if (filter) {
-      data.forEach((property) => {
+    const addFilterValue = (key: abbreviatedFilterKey, name: string) => {
+      const currentFilter = filterValues.get(key) || [];
+      filterValues.set(key, [...currentFilter, name]);
+    };
+    data.forEach((property) => {
+      if (filter) {
         filter.forEach((f) => {
-          const currentFilter = filterValues.get(
-            Filter.abbreviate(f, property[f].toString()),
-          );
-          filterValues.set(Filter.abbreviate(f, property[f].toString()), [
-            ...(currentFilter ? currentFilter : []),
+          addFilterValue(
+            this.abbreviate(f, property[f].toString()),
             property.name,
-          ]);
+          );
         });
-      });
-    } else {
-      data.forEach((property) => {
+      } else {
         Object.entries(this.keys).forEach(([key, value]) => {
-          const currentFilter = filterValues.get(
-            `${value}-${property[key as filterCategories].toString()}`,
-          );
-          filterValues.set(
-            `${value}-${property[key as filterCategories].toString()}`,
-            [...(currentFilter ? currentFilter : []), property.name],
+          addFilterValue(
+            `${value}-${property[key as filterCategories]}`,
+            property.name,
           );
         });
-      });
-    }
+      }
+    });
     return Array.from(filterValues).sort();
   }
   /** Return an array of KV names whose data fits every filter*/
@@ -124,15 +120,12 @@ export class Filter {
   ): Array<[filterCategories, string[]]> {
     const filtersArray = new Map<filterCategories, string[]>();
     cursor.forEach(([filterName]) => {
-      const convertAbbreviation = this.expandAbbreviate(filterName);
-      if (!filtersArray.has(convertAbbreviation[0])) {
-        filtersArray.set(convertAbbreviation[0], convertAbbreviation[1]);
-      } else {
-        filtersArray.set(convertAbbreviation[0], [
-          ...filtersArray.get(convertAbbreviation[0])!,
-          ...convertAbbreviation[1],
-        ]);
-      }
+      const [filterCategory, subcategories] = this.expandAbbreviate(filterName);
+      const existingSubcategories = filtersArray.get(filterCategory) || [];
+      filtersArray.set(filterCategory, [
+        ...existingSubcategories,
+        ...subcategories,
+      ]);
     });
     return Array.from(filtersArray);
   }
