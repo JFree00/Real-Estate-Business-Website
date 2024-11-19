@@ -8,15 +8,48 @@ import { Button } from "@/components/ui/button";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Separator } from "@/components/ui/separator";
 import { FilterInput } from "@/components/filterInput";
+import { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { useFetcher, useLoaderData } from "@remix-run/react";
+import { defaultProperties } from "../../KV/properties";
+import { Filter, nonAbbreviatedFilterKey } from "../../KV/filter";
 
-const filterKeys = [
-  "Location",
-  "Property Type",
-  "Price Range",
-  "Property Size",
-  "Build Year",
-];
+export const loader = async ({ context, request }: LoaderFunctionArgs) => {
+  const { properties, metadata } = context.env;
 
+  const getCursor = async (cursorName = Filter.cursor) => {
+    const existing = await metadata.get(cursorName).catch((error) => {
+      throw new Response(error);
+    });
+    if (!existing) {
+      console.warn("No cursor found, creating new cursor");
+      const newcursor = Filter.withAnyFilter(defaultProperties);
+      metadata.put(cursorName, JSON.stringify(newcursor)).catch((error) => {
+        throw new Response(error);
+      });
+      return newcursor;
+    }
+    return Filter.fromCursor(existing);
+  };
+  const cursor = await getCursor();
+  const filterParam = new URL(request.url).searchParams
+    .getAll("filter")
+    .map((filter) => Filter.abbreviate(filter as nonAbbreviatedFilterKey));
+
+  const data = async () => {
+    if (filterParam.length !== 0) {
+      return await Promise.all(
+        Filter.withEveryFilter(cursor, filterParam).map(async (f) => {
+          return properties.getWithMetadata(f);
+        }),
+      );
+    }
+    return [];
+  };
+  return {
+    filters: Filter.onlyFilterNames(cursor),
+    data: await data(),
+  };
+};
 export default function Properties() {
   return (
     <div>
