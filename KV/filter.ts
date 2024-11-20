@@ -5,13 +5,14 @@
 //using this class, no list() calls are needed, and are both replaced with get() calls
 
 //TODO implement multiple filter cursors
-type filterTypes = "L" | "PT" | "PR" | "PS" | "BY"; //abbreviations stored in the cursor to reduce the total length (ex. "build_year: 1997" -> "BY-1997")
+type filterTypes = "L" | "PT" | "PR" | "S" | "BY"; //abbreviations stored in the cursor to reduce the total length (ex. "build_year: 1997" -> "BY-1997")
 export type filterCategories = //required props in propertyProps
   "property_type" | "location" | "build_year" | "price" | "size";
 export type abbreviatedFilterKey = `${filterTypes}-${string}`;
 export type nonAbbreviatedFilterKey = `${filterCategories}-${string}`;
 export type filteredData = Array<[abbreviatedFilterKey, string[]]>; //parsed cursor KV value
 export type convertedFilter = Map<abbreviatedFilterKey, string[]>;
+export type rawFilterCursor = Array<[filterCategories, string[]]>;
 type filterDataParams = {
   [key in filterCategories]: string | number;
 } & {
@@ -24,7 +25,7 @@ export class Filter {
     location: "L",
     build_year: "BY",
     price: "PR",
-    size: "PS",
+    size: "S",
   } as const;
   static readonly cursor: string = "filter_cursor" as const;
 
@@ -115,9 +116,7 @@ export class Filter {
     return dataIndexes.filter((data) => data) as string[];
   }
   /** Return an array of filter categories and their subcategories for popover*/
-  static onlyFilterNames(
-    cursor: filteredData,
-  ): Array<[filterCategories, string[]]> {
+  static onlyFilterNames(cursor: filteredData): rawFilterCursor {
     const filtersArray = new Map<filterCategories, string[]>();
     cursor.forEach(([filterName]) => {
       const [filterCategory, subcategories] = this.expandAbbreviate(filterName);
