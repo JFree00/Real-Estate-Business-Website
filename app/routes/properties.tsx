@@ -1,27 +1,19 @@
 // @flow
 import * as React from "react";
-import { SectionDesignation } from "@/components/Designations/sectionDesignation";
-import { SectionHeader } from "@/components/Designations/sectionHeader";
-import { SectionDescription } from "@/components/Designations/sectionDescription";
-import { SectionContent } from "@/components/Designations/sectionContent";
-import { Button } from "@/components/ui/button";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Separator } from "@/components/ui/separator";
-import { FilterInput } from "@/components/filterInput";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { Filter } from "../../KV/filter";
 import { defaultProperties } from "../../KV/properties";
-import { Filter, nonAbbreviatedFilterKey } from "../../KV/filter";
 
-export const loader = async ({ context, request }: LoaderFunctionArgs) => {
-  const { properties, metadata } = context.env;
+export const loader = async ({ context }: LoaderFunctionArgs) => {
+  const { metadata } = context.env;
 
   const getCursor = async (cursorName = Filter.cursor) => {
     const existing = await metadata.get(cursorName).catch((error) => {
       throw new Response(error);
     });
-    if (!existing) {
-      console.warn("No cursor found, creating new cursor");
+    if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
+      console.warn("Cursor is either stale or invalid, creating new cursor");
       const newcursor = Filter.withAnyFilter(defaultProperties);
       metadata.put(cursorName, JSON.stringify(newcursor)).catch((error) => {
         throw new Response(error);
@@ -31,85 +23,9 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
     return Filter.fromCursor(existing);
   };
   const cursor = await getCursor();
-  const filterParam = new URL(request.url).searchParams
-    .getAll("filter")
-    .map((filter) => Filter.abbreviate(filter as nonAbbreviatedFilterKey));
-
-  const data = async () => {
-    if (filterParam.length !== 0) {
-      return await Promise.all(
-        Filter.withEveryFilter(cursor, filterParam).map(async (f) => {
-          return properties.getWithMetadata(f);
-        }),
-      );
-    }
-    return [];
-  };
-  return {
-    filters: Filter.onlyFilterNames(cursor),
-    data: await data(),
-  };
+  return { filters: Filter.onlyFilterNames(cursor) };
 };
 export default function Properties() {
-  return (
-    <div>
-      <div className={" grid grid-cols-12 relative "}>
-        <div
-          className={
-            "bg-gradient-to-r from-sgrey-15 to-30% to-sgrey-15/0 col-span-full "
-          }
-        >
-          <SectionDesignation pagination={false}>
-            <SectionHeader>Find Your Dream Property</SectionHeader>
-            <SectionDescription className={"mb-14"}>
-              Welcome to Estatein, where your dream property awaits in every
-              corner of our beautiful world. Explore our curated selection of
-              properties, each offering a unique story and a chance to redefine
-              your life. With categories to suit every dreamer, your journey{" "}
-            </SectionDescription>
-          </SectionDesignation>
-          <Separator className={"h-px"} />
-        </div>
-        <SectionDesignation pagination={false} className={"col-span-full"}>
-          <SectionHeader> </SectionHeader>
-          <SectionDescription> </SectionDescription>
-          <SectionContent className={"  bottom-0 overflow-visible shrink-0"}>
-            <div className={"basis-full flex w-full flex-wrap"}>
-              <div
-                className={
-                  "basis-full w-full flex size-16 outline-sgrey-10 outline rounded-xl p-2 border border-sgrey-15"
-                }
-              >
-                <input
-                  className={
-                    "focus:outline-0 bg-transparent  rounded-xl basis-full ml-2"
-                  }
-                  placeholder={"Search For A Property"}
-                />
-                <Button
-                  size={"icon"}
-                  variant={"primary"}
-                  className={"basis-2/12 h-full"}
-                >
-                  <MagnifyingGlassIcon className={"size-2/4"} />
-                </Button>
-              </div>
-              <div
-                className={
-                  "basis-full flex flex-col gap-5 w-full  rounded-xl bg-sgrey-10 mt-5 p-5"
-                }
-              >
-                {filterKeys.map((key) => (
-                  <FilterInput
-                    placeholder={key}
-                    data={["sd", "ds", "dsd"]}
-                  ></FilterInput>
-                ))}
-              </div>
-            </div>
-          </SectionContent>
-        </SectionDesignation>
-      </div>
-    </div>
-  );
+  const { filters } = useLoaderData<typeof loader>();
+  return <Outlet context={filters} />;
 }
