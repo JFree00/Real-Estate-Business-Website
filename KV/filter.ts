@@ -128,4 +128,10 @@ export class Filter {
     });
     return Array.from(filtersArray);
   }
+  /** Check if all keys exist */
+  static validate(cursor: filteredData): boolean {
+    return cursor.every(([key]) => {
+      return Object.keys(this.keys).includes(this.expandAbbreviate(key)[0]);
+    });
+  }
 }
