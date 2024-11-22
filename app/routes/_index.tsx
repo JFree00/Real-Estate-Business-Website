@@ -22,61 +22,41 @@ import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
 import { SectionContent } from "@/components/Designations/sectionContent";
 import { PropertiesCard } from "@/components/cards/propertiesCard";
-import {
-  TestimonialCards,
-  testimonialProps,
-} from "@/components/cards/testimonialCards";
+import { TestimonialCards } from "@/components/cards/testimonialCards";
 import { useLoaderData } from "@remix-run/react";
-import { defaultProperties, propertyProps } from "../../KV/properties";
+import { defaultProperties } from "../../KV/properties";
 import { defaultTestimonials } from "../../KV/testimonials";
 import { SectionCards } from "@/components/cards/sectionCards";
 import { faqCards } from "../../KV/faq";
 import { indexInfoCard } from "../../KV/info.ts";
 import InfoCards from "@/components/cards/infoCards";
-import { KVNamespaceGetWithMetadataResult } from "@cloudflare/workers-types";
+import { namedUnknown } from "../../KV/filter";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: homeBuildings }];
 };
 
-export type template =
-  | testimonialProps
-  | propertyProps
-  | {
-      name: string;
-      [key: string]: unknown;
-    };
-
-function getInitialKeys(k: KVNamespace, template: Readonly<template[]>) {
-  const keys = template.map((key) => {
-    //alternatively limit the amount of keys to fetch, but right now the average keys size is 300 bytes and there aren't many
-    return k.getWithMetadata(key.name, "json") as Promise<
-      KVNamespaceGetWithMetadataResult<never, propertyProps>
-    >;
-  });
-  const initialKey = Promise.race(keys).catch(() => {
-    return template[0];
+async function getInitialKeys(
+  k: KVNamespace,
+  template: namedUnknown[],
+  limit = 10,
+) {
+  const keys = template.map(async (key, index) => {
+    if (index > limit) return;
+    return k
+      .getWithMetadata(key.name)
+      .then((data) => JSON.parse(data.metadata as string));
   });
   const keysPromiseAll = Promise.all(keys);
-
-  return { initialKey, keys: keysPromiseAll, length: keys.length };
+  return { keys: keysPromiseAll, length: keys.length };
 }
 export async function loader({ context }: LoaderFunctionArgs) {
   const env = context.env;
-  const propertiesPromises = getInitialKeys(env.properties, defaultProperties);
-  const testimonialsPromises = getInitialKeys(
+  const properties = await getInitialKeys(env.properties, defaultProperties);
+  const testimonials = await getInitialKeys(
     env.testimonials,
     defaultTestimonials,
   );
-  const testimonials = {
-    ...testimonialsPromises,
-    initialKey: await testimonialsPromises.initialKey,
-  };
-  const properties = {
-    ...propertiesPromises,
-    initialKey: await propertiesPromises.initialKey,
-  };
-
   return {
     properties,
     testimonials,

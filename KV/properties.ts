@@ -1,14 +1,11 @@
-import villa from "../app/assets/villa.webp";
-import metropolitan from "../app/assets/MetropolitanHaven.webp";
-import rusticCottage from "../app/assets/RusticCottage.webp";
-import { filterCategories } from "./filter";
+import villa from "@/assets/villa.webp";
+import metropolitan from "@/assets/MetropolitanHaven.webp";
+import rusticCottage from "@/assets/RusticCottage.webp";
+import { filterDataParams } from "./filter";
 
-export type propertyProps = {
-  [key in filterCategories]: string | number;
-} & {
+export type propertyProps = filterDataParams & {
   bedrooms: number;
   bathrooms: number;
-  name: string;
   description: string;
   image: string;
 };
