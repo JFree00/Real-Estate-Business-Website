@@ -3,15 +3,8 @@ import * as React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Ratings } from "@/components/ratings";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { testimonialProps } from "../../../KV/testimonials";
 
-export type testimonialProps = {
-  name: string;
-  location: string;
-  title: string;
-  testimonial: string;
-  image?: string;
-  rating: number;
-};
 type props = {
   data?: testimonialProps;
 };

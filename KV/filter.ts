@@ -13,10 +13,12 @@ export type nonAbbreviatedFilterKey = `${filterCategories}-${string}`;
 export type filteredData = Array<[abbreviatedFilterKey, string[]]>; //parsed cursor KV value
 export type convertedFilter = Map<abbreviatedFilterKey, string[]>;
 export type rawFilterCursor = Array<[filterCategories, string[]]>;
-type filterDataParams = {
+export type filterDataParams = {
   [key in filterCategories]: string | number;
-} & {
+} & namedUnknown;
+export type namedUnknown = {
   name: string;
+  [key: string]: unknown;
 };
 
 export class Filter {

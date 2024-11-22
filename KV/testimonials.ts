@@ -1,8 +1,15 @@
-import { testimonialProps } from "@/components/cards/testimonialCards";
 import wadeWarren from "@/assets/wadeWarren.webp";
 import emelieThomson from "@/assets/emelieThomson.webp";
 import johnMans from "@/assets/johnMans.webp";
+import { namedUnknown } from "./filter";
 
+export type testimonialProps = namedUnknown & {
+  location: string;
+  title: string;
+  testimonial: string;
+  image?: string;
+  rating: number;
+};
 export const defaultTestimonials: testimonialProps[] = [
   {
     name: "Wade Warren",
