@@ -5,13 +5,17 @@ import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
 import { SectionContent } from "@/components/Designations/sectionContent";
 import { Button } from "@/components/ui/button";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowDownIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import { Separator } from "@/components/ui/separator";
 import { FilterInput } from "@/components/filterInput";
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { useOutletContext } from "@remix-run/react";
-import { defaultProperties } from "../../KV/properties";
+import { useLoaderData, useOutletContext } from "@remix-run/react";
+import { defaultProperties, propertyProps } from "../../KV/properties";
 import { abbreviatedFilterKey, Filter, rawFilterCursor } from "../../KV/filter";
+import { PropertiesCard } from "@/components/cards/propertiesCard";
 
 export const loader = async ({ context, request }: LoaderFunctionArgs) => {
   const { properties, metadata } = context.env;
@@ -47,11 +51,12 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
     return [];
   };
   return {
-    data: await data(),
+    properties: await data(),
   };
 };
 export default function PropertiesIndex() {
   const filters = useOutletContext<rawFilterCursor>();
+  const { properties } = useLoaderData<typeof loader>();
   return (
     <div>
       <div className={" grid grid-cols-12 relative "}>
@@ -111,6 +116,22 @@ export default function PropertiesIndex() {
             </div>
           </SectionContent>
         </SectionDesignation>
+        {properties && properties.length ? (
+          <SectionDesignation pagination={true} data={properties}>
+            <ArrowDownIcon
+              className={"animate-bounce size-14 -mt-10 mb-10 mx-auto"}
+            />
+            <SectionHeader>Discover a World of Possibilities</SectionHeader>
+            <SectionDescription>
+              Our portfolio of properties is as diverse as your dreams. Explore
+              the following categories to find the perfect property that
+              resonates with your vision of home
+            </SectionDescription>
+            <SectionContent>
+              <PropertiesCard />
+            </SectionContent>
+          </SectionDesignation>
+        ) : null}
       </div>
     </div>
   );
