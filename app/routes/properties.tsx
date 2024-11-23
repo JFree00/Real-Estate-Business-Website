@@ -9,15 +9,11 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
   const { metadata } = context.env;
 
   const getCursor = async (cursorName = Filter.cursor) => {
-    const existing = await metadata.get(cursorName).catch((error) => {
-      throw new Response(error);
-    });
+    const existing = await metadata.get(cursorName);
     if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
       console.warn("Cursor is either stale or invalid, creating new cursor");
-      const newcursor = Filter.withAnyFilter(defaultProperties);
-      metadata.put(cursorName, JSON.stringify(newcursor)).catch((error) => {
-        throw new Response(error);
-      });
+      const newcursor = Filter.toCursor(defaultProperties);
+      metadata.put(cursorName, JSON.stringify(newcursor));
       return newcursor;
     }
     return Filter.fromCursor(existing);
