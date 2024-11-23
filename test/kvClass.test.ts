@@ -1,16 +1,16 @@
 import { test } from "vitest";
-import { FilterClass } from "../KV/filter";
+import { Filter } from "../KV/filter";
 import { defaultProperties } from "../KV/properties";
-//add to Filter class
 
 describe("filter", () => {
-  const array = FilterClass.mapAllFilters(defaultProperties);
+  const array = Filter.toCursor(defaultProperties);
+  const cursor = JSON.stringify(array);
   test("simulate getFilteredArray", () => {
     console.log(array);
   });
-  test("Convert from to Cursor", () => {
-    const cursor = FilterClass.toCursor(array);
-    const fromCursor = FilterClass.fromCursor(cursor);
-    console.log(cursor);
+  test("anyWithFilter", () => {
+    const newCursor = JSON.parse(cursor);
+    const result = Filter.anyWithFilter(newCursor, ["BY-2018", "BY-2015"]);
+    expect(result).not.toHaveLength(0);
   });
 });
