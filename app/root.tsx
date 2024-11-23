@@ -15,48 +15,10 @@ import {
   ThemeSwitcherScript,
 } from "@/components/theme-switcher";
 import "./tailwind.css";
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Footer } from "@/components/footer";
-import { defaultProperties } from "../KV/properties";
-import { defaultTestimonials } from "../KV/testimonials";
-import { Env } from "../context";
+import { Toaster } from "@/components/ui/toaster";
 
-export async function loader({ context }: LoaderFunctionArgs) {
-  const env = context.env;
-
-  const checkIfNamespacePopulated = async (
-    index: number,
-    namespace: keyof Env,
-    checkFor: Array<{ name: string }>,
-  ) => await env[namespace].getWithMetadata(checkFor[index].name);
-
-  if (
-    !(await checkIfNamespacePopulated(
-      0,
-      "testimonials",
-      defaultTestimonials,
-    )) ||
-    !(await checkIfNamespacePopulated(1, "testimonials", defaultTestimonials))
-  ) {
-    console.warn("testimonials not populated");
-    defaultTestimonials.map((data) => {
-      env.testimonials.put(data.name, "", {
-        metadata: JSON.stringify(data),
-      });
-    });
-  }
-  if (
-    !(await checkIfNamespacePopulated(0, "properties", defaultProperties)) ||
-    !(await checkIfNamespacePopulated(1, "properties", defaultProperties))
-  ) {
-    console.warn("properties not populated");
-    defaultProperties.forEach((data) => {
-      env.properties.put(data.name, "", {
-        metadata: JSON.stringify(data),
-      });
-    });
-  }
-
+export async function loader() {
   return null;
 }
 
@@ -75,6 +37,7 @@ function App({ children }: { children: React.ReactNode }) {
         <GlobalPendingIndicator />
         <Header />
         {children}
+        <Toaster />
         <Footer />
         <ScrollRestoration />
         <Scripts />
