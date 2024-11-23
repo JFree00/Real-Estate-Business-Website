@@ -69,7 +69,7 @@ const childrenToDisplay = (
 
       {Array.from({ length: fillerCards }).map((_, i) => {
         return (
-          <div className={"invisible dataCard"}>
+          <div className={"invisible dataCard"} key={i}>
             {React.cloneElement(children, {
               key: `filler-${i}`,
               data: data[0],

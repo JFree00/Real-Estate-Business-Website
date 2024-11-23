@@ -22,12 +22,14 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
   };
   return (
     <div className={"w-full flex mt-5 justify-between "}>
-      <Button
-        variant={"outline"}
-        className={" bg-sgrey-10 font-medium laptop:hidden basis-1/3 h-12"}
-      >
-        {buttonText || "View All"}
-      </Button>
+      {buttonText && (
+        <Button
+          variant={"outline"}
+          className={" bg-sgrey-10 font-medium laptop:hidden basis-1/3 h-12"}
+        >
+          {buttonText || "View All"}
+        </Button>
+      )}
       <p className={"text-sgrey-60 basis-3/12 text-xl hidden laptop:flex"}>
         <span className={"text-white"}>
           0{current}
