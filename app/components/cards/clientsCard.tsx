@@ -18,7 +18,7 @@ export function ClientsCard({ data }: Props) {
         }
       >
         <CardHeader className={"flex flex-col relative"}>
-          <text className={"text-sgrey-60"}>Since {data?.startYear}</text>
+          <p className={"text-sgrey-60"}>Since {data?.startYear}</p>
           <p className={"text-xl font-semibold pb-4"}>{data?.name}</p>
           <Button
             className={" bg-sgrey-10 h-14 laptop:absolute laptop:right-0"}

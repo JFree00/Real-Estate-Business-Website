@@ -24,7 +24,7 @@ function InfoCardArea({ children, cardData = [] }: InfoCardAreaProps) {
     >
       <div
         className={
-          "tablet:mx-2 laptop:py-2 grid grid-cols-2 grid-rows-2 tablet:grid-rows-1 tablet:grid-cols-4 justify-center h-full gap-2.5 laptop:gap-5"
+          "tablet:mx-2 laptop:py-2 grid grid-cols-2 grid-rows-2 tablet:grid-rows-1 tablet:grid-cols-4 justify-center h-[270px] tablet:h-full gap-2.5 laptop:gap-5"
         }
       >
         {cards}
@@ -38,7 +38,7 @@ function InfoCards(props: infoCardProps) {
   return (
     <div
       className={
-        "row-span-1 my-1 tablet:shrink h-full tablet:h-full bg-sgrey-10 border-sgrey-15 border px-2 tablet:py-1 rounded-xl relative"
+        "row-span-1 my-1 tablet:shrink h-full tablet:h-full bg-sgrey-10 border-sgrey-15 border px-2 tablet:py-4 rounded-xl relative"
       }
     >
       <Button
@@ -48,7 +48,11 @@ function InfoCards(props: infoCardProps) {
       >
         <ArrowUpRightIcon />
       </Button>
-      <div className={"flex flex-nowrap justify-center items-center h-3/5"}>
+      <div
+        className={
+          "laptop:mb-4 flex flex-nowrap justify-center items-center h-3/5"
+        }
+      >
         <div className={"size-12 laptop:size-20"}>
           <div
             className={
