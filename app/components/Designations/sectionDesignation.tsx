@@ -39,13 +39,13 @@ export function SectionDesignation({
 
   return (
     <div
-      className={cn("offset relative pt-20", className)}
+      className={cn("offset relative mt-20", className)}
       style={{
         gridRow: `span ${rows} / span ${rows}`,
         gridColumn: ` 1 / span ${columns}`,
       }}
     >
-      {buttonText ? (
+      {buttonText && (
         <Button
           variant={"outline"}
           className={
@@ -54,7 +54,7 @@ export function SectionDesignation({
         >
           {buttonText}
         </Button>
-      ) : null}
+      )}
       {pagination ? (
         <PaginationContext.Provider
           value={{
