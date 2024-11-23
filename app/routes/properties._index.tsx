@@ -17,15 +17,11 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
   const { properties, metadata } = context.env;
 
   const getCursor = async (cursorName = Filter.cursor) => {
-    const existing = await metadata.get(cursorName).catch((error) => {
-      throw new Response(error);
-    });
+    const existing = await metadata.get(cursorName);
     if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
       console.warn("Cursor is either stale or invalid, creating new cursor");
-      const newcursor = Filter.withAnyFilter(defaultProperties);
-      metadata.put(cursorName, JSON.stringify(newcursor)).catch((error) => {
-        throw new Response(error);
-      });
+      const newcursor = Filter.toCursor(defaultProperties);
+      metadata.put(cursorName, JSON.stringify(newcursor));
       return newcursor;
     }
     return Filter.fromCursor(existing);
@@ -39,8 +35,12 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
   const data = async () => {
     if (filterParam.length !== 0) {
       return await Promise.all(
-        Filter.withEveryFilter(cursor, filterParam).map(async (f) => {
-          return properties.getWithMetadata(f);
+        Filter.anyWithFilter(cursor, filterParam).map(async (f) => {
+          return properties
+            .getWithMetadata(f)
+            .then(
+              (data) => JSON.parse(data.metadata as string) as propertyProps,
+            );
         }),
       );
     }

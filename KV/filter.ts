@@ -60,11 +60,8 @@ export class Filter {
   static fromCursor(cursor: string): filteredData {
     return JSON.parse(cursor);
   }
-  /** Assign all data values to their respective filter keys {@link filterCategories}
-   * @param data Any data extending {@link filterDataParams}
-   * @param filter Only return specified filters
-   */
-  static withAnyFilter(
+
+  static toCursor(
     data: filterDataParams[],
     filter?: filterCategories[],
   ): filteredData {
@@ -92,13 +89,30 @@ export class Filter {
     });
     return Array.from(filterValues).sort();
   }
+  /** Returns all data matching the filter */
+  static anyWithFilter(
+    cursor: filteredData,
+    filter: Array<abbreviatedFilterKey>,
+  ): string[] {
+    const filterValues = new Set<string>();
+    filter.forEach((key) => {
+      cursor
+        .filter(([k]) => k === key)
+        .forEach(([, value]) => {
+          value.forEach((v) => {
+            filterValues.add(v);
+          });
+        });
+    });
+    return Array.from(filterValues).sort();
+  }
   /** Return an array of KV names whose data fits every filter*/
   static withEveryFilter(
     cursor: filteredData,
     filters: Array<abbreviatedFilterKey>,
   ) {
     const dataIndexes = new Array<string | null>();
-    filters.map((f) => {
+    filters.forEach((f) => {
       const descendantIndexes = new Array<string>();
       cursor.forEach(([key, value]) => {
         if (key === f) {
