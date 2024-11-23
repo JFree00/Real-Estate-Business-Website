@@ -3,7 +3,7 @@ import * as React from "react";
 import { Separator } from "@/components/ui/separator";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import { Button } from "@/components/ui/button";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import {
   Popover,
   PopoverContent,
@@ -17,8 +17,15 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useFetcher } from "@remix-run/react";
+import { Form, useSearchParams } from "@remix-run/react";
 import { Filter, filterCategories } from "../../KV/filter";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { ExistingSearchParams } from "remix-utils/existing-search-params";
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: React.ReactNode;
@@ -27,23 +34,22 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export function FilterInput({ icon, filterName, children, data }: Props) {
-  const fetcher = useFetcher({ key: "filter" });
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const dataItems = data?.map((item) => {
     const abbreviated = Filter.abbreviate(filterName as filterCategories, item);
     return (
       <CommandItem
+        className={"justify-between"}
         onSelect={() => {
-          fetcher.submit(
-            {
-              filter: abbreviated,
-            },
-            { method: "get" },
-          );
+          setSearchParams((prev) => {
+            prev.append("filter", abbreviated);
+            return prev;
+          });
         }}
         key={item}
       >
         {item}
+        {searchParams.getAll("filter").includes(abbreviated) && <CheckIcon />}
       </CommandItem>
     );
   });
@@ -58,7 +64,6 @@ export function FilterInput({ icon, filterName, children, data }: Props) {
       <div className={"size-6 mx-4 text-sgrey-60 flex"}>
         {icon ?? <MapPinIcon />}
       </div>
-
       <Separator orientation={"vertical"} className={"w-px h-2/3"} />
       <input
         className={
@@ -66,27 +71,58 @@ export function FilterInput({ icon, filterName, children, data }: Props) {
         }
         placeholder={placeholder}
       />
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            size={"icon"}
-            className={
-              "rounded-full bg-sgrey-10 w-7  h-7 shrink-0 grow-0 mr-3 flex items-center border-0"
-            }
-          >
-            <ChevronDownIcon className={"size-3/4"} />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <Command>
-            <CommandInput placeholder={"Location"} />
-            <CommandList>
-              <CommandEmpty>No Location Found</CommandEmpty>
-              <CommandGroup>{children ?? dataItems}</CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
+      <Form method={"get"}>
+        <ExistingSearchParams exclude={["page"]} />
+        <div className={"hidden tablet:block"}>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                size={"icon"}
+                className={
+                  "rounded-full bg-sgrey-10 w-7  h-7 shrink-0 grow-0 mr-3 flex items-center border-0"
+                }
+              >
+                <ChevronDownIcon className={"size-3/4"} />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Command>
+                <CommandInput placeholder={"Location"} />
+                <CommandList>
+                  <CommandEmpty>No Location Found</CommandEmpty>
+                  <CommandGroup>{children ?? dataItems}</CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
+        <div className={"tablet:hidden"}>
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button
+                size={"icon"}
+                className={
+                  "rounded-full bg-sgrey-10 w-7  h-7 shrink-0 grow-0 mr-3 flex items-center border-0"
+                }
+              >
+                <ChevronDownIcon className={"size-3/4"} />
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader className={"text-xl"}>
+                Filter by {placeholder}
+              </DrawerHeader>
+              <Command>
+                <CommandInput placeholder={"Location"} />
+                <CommandList>
+                  <CommandEmpty>No Location Found</CommandEmpty>
+                  <CommandGroup>{children ?? dataItems}</CommandGroup>
+                </CommandList>
+              </Command>
+            </DrawerContent>
+          </Drawer>
+        </div>
+      </Form>
     </div>
   );
 }
