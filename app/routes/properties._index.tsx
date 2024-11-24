@@ -14,8 +14,28 @@ import { FilterInput } from "@/components/filterInput";
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData, useOutletContext } from "@remix-run/react";
 import { defaultProperties, propertyProps } from "../../KV/properties";
-import { abbreviatedFilterKey, Filter, rawFilterCursor } from "../../KV/filter";
+import {
+  abbreviatedFilterKey,
+  Filter,
+  filterCategories,
+  rawFilterCursor,
+} from "../../KV/filter";
 import { PropertiesCard } from "@/components/cards/propertiesCard";
+import {
+  BanknotesIcon,
+  CalendarIcon,
+  CubeIcon,
+  HomeModernIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/solid";
+
+const filterIcons: { [k in filterCategories]: React.ReactNode } = {
+  property_type: <HomeModernIcon />,
+  location: <MapPinIcon />,
+  build_year: <CalendarIcon />,
+  price: <BanknotesIcon />,
+  size: <CubeIcon />,
+};
 
 export const loader = async ({ context, request }: LoaderFunctionArgs) => {
   const { properties, metadata } = context.env;
@@ -109,6 +129,7 @@ export default function PropertiesIndex() {
                       key={filterName}
                       filterName={filterName}
                       data={filterValue}
+                      icon={filterIcons[filterName as filterCategories]}
                     ></FilterInput>
                   );
                 })}
@@ -132,6 +153,7 @@ export default function PropertiesIndex() {
             </SectionContent>
           </SectionDesignation>
         ) : null}
+        <SectionDesignation />
       </div>
     </div>
   );
