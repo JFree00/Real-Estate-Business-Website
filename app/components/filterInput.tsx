@@ -22,10 +22,13 @@ import { Filter, filterCategories } from "../../KV/filter";
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ExistingSearchParams } from "remix-utils/existing-search-params";
+import { DialogTitle } from "@/components/ui/dialog";
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: React.ReactNode;
@@ -73,7 +76,7 @@ export function FilterInput({ icon, filterName, children, data }: Props) {
       />
       <Form method={"get"}>
         <ExistingSearchParams exclude={["page"]} />
-        <div className={"hidden tablet:block"}>
+        <div className={"hidden laptop:block"}>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -96,7 +99,7 @@ export function FilterInput({ icon, filterName, children, data }: Props) {
             </PopoverContent>
           </Popover>
         </div>
-        <div className={"tablet:hidden"}>
+        <div className={"laptop:hidden"}>
           <Drawer>
             <DrawerTrigger asChild>
               <Button
@@ -110,15 +113,21 @@ export function FilterInput({ icon, filterName, children, data }: Props) {
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader className={"text-xl"}>
-                Filter by {placeholder}
+                <DialogTitle>Filter by {placeholder}</DialogTitle>
+                <DrawerDescription>
+                  Sort through filters for specific results
+                </DrawerDescription>
               </DrawerHeader>
-              <Command>
-                <CommandInput placeholder={"Location"} />
-                <CommandList>
-                  <CommandEmpty>No Location Found</CommandEmpty>
-                  <CommandGroup>{children ?? dataItems}</CommandGroup>
-                </CommandList>
-              </Command>
+
+              <DrawerFooter>
+                <Command>
+                  <CommandInput placeholder={"Location"} />
+                  <CommandList>
+                    <CommandEmpty>No Location Found</CommandEmpty>
+                    <CommandGroup>{children ?? dataItems}</CommandGroup>
+                  </CommandList>
+                </Command>
+              </DrawerFooter>
             </DrawerContent>
           </Drawer>
         </div>
