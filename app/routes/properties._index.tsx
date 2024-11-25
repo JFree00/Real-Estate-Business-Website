@@ -12,7 +12,11 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { FilterInput } from "@/components/filterInput";
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { useLoaderData, useOutletContext } from "@remix-run/react";
+import {
+  useLoaderData,
+  useOutletContext,
+  useSearchParams,
+} from "@remix-run/react";
 import { defaultProperties, propertyProps } from "../../KV/properties";
 import {
   abbreviatedFilterKey,
@@ -28,6 +32,7 @@ import {
   HomeModernIcon,
   MapPinIcon,
 } from "@heroicons/react/24/solid";
+import { SubmitForm } from "@/components/cards/submitForm";
 
 const filterIcons: { [k in filterCategories]: React.ReactNode } = {
   property_type: <HomeModernIcon />,
@@ -59,7 +64,7 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
   const data = async () => {
     if (filterParam.length !== 0) {
       return await Promise.all(
-        Filter.anyWithFilter(cursor, filterParam).map(async (f) => {
+        Filter.withEveryFilter(cursor, filterParam).map(async (f) => {
           return properties
             .getWithMetadata(f)
             .then(
@@ -77,6 +82,7 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
 export default function PropertiesIndex() {
   const filters = useOutletContext<rawFilterCursor>();
   const { properties } = useLoaderData<typeof loader>();
+  const [searchParams, setSearchParams] = useSearchParams();
   return (
     <div>
       <div className={" grid grid-cols-12 relative "}>
@@ -130,6 +136,33 @@ export default function PropertiesIndex() {
                       filterName={filterName}
                       data={filterValue}
                       icon={filterIcons[filterName as filterCategories]}
+                      submit={(item: string) => {
+                        setSearchParams((prev) => {
+                          const abbreviatedItem = Filter.abbreviate(
+                            filterName as filterCategories,
+                            item,
+                          );
+                          const filters = searchParams.getAll("filter");
+
+                          if (filters.includes(abbreviatedItem)) {
+                            prev.delete("filter", abbreviatedItem);
+                          } else {
+                            prev.append("filter", abbreviatedItem);
+                          }
+
+                          return prev;
+                        });
+                      }}
+                      selected={(item: string) => {
+                        return searchParams
+                          .getAll("filter")
+                          .includes(
+                            Filter.abbreviate(
+                              filterName as filterCategories,
+                              item,
+                            ),
+                          );
+                      }}
                     ></FilterInput>
                   );
                 })}
