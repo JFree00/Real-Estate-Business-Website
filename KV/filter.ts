@@ -45,7 +45,6 @@ export class Filter {
     }
     return `${this.keys[filter as filterCategories]}-${value}`;
   }
-
   static expandAbbreviate(
     abbreviated: abbreviatedFilterKey,
   ): [filterCategories, string] {
@@ -108,25 +107,26 @@ export class Filter {
     cursor: filteredData,
     filters: Array<abbreviatedFilterKey>,
   ) {
-    const dataIndexes = new Array<string | null>();
-    filters.forEach((f) => {
-      const descendantIndexes = new Array<string>();
+    const dataIndexes = new Map<filterCategories, string[]>();
+    filters.forEach((filter) => {
+      const abbrev = this.expandAbbreviate(filter)[0];
+      const addToIndex = (value: string) => {
+        const current = dataIndexes.get(abbrev) || [];
+        dataIndexes.set(abbrev, [...current, value]);
+      };
+      const descendantIndexes = new Set<string>();
       cursor.forEach(([key, value]) => {
-        if (key === f) {
-          value.forEach((v) => {
-            descendantIndexes.push(v);
-          });
+        if (key === filter) {
+          value.forEach((v) => descendantIndexes.add(v));
         }
       });
-      if (dataIndexes.length !== 0) {
-        dataIndexes.forEach((data, index) => {
-          if (data !== null && !descendantIndexes.includes(data)) {
-            dataIndexes[index] = null;
-          }
-        });
-      } else dataIndexes.push(...descendantIndexes);
+      descendantIndexes.forEach((v) => {
+        addToIndex(v);
+      });
     });
-    return dataIndexes.filter((data) => data) as string[];
+    return Array.from(dataIndexes.values()).reduce((a, b) =>
+      a.filter((c) => b.includes(c)),
+    );
   }
   /** Return an array of filter categories and their subcategories for popover*/
   static onlyFilterNames(cursor: filteredData): rawFilterCursor {
@@ -136,7 +136,7 @@ export class Filter {
       const existingSubcategories = filtersArray.get(filterCategory) || [];
       filtersArray.set(filterCategory, [
         ...existingSubcategories,
-        ...subcategories,
+        subcategories,
       ]);
     });
     return Array.from(filtersArray);
