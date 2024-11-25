@@ -8,7 +8,7 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   placeholder?: string;
 };
 
-export function Input({ placeholder, className }: Props) {
+export function FooterInput({ placeholder, className }: Props) {
   return (
     <div
       className={cn(
