@@ -48,22 +48,22 @@ export class Filter {
 
   static expandAbbreviate(
     abbreviated: abbreviatedFilterKey,
-  ): [filterCategories, string[]] {
+  ): [filterCategories, string] {
     const [key, value] = abbreviated.split("-");
     return [
       Object.keys(this.keys).find(
         (k) => this.keys[k as filterCategories] === key,
       ) as filterCategories,
-      [value],
+      value,
     ];
   }
   static fromCursor(cursor: string): filteredData {
     return JSON.parse(cursor);
   }
 
-  static toCursor(
-    data: filterDataParams[],
-    filter?: filterCategories[],
+  static toCursor<P extends Partial<filterCategories>>(
+    data: Pick<filterDataParams, P | "name">[],
+    filter?: P[],
   ): filteredData {
     const filterValues: convertedFilter = new Map();
     const addFilterValue = (key: abbreviatedFilterKey, name: string) => {
@@ -80,10 +80,7 @@ export class Filter {
         });
       } else {
         Object.entries(this.keys).forEach(([key, value]) => {
-          addFilterValue(
-            `${value}-${property[key as filterCategories]}`,
-            property.name,
-          );
+          addFilterValue(`${value}-${property[key as P]}`, property.name);
         });
       }
     });
