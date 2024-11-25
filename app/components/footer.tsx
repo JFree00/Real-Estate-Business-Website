@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import globeLeft from "@/assets/globeLeft.webp";
 import globeRight from "@/assets/globeRight.webp";
 import logoLg from "@/assets/icons/logoLg.svg";
-import { Input } from "@/components/ui/input";
+import { FooterInput } from "@/components/footerInput";
 import facebook from "@/assets/icons/facebook.svg";
 import twitter from "@/assets/icons/twitter.svg";
 import linkedIn from "@/assets/icons/linkedIn.svg";
@@ -80,10 +80,10 @@ export function Footer() {
           <div className={"flex flex-col lg:flex-row "}>
             <div className={"pt-10 basis-4/12"}>
               <img alt={"logo"} src={logoLg} />
-              <Input
+              <FooterInput
                 className={"my-5"}
                 placeholder={"Enter Your Email"}
-              ></Input>
+              ></FooterInput>
             </div>
             <div className={"basis-1/12"} />
             <div className={"basis-full grid grid-cols-2 lg:grid-cols-5 py-16"}>

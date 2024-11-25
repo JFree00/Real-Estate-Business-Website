@@ -17,7 +17,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Form } from "@remix-run/react";
 import {
   Drawer,
   DrawerContent,
@@ -33,8 +32,8 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: React.ReactNode;
   filterName: string;
   data?: string[];
-  submit: (item: string) => void;
-  selected: (item: string) => boolean;
+  submit?: (item: string) => void;
+  selected?: (item: string) => boolean;
 };
 
 export function FilterInput({
@@ -45,15 +44,29 @@ export function FilterInput({
   submit,
   selected,
 }: Props) {
+  const [input, setInput] = React.useState<string[]>([]);
+  function changeInput(e: string) {
+    if (input.includes(e)) {
+      console.log(";has");
+      setInput(
+        input.filter((item) => {
+          return item !== e;
+        }),
+      );
+    } else {
+      setInput([...input, e]);
+    }
+    submit?.(e);
+  }
   const dataItems = data?.map((item) => {
     return (
       <CommandItem
         className={"justify-between"}
-        onSelect={() => submit(item)}
+        onSelect={() => changeInput(item)}
         key={item}
       >
         {item}
-        {selected(item) ? <CheckIcon /> : null}
+        {(selected?.(item) ?? input.includes(item)) ? <CheckIcon /> : null}
       </CommandItem>
     );
   });
@@ -69,27 +82,76 @@ export function FilterInput({
         {icon ?? <MapPinIcon />}
       </div>
       <Separator orientation={"vertical"} className={"w-px h-2/3"} />
-      <input
-        className={
-          "bg-transparent w-full basis-full px-2 focus:outline-0 text-sgrey-60 capitalize"
-        }
-        placeholder={placeholder}
-      />
-      <Form method={"get"}>
-        <ExistingSearchParams exclude={["page"]} />
-        <div className={"hidden laptop:block"}>
-          <Popover>
-            <PopoverTrigger asChild>
+      <ExistingSearchParams exclude={["page"]} />
+      <div className={"hidden laptop:block basis-full"}>
+        <Popover>
+          <PopoverTrigger asChild>
+            <div
+              className={
+                "flex flex-nowrap h-full justify-items-stretch items-center"
+              }
+            >
+              <input
+                className={
+                  "bg-transparent w-full h-max px-2 focus:outline-0 text-sgrey-60 capitalize"
+                }
+                placeholder={input.length ? input.join(", ") : placeholder}
+              />
               <Button
                 size={"icon"}
                 className={
-                  "rounded-full bg-sgrey-10 w-7  h-7 shrink-0 grow-0 mr-3 flex items-center border-0"
+                  "rounded-full bg-sgrey-10 w-7  h-full shrink-0 grow-0 mr-3 flex items-center border-0"
+                }
+                type={"button"}
+              >
+                <ChevronDownIcon className={"size-3/4"} />
+              </Button>
+            </div>
+          </PopoverTrigger>
+          <PopoverContent>
+            <Command>
+              <CommandInput placeholder={"Location"} />
+              <CommandList>
+                <CommandEmpty>No Location Found</CommandEmpty>
+                <CommandGroup>{children ?? dataItems}</CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+      <div className={"laptop:hidden basis-full"}>
+        <Drawer>
+          <DrawerTrigger asChild>
+            <div
+              className={
+                "flex flex-nowrap h-full justify-items-stretch items-center"
+              }
+            >
+              <input
+                className={
+                  "bg-transparent w-full h-max px-2 focus:outline-0 text-sgrey-60 capitalize"
+                }
+                placeholder={input.length ? input.join(", ") : placeholder}
+              />
+              <Button
+                type={"button"}
+                size={"icon"}
+                className={
+                  "rounded-full bg-sgrey-10 w-7  h-full shrink-0 grow-0 mr-3 flex items-center border-0"
                 }
               >
                 <ChevronDownIcon className={"size-3/4"} />
               </Button>
-            </PopoverTrigger>
-            <PopoverContent>
+            </div>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader className={"text-xl"}>
+              <DialogTitle>Filter by {placeholder}</DialogTitle>
+              <DrawerDescription>
+                Sort through filters for specific results
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerFooter>
               <Command>
                 <CommandInput placeholder={"Location"} />
                 <CommandList>
@@ -97,42 +159,10 @@ export function FilterInput({
                   <CommandGroup>{children ?? dataItems}</CommandGroup>
                 </CommandList>
               </Command>
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div className={"laptop:hidden"}>
-          <Drawer>
-            <DrawerTrigger asChild>
-              <Button
-                size={"icon"}
-                className={
-                  "rounded-full bg-sgrey-10 w-7  h-7 shrink-0 grow-0 mr-3 flex items-center border-0"
-                }
-              >
-                <ChevronDownIcon className={"size-3/4"} />
-              </Button>
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader className={"text-xl"}>
-                <DialogTitle>Filter by {placeholder}</DialogTitle>
-                <DrawerDescription>
-                  Sort through filters for specific results
-                </DrawerDescription>
-              </DrawerHeader>
-
-              <DrawerFooter>
-                <Command>
-                  <CommandInput placeholder={"Location"} />
-                  <CommandList>
-                    <CommandEmpty>No Location Found</CommandEmpty>
-                    <CommandGroup>{children ?? dataItems}</CommandGroup>
-                  </CommandList>
-                </Command>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-        </div>
-      </Form>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </div>
     </div>
   );
 }
