@@ -17,8 +17,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Form, useSearchParams } from "@remix-run/react";
-import { Filter, filterCategories } from "../../KV/filter";
+import { Form } from "@remix-run/react";
 import {
   Drawer,
   DrawerContent,
@@ -34,25 +33,27 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: React.ReactNode;
   filterName: string;
   data?: string[];
+  submit: (item: string) => void;
+  selected: (item: string) => boolean;
 };
 
-export function FilterInput({ icon, filterName, children, data }: Props) {
-  const [searchParams, setSearchParams] = useSearchParams();
+export function FilterInput({
+  icon,
+  filterName,
+  children,
+  data,
+  submit,
+  selected,
+}: Props) {
   const dataItems = data?.map((item) => {
-    const abbreviated = Filter.abbreviate(filterName as filterCategories, item);
     return (
       <CommandItem
         className={"justify-between"}
-        onSelect={() => {
-          setSearchParams((prev) => {
-            prev.append("filter", abbreviated);
-            return prev;
-          });
-        }}
+        onSelect={() => submit(item)}
         key={item}
       >
         {item}
-        {searchParams.getAll("filter").includes(abbreviated) && <CheckIcon />}
+        {selected(item) ? <CheckIcon /> : null}
       </CommandItem>
     );
   });
