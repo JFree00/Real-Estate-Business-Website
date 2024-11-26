@@ -14,7 +14,9 @@ export function SectionHeader({ columns = 12, children, className }: Props) {
       className={cn(`font-semibold text-balance h-fit`, className)}
       style={{ width: columns * 8.33333 + "%" }}
     >
-      <p className={"title"}>{children}</p>
+      <p className={cn(`font-semibold text-balance h-fit title`, className)}>
+        {children}
+      </p>
     </div>
   );
 }

@@ -24,7 +24,6 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { ExistingSearchParams } from "remix-utils/existing-search-params";
 import { DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/styles";
 
@@ -34,6 +33,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   data?: string[];
   submit?: (item: string) => void;
   selected?: (item: string) => boolean;
+  placeholder?: string;
 };
 
 export function FilterInput({
@@ -44,6 +44,7 @@ export function FilterInput({
   submit,
   selected,
   className,
+  placeholder,
 }: Props) {
   const [input, setInput] = React.useState<string[]>([]);
   function changeInput(e: string) {
@@ -71,19 +72,20 @@ export function FilterInput({
       </CommandItem>
     );
   });
-  const placeholder = filterName?.replace("_", " ");
+  placeholder = placeholder ?? filterName?.replace("_", " ");
   return (
     <div
       key={placeholder}
       className={cn(
-        "flex h-14 items-center bg-sgrey-8 rounded-md border border-sgrey-20 w-full pl-5",
+        "flex h-14  desktop:h-[70px] items-center bg-sgrey-8 rounded-xl border border-sgrey-20 w-full",
+        !icon && "pl-5",
         className,
       )}
     >
       {icon && (
         <>
-          <div className={"size-6 mx-4 text-sgrey-60 flex"}>{icon}</div>
-          <Separator orientation={"vertical"} className={"w-px h-2/3"} />
+          <div className={"size-5 mx-2.5 text-sgrey-60 flex"}>{icon}</div>
+          <Separator orientation={"vertical"} className={"w-px h-1/3 mr-2.5"} />
         </>
       )}
       <div className={"hidden laptop:block basis-full"}>
@@ -96,7 +98,7 @@ export function FilterInput({
             >
               <input
                 className={
-                  "bg-transparent w-full h-max focus:outline-0 text-sgrey-60 capitalize"
+                  "bg-transparent w-full h-full focus:outline-0 text-sgrey-60 capitalize text-lg"
                 }
                 value={input.length ? input.join(", ") : ""}
                 placeholder={placeholder}
@@ -109,7 +111,7 @@ export function FilterInput({
                 }
                 type={"button"}
               >
-                <ChevronDownIcon className={"size-3/4"} />
+                <ChevronDownIcon className={"size-1/2"} />
               </Button>
             </div>
           </PopoverTrigger>

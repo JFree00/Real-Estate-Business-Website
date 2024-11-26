@@ -9,25 +9,30 @@ export type sectionCardProps = {
   name: string;
   description: string;
   buttonText?: string;
+  icon?: React.ReactNode;
 };
 const SectionData = createContext({} as sectionCardProps);
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   data?: sectionCardProps;
+  wrap?: boolean;
 };
 
+function Icon({ data, className }: Props) {
+  const cardData = data ?? useContext(SectionData);
+  return <div className={className}>{cardData.icon}</div>;
+}
 function Content({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
-    <CardContent
-      className={cn(
-        "flex justify-start items-center  desktop:px-6 desktop:pb-2 desktop:pt-6",
-        className,
-      )}
-    >
+    <CardContent className={cn("flex justify-start items-center", className)}>
       {children}
       {cardData.buttonText ? (
-        <Button size={"responsive"} variant={"secondary"} className={"text-lg"}>
+        <Button
+          size={"responsive"}
+          variant={"secondary"}
+          className={"text-lg  desktop:h-[60px]"}
+        >
           {cardData.buttonText}
         </Button>
       ) : null}
@@ -50,12 +55,7 @@ function Title({ data, className, children }: Props) {
 function Description({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
-    <p
-      className={cn(
-        "pt-6 lg:text-left max-h-32 text-sgrey-60  min-h-[80px]",
-        className,
-      )}
-    >
+    <p className={cn(" lg:text-left max-h-32 text-sgrey-60", className)}>
       {children ?? cardData.description}
     </p>
   );
@@ -64,9 +64,7 @@ function Description({ data, className, children }: Props) {
 function Header({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
-    <CardHeader
-      className={cn(" desktop:px-6 desktop:pb-2 desktop:pt-6 ", className)}
-    >
+    <CardHeader className={cn("gap-y-6 ", className)}>
       {children ? (
         children
       ) : (
@@ -82,23 +80,28 @@ function Header({ data, className, children }: Props) {
 function SectionCards({ data, children, className }: Props) {
   data = data as sectionCardProps;
   return (
-    <div key={data.name} className={"dataCard"}>
-      <SectionData.Provider value={data}>
-        {!children ? (
-          <Card className={cn("bg-sgrey-8 dataCardComponent", className)}>
-            <Header data={data} />
-            <Content data={data} />
-          </Card>
-        ) : (
-          <>{children}</>
-        )}
-      </SectionData.Provider>
-    </div>
+    <SectionData.Provider value={data}>
+      {!children ? (
+        <Card
+          className={cn("bg-sgrey-8 dataCardComponent dataCard", className)}
+        >
+          <Header data={data} />
+          <Content data={data} />
+        </Card>
+      ) : (
+        <Card
+          className={cn("bg-sgrey-8 dataCardComponent dataCard", className)}
+        >
+          {children}
+        </Card>
+      )}
+    </SectionData.Provider>
   );
 }
 Header.Title = Title;
 Header.Description = Description;
 SectionCards.Header = Header;
 SectionCards.Content = Content;
+SectionCards.Icon = Icon;
 
 export { SectionCards };

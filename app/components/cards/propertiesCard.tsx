@@ -28,7 +28,7 @@ export function PropertiesCard({ data }: props) {
           <CardTitle className={"font-semibold text-2xl pt-4"}>
             {data.name}
           </CardTitle>
-          <CardDescription className={"text-sgrey-60"}>
+          <CardDescription className={"text-sgrey-60 laptop:h-14"}>
             {data.description}
             <a href={"/"} className={"underline ml-1 text-white"}>
               Read More
