@@ -11,4 +11,4 @@ export const PaginationContext = createContext<paginationProps>({
   max: 1,
   amountToDisplay: 3,
 });
-export const DataContext = createContext({} as assumedData);
+export const DataContext = createContext({} as unknown);

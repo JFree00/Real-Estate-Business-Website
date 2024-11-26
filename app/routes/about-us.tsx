@@ -145,10 +145,14 @@ export default function AboutUs() {
             platform that transcended the ordinary.
           </SectionDescription>
           <SectionContent
-            className={"flex-col laptop:flex-row gap-5 overflow-visible"}
+            className={
+              "flex-col gap-5 overflow-visible laptop:gap-10 laptop:grid laptop:grid-cols-3"
+            }
           >
             <SectionCards
-              className={"outline outline-sgrey-10 border border-sgrey-15"}
+              className={
+                "outline outline-sgrey-10 laptop:outline-8 border border-sgrey-15"
+              }
             ></SectionCards>
           </SectionContent>
         </SectionDesignation>
@@ -165,11 +169,7 @@ export default function AboutUs() {
             <NteeCard />
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation
-          pagination={false}
-          data={team}
-          paginationDisplayAmount={4}
-        >
+        <SectionDesignation pagination={false} data={team} displayAmount={4}>
           <SectionHeader>Meet the Estatein Team</SectionHeader>
           <SectionDescription>
             At Estatein, our success is driven by the dedication and expertise
@@ -188,7 +188,7 @@ export default function AboutUs() {
 
         <SectionDesignation
           data={clientsData}
-          paginationDisplayAmount={1}
+          displayAmount={1}
           className={"laptop:hidden"}
         >
           <SectionHeader>Our Valued Clients</SectionHeader>
@@ -203,7 +203,7 @@ export default function AboutUs() {
         </SectionDesignation>
         <SectionDesignation
           data={clientsData}
-          paginationDisplayAmount={2}
+          displayAmount={2}
           className={"hidden laptop:block"}
         >
           <SectionHeader>Our Valued Clients</SectionHeader>

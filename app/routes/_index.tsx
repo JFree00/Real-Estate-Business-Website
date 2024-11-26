@@ -211,7 +211,7 @@ export default function Index() {
         <SectionDesignation
           buttonText={"View All Properties"}
           rows={3}
-          paginationDisplayAmount={properties.length}
+          displayAmount={3}
           data={properties}
         >
           <SectionHeader>Featured Properties</SectionHeader>
@@ -228,7 +228,7 @@ export default function Index() {
         <SectionDesignation
           buttonText={"View All Testimonials"}
           rows={2}
-          paginationDisplayAmount={testimonials.length}
+          displayAmount={3}
           data={testimonials}
         >
           <SectionHeader>What Our Clients Say</SectionHeader>
@@ -245,7 +245,7 @@ export default function Index() {
         <SectionDesignation
           rows={3}
           buttonText={"View All FAQ’s"}
-          paginationDisplayAmount={3}
+          displayAmount={3}
           data={faqCards}
         >
           <SectionHeader>Frequently Asked Questions</SectionHeader>
@@ -255,12 +255,10 @@ export default function Index() {
             and assist you every step of the way.
           </SectionDescription>
           <SectionContent>
-            <SectionCards
-              className={"border border-sgrey-15 rounded-xl dataCardComponent"}
-            >
+            <SectionCards>
               <SectionCards.Header>
-                <SectionCards.Header.Title className={" min-h-[72px]"} />
-                <SectionCards.Header.Description />
+                <SectionCards.Header.Title className={"h-[72px]"} />
+                <SectionCards.Header.Description className={"h-52"} />
               </SectionCards.Header>
 
               <SectionCards.Content />

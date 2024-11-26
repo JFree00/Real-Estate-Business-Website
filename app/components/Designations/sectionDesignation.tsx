@@ -16,7 +16,7 @@ export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
   rows?: number;
   buttonText?: string;
   pagination?: boolean;
-  paginationDisplayAmount?: number;
+  displayAmount?: number;
   data?:
     | {
         [K in keyof loader[keyof loader]]: loader[keyof loader][Awaited<K>];
@@ -31,12 +31,11 @@ export function SectionDesignation({
   children,
   className,
   buttonText,
-  paginationDisplayAmount = 3,
+  displayAmount = 1,
   pagination = true,
   data = [],
 }: designationProps) {
   const [currentPage, setCurrentPage] = React.useState(1);
-
   return (
     <div
       className={cn("offset relative mt-20", className)}
@@ -60,7 +59,7 @@ export function SectionDesignation({
           value={{
             current: currentPage,
             max: data.length,
-            amountToDisplay: paginationDisplayAmount,
+            amountToDisplay: displayAmount,
           }}
         >
           {data && Array.isArray(data) ? (

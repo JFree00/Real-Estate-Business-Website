@@ -91,42 +91,64 @@ export default function PropertiesIndex() {
             "bg-gradient-to-r from-sgrey-15 to-30% to-sgrey-15/0 col-span-full "
           }
         >
-          <SectionDesignation pagination={false}>
-            <SectionHeader>Find Your Dream Property</SectionHeader>
-            <SectionDescription className={"mb-14"}>
-              Welcome to Estatein, where your dream property awaits in every
-              corner of our beautiful world. Explore our curated selection of
-              properties, each offering a unique story and a chance to redefine
-              your life. With categories to suit every dreamer, your journey{" "}
-            </SectionDescription>
+          <SectionDesignation
+            pagination={false}
+            className={"desktop:h-[370px]"}
+          >
+            <div className={"h-full flex-col content-center"}>
+              <SectionHeader>Find Your Dream Property</SectionHeader>
+              <SectionDescription className={"mb-14"}>
+                Welcome to Estatein, where your dream property awaits in every
+                corner of our beautiful world. Explore our curated selection of
+                properties, each offering a unique story and a chance to
+                redefine your life. With categories to suit every dreamer, your
+                journey{" "}
+              </SectionDescription>
+            </div>
           </SectionDesignation>
           <Separator className={"h-px"} />
         </div>
-        <SectionDesignation pagination={false} className={"mt-0"}>
+        <SectionDesignation
+          pagination={false}
+          className={"mt-0  laptop:-top-32"}
+        >
           <SectionContent className={"  bottom-0 overflow-visible shrink-0"}>
-            <div className={"basis-full flex w-full flex-wrap"}>
+            <div className={"basis-full flex w-full flex-wrap justify-center"}>
               <div
                 className={
-                  "basis-full w-full flex size-16 outline-sgrey-10 outline rounded-xl p-2 border border-sgrey-15"
+                  " w-full flex size-16 laptop:h-20 desktop:h-[100px] outline-sgrey-10 outline laptop:outline-8 rounded-xl p-2 laptop:p-4 desktop:p-5 border border-sgrey-15 bg-sgrey-8  laptop:w-[80%]"
                 }
               >
                 <input
                   className={
-                    "focus:outline-0 bg-transparent  rounded-xl basis-full ml-2"
+                    "focus:outline-0 bg-transparent  rounded-xl basis-full ml-2 desktop:text-2xl  placeholder:text-sgrey-40"
                   }
                   placeholder={"Search For A Property"}
                 />
                 <Button
-                  size={"icon"}
+                  size={"default"}
                   variant={"primary"}
-                  className={"basis-2/12 h-full"}
+                  className={
+                    "  laptop:shrink-0 laptop:h-full gap-x-2 hidden laptop:flex"
+                  }
                 >
-                  <MagnifyingGlassIcon className={"size-2/4"} />
+                  <MagnifyingGlassIcon className={"size-2/3"} />
+                  <p className={"b"}>Find Property</p>
+                </Button>{" "}
+                <Button
+                  size={"default"}
+                  variant={"primary"}
+                  className={
+                    "  laptop:shrink-0 laptop:h-full gap-x-2  laptop:hidden"
+                  }
+                >
+                  <MagnifyingGlassIcon className={"size-2/3"} />
+                  <p className={"b"}>Find Property</p>
                 </Button>
               </div>
               <div
                 className={
-                  "basis-full flex flex-col gap-5 w-full  rounded-xl bg-sgrey-10 mt-5 p-5"
+                  "basis-full flex flex-col laptop:flex-row gap-5 w-full  rounded-xl bg-sgrey-10 mt-5 laptop:mt-0 p-5 laptop:p-2.5"
                 }
               >
                 {filters.map(([filterName, filterValue]) => {
@@ -171,7 +193,11 @@ export default function PropertiesIndex() {
           </SectionContent>
         </SectionDesignation>
         {properties && properties.length ? (
-          <SectionDesignation pagination={true} data={properties}>
+          <SectionDesignation
+            displayAmount={3}
+            pagination={true}
+            data={properties}
+          >
             <ArrowDownIcon
               className={"animate-bounce size-14 -mt-10 mb-10 mx-auto"}
             />

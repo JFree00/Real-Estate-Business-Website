@@ -38,7 +38,7 @@ body::-webkit-scrollbar {
     @apply text-2xl laptop:text-3xl desktop:text-5xl
   }
   .dataCardComponent {
-    @apply  p-6 tablet:p-10
+    @apply  p-6 tablet:p-10 laptop:p-8 desktop:p-12
   }
   .dataCard {
     @apply basis-full shrink-0 laptop:shrink

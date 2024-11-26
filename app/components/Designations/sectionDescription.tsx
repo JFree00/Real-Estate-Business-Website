@@ -11,7 +11,7 @@ export function SectionDescription({ children, className }: Props) {
   return (
     <h5
       className={cn(
-        `self-center text-sgrey-60 text-sm 2xl:text-lg pt-4 w-full tablet:w-[75%]`,
+        `text-sgrey-60 text-sm 2xl:text-lg pt-4 w-full tablet:w-[75%]`,
         className,
       )}
     >
