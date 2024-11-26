@@ -102,7 +102,7 @@ export default function PropertiesIndex() {
           </SectionDesignation>
           <Separator className={"h-px"} />
         </div>
-        <SectionDesignation pagination={false} className={"col-span-full"}>
+        <SectionDesignation pagination={false} className={"mt-0"}>
           <SectionContent className={"  bottom-0 overflow-visible shrink-0"}>
             <div className={"basis-full flex w-full flex-wrap"}>
               <div
@@ -186,7 +186,18 @@ export default function PropertiesIndex() {
             </SectionContent>
           </SectionDesignation>
         ) : null}
-        <SectionDesignation />
+        <SectionDesignation pagination={false}>
+          <SectionHeader>Let's Make it Happen</SectionHeader>
+          <SectionDescription>
+            Ready to take the first step toward your dream property? Fill out
+            the form below, and our real estate wizards will work their magic to
+            find your perfect match. Don't wait; let's embark on this exciting
+            journey together.
+          </SectionDescription>
+          <SectionContent iterate={false}>
+            <SubmitForm />
+          </SectionContent>
+        </SectionDesignation>
       </div>
     </div>
   );
