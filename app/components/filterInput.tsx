@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/drawer";
 import { ExistingSearchParams } from "remix-utils/existing-search-params";
 import { DialogTitle } from "@/components/ui/dialog";
+import { cn } from "@/lib/styles";
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: React.ReactNode;
@@ -43,6 +44,7 @@ export function FilterInput({
   data,
   submit,
   selected,
+  className,
 }: Props) {
   const [input, setInput] = React.useState<string[]>([]);
   function changeInput(e: string) {
@@ -74,14 +76,17 @@ export function FilterInput({
   return (
     <div
       key={placeholder}
-      className={
-        "flex h-14 items-center bg-sgrey-8 rounded-lg border border-sgrey-20 w-full "
-      }
+      className={cn(
+        "flex h-14 items-center bg-sgrey-8 rounded-md border border-sgrey-20 w-full",
+        className,
+      )}
     >
-      <div className={"size-6 mx-4 text-sgrey-60 flex"}>
-        {icon ?? <MapPinIcon />}
-      </div>
-      <Separator orientation={"vertical"} className={"w-px h-2/3"} />
+      {icon && (
+        <>
+          <div className={"size-6 mx-4 text-sgrey-60 flex"}>{icon}</div>
+          <Separator orientation={"vertical"} className={"w-px h-2/3"} />
+        </>
+      )}
       <ExistingSearchParams exclude={["page"]} />
       <div className={"hidden laptop:block basis-full"}>
         <Popover>
