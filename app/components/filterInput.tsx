@@ -1,7 +1,6 @@
 // @flow
 import * as React from "react";
 import { Separator } from "@/components/ui/separator";
-import { MapPinIcon } from "@heroicons/react/24/solid";
 import { Button } from "@/components/ui/button";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import {
@@ -77,7 +76,7 @@ export function FilterInput({
     <div
       key={placeholder}
       className={cn(
-        "flex h-14 items-center bg-sgrey-8 rounded-md border border-sgrey-20 w-full",
+        "flex h-14 items-center bg-sgrey-8 rounded-md border border-sgrey-20 w-full pl-5",
         className,
       )}
     >
@@ -87,7 +86,6 @@ export function FilterInput({
           <Separator orientation={"vertical"} className={"w-px h-2/3"} />
         </>
       )}
-      <ExistingSearchParams exclude={["page"]} />
       <div className={"hidden laptop:block basis-full"}>
         <Popover>
           <PopoverTrigger asChild>
@@ -98,9 +96,11 @@ export function FilterInput({
             >
               <input
                 className={
-                  "bg-transparent w-full h-max px-2 focus:outline-0 text-sgrey-60 capitalize"
+                  "bg-transparent w-full h-max focus:outline-0 text-sgrey-60 capitalize"
                 }
-                placeholder={input.length ? input.join(", ") : placeholder}
+                value={input.length ? input.join(", ") : ""}
+                placeholder={placeholder}
+                readOnly
               />
               <Button
                 size={"icon"}
@@ -134,9 +134,11 @@ export function FilterInput({
             >
               <input
                 className={
-                  "bg-transparent w-full h-max px-2 focus:outline-0 text-sgrey-60 capitalize"
+                  "bg-transparent w-full h-max focus:outline-0 text-sgrey-60 capitalize"
                 }
-                placeholder={input.length ? input.join(", ") : placeholder}
+                value={input.length ? input.join(", ") : ""}
+                placeholder={placeholder}
+                readOnly
               />
               <Button
                 type={"button"}
