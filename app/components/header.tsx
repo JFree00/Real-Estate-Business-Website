@@ -9,7 +9,7 @@ import burgerIcon from "@/assets/icons/burger.svg";
 import { cn } from "@/lib/styles";
 import { Separator } from "@/components/ui/separator";
 const routes = ["Home", "About Us", "Properties", "Services"];
-const realRoutes = ["", "about-us", "properties", "#"];
+const realRoutes = ["", "about-us", "properties", "services"];
 export function Header() {
   const currentRoute = useLocation();
   const [opened, toggle] = useState(true);

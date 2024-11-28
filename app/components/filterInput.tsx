@@ -49,7 +49,6 @@ export function FilterInput({
   const [input, setInput] = React.useState<string[]>([]);
   function changeInput(e: string) {
     if (input.includes(e)) {
-      console.log(";has");
       setInput(
         input.filter((item) => {
           return item !== e;
