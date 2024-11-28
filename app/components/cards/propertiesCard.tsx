@@ -22,7 +22,7 @@ export function PropertiesCard({ data }: props) {
   data = data as propertyProps;
   return (
     <div key={data.name} className={"dataCard"}>
-      <Card className={"bg-sgrey-8 dataCardComponent"}>
+      <Card className={"bg-sgrey-8 dataCardComponent desktop:p-10 laptop:p-7"}>
         <CardHeader className={""}>
           <img alt={"property Image"} src={data.image} />
           <CardTitle className={"font-semibold text-2xl pt-4"}>
@@ -70,9 +70,11 @@ export function PropertiesCard({ data }: props) {
               {data.price}
             </span>
           </div>
-          <div className={" grow"}>
+          <div className={"grow"}>
             <Button
-              className={"bg-pprimary-60 laptop:h-full laptop:w-full"}
+              className={
+                "bg-pprimary-60 laptop:h-full laptop:w-full laptop:text-base"
+              }
               size={"responsive"}
             >
               View Property Details
