@@ -15,12 +15,12 @@ type props = {
 export function NteeCard({ data }: props) {
   data = data as stepsProps;
   return (
-    <div className={"laptop:basis-1/4 grow"}>
+    <div className={"laptop:basis-1/4 flex flex-col grow"}>
       <div className={"border-l border-l-pprimary-60 h-12 flex items-center"}>
         <p className={"font-medium text-base px-7"}>Step 0{data.step}</p>
       </div>
       <div
-        className={" w-full  border rounded-full border-transparent"}
+        className={" w-full  border rounded-full border-transparent h-full"}
         style={{
           padding: "1px, 1px, 1px, 1px",
           backgroundImage:
