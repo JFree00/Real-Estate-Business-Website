@@ -158,7 +158,9 @@ export default function Services() {
             className={"h-full mt-0 content-center"}
           >
             <div className={"my-auto"}>
-              <SectionHeader>Elevate Your Real Estate Experience</SectionHeader>
+              <SectionHeader icon={false}>
+                Elevate Your Real Estate Experience
+              </SectionHeader>
               <SectionDescription>
                 Welcome to Estatein, where your real estate aspirations meet
                 expert guidance. Explore our comprehensive range of services,

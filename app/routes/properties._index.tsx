@@ -96,7 +96,9 @@ export default function PropertiesIndex() {
             className={"desktop:h-[370px]"}
           >
             <div className={"h-full flex-col content-center"}>
-              <SectionHeader>Find Your Dream Property</SectionHeader>
+              <SectionHeader icon={false}>
+                Find Your Dream Property
+              </SectionHeader>
               <SectionDescription className={"mb-14"}>
                 Welcome to Estatein, where your dream property awaits in every
                 corner of our beautiful world. Explore our curated selection of

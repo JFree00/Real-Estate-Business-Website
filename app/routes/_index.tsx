@@ -221,7 +221,7 @@ export default function Index() {
             available through Estatein. Click "View Details" for more
             information.
           </SectionDescription>
-          <SectionContent>
+          <SectionContent className={"laptop:gap-x-5 desktop:gap-x-7"}>
             <PropertiesCard />
           </SectionContent>
         </SectionDesignation>

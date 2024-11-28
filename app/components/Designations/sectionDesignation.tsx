@@ -9,7 +9,6 @@ import { Suspense } from "react";
 import { Await } from "@remix-run/react";
 import { loaderData } from "@/routes/_index";
 import { assumedData } from "@/components/Designations/sectionContent";
-
 export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: React.ReactNode;
   columns?: number;
