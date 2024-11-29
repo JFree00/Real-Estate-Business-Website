@@ -47,7 +47,7 @@ export function SectionDesignation({
         <Button
           variant={"outline"}
           className={
-            " absolute right-0 top-18 py-8 bg-sgrey-10 font-medium hidden laptop:flex"
+            " absolute right-0 top-20 py-8 bg-sgrey-10 font-medium hidden laptop:flex"
           }
         >
           {buttonText}

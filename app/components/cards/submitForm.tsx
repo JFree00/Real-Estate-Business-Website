@@ -7,18 +7,24 @@ import { rawFilterCursor } from "../../../KV/filter";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckboxWithText } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { IconInput } from "@/iconInput";
-import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/solid";
 import { cn } from "@/lib/styles";
 import {
   Select,
   SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 export interface submitInfoProps {
   name: string;
-  type: "text" | "email" | "number" | "filter" | "dropdown" | "tel";
+  type:
+    | "text"
+    | "email"
+    | "number"
+    | "filter"
+    | "dropdown"
+    | "tel"
+    | "textArea";
   placeholder?: string;
   data?: string | string[];
   className?: React.HTMLAttributes<HTMLDivElement>["className"];
@@ -31,7 +37,7 @@ export function SubmitForm({ inputData, children }: props) {
   const filters = useOutletContext<rawFilterCursor>();
   const inputBlocks = inputData.map((input) => {
     return (
-      <div key={input.name} className={cn("col-span-1 grow", input.className)}>
+      <div key={input.name} className={cn("col-span-1", input.className)}>
         <Label
           className={"capitalize text-base pb-2.5 inline-block font-semibold"}
           htmlFor={input.name}
@@ -42,24 +48,40 @@ export function SubmitForm({ inputData, children }: props) {
           <FilterInput
             filterName={input.name}
             placeholder={input.placeholder}
-            className={" bg-sgrey-10 text-sm text-sgrey-40"}
+            className={" bg-sgrey-10 text-sm "}
             data={filters?.find((filter) => filter[0] === input.data)?.[1]}
           ></FilterInput>
         ) : input.type === "dropdown" && Array.isArray(input.data) ? (
           <Select>
-            <SelectTrigger>
-              <SelectValue></SelectValue>
+            <SelectTrigger
+              id={input.name}
+              name={input.name}
+              className={
+                "h-12 bg-sgrey-10 desktop:placeholder:text-lg desktop:text-lg desktop:h-[70px]"
+              }
+            >
+              <SelectValue placeholder={input.placeholder} />
             </SelectTrigger>
             <SelectContent>
               {input.data?.map((item) => {
-                return <SelectValue>{item}</SelectValue>;
+                return (
+                  <SelectItem key={item} value={item}>
+                    {item}
+                  </SelectItem>
+                );
               })}
             </SelectContent>
           </Select>
+        ) : input.type === "textArea" ? (
+          <Textarea
+            id={input.name}
+            name={input.name}
+            placeholder={input.placeholder}
+          ></Textarea>
         ) : (
           <Input
             className={
-              "h-12 text-sgrey-40 bg-sgrey-10 desktop:placeholder:text-lg desktop:text-lg desktop:h-[70px]"
+              "h-12 muted- bg-sgrey-10 desktop:placeholder:text-lg desktop:text-lg desktop:h-[70px]"
             }
             id={input.name}
             name={input.name}
@@ -78,14 +100,14 @@ export function SubmitForm({ inputData, children }: props) {
       <Form method={"post"}>
         <div
           className={
-            "grid grid-cols-1 laptop:grid-cols-4 gap-5 laptop:gap-7 shrink-0 grow"
+            "grid grid-cols-1 laptop:grid-cols-4 gap-5 laptop:gap-7 shrink-0"
           }
         >
           {inputBlocks}
           {children}
           <div
             className={
-              "laptop:col-span-full laptop:flex justify-between items-center"
+              "laptop:col-span-full laptop:flex justify-between items-center order-last"
             }
           >
             <CheckboxWithText>

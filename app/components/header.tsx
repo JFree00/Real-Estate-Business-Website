@@ -112,8 +112,14 @@ export function Header() {
         </div>
         <MobileHeader className={"basis-1/12"} />
         <div className={" hidden basis-1/4 laptop:flex"}>
-          <Button variant={"active"} className={"h-14 "}>
-            Contact Us
+          <Button
+            variant={
+              currentRoute.pathname === "/contact" ? "primary" : "active"
+            }
+            className={"h-14 "}
+            asChild
+          >
+            <Link to="/contact">Contact Us</Link>
           </Button>
         </div>
       </div>

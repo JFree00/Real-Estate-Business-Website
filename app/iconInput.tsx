@@ -9,7 +9,7 @@ export function IconInput({ placeholder, className, children }: Props) {
   return (
     <div
       className={cn(
-        "border border-sgrey-15 bg-transparent text-lg flex items-center rounded-md px-5  py-5 h-16h-12 desktop:h-[70px] bg-sgrey-10 desktop:text-sm my-2.5 laptop:my-0",
+        "border border-sgrey-15 bg-transparent text-lg flex items-center rounded-md px-5  py-5 h-12 desktop:h-[70px] bg-sgrey-10 desktop:text-sm my-2.5 laptop:my-0",
         className,
       )}
     >

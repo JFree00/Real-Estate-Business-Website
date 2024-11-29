@@ -60,7 +60,7 @@ function InfoCards({ text, icon, className }: infoCardProps) {
       </Button>
       <div
         className={
-          "laptop:mb-4 flex flex-nowrap justify-center items-center h-3/5"
+          "laptop:mb-4 flex flex-nowrap justify-center items-center h-3/5 pt-2"
         }
       >
         <div className={"size-12 laptop:size-20"}>

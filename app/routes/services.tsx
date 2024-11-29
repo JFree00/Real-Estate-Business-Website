@@ -150,7 +150,7 @@ export default function Services() {
       <div className={" grid grid-cols-12 relative"}>
         <div
           className={
-            "bg-gradient-to-r from-sgrey-15 to-30% to-sgrey-15/0 col-span-full h-[200px] laptop:h-[315px] desktop:h-[390px]"
+            "bg-gradient-to-r from-sgrey-15 to-30% to-sgrey-15/0 col-span-full  h-[285px] laptop:h-[315px] desktop:h-[390px]"
           }
         >
           <SectionDesignation
