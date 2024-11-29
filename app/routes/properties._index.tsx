@@ -37,9 +37,6 @@ import {
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { Label } from "@/components/ui/label";
 import { IconInput } from "@/iconInput";
-import { Textarea } from "@/components/ui/textarea";
-import { CheckboxWithText } from "@/components/ui/checkbox";
-
 const inputs: submitInfoProps[] = [
   {
     name: "first name",
@@ -89,6 +86,12 @@ const inputs: submitInfoProps[] = [
     placeholder: "Enter Budget",
     data: "price",
     className: "laptop:col-span-2",
+  },
+  {
+    name: "Message",
+    type: "textArea",
+    placeholder: "Enter your Message here..",
+    className: "order-[20]",
   },
 ];
 const filterIcons: { [k in filterCategories]: React.ReactNode } = {
@@ -290,7 +293,6 @@ export default function PropertiesIndex() {
                   </Label>
                   <IconInput
                     placeholder={"Enter your Phone Number"}
-                    className={""}
                     id={"contact"}
                     name={"contact"}
                     type={"tel"}
@@ -313,20 +315,6 @@ export default function PropertiesIndex() {
                     <EnvelopeIcon />
                   </IconInput>
                 </div>
-              </div>
-              <div className={"overflow-visible col-span-full"}>
-                <Label
-                  className={
-                    "capitalize text-base pb-2.5 inline-block font-semibold"
-                  }
-                  htmlFor={"message"}
-                >
-                  Message
-                </Label>
-                <Textarea
-                  id={"message"}
-                  placeholder={"Enter your Message here.."}
-                />
               </div>
             </SubmitForm>
           </SectionContent>
