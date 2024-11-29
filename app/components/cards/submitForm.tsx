@@ -10,83 +10,52 @@ import { Button } from "@/components/ui/button";
 import { IconInput } from "@/iconInput";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/solid";
 import { cn } from "@/lib/styles";
-interface inputInfo {
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+export interface submitInfoProps {
   name: string;
-  type: string;
+  type: "text" | "email" | "number" | "filter" | "dropdown" | "tel";
   placeholder?: string;
-  data?: string;
-  className?: string;
+  data?: string | string[];
+  className?: React.HTMLAttributes<HTMLDivElement>["className"];
 }
+type props = React.HTMLAttributes<HTMLDivElement> & {
+  inputData: submitInfoProps[];
+};
 
-const inputs: inputInfo[] = [
-  {
-    name: "first name",
-    type: "text",
-    placeholder: "Enter First Name",
-  },
-  {
-    name: "last name",
-    type: "text",
-    placeholder: "Enter Last Name",
-  },
-  {
-    name: "email",
-    type: "email",
-    placeholder: "Enter your Email",
-  },
-  {
-    name: "phone",
-    type: "tel",
-    placeholder: "Enter Phone Number",
-  },
-  {
-    name: "Preferred Location",
-    type: "dropdown",
-    placeholder: "Select Location",
-    data: "location",
-  },
-  {
-    name: "Property Type",
-    type: "dropdown",
-    placeholder: "Select Property Type",
-    data: "property_type",
-  },
-  {
-    name: "No. of Bathrooms",
-    type: "text",
-    placeholder: "Select no. of Bathrooms",
-  },
-  {
-    name: "No. of Bedrooms",
-    type: "text",
-    placeholder: "Select no. of Bedrooms",
-  },
-  {
-    name: "Budget",
-    type: "number",
-    placeholder: "Enter Budget",
-    data: "price",
-    className: "laptop:col-span-2",
-  },
-];
-export function SubmitForm() {
+export function SubmitForm({ inputData, children }: props) {
   const filters = useOutletContext<rawFilterCursor>();
-  const inputBlocks = inputs.map((input) => {
+  const inputBlocks = inputData.map((input) => {
     return (
-      <div key={input.name} className={cn("col-span-1 ", input.className)}>
+      <div key={input.name} className={cn("col-span-1 grow", input.className)}>
         <Label
           className={"capitalize text-base pb-2.5 inline-block font-semibold"}
           htmlFor={input.name}
         >
           {input.name}
         </Label>
-        {input.type === "dropdown" ? (
+        {input.type === "filter" ? (
           <FilterInput
             filterName={input.name}
             placeholder={input.placeholder}
             className={" bg-sgrey-10 text-sm text-sgrey-40"}
             data={filters?.find((filter) => filter[0] === input.data)?.[1]}
           ></FilterInput>
+        ) : input.type === "dropdown" && Array.isArray(input.data) ? (
+          <Select>
+            <SelectTrigger>
+              <SelectValue></SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              {input.data?.map((item) => {
+                return <SelectValue>{item}</SelectValue>;
+              })}
+            </SelectContent>
+          </Select>
         ) : (
           <Input
             className={
@@ -113,55 +82,7 @@ export function SubmitForm() {
           }
         >
           {inputBlocks}
-
-          <div className={"grid grid-cols-subgrid  laptop:col-span-2"}>
-            <div className={"grid grid-cols-subgrid"}>
-              <Label
-                className={"capitalize text-base pb-2.5 inline-block"}
-                htmlFor={"contact"}
-              >
-                Preferred Contact Method
-              </Label>
-              <IconInput
-                placeholder={"Enter your Phone Number"}
-                className={""}
-                id={"contact"}
-                name={"contact"}
-                type={"tel"}
-              >
-                <PhoneIcon />
-              </IconInput>
-            </div>
-            <div className={"self-end"}>
-              <Label
-                className={"capitalize text-base pb-2.5 inline-block"}
-                htmlFor={"em"}
-              ></Label>
-              <IconInput
-                className={""}
-                id={"contact"}
-                name={"em"}
-                type={"email"}
-                placeholder={"Enter Your Email"}
-              >
-                <EnvelopeIcon />
-              </IconInput>
-            </div>
-          </div>
-          <div className={"overflow-visible col-span-full"}>
-            <Label
-              className={
-                "capitalize text-base pb-2.5 inline-block font-semibold"
-              }
-              htmlFor={"message"}
-            >
-              Message
-            </Label>
-            <Textarea
-              id={"message"}
-              placeholder={"Enter your Message here.."}
-            />
-          </div>
+          {children}
           <div
             className={
               "laptop:col-span-full laptop:flex justify-between items-center"
