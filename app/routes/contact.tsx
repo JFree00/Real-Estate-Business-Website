@@ -12,6 +12,10 @@ import {
 } from "@heroicons/react/24/solid";
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { SectionContent } from "@/components/Designations/sectionContent";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { companyEmail, companyPhone, locations } from "../../KV/locations";
+import { SectionCards } from "@/components/cards/sectionCards";
+import { Badge } from "@/components/ui/badge";
 
 const infoCards: infoCardProps[] = [
   {
@@ -62,6 +66,7 @@ const inputs: submitInfoProps[] = [
     name: "How Did You Hear About Us?",
     type: "dropdown",
     placeholder: "Select",
+    data: ["Google", "Facebook", "Instagram", "Other"],
   },
   {
     name: "Message",
@@ -102,6 +107,135 @@ export default function Contact() {
           </SectionDescription>
           <SectionContent>
             <SubmitForm inputData={inputs} />
+          </SectionContent>
+        </SectionDesignation>
+        <SectionDesignation pagination={false}>
+          <SectionHeader>Discover Our Office Locations</SectionHeader>
+          <SectionDescription>
+            Estatein is here to serve you across multiple locations. Whether
+            you're looking to meet our team.
+          </SectionDescription>
+          <SectionContent iterate={false}>
+            <div>
+              <div>
+                <Tabs defaultValue={"All"}>
+                  <TabsList className={"mb-7"}>
+                    <TabsTrigger value={"All"}>All</TabsTrigger>
+                    <TabsTrigger value={"Regional"}>Regional</TabsTrigger>
+                    <TabsTrigger value={"International"}>
+                      International
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent
+                    className={
+                      "flex flex-col gap-y-4 data-[state=inactive]:mt-0"
+                    }
+                    key={"All"}
+                    value={"All"}
+                  >
+                    {Array.from(locations).map(([, buildings]) => {
+                      return buildings.map((building) => {
+                        return (
+                          <SectionCards key={building.address}>
+                            <SectionCards.Header className={"gap-1"}>
+                              <SectionCards.Title
+                                className={"text-sm font-medium"}
+                              >
+                                {building.type}
+                              </SectionCards.Title>
+                              <SectionCards.Title>
+                                {building.address}
+                              </SectionCards.Title>
+                              <SectionCards.Description>
+                                {building.description}
+                              </SectionCards.Description>
+                            </SectionCards.Header>
+                            <SectionCards.Content
+                              className={
+                                "overflow-visible text-nowrap gap-2 flex-wrap"
+                              }
+                            >
+                              <Badge variant={"card"} className={"px-4"}>
+                                <EnvelopeIcon className={"size-5"} />
+                                {building.email ?? companyEmail}
+                              </Badge>
+                              <Badge variant={"card"} className={"px-4"}>
+                                <PhoneIcon className={"size-5"} />
+                                {building.phone ?? companyPhone}
+                              </Badge>
+                              <Badge variant={"card"} className={"px-4"}>
+                                <MapPinIcon className={"size-5"} />
+                                {building.cityType}
+                              </Badge>
+                            </SectionCards.Content>
+                            <SectionCards.Content
+                              variant={"primary"}
+                              buttonText={"Get Directions"}
+                              className={
+                                "overflow-visible text-nowrap gap-2 flex-wrap"
+                              }
+                            ></SectionCards.Content>
+                          </SectionCards>
+                        );
+                      });
+                    })}
+                  </TabsContent>
+
+                  {Array.from(locations).map(([area, buildings]) => {
+                    return (
+                      <TabsContent
+                        key={area}
+                        value={area}
+                        className={
+                          "flex flex-col gap-y-4 data-[state=inactive]:mt-0"
+                        }
+                      >
+                        {buildings.map((building) => {
+                          return (
+                            <SectionCards key={building.address}>
+                              <SectionCards.Header className={"gap-1"}>
+                                <SectionCards.Title
+                                  className={"text-sm font-medium"}
+                                >
+                                  {building.type}
+                                </SectionCards.Title>
+                                <SectionCards.Title>
+                                  {building.address}
+                                </SectionCards.Title>
+                                <SectionCards.Description>
+                                  {building.description}
+                                </SectionCards.Description>
+                              </SectionCards.Header>
+                              <SectionCards.Content
+                                buttonText={"Get Directions"}
+                                variant={"primary"}
+                                className={
+                                  "overflow-visible text-nowrap gap-2 flex-wrap"
+                                }
+                              >
+                                <Badge variant={"card"} className={"px-4"}>
+                                  <EnvelopeIcon className={"size-5"} />
+                                  {building.email ?? companyEmail}
+                                </Badge>
+                                <Badge variant={"card"} className={"px-4"}>
+                                  <PhoneIcon className={"size-5"} />
+                                  {building.phone ?? companyPhone}
+                                </Badge>
+                                <Badge variant={"card"} className={"px-4"}>
+                                  <MapPinIcon className={"size-5"} />
+                                  {building.cityType}
+                                </Badge>
+                              </SectionCards.Content>
+                            </SectionCards>
+                          );
+                        })}
+                      </TabsContent>
+                    );
+                  })}
+                </Tabs>
+              </div>
+            </div>
           </SectionContent>
         </SectionDesignation>
       </div>
