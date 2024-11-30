@@ -1,14 +1,14 @@
 // @flow
 import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/styles";
 import { createContext, useContext } from "react";
 
 export type sectionCardProps = {
   name: string;
   description: string;
-  buttonText?: string;
+  buttonText?: string | boolean;
   icon?: React.ReactNode;
 };
 const SectionData = createContext({} as sectionCardProps);
@@ -18,28 +18,36 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   wrap?: boolean;
 };
 
-function Icon({ data, className }: Props) {
+function SectionIcon({ data, className }: Props) {
   const cardData = data ?? useContext(SectionData);
   return <div className={className}>{cardData.icon}</div>;
 }
-function Content({ data, className, children }: Props) {
+function SectionContent({
+  data,
+  className,
+  children,
+  buttonText,
+  variant,
+}: Props & Partial<sectionCardProps> & Partial<ButtonProps>) {
   const cardData = data ?? useContext(SectionData);
   return (
-    <CardContent className={cn("flex justify-start items-center", className)}>
+    <CardContent className={cn("flex justify-start items-center ", className)}>
       {children}
-      {cardData.buttonText ? (
+      {buttonText || cardData?.buttonText ? (
         <Button
           size={"responsive"}
-          variant={"secondary"}
+          variant={variant ?? "secondary"}
           className={"text-lg  desktop:h-[60px]"}
         >
-          {cardData.buttonText}
+          {typeof buttonText === "boolean"
+            ? "Learn More"
+            : buttonText || cardData?.buttonText}
         </Button>
       ) : null}
     </CardContent>
   );
 }
-function Title({ data, className, children }: Props) {
+function SectionTitle({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
     <CardTitle
@@ -52,7 +60,7 @@ function Title({ data, className, children }: Props) {
     </CardTitle>
   );
 }
-function Description({ data, className, children }: Props) {
+function SectionDescription({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
     <p className={cn(" lg:text-left max-h-32 text-sgrey-60", className)}>
@@ -61,16 +69,16 @@ function Description({ data, className, children }: Props) {
   );
 }
 
-function Header({ data, className, children }: Props) {
+function SectionHeader({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
-    <CardHeader className={cn("gap-y-6 ", className)}>
+    <CardHeader className={cn("gap-y-6", className)}>
       {children ? (
         children
       ) : (
         <>
-          <Title data={cardData} />
-          <Description data={cardData} />
+          <SectionTitle data={cardData} />
+          <SectionDescription data={cardData} />
         </>
       )}
     </CardHeader>
@@ -83,14 +91,20 @@ function SectionCards({ data, children, className }: Props) {
     <SectionData.Provider value={data}>
       {!children ? (
         <Card
-          className={cn("bg-sgrey-8 dataCardComponent dataCard", className)}
+          className={cn(
+            "bg-sgrey-8 dataCardComponent dataCard flex flex-col gap-y-8 justify-between",
+            className,
+          )}
         >
-          <Header data={data} />
-          <Content data={data} />
+          <SectionHeader data={data} />
+          <SectionContent data={data} />
         </Card>
       ) : (
         <Card
-          className={cn("bg-sgrey-8 dataCardComponent dataCard", className)}
+          className={cn(
+            "bg-sgrey-8 dataCardComponent dataCard flex flex-col gap-y-8 justify-between",
+            className,
+          )}
         >
           {children}
         </Card>
@@ -98,10 +112,19 @@ function SectionCards({ data, children, className }: Props) {
     </SectionData.Provider>
   );
 }
-Header.Title = Title;
-Header.Description = Description;
-SectionCards.Header = Header;
-SectionCards.Content = Content;
-SectionCards.Icon = Icon;
+SectionHeader.Title = SectionTitle;
+SectionHeader.Description = SectionDescription;
+SectionCards.Title = SectionTitle;
+SectionCards.Description = SectionDescription;
+SectionCards.Header = SectionHeader;
+SectionCards.Content = SectionContent;
+SectionCards.Icon = SectionIcon;
 
-export { SectionCards };
+export {
+  SectionCards,
+  SectionHeader,
+  SectionContent,
+  SectionTitle,
+  SectionDescription,
+  SectionIcon,
+};

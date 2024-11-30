@@ -23,7 +23,7 @@ export function TestimonialCards({ data }: props) {
             {data.testimonial}
           </p>
         </CardHeader>
-        <CardContent className={"flex justify-start items-center mt-9"}>
+        <CardContent className={"flex justify-start items-center"}>
           {data.image ? (
             <img alt={"Customer Headshot"} src={data.image} />
           ) : (

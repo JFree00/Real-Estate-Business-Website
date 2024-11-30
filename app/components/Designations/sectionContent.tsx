@@ -27,7 +27,7 @@ export function SectionContent({
   return (
     <div
       className={cn(
-        "flex basis-full overflow-hidden gap-7 flex-nowrap w-full mt-10 lg:mt-20 shrink-0 ",
+        "flex basis-full overflow-hidden gap-7 flex-nowrap w-full mt-10 lg:mt-20",
         className,
       )}
     >
