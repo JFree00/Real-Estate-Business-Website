@@ -257,8 +257,8 @@ export default function Index() {
           <SectionContent>
             <SectionCards>
               <SectionCards.Header>
-                <SectionCards.Header.Title className={"h-[72px]"} />
-                <SectionCards.Header.Description className={"h-52"} />
+                <SectionCards.Header.Title className={"h-16"} />
+                <SectionCards.Header.Description />
               </SectionCards.Header>
 
               <SectionCards.Content />
