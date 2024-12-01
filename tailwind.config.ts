@@ -5,6 +5,9 @@ export default {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        waves: "url('app/assets/waves.svg')",
+      },
       fontFamily: {
         sans: "Urbanist, sans-serif",
       },
