@@ -3,7 +3,6 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { LogoSvg } from "@/components/ui/logoSvg";
 import { useState } from "react";
-import wavesComponent from "@/assets/waves.svg";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import burgerIcon from "@/assets/icons/burger.svg";
 import { cn } from "@/lib/styles";
@@ -33,18 +32,13 @@ export function Header() {
 
   return (
     <header
-      className="bg-sgrey-10"
+      className="bg-sgrey-10 flex flex-col"
       style={{
         height: !opened ? "5rem" : "10rem",
       }}
     >
       {opened && (
-        <div
-          className={" overflow-hidden relative "}
-          style={{
-            height: "40%",
-          }}
-        >
+        <div className={" overflow-hidden relative basis-3/5 "}>
           <div
             className={
               " flex justify-between items-center h-full z-10 absolute w-full "
@@ -82,18 +76,15 @@ export function Header() {
             </div>
           </div>
           <div
-            className={" w-full absolute -top-48"}
-            style={{
-              backgroundImage: `url('${wavesComponent}')`,
-              paddingTop: "99%",
-              top: "calc(50% - 1282px/2 - 0.5px)",
-            }}
-          ></div>
+            className={
+              "bg-waves bg-no-repeat bg-center desktop:bg-left bg-auto desktop:bg-cover  opacity-30 absolute size-full"
+            }
+          />
         </div>
       )}
       <Separator />
       <div
-        className={"offset flex items-center justify-between"}
+        className={"offset flex items-center justify-between basis-auto"}
         style={{
           height: !opened ? "100%" : "60%",
         }}
