@@ -238,6 +238,53 @@ export default function Contact() {
             </div>
           </SectionContent>
         </SectionDesignation>
+        <SectionDesignation pagination={false}>
+          <SectionContent iterate={false}>
+            <SectionCards className={"bg-sgrey-10 overflow-hidden  relative"}>
+              <div
+                className={
+                  "bg-waves absolute max-w-none bg-auto size-full bg-no-repeat bg-[right_-160px_top_-350px] left-0 top-0 opacity-35"
+                }
+              />
+
+              <SectionCards.Header className={"*:z-0 gap-y-8 "}>
+                <div
+                  className={
+                    "grid grid-cols-4 justify-items-center gap-2.5 *:rounded-lg *:h-[70px] z-20"
+                  }
+                >
+                  <img
+                    alt={"Estatein Team"}
+                    className={"col-span-2"}
+                    src={"app/assets/Image.webp"}
+                  />
+                  <img
+                    alt={"Estatein Team"}
+                    className={"col-span-2"}
+                    src={"app/assets/Image-2.webp"}
+                  />
+                  <img
+                    alt={"Estatein Team"}
+                    className={"col-span-2"}
+                    src={"app/assets/Image-1.webp"}
+                  />
+                  <img alt={"Estatein Team"} src={"app/assets/Image-3.webp"} />
+                  <img alt={"Estatein Team"} src={"app/assets/Image-4.webp"} />
+                </div>
+                <div className={"space-y-2"}>
+                  <SectionHeader>Explore Estatein's World </SectionHeader>
+                  <SectionCards.Header.Description>
+                    Step inside the world of Estatein, where professionalism
+                    meets warmth, and expertise meets passion. Our gallery
+                    offers a glimpse into our team and workspaces, inviting you
+                    to get to know us better.
+                  </SectionCards.Header.Description>
+                </div>
+                <img src={"app/assets/Image-5.webp"} />
+              </SectionCards.Header>
+            </SectionCards>
+          </SectionContent>
+        </SectionDesignation>
       </div>
     </main>
   );
