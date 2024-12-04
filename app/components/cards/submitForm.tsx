@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Card } from "@/components/ui/card";
 export interface submitInfoProps {
   name: string;
   type:
@@ -33,7 +34,7 @@ type props = React.HTMLAttributes<HTMLDivElement> & {
   inputData: submitInfoProps[];
 };
 
-export function SubmitForm({ inputData, children }: props) {
+export function SubmitForm({ inputData, children, className }: props) {
   const filters = useOutletContext<rawFilterCursor>();
   const inputBlocks = inputData.map((input) => {
     return (
@@ -92,37 +93,32 @@ export function SubmitForm({ inputData, children }: props) {
     );
   });
   return (
-    <div
-      className={
-        "w-full rounded-xl border border-sgrey-15 p-5 laptop:p-12 desktop:p-[100px]"
-      }
+    <Card
+      className={cn(
+        "w-full rounded-xl border  p-5 tablet:p-8 laptop:p-12 desktop:p-[100px] bg-transparent grid grid-cols-1 laptop:grid-cols-4 gap-5 laptop:gap-7 shrink-0",
+        className,
+      )}
     >
-      <Form method={"post"}>
+      <Form method={"post"} className={"contents"}>
+        {inputBlocks}
+        {children}
         <div
           className={
-            "grid grid-cols-1 laptop:grid-cols-4 gap-5 laptop:gap-7 shrink-0"
+            "laptop:col-span-full laptop:flex justify-between items-center order-last"
           }
         >
-          {inputBlocks}
-          {children}
-          <div
-            className={
-              "laptop:col-span-full laptop:flex justify-between items-center order-last"
-            }
+          <CheckboxWithText>
+            I agree to the <span className={"underline"}>Terms of Use</span> and{" "}
+            <span className={"underline"}>Privacy Policy</span>
+          </CheckboxWithText>
+          <Button
+            size={"responsive"}
+            className={"bg-pprimary-60 laptop:h-14 mt-4"}
           >
-            <CheckboxWithText>
-              I agree to the <span className={"underline"}>Terms of Use</span>{" "}
-              and <span className={"underline"}>Privacy Policy</span>
-            </CheckboxWithText>
-            <Button
-              size={"responsive"}
-              className={"bg-pprimary-60 laptop:h-14 mt-4"}
-            >
-              <span>Send Your Message</span>
-            </Button>
-          </div>
+            <span>Send Your Message</span>
+          </Button>
         </div>
       </Form>
-    </div>
+    </Card>
   );
 }

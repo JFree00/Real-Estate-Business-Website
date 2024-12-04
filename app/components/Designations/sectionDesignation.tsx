@@ -1,14 +1,18 @@
 // @flow
 import * as React from "react";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/styles";
 import { Separator } from "@/components/ui/separator";
 import { Pagination } from "@/components/pagination";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
-import { Suspense } from "react";
 import { Await } from "@remix-run/react";
 import { loaderData } from "@/routes/_index";
-import { assumedData } from "@/components/Designations/sectionContent";
+
+export interface assumedData {
+  name: string;
+  [key: string]: unknown;
+}
 export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: React.ReactNode;
   columns?: number;
@@ -20,7 +24,7 @@ export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
     | {
         [K in keyof loader[keyof loader]]: loader[keyof loader][Awaited<K>];
       }
-    | assumedData;
+    | assumedData[];
 };
 type loader = Awaited<ReturnType<loaderData>>;
 
@@ -32,7 +36,7 @@ export function SectionDesignation({
   buttonText,
   displayAmount = 1,
   pagination = true,
-  data = [],
+  data,
 }: designationProps) {
   const [currentPage, setCurrentPage] = React.useState(1);
   return (
@@ -53,11 +57,11 @@ export function SectionDesignation({
           {buttonText}
         </Button>
       )}
-      {pagination ? (
+      {pagination && data ? (
         <PaginationContext.Provider
           value={{
             current: currentPage,
-            max: data.length,
+            max: data?.length ?? data.length,
             amountToDisplay: displayAmount,
           }}
         >
@@ -78,7 +82,7 @@ export function SectionDesignation({
         <DataContext.Provider value={data}>{children}</DataContext.Provider>
       ) : (
         <Suspense>
-          <Await resolve={data.keys}>{children}</Await>
+          <Await resolve={data?.keys}>{children}</Await>
         </Suspense>
       )}
     </div>

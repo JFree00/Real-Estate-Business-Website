@@ -5,12 +5,12 @@ import { Ratings } from "@/components/ratings";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { testimonialProps } from "../../../KV/testimonials";
 
-type props = {
+interface props {
   data?: testimonialProps;
-};
+}
 
 export function TestimonialCards({ data }: props) {
-  data = data as testimonialProps;
+  data = data!;
   return (
     <div className={"dataCard"}>
       <Card className={"bg-sgrey-8 dataCardComponent"}>
@@ -23,7 +23,7 @@ export function TestimonialCards({ data }: props) {
             {data.testimonial}
           </p>
         </CardHeader>
-        <CardContent className={"flex justify-start items-center"}>
+        <CardContent className={"flex justify-start items-center mt-5"}>
           {data.image ? (
             <img alt={"Customer Headshot"} src={data.image} />
           ) : (
