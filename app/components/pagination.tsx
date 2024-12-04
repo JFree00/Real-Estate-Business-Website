@@ -9,15 +9,15 @@ type paginationProps = Pick<designationProps, "buttonText"> & {
   setPage: (page: () => number) => void;
 };
 export function Pagination({ buttonText, setPage }: paginationProps) {
-  const { current, max, amountToDisplay } = React.useContext(PaginationContext);
-  if (amountToDisplay === 0) return null;
+  const context = React.useContext(PaginationContext);
+  if (!context || context.amountToDisplay === 0) return null;
   const paginate = (forward: boolean) => {
     setPage(() => {
-      return forward && current < max
-        ? current + 1
-        : !forward && current > 1
-          ? current - 1
-          : current;
+      return forward && context.current < context.max
+        ? context.current + 1
+        : !forward && context.current > 1
+          ? context.current - 1
+          : context.current;
     });
   };
   return (
@@ -32,11 +32,11 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
       )}
       <p className={"text-sgrey-60 basis-3/12 text-xl hidden laptop:flex"}>
         <span className={"text-white"}>
-          0{current}
+          0{context.current}
           {" of "}
         </span>
         &nbsp;
-        {max}
+        {context.max}
       </p>
 
       <div className={" grow flex gap-x-2 justify-end items-center"}>
@@ -44,23 +44,23 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
           size={"icon"}
           className={"rounded-full w-10 h-10 laptop:h-14 laptop:w-14"}
           onClick={() => paginate(false)}
-          disabled={current === 1}
+          disabled={context.current === 1}
         >
           <ArrowLeftIcon className={"size-6 "} />
         </Button>
         <p className={"text-sgrey-60 my-auto text-xl laptop:hidden"}>
           <span className={"text-white"}>
-            0{current} {" of "}
+            0{context.current} {" of "}
           </span>
           &nbsp;
-          {max}
+          {context.max}
         </p>
         <Button
           size={"icon"}
           variant={"secondary"}
           className={"rounded-full w-10 h-10 laptop:h-14 laptop:w-14"}
           onClick={() => paginate(true)}
-          disabled={current === max}
+          disabled={context.current === context.max}
         >
           <ArrowRightIcon className={"size-6"} />
         </Button>

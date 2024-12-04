@@ -22,7 +22,7 @@ function SectionIcon({ data, className }: Props) {
   const cardData = data ?? useContext(SectionData);
   return <div className={className}>{cardData.icon}</div>;
 }
-function SectionContent({
+function SectionCardContent({
   data,
   className,
   children,
@@ -31,13 +31,13 @@ function SectionContent({
 }: Props & Partial<sectionCardProps> & Partial<ButtonProps>) {
   const cardData = data ?? useContext(SectionData);
   return (
-    <CardContent className={cn("flex justify-start items-center ", className)}>
+    <CardContent className={cn("", className)}>
       {children}
       {buttonText || cardData?.buttonText ? (
         <Button
           size={"responsive"}
           variant={variant ?? "secondary"}
-          className={"text-lg  desktop:h-[60px]"}
+          className={"text-lg  desktop:h-[60px] mt-5"}
         >
           {typeof buttonText === "boolean"
             ? "Learn More"
@@ -47,12 +47,12 @@ function SectionContent({
     </CardContent>
   );
 }
-function SectionTitle({ data, className, children }: Props) {
+function SectionCardTitle({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
     <CardTitle
       className={cn(
-        "text-xl lg:text-2xl font-semibold leading-normal",
+        "text-xl desktop:text-2xl font-semibold leading-normal",
         className,
       )}
     >
@@ -60,25 +60,27 @@ function SectionTitle({ data, className, children }: Props) {
     </CardTitle>
   );
 }
-function SectionDescription({ data, className, children }: Props) {
+function SectionCardDescription({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
-    <p className={cn(" lg:text-left max-h-32 text-sgrey-60", className)}>
+    <p className={cn(" lg:text-left text-sgrey-60 ", className)}>
       {children ?? cardData.description}
     </p>
   );
 }
 
-function SectionHeader({ data, className, children }: Props) {
+function SectionCardHeader({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
-    <CardHeader className={cn("gap-y-6", className)}>
+    <CardHeader
+      className={cn("flex flex-col justify-between pb-2.5", className)}
+    >
       {children ? (
         children
       ) : (
         <>
-          <SectionTitle data={cardData} />
-          <SectionDescription data={cardData} />
+          <SectionCardTitle data={cardData} />
+          <SectionCardDescription data={cardData} />
         </>
       )}
     </CardHeader>
@@ -92,19 +94,20 @@ function SectionCards({ data, children, className }: Props) {
       {!children ? (
         <Card
           className={cn(
-            "bg-sgrey-8 dataCardComponent dataCard flex flex-col gap-y-8 justify-between",
+            "bg-sgrey-8 dataCardComponent dataCard grid auto-rows-auto gap-y-0 ",
             className,
           )}
         >
-          <SectionHeader data={data} />
-          <SectionContent data={data} />
+          <SectionCardHeader data={data} />
+          <SectionCardContent data={data} />
         </Card>
       ) : (
         <Card
           className={cn(
-            "bg-sgrey-8 dataCardComponent dataCard flex flex-col gap-y-8 justify-between",
+            " bg-sgrey-8 dataCardComponent dataCard grid-rows-subgrid col-start-auto row-span-2 col-span-1 gap-y-0 grid first:grid",
             className,
           )}
+          data-active={"false"}
         >
           {children}
         </Card>
@@ -112,19 +115,19 @@ function SectionCards({ data, children, className }: Props) {
     </SectionData.Provider>
   );
 }
-SectionHeader.Title = SectionTitle;
-SectionHeader.Description = SectionDescription;
-SectionCards.Title = SectionTitle;
-SectionCards.Description = SectionDescription;
-SectionCards.Header = SectionHeader;
-SectionCards.Content = SectionContent;
+SectionCardHeader.Title = SectionCardTitle;
+SectionCardHeader.Description = SectionCardDescription;
+SectionCards.Title = SectionCardTitle;
+SectionCards.Description = SectionCardDescription;
+SectionCards.Header = SectionCardHeader;
+SectionCards.Content = SectionCardContent;
 SectionCards.Icon = SectionIcon;
 
 export {
   SectionCards,
-  SectionHeader,
-  SectionContent,
-  SectionTitle,
-  SectionDescription,
+  SectionCardHeader,
+  SectionCardContent,
+  SectionCardTitle,
+  SectionCardDescription,
   SectionIcon,
 };

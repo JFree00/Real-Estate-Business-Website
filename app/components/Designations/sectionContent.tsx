@@ -27,15 +27,16 @@ export function SectionContent({
   return (
     <div
       className={cn(
-        "flex basis-full overflow-hidden gap-7 flex-nowrap w-full mt-10 lg:mt-20",
+        "overflow-hidden grid grid-cols-3 data-[expanded=true]:grid-cols-[repeat(3,100%)] laptop:data-[expanded=true]:grid-cols-3  gap-4 mt-10 lg:mt-20 ",
         className,
       )}
+      data-expanded={!!page}
     >
       {Array.isArray(dataArray) && dataArray.length > 0 && iterate
         ? childrenToDisplay(
             dataArray,
-            page.current - 1,
-            amountToDisplay ?? page.amountToDisplay,
+            !page?.current ? 0 : page.current - 1,
+            amountToDisplay ?? page?.amountToDisplay ?? dataArray.length,
             children,
           )
         : React.cloneElement(children, {
@@ -68,14 +69,7 @@ const childrenToDisplay = (
         })}
 
       {Array.from({ length: fillerCards }).map((_, i) => {
-        return (
-          <div className={"invisible dataCard"} key={i}>
-            {React.cloneElement(children, {
-              key: `filler-${i}`,
-              data: data[0],
-            })}
-          </div>
-        );
+        return <div className={"invisible dataCard"} key={i}></div>;
       })}
     </>
   );
