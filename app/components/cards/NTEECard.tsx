@@ -7,15 +7,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { stepsProps } from "../../../KV/steps";
+import { cn } from "@/lib/styles";
 
-type props = {
+type props = React.HTMLAttributes<HTMLDivElement> & {
   data?: stepsProps;
 };
 
-export function NteeCard({ data }: props) {
-  data = data as stepsProps;
+export function NteeCard({ data, className }: props) {
+  data = data!;
   return (
-    <div className={"laptop:basis-1/4 flex flex-col grow"}>
+    <div className={cn("laptop:basis-1/4 flex flex-col grow", className)}>
       <div className={"border-l border-l-pprimary-60 h-12 flex items-center"}>
         <p className={"font-medium text-base px-7"}>Step 0{data.step}</p>
       </div>

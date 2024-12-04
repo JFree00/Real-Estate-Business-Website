@@ -14,7 +14,7 @@ export function ClientsCard({ data }: Props) {
     <div className={"dataCard outline outline-8 outline-sgrey-10 rounded-xl "}>
       <Card
         className={
-          "border border-sgrey-15 outline-sgrey-10 dataCardComponent bg-sgrey-8"
+          "border border-sgrey-15  dataCardComponent mx-auto bg-sgrey-8"
         }
       >
         <CardHeader className={"flex flex-col relative"}>

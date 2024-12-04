@@ -1,17 +1,17 @@
-export type areas = "Regional" | "International";
+export type locationAreas = "Regional" | "International" | "All";
 
-export type building = {
+export interface building {
   type: "Main Headquarters" | "Regional Office" | "Branch Office";
   address: string;
   phone?: string;
   email?: string;
   cityType: "Metropolis" | "Suburban" | "Rural";
   description: string;
-};
+}
 export const companyPhone = "+1 (123) 456-7890";
 export const companyEmail = "info@estatein.com";
 
-export const locations: Map<areas, building[]> = new Map([
+export const locations = new Map<locationAreas, building[]>([
   [
     "International",
     [

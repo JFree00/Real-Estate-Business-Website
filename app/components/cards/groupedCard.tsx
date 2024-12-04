@@ -4,18 +4,19 @@ import { useContext } from "react";
 import { DataContext } from "@/context/paginationContext";
 import { valuesProps } from "../../../KV/values";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/styles";
 
 export function GroupedCard() {
   const data = useContext(DataContext) as valuesProps[];
   return (
     <div
       className={
-        "basis-full outline outline-[6px] outline-sgrey-10 rounded-xl border border-sgrey-15"
+        "col-span-full outline outline-[6px] outline-sgrey-10 rounded-xl border border-sgrey-15"
       }
     >
       <div
         className={
-          " w-full flex flex-col laptop:flex-row laptop:flex-wrap gap-y-12 gap-x-12 p-16 relative"
+          " w-full flex flex-col laptop:flex-row laptop:flex-wrap gap-x-12 laptop:gap-y-12 p-5 laptop:p-14 desktop:p-16 relative"
         }
       >
         {data.map((item, index) => (
@@ -25,7 +26,7 @@ export function GroupedCard() {
               "basis-1/4 laptop:basis-1/3 laptop:shrink-0 border-sgrey-15 grow flex flex-col"
             }
           >
-            <div className={"flex items-center gap-x-2 mb-2 pb-5"}>
+            <div className={"flex items-center gap-x-2 pb-3 laptop:pb-5"}>
               <div
                 className={
                   "size-10 desktop:size-16 rounded-full border border-pprimary-60 flex"
@@ -51,20 +52,21 @@ export function GroupedCard() {
             </p>
             <Separator
               className={
-                index < data.length / 2
-                  ? "absolute bottom-1/2 mx-auto inset-x-0 w-[calc(100%-6em)] h-px"
+                index !== data.length - 1
+                  ? "laptop:absolute bottom-1/2 mx-auto inset-x-0 laptop:w-[calc(100%-6em)] h-px my-6 laptop:my-0 "
                   : "hidden"
               }
             />
             <Separator
               orientation={"vertical"}
-              className={
+              className={cn(
+                "hidden",
                 index / 2 === 1
-                  ? " absolute bottom-[calc(6em-7%)] right-1/2 h-[calc(50%-6em)] w-px"
+                  ? "laptop:block  absolute bottom-[calc(6em-7%)] right-1/2 h-[calc(50%-6em)] w-px"
                   : index / 2 == 0
-                    ? "absolute top-[calc(6em-7%)] right-1/2 h-[calc(50%-6em)] w-px"
-                    : "hidden"
-              }
+                    ? "laptop:block  absolute top-[calc(6em-7%)] right-1/2 h-[calc(50%-6em)] w-px"
+                    : "hidden",
+              )}
             />
             {/*
               <Separator

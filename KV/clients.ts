@@ -1,10 +1,12 @@
-export type clientsProps = {
+import { assumedData } from "@/components/Designations/sectionDesignation";
+
+export interface clientsProps extends assumedData {
   name: string;
   Category: string;
   Domain: string;
   Testimonial: string;
-  startYear: number;
-};
+  startYear: string;
+}
 export const clientsData: clientsProps[] = [
   {
     name: "ABC Corporation",
@@ -12,7 +14,7 @@ export const clientsData: clientsProps[] = [
     Domain: "Luxury Home Development",
     Testimonial:
       "Estatein's expertise in finding the perfect office space for our expanding operations was invaluable. They truly understand our business needs.",
-    startYear: 2019,
+    startYear: "2019",
   },
   {
     name: "XYZ Group",
@@ -20,7 +22,7 @@ export const clientsData: clientsProps[] = [
     Domain: "Luxury Home Development",
     Testimonial:
       "Estatein's expertise in finding the perfect office space for our expanding operations was invaluable. They truly understand our business needs.",
-    startYear: 2019,
+    startYear: "2019",
   },
   {
     name: "PQR Corporation",
@@ -28,7 +30,7 @@ export const clientsData: clientsProps[] = [
     Domain: "Luxury Home Development",
     Testimonial:
       "Estatein's expertise in finding the perfect office space for our expanding operations was invaluable. They truly understand our business needs.",
-    startYear: 2019,
+    startYear: "2019",
   },
   {
     name: "LMN Group",
@@ -36,7 +38,7 @@ export const clientsData: clientsProps[] = [
     Domain: "Luxury Home Development",
     Testimonial:
       "Estatein's expertise in finding the perfect office space for our expanding operations was invaluable. They truly understand our business needs.",
-    startYear: 2019,
+    startYear: "2019",
   },
   {
     name: "GreenTech Enterprises",
@@ -44,6 +46,6 @@ export const clientsData: clientsProps[] = [
     Domain: "Commercial Real Estate",
     Testimonial:
       "Estatein's ability to identify prime retail locations helped us expand our brand presence. They are a trusted partner in our growth.",
-    startYear: 2018,
+    startYear: "2018",
   },
 ];

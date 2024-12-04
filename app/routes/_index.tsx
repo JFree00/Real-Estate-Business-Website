@@ -255,14 +255,7 @@ export default function Index() {
             and assist you every step of the way.
           </SectionDescription>
           <SectionContent>
-            <SectionCards>
-              <SectionCards.Header>
-                <SectionCards.Header.Title className={"h-16"} />
-                <SectionCards.Header.Description />
-              </SectionCards.Header>
-
-              <SectionCards.Content />
-            </SectionCards>
+            <SectionCards />
           </SectionContent>
         </SectionDesignation>
       </div>

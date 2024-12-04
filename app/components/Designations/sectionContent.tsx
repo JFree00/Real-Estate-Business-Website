@@ -4,16 +4,13 @@ import { useContext } from "react";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
 import { useAsyncValue } from "@remix-run/react";
 import { cn } from "@/lib/styles";
+import { assumedData } from "@/components/Designations/sectionDesignation";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactElement;
   amountToDisplay?: number;
   iterate?: boolean;
 };
-export type assumedData = {
-  name: string;
-  [key: string]: unknown;
-}[];
 
 export function SectionContent({
   children,
@@ -21,7 +18,7 @@ export function SectionContent({
   iterate = true,
   amountToDisplay,
 }: Props) {
-  const deferredData = useAsyncValue() as assumedData;
+  const deferredData = useAsyncValue() as assumedData[];
   const dataArray = deferredData ?? useContext(DataContext);
   const page = useContext(PaginationContext);
   return (
@@ -48,7 +45,7 @@ export function SectionContent({
 }
 
 const childrenToDisplay = (
-  data: assumedData,
+  data: assumedData[],
   page: number,
   amountToDisplay: number,
   children: React.ReactElement,
