@@ -72,7 +72,7 @@ export function SectionDesignation({
               <Await resolve={data.keys}>{children}</Await>
             </Suspense>
           )}
-          <Separator className={"mt-10"} />
+          <Separator className={"mt-10 col-span-full"} />
           <Pagination
             setPage={(page) => setCurrentPage(page)}
             buttonText={buttonText}

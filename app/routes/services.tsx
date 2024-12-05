@@ -21,7 +21,6 @@ import {
   SwatchIcon,
 } from "@heroicons/react/24/solid";
 import { Swirl } from "@/components/swirl";
-import wavesComponent from "@/assets/waves.svg";
 import { Button } from "@/components/ui/button";
 import { SquaresPlusIcon } from "@heroicons/react/24/outline";
 import { SunIcon } from "@heroicons/react/20/solid";
@@ -111,12 +110,7 @@ type props = React.HTMLAttributes<HTMLDivElement> & {
 function NewComponent({ data, children, className }: props) {
   const cards = data.map((item) => {
     return (
-      <SectionCards
-        key={item.name}
-        data={item}
-        className={" h-full"}
-        wrap={false}
-      >
+      <SectionCards key={item.name} data={item} className={"items-start"}>
         <SectionCards.Header className={"flex-col gap-y-4"}>
           <div className={"inline-flex items-center gap-x-4"}>
             <Swirl className={"bg-sgrey-8"} size={"laptop:size-16"}>
@@ -132,12 +126,7 @@ function NewComponent({ data, children, className }: props) {
     );
   });
   return (
-    <div
-      className={cn(
-        "flex flex-col laptop:grid grid-cols-1 laptop:grid-cols-3 gap-5",
-        className,
-      )}
-    >
+    <div className={cn("contents", className)}>
       {cards}
       {children}
     </div>
@@ -189,7 +178,7 @@ export default function Services() {
           </SectionDescription>
           <SectionContent
             iterate={false}
-            className={"block"}
+            className={"laptop:grid-cols-3"}
             amountToDisplay={4}
           >
             <NewComponent data={servicesData}>
@@ -201,14 +190,8 @@ export default function Services() {
                 <div className={" size-full absolute"}>
                   <div
                     className={
-                      "absolute w-[1422px] h-[950px] z-0 overflow-hidden"
+                      "absolute w-[1422px] h-[950px] z-0 overflow-hidden bg-auto bg-waves opacity-20 -top-[632px]"
                     }
-                    style={{
-                      backgroundImage: `url('${wavesComponent}')`,
-                      opacity: "0.6",
-                      top: "calc(-632px)",
-                      left: "calc(-511px)",
-                    }}
                   ></div>
                 </div>
                 <SectionCards.Header
@@ -239,7 +222,6 @@ export default function Services() {
             </NewComponent>
           </SectionContent>
         </SectionDesignation>
-
         <SectionDesignation pagination={false} data={data2}>
           <SectionHeader>Effortless Property Management</SectionHeader>
           <SectionDescription className={"laptop:hidden"}>
@@ -256,7 +238,7 @@ export default function Services() {
           </SectionDescription>
           <SectionContent
             iterate={false}
-            className={"flex-col gap-y-5"}
+            className={"laptop:grid-cols-3 gap-y-5"}
             amountToDisplay={4}
           >
             <NewComponent data={data2}>
@@ -268,14 +250,8 @@ export default function Services() {
                 <div className={" size-full absolute"}>
                   <div
                     className={
-                      "absolute w-[1422px] h-[950px] z-0  overflow-hidden"
+                      "absolute w-[1422px] h-[950px] z-0  overflow-hidden bg-auto bg-waves opacity-20 -top-[632px]"
                     }
-                    style={{
-                      backgroundImage: `url('${wavesComponent}')`,
-                      opacity: "0.6",
-                      top: "calc(-632px)",
-                      left: "calc(-511px)",
-                    }}
                   ></div>
                 </div>
                 <SectionCards.Header
@@ -337,13 +313,9 @@ export default function Services() {
             >
               <div className={" size-max absolute"}>
                 <div
-                  className={"absolute w-[1422px] h-[950px] z-0 "}
-                  style={{
-                    backgroundImage: `url('${wavesComponent}')`,
-                    opacity: "0.6",
-                    top: "calc(-632px)",
-                    left: "calc(-511px)",
-                  }}
+                  className={
+                    "absolute w-[1422px] h-[950px] z-0 bg-auto bg-waves opacity-20 -top-[632px] "
+                  }
                 ></div>
               </div>
               <SectionCards.Header className={"z-20 gap-y-5 desktop:gap-y-8"}>
@@ -374,14 +346,11 @@ export default function Services() {
           <SectionContent
             iterate={false}
             className={
-              "flex-col gap-y-2.5 bg-sgrey-10 p-2.5 rounded-xl mt-12 shrink laptop:mt-0"
+              "flex-col gap-y-2.5 bg-sgrey-10 p-2.5 rounded-xl mt-12 shrink laptop:mt-0 laptop:grid-cols-2"
             }
             amountToDisplay={4}
           >
-            <NewComponent
-              data={data3}
-              className={"laptop:grid-cols-2 gap-2.5 grow"}
-            ></NewComponent>
+            <NewComponent data={data3}></NewComponent>
           </SectionContent>
         </SectionDesignation>
       </div>

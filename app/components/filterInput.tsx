@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/drawer";
 import { DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/styles";
+import { Input } from "@/components/ui/input";
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: React.ReactNode;
@@ -76,29 +77,32 @@ export function FilterInput({
     <div
       key={placeholder}
       className={cn(
-        "flex h-14  desktop:h-[70px] items-center bg-sgrey-8 rounded-xl border border-sgrey-20 w-full",
-        !icon && "pl-5",
+        "flex h-14  desktop:h-[70px] items-center bg-sgrey-8 rounded-lg border border-sgrey-15 w-full",
+        icon && "pl-5",
         className,
       )}
     >
-      {icon && (
+      {icon ? (
         <>
-          <div className={"size-5 mx-2.5 text-sgrey-60 flex"}>{icon}</div>
+          <div className={"size-5 desktop:size-6 mr-2.5 text-sgrey-60 flex"}>
+            {icon}
+          </div>
           <Separator orientation={"vertical"} className={"w-px h-1/3 mr-2.5"} />
         </>
+      ) : (
+        <div className={"pl-5"} />
       )}
-      <div className={"hidden laptop:block basis-full"}>
+      <div className={"hidden laptop:block basis-full h-full content-stretch"}>
         <Popover>
           <PopoverTrigger asChild>
             <div
-              className={
-                "flex flex-nowrap h-full justify-items-stretch items-center"
-              }
+              className={" flex flex-nowrap justify-start items-center h-full"}
             >
-              <input
+              <Input
                 className={
-                  "bg-transparent w-full h-full focus:outline-0 text-sgrey-60 capitalize text-lg"
+                  "pl-0 bg-transparent w-full h-full focus:outline-0 placeholder:text-sgrey-40 capitalize text-lg desktop:text-lg border-0"
                 }
+                id={filterName}
                 value={input.length ? input.join(", ") : ""}
                 placeholder={placeholder}
                 readOnly
@@ -106,7 +110,7 @@ export function FilterInput({
               <Button
                 size={"icon"}
                 className={
-                  "rounded-full bg-sgrey-10 w-7  h-full shrink-0 grow-0 mr-3 flex items-center border-0"
+                  "rounded-full bg-sgrey-10 laptop:size-8 desktop:size-7 shrink-0 grow-0 mr-3 flex items-center border-0"
                 }
                 type={"button"}
               >
@@ -125,7 +129,7 @@ export function FilterInput({
           </PopoverContent>
         </Popover>
       </div>
-      <div className={"laptop:hidden basis-full"}>
+      <div className={"laptop:hidden basis-full w-full"}>
         <Drawer>
           <DrawerTrigger asChild>
             <div
@@ -133,10 +137,8 @@ export function FilterInput({
                 "flex flex-nowrap h-full justify-items-stretch items-center"
               }
             >
-              <input
-                className={
-                  "bg-transparent w-full h-max focus:outline-0 text-sgrey-60 capitalize"
-                }
+              <Input
+                className={"border-0 pl-0 h-full"}
                 value={input.length ? input.join(", ") : ""}
                 placeholder={placeholder}
                 readOnly
@@ -145,7 +147,7 @@ export function FilterInput({
                 type={"button"}
                 size={"icon"}
                 className={
-                  "rounded-full bg-sgrey-10 w-7  h-full shrink-0 grow-0 mr-3 flex items-center border-0"
+                  "rounded-full bg-sgrey-10 size-7  shrink-0 grow-0 mr-3 flex items-center border-0"
                 }
               >
                 <ChevronDownIcon className={"size-3/4"} />

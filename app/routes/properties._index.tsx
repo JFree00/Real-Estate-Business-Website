@@ -36,7 +36,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { Label } from "@/components/ui/label";
-import { IconInput } from "@/iconInput";
+import { IconInput } from "@/components/iconInput";
 const inputs: submitInfoProps[] = [
   {
     name: "first name",
@@ -91,7 +91,7 @@ const inputs: submitInfoProps[] = [
     name: "Message",
     type: "textArea",
     placeholder: "Enter your Message here..",
-    className: "order-[20]",
+    className: "order-[20] col-span-full",
   },
 ];
 const filterIcons: { [k in filterCategories]: React.ReactNode } = {
@@ -109,7 +109,7 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
     if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
       console.warn("Cursor is either stale or invalid, creating new cursor");
       const newcursor = Filter.toCursor(defaultProperties);
-      metadata.put(cursorName, JSON.stringify(newcursor));
+      await metadata.put(cursorName, JSON.stringify(newcursor));
       return newcursor;
     }
     return Filter.fromCursor(existing);
@@ -177,7 +177,7 @@ export default function PropertiesIndex() {
             <div className={"basis-full flex w-full flex-wrap justify-center"}>
               <div
                 className={
-                  " w-full flex size-16 laptop:h-20 desktop:h-[100px] outline-sgrey-10 outline laptop:outline-8 rounded-xl p-2 laptop:p-4 desktop:p-5 border border-sgrey-15 bg-sgrey-8  laptop:w-[80%]"
+                  "w-full flex size-16 laptop:h-20 desktop:h-[100px] outline-sgrey-10 outline laptop:outline-8 rounded-xl p-2 laptop:p-4 desktop:p-5 border border-sgrey-15 bg-sgrey-8  laptop:w-[80%]"
                 }
               >
                 <input
@@ -203,8 +203,7 @@ export default function PropertiesIndex() {
                     "  laptop:shrink-0 laptop:h-full gap-x-2  laptop:hidden"
                   }
                 >
-                  <MagnifyingGlassIcon className={"size-2/3"} />
-                  <p className={"b"}>Find Property</p>
+                  <MagnifyingGlassIcon className={"size-full"} />
                 </Button>
               </div>
               <div
@@ -273,7 +272,7 @@ export default function PropertiesIndex() {
             </SectionContent>
           </SectionDesignation>
         ) : null}
-        <SectionDesignation pagination={false}>
+        <SectionDesignation pagination={false} className={"laptop:mt-0"}>
           <SectionHeader>Let's Make it Happen</SectionHeader>
           <SectionDescription>
             Ready to take the first step toward your dream property? Fill out
@@ -300,9 +299,11 @@ export default function PropertiesIndex() {
                     <PhoneIcon />
                   </IconInput>
                 </div>
-                <div className={"self-end"}>
+                <div>
                   <Label
-                    className={"capitalize text-base pb-2.5 inline-block"}
+                    className={
+                      "capitalize text-base hidden laptop:inline-block "
+                    }
                     htmlFor={"em"}
                   ></Label>
                   <IconInput

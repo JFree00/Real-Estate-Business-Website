@@ -24,7 +24,7 @@ export function SectionContent({
   return (
     <div
       className={cn(
-        "overflow-hidden grid grid-cols-3 data-[expanded=true]:grid-cols-[repeat(3,100%)] laptop:data-[expanded=true]:grid-cols-3  gap-4 mt-10 lg:mt-20 ",
+        "overflow-hidden col-span-full grid grid-cols-1 data-[expanded=true]:grid-cols-[repeat(3,100%)] laptop:data-[expanded=true]:grid-cols-3  gap-4 mt-10 lg:mt-20 ",
         className,
       )}
       data-expanded={!!page}
