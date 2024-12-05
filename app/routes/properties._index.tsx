@@ -194,7 +194,7 @@ export default function PropertiesIndex() {
                   }
                 >
                   <MagnifyingGlassIcon className={"size-2/3"} />
-                  <p className={"b"}>Find Property</p>
+                  <p>Find Property</p>
                 </Button>{" "}
                 <Button
                   size={"default"}
@@ -217,11 +217,11 @@ export default function PropertiesIndex() {
                       key={filterName}
                       filterName={filterName}
                       data={filterValue}
-                      icon={filterIcons[filterName as filterCategories]}
+                      icon={filterIcons[filterName]}
                       submit={(item: string) => {
                         setSearchParams((prev) => {
                           const abbreviatedItem = Filter.abbreviate(
-                            filterName as filterCategories,
+                            filterName,
                             item,
                           );
                           const filters = searchParams.getAll("filter");
@@ -238,12 +238,7 @@ export default function PropertiesIndex() {
                       selected={(item: string) => {
                         return searchParams
                           .getAll("filter")
-                          .includes(
-                            Filter.abbreviate(
-                              filterName as filterCategories,
-                              item,
-                            ),
-                          );
+                          .includes(Filter.abbreviate(filterName, item));
                       }}
                     ></FilterInput>
                   );

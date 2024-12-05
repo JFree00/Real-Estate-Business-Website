@@ -5,12 +5,12 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/styles";
 import { createContext, useContext } from "react";
 
-export type sectionCardProps = {
+export interface sectionCardProps {
   name: string;
   description: string;
   buttonText?: string | boolean;
   icon?: React.ReactNode;
-};
+}
 const SectionData = createContext({} as sectionCardProps);
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {

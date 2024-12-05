@@ -120,7 +120,7 @@ function NewComponent({ data, children, className }: props) {
               className={"font-semibold"}
             ></SectionCards.Header.Title>
           </div>
-          <SectionCards.Header.Description />
+          <SectionCards.Header.Description className={"align-top"} />
         </SectionCards.Header>
       </SectionCards>
     );

@@ -168,7 +168,7 @@ export default function Contact() {
         <InfoCards.InfoCardsArea className={"m-0"} cardData={infoCards} />
         <SectionDesignation pagination={false}>
           <SectionHeader>Let's Connect</SectionHeader>
-          <SectionDescription>
+          <SectionDescription className={"laptop:hidden"}>
             We're excited to connect with you and learn more about your real
             estate goals. Use the form below to get in touch with Estatein.
           </SectionDescription>
