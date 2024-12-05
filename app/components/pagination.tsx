@@ -21,7 +21,7 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
     });
   };
   return (
-    <div className={"w-full flex mt-5 justify-between "}>
+    <div className={"col-span-full flex mt-5 justify-between "}>
       {buttonText && (
         <Button
           variant={"outline"}
