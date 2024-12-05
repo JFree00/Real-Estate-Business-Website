@@ -63,6 +63,7 @@ export function SectionDesignation({
             current: currentPage,
             max: data?.length ?? data.length,
             amountToDisplay: displayAmount,
+            paginate: pagination,
           }}
         >
           {data && Array.isArray(data) ? (

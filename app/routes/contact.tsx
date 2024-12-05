@@ -16,6 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { companyEmail, companyPhone, locations } from "../../KV/locations";
 import { SectionCards } from "@/components/cards/sectionCards";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 const infoCards: infoCardProps[] = [
   {
@@ -72,15 +73,74 @@ const inputs: submitInfoProps[] = [
     name: "Message",
     type: "textArea",
     placeholder: "Enter your Message here..",
+    className: "col-span-full",
   },
 ];
+function LocationCard() {
+  const locationMap: typeof locations = new Map();
+  locations.forEach((building, area) => {
+    locationMap.set(area, building);
+  });
+  locationMap.set("All", Array.from(locationMap.values()).flat());
+
+  return Array.from(locationMap).map(([area, buildings]) => {
+    return (
+      <TabsContent
+        key={area}
+        value={area}
+        className={"col-span-full grid laptop:grid-cols-subgrid "}
+      >
+        {buildings.map((building) => {
+          return (
+            <SectionCards key={building.address} className={" row-span-3"}>
+              <SectionCards.Header className={"gap-3"}>
+                <SectionCards.Title
+                  className={"text-sm desktop:text-sm font-medium"}
+                >
+                  {building.type}
+                </SectionCards.Title>
+                <SectionCards.Title>{building.address}</SectionCards.Title>
+                <SectionCards.Description className={""}>
+                  {building.description}
+                </SectionCards.Description>
+              </SectionCards.Header>
+              <SectionCards.Content
+                variant={"primary"}
+                className={"gap-2 flex-wrap"}
+              >
+                <Badge variant={"card"} className={"px-4"}>
+                  <EnvelopeIcon className={"size-5"} />
+                  {building.email ?? companyEmail}
+                </Badge>
+                <Badge variant={"card"} className={"px-4"}>
+                  <PhoneIcon className={"size-5"} />
+                  {building.phone ?? companyPhone}
+                </Badge>
+                <Badge variant={"card"} className={"px-4"}>
+                  <MapPinIcon className={"size-5"} />
+                  {building.cityType}
+                </Badge>
+              </SectionCards.Content>{" "}
+              <Button
+                size={"responsive"}
+                className={"bg-pprimary-60 laptop:w-full"}
+              >
+                Get Directions
+              </Button>
+            </SectionCards>
+          );
+        })}
+      </TabsContent>
+    );
+  });
+}
 export default function Contact() {
   return (
     <main>
       <div className={" grid grid-cols-12 relative"}>
         <div
           className={
-            "bg-gradient-to-r from-sgrey-15 to-30% to-sgrey-15/0 col-span-full  h-[285px] laptop:h-[315px] desktop:h-[390px]"
+            "bg-gradient-to-r from-sgrey-15 to-30% to-sgrey-15/0 col-span-full  h-[18rem] laptop:h-[19.5rem] desktop:h-[24.5rem]"
           }
         >
           <SectionDesignation
@@ -91,197 +151,122 @@ export default function Contact() {
               <SectionHeader icon={false}>
                 Get in Touch with Estatein
               </SectionHeader>
-              <SectionDescription>
+              <SectionDescription className={"laptop:hidden"}>
                 Welcome to Estatein's Contact Us page. We're here to assist you
                 with any inquiries, requests, or feedback you may have.
+              </SectionDescription>
+              <SectionDescription className={"hidden laptop:flex"}>
+                Welcome to Estatein's Contact Us page. We're here to assist you
+                with any inquiries, requests, or feedback you may have. Whether
+                you're looking to buy or sell a property, explore investment
+                opportunities, or simply want to connect, we're just a message
+                away. Reach out to us, and let's start a conversation.
               </SectionDescription>
             </div>
           </SectionDesignation>
         </div>
         <InfoCards.InfoCardsArea className={"m-0"} cardData={infoCards} />
-        <SectionDesignation>
+        <SectionDesignation pagination={false}>
           <SectionHeader>Let's Connect</SectionHeader>
           <SectionDescription>
             We're excited to connect with you and learn more about your real
             estate goals. Use the form below to get in touch with Estatein.
           </SectionDescription>
+          <SectionDescription className={"hidden laptop:flex"}>
+            We're excited to connect with you and learn more about your real
+            estate goals. Use the form below to get in touch with Estatein.
+            Whether you're a prospective client, partner, or simply curious
+            about our services, we're here to answer your questions and provide
+            the assistance you need.
+          </SectionDescription>
           <SectionContent>
-            <SubmitForm inputData={inputs} />
+            <SubmitForm
+              className={"laptop:p-16 laptop:grid-cols-3"}
+              inputData={inputs}
+            />
           </SectionContent>
         </SectionDesignation>
         <SectionDesignation pagination={false}>
           <SectionHeader>Discover Our Office Locations</SectionHeader>
-          <SectionDescription>
+          <SectionDescription className={"laptop:hidden"}>
             Estatein is here to serve you across multiple locations. Whether
             you're looking to meet our team.
           </SectionDescription>
-          <SectionContent iterate={false}>
-            <div>
-              <div>
-                <Tabs defaultValue={"All"}>
-                  <TabsList className={"mb-7"}>
-                    <TabsTrigger value={"All"}>All</TabsTrigger>
-                    <TabsTrigger value={"Regional"}>Regional</TabsTrigger>
-                    <TabsTrigger value={"International"}>
-                      International
-                    </TabsTrigger>
-                  </TabsList>
+          <SectionDescription className={"hidden laptop:flex"}>
+            Estatein is here to serve you across multiple locations. Whether
+            you're looking to meet our team, discuss real estate opportunities,
+            or simply drop by for a chat, we have offices conveniently located
+            to serve your needs. Explore the categories below to find the
+            Estatein office nearest to you
+          </SectionDescription>
+          <SectionContent iterate={false} className={"grid-cols-2"}>
+            <Tabs
+              defaultValue={"All"}
+              className={"grid col-span-full grid-cols-subgrid"}
+            >
+              <TabsList
+                className={
+                  "mb-7 flex *:basis-1/3 laptop:w-1/3 desktop:w-1/4 *:rounded-lg col-span-full"
+                }
+              >
+                <TabsTrigger value={"All"}>All</TabsTrigger>
+                <TabsTrigger value={"Regional"}>Regional</TabsTrigger>
+                <TabsTrigger value={"International"}>International</TabsTrigger>
+              </TabsList>
 
-                  <TabsContent
-                    className={
-                      "flex flex-col gap-y-4 data-[state=inactive]:mt-0"
-                    }
-                    key={"All"}
-                    value={"All"}
-                  >
-                    {Array.from(locations).map(([, buildings]) => {
-                      return buildings.map((building) => {
-                        return (
-                          <SectionCards key={building.address}>
-                            <SectionCards.Header className={"gap-1"}>
-                              <SectionCards.Title
-                                className={"text-sm font-medium"}
-                              >
-                                {building.type}
-                              </SectionCards.Title>
-                              <SectionCards.Title>
-                                {building.address}
-                              </SectionCards.Title>
-                              <SectionCards.Description>
-                                {building.description}
-                              </SectionCards.Description>
-                            </SectionCards.Header>
-                            <SectionCards.Content
-                              className={
-                                "overflow-visible text-nowrap gap-2 flex-wrap"
-                              }
-                            >
-                              <Badge variant={"card"} className={"px-4"}>
-                                <EnvelopeIcon className={"size-5"} />
-                                {building.email ?? companyEmail}
-                              </Badge>
-                              <Badge variant={"card"} className={"px-4"}>
-                                <PhoneIcon className={"size-5"} />
-                                {building.phone ?? companyPhone}
-                              </Badge>
-                              <Badge variant={"card"} className={"px-4"}>
-                                <MapPinIcon className={"size-5"} />
-                                {building.cityType}
-                              </Badge>
-                            </SectionCards.Content>
-                            <SectionCards.Content
-                              variant={"primary"}
-                              buttonText={"Get Directions"}
-                              className={
-                                "overflow-visible text-nowrap gap-2 flex-wrap"
-                              }
-                            ></SectionCards.Content>
-                          </SectionCards>
-                        );
-                      });
-                    })}
-                  </TabsContent>
-
-                  {Array.from(locations).map(([area, buildings]) => {
-                    return (
-                      <TabsContent
-                        key={area}
-                        value={area}
-                        className={
-                          "flex flex-col gap-y-4 data-[state=inactive]:mt-0"
-                        }
-                      >
-                        {buildings.map((building) => {
-                          return (
-                            <SectionCards key={building.address}>
-                              <SectionCards.Header className={"gap-1"}>
-                                <SectionCards.Title
-                                  className={"text-sm font-medium"}
-                                >
-                                  {building.type}
-                                </SectionCards.Title>
-                                <SectionCards.Title>
-                                  {building.address}
-                                </SectionCards.Title>
-                                <SectionCards.Description>
-                                  {building.description}
-                                </SectionCards.Description>
-                              </SectionCards.Header>
-                              <SectionCards.Content
-                                buttonText={"Get Directions"}
-                                variant={"primary"}
-                                className={
-                                  "overflow-visible text-nowrap gap-2 flex-wrap"
-                                }
-                              >
-                                <Badge variant={"card"} className={"px-4"}>
-                                  <EnvelopeIcon className={"size-5"} />
-                                  {building.email ?? companyEmail}
-                                </Badge>
-                                <Badge variant={"card"} className={"px-4"}>
-                                  <PhoneIcon className={"size-5"} />
-                                  {building.phone ?? companyPhone}
-                                </Badge>
-                                <Badge variant={"card"} className={"px-4"}>
-                                  <MapPinIcon className={"size-5"} />
-                                  {building.cityType}
-                                </Badge>
-                              </SectionCards.Content>
-                            </SectionCards>
-                          );
-                        })}
-                      </TabsContent>
-                    );
-                  })}
-                </Tabs>
-              </div>
-            </div>
+              <LocationCard />
+            </Tabs>
           </SectionContent>
         </SectionDesignation>
         <SectionDesignation pagination={false}>
-          <SectionContent iterate={false}>
-            <SectionCards className={"bg-sgrey-10 overflow-hidden  relative"}>
+          <SectionContent iterate={false} className={"row-span-4 "}>
+            <SectionCards
+              className={
+                "bg-sgrey-10 overflow-hidden  relative desktop:p-16 grid grid-cols-4 *:gap-2.5 *:laptop:gap-5 row-span-5 laptop:row-span-2 *:z-10 "
+              }
+            >
               <div
                 className={
-                  "bg-waves absolute max-w-none bg-auto size-full bg-no-repeat bg-[right_-160px_top_-350px] left-0 top-0 opacity-35"
+                  "bg-waves absolute max-w-none bg-auto size-full bg-no-repeat bg-[right_-160px_top_-350px] left-0 top-0 opacity-35 order-last "
                 }
               />
-
-              <SectionCards.Header className={"*:z-0 gap-y-8 "}>
-                <div
-                  className={
-                    "grid grid-cols-4 justify-items-center gap-2.5 *:rounded-lg *:h-[70px] z-20"
-                  }
-                >
-                  <img
-                    alt={"Estatein Team"}
-                    className={"col-span-2"}
-                    src={"app/assets/Image.webp"}
-                  />
-                  <img
-                    alt={"Estatein Team"}
-                    className={"col-span-2"}
-                    src={"app/assets/Image-2.webp"}
-                  />
-                  <img
-                    alt={"Estatein Team"}
-                    className={"col-span-2"}
-                    src={"app/assets/Image-1.webp"}
-                  />
-                  <img alt={"Estatein Team"} src={"app/assets/Image-3.webp"} />
-                  <img alt={"Estatein Team"} src={"app/assets/Image-4.webp"} />
-                </div>
-                <div className={"space-y-2"}>
-                  <SectionHeader>Explore Estatein's World </SectionHeader>
-                  <SectionCards.Header.Description>
-                    Step inside the world of Estatein, where professionalism
-                    meets warmth, and expertise meets passion. Our gallery
-                    offers a glimpse into our team and workspaces, inviting you
-                    to get to know us better.
-                  </SectionCards.Header.Description>
-                </div>
-                <img src={"app/assets/Image-5.webp"} />
+              <SectionCards.Header
+                className={
+                  "space-y-0 col-span-full grid grid-cols-subgrid *:z-0 *:rounded-lg *:w-full"
+                }
+              >
+                <img
+                  alt={"Estatein Team"}
+                  className={"col-span-2"}
+                  src={"app/assets/Image.webp"}
+                />
+                <img
+                  alt={"Estatein Team"}
+                  className={"col-span-2"}
+                  src={"app/assets/Image-2.webp"}
+                />
+                <img
+                  alt={"Estatein Team"}
+                  className={"col-span-2"}
+                  src={"app/assets/Image-1.webp"}
+                />
+                <img alt={"Estatein Team"} src={"app/assets/Image-3.webp"} />
+                <img alt={"Estatein Team"} src={"app/assets/Image-4.webp"} />
               </SectionCards.Header>
+
+              <div className={" block col-span-full laptop:col-span-2"}>
+                <SectionHeader>Explore Estatein's World </SectionHeader>
+                <SectionDescription className={"laptop:w-11/12"}>
+                  Step inside the world of Estatein, where professionalism meets
+                  warmth, and expertise meets passion. Our gallery offers a
+                  glimpse into our team and workspaces, inviting you to get to
+                  know us better.
+                </SectionDescription>
+              </div>
+              <img
+                src={"app/assets/Image-5.webp"}
+                className={"col-span-4 laptop:col-span-2 w-full"}
+              />
             </SectionCards>
           </SectionContent>
         </SectionDesignation>
