@@ -41,7 +41,7 @@ function SectionCardContent({
         >
           {typeof buttonText === "boolean"
             ? "Learn More"
-            : buttonText || cardData?.buttonText}
+            : (buttonText ?? cardData?.buttonText)}
         </Button>
       ) : null}
     </CardContent>
@@ -72,9 +72,7 @@ function SectionCardDescription({ data, className, children }: Props) {
 function SectionCardHeader({ data, className, children }: Props) {
   const cardData = data ?? useContext(SectionData);
   return (
-    <CardHeader
-      className={cn("flex flex-col justify-between pb-2.5", className)}
-    >
+    <CardHeader className={cn("flex flex-col justify-between", className)}>
       {children ? (
         children
       ) : (
@@ -88,7 +86,7 @@ function SectionCardHeader({ data, className, children }: Props) {
 }
 
 function SectionCards({ data, children, className }: Props) {
-  data = data as sectionCardProps;
+  data = data!;
   return (
     <SectionData.Provider value={data}>
       {!children ? (
@@ -104,10 +102,9 @@ function SectionCards({ data, children, className }: Props) {
       ) : (
         <Card
           className={cn(
-            " bg-sgrey-8 dataCardComponent dataCard grid-rows-subgrid col-start-auto row-span-2 col-span-1 gap-y-0 grid first:grid",
+            " bg-sgrey-8 dataCardComponent dataCard grid grid-rows-subgrid row-span-2 col-span-1 gap-y-4  first:grid",
             className,
           )}
-          data-active={"false"}
         >
           {children}
         </Card>

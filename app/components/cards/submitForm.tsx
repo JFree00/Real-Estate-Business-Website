@@ -49,7 +49,7 @@ export function SubmitForm({ inputData, children, className }: props) {
           <FilterInput
             filterName={input.name}
             placeholder={input.placeholder}
-            className={" bg-sgrey-10 text-sm "}
+            className={"h-12 bg-sgrey-10 text-sm "}
             data={filters?.find((filter) => filter[0] === input.data)?.[1]}
           ></FilterInput>
         ) : input.type === "dropdown" && Array.isArray(input.data) ? (
