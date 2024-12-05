@@ -41,11 +41,14 @@ export function SectionDesignation({
   const [currentPage, setCurrentPage] = React.useState(1);
   return (
     <div
-      className={cn("offset relative mt-20", className)}
-      style={{
-        gridRow: `span ${rows} / span ${rows}`,
-        gridColumn: ` 1 / span ${columns}`,
-      }}
+      className={cn(
+        " relative mt-20 grid col-start-2 col-end-12 col-span-full grid-cols-subgrid",
+        className,
+      )}
+      // style={{
+      //   gridRow: `span ${rows} / span ${rows}`,
+      //   gridColumn: ` 1 / span ${columns}`,
+      // }}
     >
       {buttonText && (
         <Button

@@ -18,8 +18,7 @@ export function SectionHeader({
 }: Props) {
   return (
     <div
-      className={cn(`font-semibold text-balance h-fit`, className)}
-      style={{ width: columns * 8.33333 + "%" }}
+      className={cn(`font-semibold text-balance h-fit col-span-11`, className)}
     >
       {icon && <SparklesIcon className={"  size-6  font-medium mb-4"} />}
 
