@@ -13,7 +13,10 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 export function SectionHeader({ children, className, icon = true }: Props) {
   return (
     <div
-      className={cn(`font-semibold text-balance h-fit col-span-11`, className)}
+      className={cn(
+        `font-semibold text-balance h-fit col-span-full`,
+        className,
+      )}
     >
       {icon && <SparklesIcon className={"  size-6  font-medium mb-4"} />}
 
