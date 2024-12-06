@@ -110,17 +110,21 @@ type props = React.HTMLAttributes<HTMLDivElement> & {
 function NewComponent({ data, children, className }: props) {
   const cards = data.map((item) => {
     return (
-      <SectionCards key={item.name} data={item} className={"items-start"}>
+      <SectionCards
+        key={item.name}
+        data={item}
+        className={"items-start laptop:p-10"}
+      >
         <SectionCards.Header className={"flex-col gap-y-4"}>
           <div className={"inline-flex items-center gap-x-4"}>
             <Swirl className={"bg-sgrey-8"} size={"laptop:size-16"}>
               <SectionCards.Icon className={"size-5 laptop:size-6"} />
             </Swirl>
-            <SectionCards.Header.Title
-              className={"font-semibold"}
-            ></SectionCards.Header.Title>
+            <SectionCards.Title
+              className={"font-semibold "}
+            ></SectionCards.Title>
           </div>
-          <SectionCards.Header.Description className={"align-top"} />
+          <SectionCards.Description className={"align-top text-base"} />
         </SectionCards.Header>
       </SectionCards>
     );
@@ -147,7 +151,7 @@ export default function Services() {
             className={"h-full mt-0 content-center"}
           >
             <div className={"my-auto contents"}>
-              <SectionHeader icon={false}>
+              <SectionHeader icon={false} className={"text-wrap"}>
                 Elevate Your Real Estate Experience
               </SectionHeader>
               <SectionDescription>
@@ -286,11 +290,11 @@ export default function Services() {
         <SectionDesignation
           pagination={false}
           data={data3}
-          className={"laptop:flex laptop:gap-12 "}
+          className={" laptop:gap-12 "}
         >
           <div
             className={
-              "basis-[34%] desktop:basis-1/3 laptop:shrink-0 flex flex-col justify-between"
+              "col-span-full laptop:col-span-4 laptop:shrink-0 flex flex-col justify-between"
             }
           >
             <SectionHeader className={" tablet:w-full"}>
@@ -319,7 +323,7 @@ export default function Services() {
                 ></div>
               </div>
               <SectionCards.Header className={"z-20 gap-y-5 desktop:gap-y-8"}>
-                <SectionCards.Header.Title className={"z-20  grow"}>
+                <SectionCards.Header.Title className={"z-20 grow text-[22px]"}>
                   Unlock Your Investment Potential
                 </SectionCards.Header.Title>
                 <Button
@@ -332,13 +336,13 @@ export default function Services() {
                   Learn More
                 </Button>
 
-                <SectionCards.Header.Description
+                <SectionCards.Description
                   className={"z-20 laptop:text-base pt-0"}
                 >
                   Explore our Property Management Service categories and let us
                   handle the complexities while you enjoy the benefits of
                   property ownership.
-                </SectionCards.Header.Description>
+                </SectionCards.Description>
               </SectionCards.Header>
             </SectionCards>
           </div>
@@ -346,7 +350,7 @@ export default function Services() {
           <SectionContent
             iterate={false}
             className={
-              "flex-col gap-y-2.5 bg-sgrey-10 p-2.5 rounded-xl mt-12 shrink laptop:mt-0 laptop:grid-cols-2"
+              "col-span-8 gap-2.5 bg-sgrey-10 p-2.5 rounded-xl mt-12 shrink laptop:mt-0 laptop:grid-cols-2"
             }
             amountToDisplay={4}
           >

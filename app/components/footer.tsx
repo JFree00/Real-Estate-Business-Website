@@ -13,7 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/styles";
 
 type routes = "Home" | "About Us" | "Properties" | "Services" | "Contact Us";
-const subRoutes: Record<routes, Array<string>> = {
+const subRoutes: Record<routes, string[]> = {
   Home: ["Hero Section", "Features", "Properties", "Testimonials", "FAQ's"],
   "About Us": [
     "Our Story",
@@ -37,28 +37,33 @@ export function Footer() {
   return (
     <footer>
       <div
-        className={" h-[925px] border-t border-sgrey-15 flex flex-col mt-20"}
+        className={
+          " border-t border-sgrey-15 grid grid-cols-12 mt-20 *:col-span-full "
+        }
       >
-        <div className={"relative"}>
-          <img
-            src={globeLeft}
-            alt="globe"
-            height={"100%"}
-            className={"absolute -z-10 bottom-0"}
-          />
-          <img
-            src={globeRight}
-            alt="globe"
-            height={"100%"}
-            className={"absolute -z-10 right-0 bottom-0"}
-          />
+        <div className={"relative grid grid-cols-subgrid"}>
+          <div className={"col-span-full"}>
+            <img
+              src={globeLeft}
+              alt="globe"
+              height={"100%"}
+              className={"absolute -z-10 bottom-0"}
+            />
+            <img
+              src={globeRight}
+              alt="globe"
+              height={"100%"}
+              className={"absolute -z-10 right-0 bottom-0"}
+            />
+          </div>
           <div
             className={
-              "border-b border-sgrey-15 h-[367px] flex flex-col lg:flex-row items-center justify-around offset"
+              " grid grid-cols-subgrid col-span-full" +
+              " border-b border-sgrey-15 h-[367px] items-center offset"
             }
           >
-            <div className={" lg:basis-2/3"}>
-              <h3 className={"text-3xl lg:text-5xl font-semibold mb-6"}>
+            <div className={"col-span-8 "}>
+              <h3 className={"text-3xl desktop::text-5xl font-semibold mb-6"}>
                 Start Your Real Estate Journey Today
               </h3>
               <p className={"text-sgrey-60"}>
@@ -71,24 +76,32 @@ export function Footer() {
               </p>
             </div>
 
-            <Button variant={"primary"} size={"responsive"} className={""}>
+            <Button
+              variant={"primary"}
+              size={"responsive"}
+              className={
+                " col-start-9 col-span-4 justify-self-end  right-0 laptop:h-12 desktop:h-14   laptop:py-0"
+              }
+            >
               Explore Properties
             </Button>
           </div>
         </div>
-        <div className={"lg:h-[454px] offset xl:pt-20"}>
-          <div className={"flex flex-col lg:flex-row "}>
-            <div className={"pt-10 basis-4/12"}>
+        <div className={"offset laptop:pt-20"}>
+          <div className={"grid grid-cols-12 laptop:gap-x-20"}>
+            <div className={"pt-10 col-span-full laptop:col-span-4"}>
               <img alt={"logo"} src={logoLg} />
               <FooterInput
                 className={"my-5"}
                 placeholder={"Enter Your Email"}
               ></FooterInput>
             </div>
-            <div className={"basis-1/12"} />
-            <div className={"basis-full grid grid-cols-2 lg:grid-cols-5 py-16"}>
+            <div
+              className={
+                " laptop:col-start-5 col-span-full grid grid-rows-[repeat(3,max)] grid-cols-[repeat(2,1fr)] laptop:grid-cols-[repeat(5,auto)] laptop:justify-items-end laptop:py-16 gap-x-5 "
+              }
+            >
               {Object.keys(subRoutes).map((route, index) => {
-                const border = index % 2 === 0;
                 const contactUs = subRoutes["Contact Us"].map(
                   (subRoute: string) => (
                     <li key={subRoute} className={"  my-5  "}>
@@ -100,19 +113,12 @@ export function Footer() {
                   <div
                     key={route}
                     className={cn(
-                      route === "Contact Us" ? "hidden lg:block" : "",
-                      border ? "footerList my-3" : "my-3",
+                      "my-3 border-sgrey-15 odd:border-r-2 laptop:odd:border-r-0 ",
+                      route === "Contact Us" && "hidden laptop:block",
                     )}
                   >
-                    <h4
-                      className={cn(
-                        "text-xl text-sgrey-60 ",
-                        !border ? "ml-5" : undefined,
-                      )}
-                    >
-                      {route}
-                    </h4>
-                    <ul className={cn("my-5", !border ? "mx-5" : undefined)}>
+                    <h4 className={cn("text-xl text-sgrey-60 ")}>{route}</h4>
+                    <ul className={cn("my-5")}>
                       {(subRoutes as Record<string, string[]>)[route].map(
                         (subRoute: string) => (
                           <li key={subRoute} className={"my-5"}>
@@ -121,22 +127,24 @@ export function Footer() {
                         ),
                       )}
                     </ul>
-
                     {route === "Properties" && (
-                      <div className={"lg:hidden"}>
-                        <Separator className={"w-[95%] seperator"} />
-                        <h4 className={"text-xl text-sgrey-60 my-5"}>
+                      <div className={"mt-10 laptop:hidden"}>
+                        <h4
+                          className={cn(
+                            "text-xl text-sgrey-60 border-sgrey-15 ",
+                          )}
+                        >
                           {"Contact Us"}
                         </h4>
-                        <ul>{contactUs}</ul>
+                        <ul className={cn("my-5")}>{contactUs}</ul>
                       </div>
                     )}
+
                     <Separator
-                      className={
-                        !border
-                          ? "w-[91%] mx-auto seperator"
-                          : "w-[95%] seperator"
-                      }
+                      className={cn(
+                        "w-[88%] laptop:hidden",
+                        index > Object.keys(subRoutes).length - 4 && "hidden",
+                      )}
                     />
                   </div>
                 );
@@ -144,20 +152,26 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className={" bg-sgrey-10 grow "}>
+        <div className={" bg-sgrey-10 "}>
           <div
             className={
-              "pt-10 lg:pt-0 flex offset flex-col-reverse gap-2 lg:flex-row h-full items-center"
+              "py-2.5 desktop:py-8 flex offset flex-col-reverse gap-2 lg:flex-row h-full items-center"
             }
           >
-            <p className={"mx-5"}>@2023 Estatein. All Rights Reserved.</p>
-            <p className={"mx-5"}>Terms & Conditions</p>
-            <div className={"grow"}></div>
-            <div className={"gap-x-2.5 flex justify-between"}>
+            <p className={"mx-5 order-3 laptop:order-1"}>
+              @2023 Estatein. All Rights Reserved.
+            </p>
+            <p className={"mx-5 order-2"}>Terms & Conditions</p>
+            <div className={"grow order-3"}></div>
+            <div
+              className={
+                " gap-x-2.5 flex justify-between *:laptop:size-10 *:desktop:size-14 [&_img]:size-1/2 order-4"
+              }
+            >
               <Button
                 size={"icon"}
                 variant={"active"}
-                className={"rounded-full size-16 lg:size-12 border-transparent"}
+                className={"rounded-full size-16 border-transparent"}
               >
                 <img alt={"facebook"} src={facebook} />
               </Button>
