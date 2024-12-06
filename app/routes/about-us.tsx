@@ -34,91 +34,91 @@ export default function AboutUs() {
   return (
     <div>
       <div className={" grid grid-cols-12 relative "}>
-        <SectionDesignation className={""} pagination={false}>
-          <div
-            className={
-              "grid  laptop:grid-cols-2 gap-x-20 order-1 laptop:order-none"
-            }
-          >
-            <div className={"grid-cols-subgrid"}>
-              <SectionHeader className={"mt-5"}>Our Journey</SectionHeader>
-              <SectionDescription
-                className={"tablet:w-full text-base"}
-                columns={12}
-              >
-                Our story is one of continuous growth and evolution. We started
-                as a small team with big dreams, determined to create a real
-                estate platform that transcended the ordinary. Over the years,
-                we've expanded our reach, forged valuable partnerships, and
-                gained the trust of countless clients.
-              </SectionDescription>
+        <SectionDesignation className={"gap-x-20"} pagination={false}>
+          <div className={"col-span-6 grid-cols-subgrid"}>
+            <SectionHeader className={"mt-5"}>Our Journey</SectionHeader>
+            <SectionDescription
+              className={"tablet:w-full text-base"}
+              columns={12}
+            >
+              Our story is one of continuous growth and evolution. We started as
+              a small team with big dreams, determined to create a real estate
+              platform that transcended the ordinary. Over the years, we've
+              expanded our reach, forged valuable partnerships, and gained the
+              trust of countless clients.
+            </SectionDescription>
 
-              <SectionContent className={"col-span-full"}>
-                <div
-                  className={
-                    "flex col-span-full flex-wrap gap-4 laptop:text-left text-center *:flex *:flex-col *:gap-y-2 *:basis-1/3 *:laptop:basis-1/4 *:grow *:py-4 *:laptop:p-5 *:laptop:py-6 *:desktop:p-8 *:h-auto"
-                  }
-                >
-                  <Card className={"bg-sgrey-10 basis-1/2 pr-2"}>
+            <SectionContent className={"col-span-full"}>
+              <div
+                className={
+                  "flex col-span-full flex-wrap gap-y-4 laptop:text-left text-center"
+                }
+              >
+                <div className={"basis-1/2 laptop:basis-1/3 px-2"}>
+                  <Card className={"  p-4 pb-0 h-fit"}>
                     <CardHeader>
-                      <CardTitle>200+</CardTitle>
+                      <CardTitle className={"text-4xl"}>200+</CardTitle>
                     </CardHeader>
-                    <CardFooter className={""}>
+                    <CardFooter className={"min-h-14"}>
                       <CardDescription>Happy Customers</CardDescription>
                     </CardFooter>
                   </Card>
-
-                  <Card className={" *:bg-sgrey-10 basis-1/2 px-2"}>
+                </div>
+                <div className={"basis-1/2  laptop:basis-1/3 px-2"}>
+                  <Card className={" p-4 pb-0 h-fit"}>
                     <CardHeader>
-                      <CardTitle>10k+</CardTitle>
+                      <CardTitle className={"text-4xl"}>10k+</CardTitle>
                     </CardHeader>
-                    <CardFooter>
+                    <CardFooter className={"min-h-14"}>
                       <CardDescription>Properties For Clients</CardDescription>
                     </CardFooter>
                   </Card>
-
-                  <Card className={" px-2"}>
+                </div>
+                <div className={"grow laptop:grow-0 laptop:basis-1/3 px-2"}>
+                  <Card className={" p-4 pb-0 h-fit"}>
                     <CardHeader>
-                      <CardTitle>16+</CardTitle>
+                      <CardTitle className={"text-4xl"}>16+</CardTitle>
                     </CardHeader>
-                    <CardFooter>
+                    <CardFooter className={"min-h-14"}>
                       <CardDescription>Years Of Experience</CardDescription>
                     </CardFooter>
                   </Card>
                 </div>
-              </SectionContent>
-            </div>
-            <div
-              className={
-                "rounded-xl border  relative border-sgrey-15  order-first laptop:order-none"
-              }
-            >
-              <img src={house} height={"100%"} alt={"House"} />
-              <div
-                className={
-                  "bg-waves bg-auto size-full absolute opacity-10 -z-10  top-0"
-                }
-              />
-            </div>
-          </div>
-        </SectionDesignation>
-        <SectionDesignation data={values} pagination={false}>
-          <div className={"grid grid-cols-1 laptop:grid-cols-3 gap-x-14"}>
-            <div className={"content-center"}>
-              <SectionHeader>Our Values</SectionHeader>
-              <SectionDescription className={"tablet:w-full"}>
-                Our story is one of continuous growth and evolution. We started
-                as a small team with big dreams, determined to create a real
-                estate platform that transcended the ordinary.
-              </SectionDescription>
-            </div>
-            <SectionContent
-              iterate={false}
-              className={"overflow-visible col-span-1 laptop:col-span-2 block"}
-            >
-              <GroupedCard />
+              </div>
             </SectionContent>
           </div>
+          <div
+            className={
+              "rounded-xl border relative border-sgrey-15 col-span-6 order-first laptop:order-none"
+            }
+          >
+            <img src={house} height={"100%"} alt={"House"} />
+            <div
+              className={
+                "bg-waves bg-auto size-full absolute opacity-10 -z-10  top-0"
+              }
+            />
+          </div>
+        </SectionDesignation>
+        <SectionDesignation
+          data={values}
+          pagination={false}
+          className={"gap-x-20"}
+        >
+          <div className={"col-span-5 content-center"}>
+            <SectionHeader>Our Values</SectionHeader>
+            <SectionDescription className={"tablet:w-full"}>
+              Our story is one of continuous growth and evolution. We started as
+              a small team with big dreams, determined to create a real estate
+              platform that transcended the ordinary.
+            </SectionDescription>
+          </div>
+          <SectionContent
+            iterate={false}
+            className={"overflow-visible col-start-6  "}
+          >
+            <GroupedCard />
+          </SectionContent>
         </SectionDesignation>
         <SectionDesignation data={achievements} pagination={false}>
           <SectionHeader>Our Achievements</SectionHeader>
