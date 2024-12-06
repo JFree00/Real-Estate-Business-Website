@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
 import { useAsyncValue } from "@remix-run/react";
 import { cn } from "@/lib/styles";
-import { assumedData } from "@/components/Designations/sectionDesignation";
+import { namedUnknown } from "../../../KV/filter";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactElement;
@@ -18,7 +18,7 @@ export function SectionContent({
   iterate = true,
   amountToDisplay,
 }: Props) {
-  const deferredData = useAsyncValue() as assumedData[];
+  const deferredData = useAsyncValue() as namedUnknown[];
   const dataArray = deferredData ?? useContext(DataContext);
   const page = useContext(PaginationContext);
   return (
@@ -45,7 +45,7 @@ export function SectionContent({
 }
 
 const childrenToDisplay = (
-  data: assumedData[],
+  data: namedUnknown[],
   page: number,
   amountToDisplay: number,
   children: React.ReactElement,

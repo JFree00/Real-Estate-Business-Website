@@ -1,6 +1,6 @@
-import { assumedData } from "@/components/Designations/sectionDesignation";
+import { namedUnknown } from "./filter";
 
-export interface clientsProps extends assumedData {
+export interface clientsProps extends namedUnknown {
   name: string;
   Category: string;
   Domain: string;

@@ -10,12 +10,7 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   icon?: boolean;
 };
 
-export function SectionHeader({
-  columns = 12,
-  children,
-  className,
-  icon = true,
-}: Props) {
+export function SectionHeader({ children, className, icon = true }: Props) {
   return (
     <div
       className={cn(`font-semibold text-balance h-fit col-span-11`, className)}

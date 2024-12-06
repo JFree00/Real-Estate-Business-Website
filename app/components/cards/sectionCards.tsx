@@ -5,7 +5,9 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/styles";
 import { createContext, useContext } from "react";
 
-export interface sectionCardProps {
+import { namedUnknown } from "../../../KV/filter";
+
+export interface sectionCardProps extends namedUnknown {
   name: string;
   description: string;
   buttonText?: string | boolean;
