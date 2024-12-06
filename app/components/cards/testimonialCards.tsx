@@ -11,6 +11,7 @@ interface props {
 
 export function TestimonialCards({ data }: props) {
   data = data!;
+  console.log(data);
   return (
     <div className={"dataCard"}>
       <Card className={"bg-sgrey-8 dataCardComponent"}>
