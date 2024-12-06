@@ -8,11 +8,8 @@ import { Pagination } from "@/components/pagination";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
 import { Await } from "@remix-run/react";
 import { loaderData } from "@/routes/_index";
+import { namedUnknown } from "../../../KV/filter";
 
-export interface assumedData {
-  name: string;
-  [key: string]: unknown;
-}
 export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: React.ReactNode;
   columns?: number;
@@ -24,7 +21,7 @@ export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
     | {
         [K in keyof loader[keyof loader]]: loader[keyof loader][Awaited<K>];
       }
-    | assumedData[];
+    | namedUnknown[];
 };
 type loader = Awaited<ReturnType<loaderData>>;
 

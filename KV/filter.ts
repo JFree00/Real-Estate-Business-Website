@@ -10,16 +10,16 @@ export type filterCategories = //required props in propertyProps
   "property_type" | "location" | "build_year" | "price" | "size";
 export type abbreviatedFilterKey = `${filterTypes}-${string}`;
 export type nonAbbreviatedFilterKey = `${filterCategories}-${string}`;
-export type filteredData = Array<[abbreviatedFilterKey, string[]]>; //parsed cursor KV value
+export type filteredData = [abbreviatedFilterKey, string[]][]; //parsed cursor KV value
 export type convertedFilter = Map<abbreviatedFilterKey, string[]>;
-export type rawFilterCursor = Array<[filterCategories, string[]]>;
+export type rawFilterCursor = [filterCategories, string[]][];
 export type filterDataParams = {
   [key in filterCategories]: string | number;
 } & namedUnknown;
-export type namedUnknown = {
+export interface namedUnknown {
   name: string;
   [key: string]: unknown;
-};
+}
 
 export class Filter {
   static readonly keys: { [key in filterCategories]: filterTypes } = {
@@ -57,7 +57,7 @@ export class Filter {
     ];
   }
   static fromCursor(cursor: string): filteredData {
-    return JSON.parse(cursor);
+    return JSON.parse(cursor) as filteredData;
   }
 
   static toCursor<P extends Partial<filterCategories>>(
@@ -88,7 +88,7 @@ export class Filter {
   /** Returns all data matching the filter */
   static anyWithFilter(
     cursor: filteredData,
-    filter: Array<abbreviatedFilterKey>,
+    filter: abbreviatedFilterKey[],
   ): string[] {
     const filterValues = new Set<string>();
     filter.forEach((key) => {
@@ -105,7 +105,7 @@ export class Filter {
   /** Return an array of KV names whose data fits every filter*/
   static withEveryFilter(
     cursor: filteredData,
-    filters: Array<abbreviatedFilterKey>,
+    filters: abbreviatedFilterKey[],
   ) {
     const dataIndexes = new Map<filterCategories, string[]>();
     filters.forEach((filter) => {

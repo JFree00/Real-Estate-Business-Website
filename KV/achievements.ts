@@ -1,7 +1,9 @@
-type achievementProps = {
+import { namedUnknown } from "./filter";
+
+interface achievementProps extends namedUnknown {
   name: string;
   description: string;
-};
+}
 export const achievements: achievementProps[] = [
   {
     name: "3+ Years of Excellence",
