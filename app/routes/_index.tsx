@@ -36,27 +36,26 @@ export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: homeBuildings }];
 };
 
-async function getInitialKeys(
-  k: KVNamespace,
-  template: namedUnknown[],
-  limit = 10,
-) {
+function getInitialKeys(k: KVNamespace, template: namedUnknown[], limit = 10) {
   const keys = template.map(async (key, index) => {
     if (index > limit) return;
     return k
       .getWithMetadata(key.name)
-      .then((data) => JSON.parse(data.metadata as string));
+      .then(
+        (data) => JSON.parse(data.metadata as string) as Promise<namedUnknown>,
+      )
+      .catch(async () => {
+        await k.put(key.name, JSON.stringify(key)).then(() => key);
+        return key;
+      });
   });
   const keysPromiseAll = Promise.all(keys);
   return { keys: keysPromiseAll, length: keys.length };
 }
-export async function loader({ context }: LoaderFunctionArgs) {
+export function loader({ context }: LoaderFunctionArgs) {
   const env = context.env;
-  const properties = await getInitialKeys(env.properties, defaultProperties);
-  const testimonials = await getInitialKeys(
-    env.testimonials,
-    defaultTestimonials,
-  );
+  const properties = getInitialKeys(env.properties, defaultProperties);
+  const testimonials = getInitialKeys(env.testimonials, defaultTestimonials);
   return {
     properties,
     testimonials,
