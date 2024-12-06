@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        waves: "url('app/assets/waves.svg')",
+        waves: "url('./assets/waves.svg')",
       },
       fontFamily: {
         sans: "Urbanist, sans-serif",
