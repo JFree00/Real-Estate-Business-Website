@@ -26,8 +26,6 @@ export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
 type loader = Awaited<ReturnType<loaderData>>;
 
 export function SectionDesignation({
-  rows = 3,
-  columns = 12,
   children,
   className,
   buttonText,
@@ -39,7 +37,7 @@ export function SectionDesignation({
   return (
     <div
       className={cn(
-        " relative mt-20 grid col-start-2 col-end-12 col-span-full grid-cols-subgrid",
+        "offset relative mt-20 grid col-span-full grid-cols-6 laptop:grid-cols-12",
         className,
       )}
       // style={{

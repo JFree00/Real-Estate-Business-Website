@@ -144,17 +144,21 @@ export default function PropertiesIndex() {
   const [searchParams, setSearchParams] = useSearchParams();
   return (
     <div>
-      <div className={" grid grid-cols-12 relative "}>
+      <div className={" grid grid-cols-12 relative"}>
         <div
           className={
-            "bg-gradient-to-r from-sgrey-15 to-30% to-sgrey-15/0 col-span-full  h-[285px] laptop:h-[315px] desktop:h-[390px]"
+            "bg-gradient-to-r grid grid-cols-subgrid from-sgrey-15 to-30% to-sgrey-15/0 col-span-full  h-[285px] laptop:h-[315px] desktop:h-[390px]"
           }
         >
           <SectionDesignation
             pagination={false}
-            className={"desktop:h-[370px]"}
+            className={"desktop:h-[370px] "}
           >
-            <div className={"h-full flex-col content-center"}>
+            <div
+              className={
+                "h-full flex-col col-span-full content-center grid grid-cols-subgrid"
+              }
+            >
               <SectionHeader icon={false}>
                 Find Your Dream Property
               </SectionHeader>
