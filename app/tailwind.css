@@ -28,12 +28,6 @@ body::-webkit-scrollbar {
   .offset-hero {
     @apply px-4 tablet:px-20 desktop:pl-40;
   }
-  .seperator {
-    @apply lg:hidden
-  }
-  .footerList {
-    @apply border-r-2 lg:border-0 border-r-sgrey-15
-  }
   .title {
     @apply text-2xl laptop:text-3xl desktop:text-5xl
   }
