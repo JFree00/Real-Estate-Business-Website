@@ -10,28 +10,20 @@ import {
 
 import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
 import { Header } from "@/components/header";
-import {
-  ThemeSwitcherSafeHTML,
-  ThemeSwitcherScript,
-} from "@/components/theme-switcher";
 import "./tailwind.css";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
-
-export async function loader() {
-  return null;
-}
+import * as React from "react";
 
 function App({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeSwitcherSafeHTML lang="en">
+    <html lang="en">
       <head>
         <title>Real Estate Web Site</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
-        <ThemeSwitcherScript />
       </head>
       <body className={"bg-sgrey-8 text-white box-border"}>
         <GlobalPendingIndicator />
@@ -42,7 +34,7 @@ function App({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         <Scripts />
       </body>
-    </ThemeSwitcherSafeHTML>
+    </html>
   );
 }
 
