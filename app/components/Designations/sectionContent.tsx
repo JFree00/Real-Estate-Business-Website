@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
-import { useContext } from "react";
+import { Suspense, useContext } from "react";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
-import { useAsyncValue } from "@remix-run/react";
+import { Await, useAsyncValue } from "@remix-run/react";
 import { cn } from "@/lib/styles";
 import { namedUnknown } from "../../../KV/filter";
 
@@ -59,10 +59,16 @@ const childrenToDisplay = (
       {data
         .slice(page, amountToDisplay + page + fillerCards)
         .map((property, index) => {
-          return React.cloneElement(children, {
-            key: index,
-            data: property,
-          });
+          return (
+            <Suspense fallback={<div className={"dataCard"}></div>}>
+              <Await resolve={data?.keys}>
+                {React.cloneElement(children, {
+                  key: index,
+                  data: property,
+                })}
+              </Await>
+            </Suspense>
+          );
         })}
 
       {Array.from({ length: fillerCards }).map((_, i) => {
