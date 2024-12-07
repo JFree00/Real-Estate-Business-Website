@@ -125,7 +125,7 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
       return await Promise.all(
         Filter.withEveryFilter(cursor, filterParam).map(async (f) => {
           return properties.getWithMetadata(f).then(async (data) => {
-            if ((data.metadata as string).length === 0) {
+            if (!data.metadata || !(data.metadata as string).length) {
               const prop = defaultProperties.find(
                 (property) => property.name === f,
               );
