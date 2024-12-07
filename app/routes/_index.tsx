@@ -38,19 +38,16 @@ export const links: LinksFunction = () => {
 
 function getInitialKeys(k: KVNamespace, template: namedUnknown[], limit = 10) {
   const keys = template.map(async (key, index) => {
-    if (index > limit) return;
-    return k
-      .getWithMetadata(key.name)
-      .then(
-        (data) => JSON.parse(data.metadata as string) as Promise<namedUnknown>,
-      )
-      .catch(async () => {
-        await k.put(key.name, JSON.stringify(key)).then(() => key);
+    if (index > limit) return Promise.resolve(undefined);
+    return k.getWithMetadata(key.name).then(async (data) => {
+      if (!data.metadata || !(data.metadata as string).length) {
+        await k.put(key.name, "", { metadata: JSON.stringify(key) });
         return key;
-      });
+      }
+      return JSON.parse(data.metadata as string) as namedUnknown;
+    });
   });
-  const keysPromiseAll = Promise.all(keys);
-  return { keys: keysPromiseAll, length: keys.length };
+  return { keys: Promise.all(keys), length: keys.length };
 }
 export function loader({ context }: LoaderFunctionArgs) {
   const env = context.env;

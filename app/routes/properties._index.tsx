@@ -124,11 +124,17 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
     if (filterParam.length !== 0) {
       return await Promise.all(
         Filter.withEveryFilter(cursor, filterParam).map(async (f) => {
-          return properties
-            .getWithMetadata(f)
-            .then(
-              (data) => JSON.parse(data.metadata as string) as propertyProps,
-            );
+          return properties.getWithMetadata(f).then(async (data) => {
+            if ((data.metadata as string).length === 0) {
+              const prop = defaultProperties.find(
+                (property) => property.name === f,
+              );
+              if (!prop) throw new Error(prop + " not found");
+              await properties.put(f, "", { metadata: JSON.stringify(prop) });
+              return prop;
+            }
+            return JSON.parse(data.metadata as string) as propertyProps;
+          });
         }),
       );
     }
