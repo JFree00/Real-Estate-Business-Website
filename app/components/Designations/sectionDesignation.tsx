@@ -77,12 +77,10 @@ export function SectionDesignation({
             buttonText={buttonText}
           />
         </PaginationContext.Provider>
-      ) : data && Array.isArray(data) ? (
-        <DataContext.Provider value={data}>{children}</DataContext.Provider>
       ) : (
-        <Suspense>
-          <Await resolve={data?.keys}>{children}</Await>
-        </Suspense>
+        data && (
+          <DataContext.Provider value={data}>{children}</DataContext.Provider>
+        )
       )}
     </div>
   );
