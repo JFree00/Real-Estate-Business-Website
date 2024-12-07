@@ -39,10 +39,15 @@ export const links: LinksFunction = () => {
 function getInitialKeys(k: KVNamespace, template: namedUnknown[], limit = 10) {
   const keys = template.map(async (key, index) => {
     if (index > limit) return Promise.resolve(undefined);
-    return k.getWithMetadata(key.name).then(async (data) => {
+    return await k.getWithMetadata(key.name).then(async (data) => {
       if (!data.metadata || !(data.metadata as string).length) {
-        await k.put(key.name, "", { metadata: JSON.stringify(key) });
-        return key;
+        if (data.value) return JSON.parse(data.value) as namedUnknown;
+        const prop = template.find((item) => item.name === key.name);
+        if (!prop) throw new Error(`${key.name} not found`);
+        await k
+          .put(key.name, "", { metadata: JSON.stringify(prop) })
+          .catch(() => k.put(key.name, JSON.stringify(prop)));
+        return prop;
       }
       return JSON.parse(data.metadata as string) as namedUnknown;
     });

@@ -121,24 +121,25 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
       return filter as abbreviatedFilterKey;
     });
   const data = async () => {
-    if (filterParam.length !== 0) {
-      return await Promise.all(
-        Filter.withEveryFilter(cursor, filterParam).map(async (f) => {
-          return properties.getWithMetadata(f).then(async (data) => {
-            if (!data.metadata || !(data.metadata as string).length) {
-              const prop = defaultProperties.find(
-                (property) => property.name === f,
-              );
-              if (!prop) throw new Error(prop + " not found");
-              await properties.put(f, "", { metadata: JSON.stringify(prop) });
-              return prop;
-            }
-            return JSON.parse(data.metadata as string) as propertyProps;
-          });
-        }),
-      );
-    }
-    return [];
+    if (filterParam.length === 0) return [];
+
+    return await Promise.all(
+      Filter.withEveryFilter(cursor, filterParam).map(async (f) => {
+        const data = await properties.getWithMetadata(f);
+        if (!data.metadata || !(data.metadata as string).length) {
+          if (data.value) return JSON.parse(data.value) as propertyProps;
+          const prop = defaultProperties.find(
+            (property) => property.name === f,
+          );
+          if (!prop) throw new Error(`${f} not found`);
+          await properties
+            .put(f, "", { metadata: JSON.stringify(prop) })
+            .catch(() => properties.put(f, JSON.stringify(prop)));
+          return prop;
+        }
+        return JSON.parse(data.metadata as string) as propertyProps;
+      }),
+    );
   };
   return {
     properties: await data(),
