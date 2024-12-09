@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Suspense, useContext } from "react";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
-import { Await, useAsyncValue } from "@remix-run/react";
+import { Await, useAsyncValue } from "react-router";
 import { cn } from "@/lib/styles";
 import { namedUnknown } from "../../../KV/filter";
 

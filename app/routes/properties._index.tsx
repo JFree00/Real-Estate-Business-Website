@@ -11,12 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Separator } from "@/components/ui/separator";
 import { FilterInput } from "@/components/filterInput";
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import {
-  useLoaderData,
-  useOutletContext,
-  useSearchParams,
-} from "@remix-run/react";
+import { useLoaderData, useOutletContext, useSearchParams } from "react-router";
 import { defaultProperties, propertyProps } from "../../KV/properties";
 import {
   abbreviatedFilterKey,
@@ -37,6 +32,8 @@ import {
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { Label } from "@/components/ui/label";
 import { IconInput } from "@/components/iconInput";
+import { Route } from "./+types/properties._index";
+
 const inputs: submitInfoProps[] = [
   {
     name: "first name",
@@ -101,7 +98,7 @@ const filterIcons: { [k in filterCategories]: React.ReactNode } = {
   price: <BanknotesIcon />,
   size: <CubeIcon />,
 };
-export const loader = async ({ context, request }: LoaderFunctionArgs) => {
+export const loader = async ({ context, request }: Route.LoaderArgs) => {
   const { properties, metadata } = context.env;
 
   const getCursor = async (cursorName = Filter.cursor) => {

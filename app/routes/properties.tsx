@@ -1,11 +1,11 @@
 // @flow
 import * as React from "react";
-import { Outlet, useLoaderData } from "@remix-run/react";
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { Outlet, useLoaderData } from "react-router";
 import { Filter } from "../../KV/filter";
 import { defaultProperties } from "../../KV/properties";
+import { Route } from "./+types/properties";
 
-export const loader = async ({ context }: LoaderFunctionArgs) => {
+export const loader = async ({ context }: Route.LoaderArgs) => {
   const { metadata } = context.env;
 
   const getCursor = async (cursorName = Filter.cursor) => {

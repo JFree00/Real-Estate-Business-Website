@@ -1,4 +1,4 @@
-import { Link, useLocation } from "@remix-run/react";
+import { Link, useLocation } from "react-router";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { LogoSvg } from "@/components/ui/logoSvg";
