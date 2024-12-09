@@ -5,9 +5,7 @@ import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
 import { SectionContent } from "@/components/Designations/sectionContent";
 import house from "@/assets/house.webp";
-import aboutUsWaves from "@/assets/waves.svg";
-
-import { LinksFunction } from "@remix-run/cloudflare";
+import { LinksFunction } from "react-router";
 import {
   Card,
   CardDescription,

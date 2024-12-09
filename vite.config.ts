@@ -1,17 +1,16 @@
-import {
-  cloudflareDevProxyVitePlugin,
-  vitePlugin as remix,
-} from "@remix-run/dev";
+import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import envOnly from "vite-env-only";
 import tsconfigPaths from "vite-tsconfig-paths";
-import type { Env } from "./context";
+import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
+import { Env } from "./context";
+import { CfProperties } from "@cloudflare/workers-types";
 
 export default defineConfig({
   plugins: [
     envOnly(),
     tsconfigPaths(),
-    cloudflareDevProxyVitePlugin<Env, CfProperties>({
+    cloudflareDevProxy<Env, CfProperties>({
       getLoadContext: async ({
         context: {
           cloudflare: { env },
@@ -21,14 +20,7 @@ export default defineConfig({
         return getLoadContext(env);
       },
     }),
-    remix({
-      future: {
-        v3_fetcherPersist: true,
-        v3_relativeSplatPath: true,
-        v3_throwAbortReason: true,
-        v3_singleFetch: true,
-      },
-    }),
+    reactRouter(),
   ],
   test: {
     globals: true,

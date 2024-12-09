@@ -6,7 +6,7 @@ import { cn } from "@/lib/styles";
 import { Separator } from "@/components/ui/separator";
 import { Pagination } from "@/components/pagination";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
-import { Await } from "@remix-run/react";
+import { Await } from "react-router";
 import { loaderData } from "@/routes/_index";
 import { namedUnknown } from "../../../KV/filter";
 

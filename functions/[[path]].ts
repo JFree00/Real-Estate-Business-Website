@@ -1,4 +1,4 @@
-import { createPagesFunctionHandler } from "@remix-run/cloudflare-pages";
+import { createPagesFunctionHandler } from "@react-router/cloudflare";
 
 import type { Env } from "../context";
 import { getLoadContext } from "../context";
@@ -11,6 +11,6 @@ export const onRequest = createPagesFunctionHandler<Env>({
       cloudflare: { env },
     },
   }) {
-    return getLoadContext(env);
+    return getLoadContext(env as Env);
   },
 });

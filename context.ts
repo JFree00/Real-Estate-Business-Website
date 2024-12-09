@@ -1,20 +1,14 @@
-import { AppLoadContext } from "@remix-run/cloudflare";
-
-// biome-ignore lint/suspicious/noEmptyInterface: Fill this in with your own types for your use-case
+import type { KVNamespace } from "@cloudflare/workers-types";
+import { AppLoadContext } from "react-router";
 
 export interface Env {
   testimonials: KVNamespace;
   properties: KVNamespace;
   metadata: KVNamespace;
 }
-declare module "@remix-run/cloudflare" {
+declare module "react-router" {
   interface AppLoadContext {
     env: Env;
-  }
-}
-declare module "@remix-run/cloudflare" {
-  interface Future {
-    v3_singleFetch: true;
   }
 }
 type getLoadContext = (args: {

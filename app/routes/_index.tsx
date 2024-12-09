@@ -1,10 +1,5 @@
 import { title } from "@/config.shared";
-import {
-  LinksFunction,
-  LoaderFunctionArgs,
-  MetaFunction,
-} from "@remix-run/cloudflare";
-
+import { LinksFunction, MetaFunction } from "react-router";
 import homeBuildings from "@/assets/homeBuildings.webp";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +18,7 @@ import { SectionDescription } from "@/components/Designations/sectionDescription
 import { SectionContent } from "@/components/Designations/sectionContent";
 import { PropertiesCard } from "@/components/cards/propertiesCard";
 import { TestimonialCards } from "@/components/cards/testimonialCards";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 import { defaultProperties } from "../../KV/properties";
 import { defaultTestimonials } from "../../KV/testimonials";
 import { SectionCards } from "@/components/cards/sectionCards";
@@ -31,6 +26,8 @@ import { faqCards } from "../../KV/faq";
 import { indexInfoCard } from "../../KV/info.ts";
 import InfoCards from "@/components/cards/infoCards";
 import { namedUnknown } from "../../KV/filter";
+import { KVNamespace } from "@cloudflare/workers-types";
+import { Route } from "./+types/_index";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: homeBuildings }];
@@ -54,7 +51,7 @@ function getInitialKeys(k: KVNamespace, template: namedUnknown[], limit = 10) {
   });
   return { keys: Promise.all(keys), length: keys.length };
 }
-export function loader({ context }: LoaderFunctionArgs) {
+export function loader({ context }: Route.LoaderArgs) {
   const env = context.env;
   const properties = getInitialKeys(env.properties, defaultProperties);
   const testimonials = getInitialKeys(env.testimonials, defaultTestimonials);
