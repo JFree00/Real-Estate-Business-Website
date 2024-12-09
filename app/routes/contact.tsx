@@ -147,7 +147,7 @@ export default function Contact() {
             pagination={false}
             className={"h-full mt-0 content-center"}
           >
-            <div className={"my-auto"}>
+            <div className={"my-auto contents"}>
               <SectionHeader icon={false}>
                 Get in Touch with Estatein
               </SectionHeader>
