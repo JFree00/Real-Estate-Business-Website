@@ -95,7 +95,7 @@ function LocationCard() {
             <SectionCards key={building.address} className={" row-span-3"}>
               <SectionCards.Header className={"gap-3"}>
                 <SectionCards.Title
-                  className={"text-sm desktop:text-sm font-medium"}
+                  className={"text-sm font-medium desktop:text-sm"}
                 >
                   {building.type}
                 </SectionCards.Title>
@@ -106,7 +106,7 @@ function LocationCard() {
               </SectionCards.Header>
               <SectionCards.Content
                 variant={"primary"}
-                className={"gap-2 flex-wrap"}
+                className={"flex-wrap gap-2"}
               >
                 <Badge variant={"card"} className={"px-4"}>
                   <EnvelopeIcon className={"size-5"} />
@@ -137,15 +137,15 @@ function LocationCard() {
 export default function Contact() {
   return (
     <main>
-      <div className={" grid grid-cols-12 relative"}>
+      <div className={" relative grid grid-cols-12"}>
         <div
           className={
-            "bg-gradient-to-r from-sgrey-15 to-30% to-sgrey-15/0 col-span-full  h-[18rem] laptop:h-[19.5rem] desktop:h-[24.5rem]"
+            "col-span-full h-72 bg-gradient-to-r from-sgrey-15 to-sgrey-15/0  to-30% laptop:h-[19.5rem] desktop:h-[24.5rem]"
           }
         >
           <SectionDesignation
             pagination={false}
-            className={"h-full mt-0 content-center"}
+            className={" h-full content-center pt-0"}
           >
             <div className={"my-auto contents"}>
               <SectionHeader icon={false}>
@@ -181,7 +181,7 @@ export default function Contact() {
           </SectionDescription>
           <SectionContent>
             <SubmitForm
-              className={"laptop:p-16 laptop:grid-cols-3"}
+              className={"laptop:grid-cols-3 laptop:p-16"}
               inputData={inputs}
             />
           </SectionContent>
@@ -202,11 +202,11 @@ export default function Contact() {
           <SectionContent iterate={false} className={"grid-cols-2"}>
             <Tabs
               defaultValue={"All"}
-              className={"grid col-span-full grid-cols-subgrid"}
+              className={"col-span-full grid grid-cols-subgrid"}
             >
               <TabsList
                 className={
-                  "mb-7 flex *:basis-1/3 laptop:w-1/3 desktop:w-1/4 *:rounded-lg col-span-full"
+                  "col-span-full mb-7 flex *:basis-1/3 *:rounded-lg laptop:w-1/3 desktop:w-1/4"
                 }
               >
                 <TabsTrigger value={"All"}>All</TabsTrigger>
@@ -222,17 +222,17 @@ export default function Contact() {
           <SectionContent iterate={false} className={"row-span-4 "}>
             <SectionCards
               className={
-                "bg-sgrey-10 overflow-hidden  relative desktop:p-16 grid grid-cols-4 *:gap-2.5 *:laptop:gap-5 row-span-5 laptop:row-span-2 *:z-10 "
+                "relative row-span-5  grid grid-cols-4 overflow-hidden bg-sgrey-10 *:z-10 *:gap-2.5 laptop:row-span-2 *:laptop:gap-5 desktop:p-16 "
               }
             >
               <div
                 className={
-                  "bg-waves absolute max-w-none bg-auto size-full bg-no-repeat bg-[right_-160px_top_-350px] left-0 top-0 opacity-35 order-last "
+                  "absolute left-0 top-0 order-last size-full max-w-none bg-waves bg-auto bg-[right_-160px_top_-350px] bg-no-repeat opacity-35 "
                 }
               />
               <SectionCards.Header
                 className={
-                  "space-y-0 col-span-full grid grid-cols-subgrid *:z-0 *:rounded-lg *:w-full"
+                  "col-span-full grid grid-cols-subgrid space-y-0 *:z-0 *:w-full *:rounded-lg"
                 }
               >
                 <img
@@ -254,7 +254,7 @@ export default function Contact() {
                 <img alt={"Estatein Team"} src={"app/assets/Image-4.webp"} />
               </SectionCards.Header>
 
-              <div className={" block col-span-full laptop:col-span-2"}>
+              <div className={" col-span-full block laptop:col-span-2"}>
                 <SectionHeader>Explore Estatein's World </SectionHeader>
                 <SectionDescription className={"laptop:w-11/12"}>
                   Step inside the world of Estatein, where professionalism meets
@@ -264,8 +264,9 @@ export default function Contact() {
                 </SectionDescription>
               </div>
               <img
+                alt={"People shaking Hand"}
                 src={"app/assets/Image-5.webp"}
-                className={"col-span-4 laptop:col-span-2 w-full"}
+                className={"col-span-4 w-full laptop:col-span-2"}
               />
             </SectionCards>
           </SectionContent>

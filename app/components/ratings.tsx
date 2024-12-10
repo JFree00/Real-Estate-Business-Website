@@ -2,10 +2,10 @@
 import * as React from "react";
 import { StarIcon } from "@heroicons/react/24/solid";
 
-type Props = {
+interface Props {
   amountOfRatings: number;
   ratings: number;
-};
+}
 
 export function Ratings({ amountOfRatings, ratings }: Props) {
   const ratingButtons = [];
@@ -13,17 +13,17 @@ export function Ratings({ amountOfRatings, ratings }: Props) {
     ratingButtons.push(
       <div
         key={i}
-        className="rounded-full border border-sgrey-15 bg-sgrey-10 mr-2"
+        className="mr-2 rounded-full border border-sgrey-15 bg-sgrey-10"
       >
         <StarIcon
           className={
             i < ratings
-              ? "text-yellow-300 size-6 laptop:size-6 m-1  laptop:m-2.5"
-              : " size-6 m-2.5"
+              ? "m-1 size-6 text-yellow-300 laptop:m-2.5  laptop:size-6"
+              : " m-2.5 size-6"
           }
         />
       </div>,
     );
   }
-  return <div className={"flex mb-3 laptop:mb-7"}>{ratingButtons}</div>;
+  return <div className={"mb-3 flex laptop:mb-7"}>{ratingButtons}</div>;
 }

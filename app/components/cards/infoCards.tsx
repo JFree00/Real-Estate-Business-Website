@@ -60,22 +60,22 @@ function InfoCards({ text, icon, className }: infoCardProps) {
       </Button>
       <div
         className={
-          "laptop:mb-4 flex flex-nowrap justify-center items-center h-3/5 pt-2"
+          "flex h-3/5 flex-nowrap items-center justify-center pt-2 laptop:mb-4"
         }
       >
         <div className={"size-12 laptop:size-20"}>
           <div
             className={
-              "size-full text-pprimary-75  bg-gradient-to-tr from-pprimary-75 from-0% via-transparent via-30% rounded-full"
+              "size-full rounded-full  bg-gradient-to-tr from-pprimary-75 from-0% via-transparent via-30% text-pprimary-75"
             }
           >
             <div
               className={
-                "flex size-full text-pprimary-75  bg-gradient-to-bl from-pprimary-75 from-0% via-transparent via-50% rounded-full"
+                "flex size-full rounded-full  bg-gradient-to-bl from-pprimary-75 from-0% via-transparent via-50% text-pprimary-75"
               }
             >
               <div
-                className={"rounded-full bg-sgrey-10 mx-auto flex items-center"}
+                className={"mx-auto flex items-center rounded-full bg-sgrey-10"}
                 style={{
                   flexBasis: "98%",
                   marginTop: "1%",
@@ -84,17 +84,17 @@ function InfoCards({ text, icon, className }: infoCardProps) {
               >
                 <div
                   className={
-                    "h-3/4 basis-3/4 mx-auto text-pprimary-75  bg-gradient-to-br from-pprimary-75 from-0% via-transparent via-30% rounded-full"
+                    "mx-auto h-3/4 basis-3/4 rounded-full  bg-gradient-to-br from-pprimary-75 from-0% via-transparent via-30% text-pprimary-75"
                   }
                 >
                   <div
                     className={
-                      "flex size-full text-pprimary-75  bg-gradient-to-tl from-pprimary-75 from-0% via-transparent via-50% rounded-full"
+                      "flex size-full rounded-full  bg-gradient-to-tl from-pprimary-75 from-0% via-transparent via-50% text-pprimary-75"
                     }
                   >
                     <div
                       className={
-                        "flex justify-center items-center rounded-full bg-sgrey-10 mx-auto my-px"
+                        "mx-auto my-px flex items-center justify-center rounded-full bg-sgrey-10"
                       }
                       style={{
                         flexBasis: "96%",
@@ -109,10 +109,10 @@ function InfoCards({ text, icon, className }: infoCardProps) {
           </div>
         </div>
       </div>
-      <div className={" min-h-12 overflow-hidden  justify-center items-center"}>
+      <div className={" min-h-12 items-center  justify-center overflow-hidden"}>
         <p
           className={
-            "h-full shrink text-sm text-center desktop:text-xl font-semibold "
+            "h-full shrink text-center text-sm font-semibold desktop:text-xl "
           }
         >
           {text}

@@ -13,7 +13,7 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
     if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
       console.warn("Cursor is either stale or invalid, creating new cursor");
       const newcursor = Filter.toCursor(defaultProperties);
-      metadata.put(cursorName, JSON.stringify(newcursor));
+      await metadata.put(cursorName, JSON.stringify(newcursor));
       return newcursor;
     }
     return Filter.fromCursor(existing);

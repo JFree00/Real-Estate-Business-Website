@@ -12,23 +12,24 @@ import {
   SectionCardTitle,
   SectionCards,
 } from "@/components/cards/sectionCards";
+import { Link } from "react-router";
 
-type props = {
+interface props {
   data?: propertyProps;
-};
+}
 
 export function PropertiesCard({ data }: props) {
-  data = data as propertyProps;
+  data = data!;
   return (
     <SectionCards key={data.name} className={"dataCard"}>
       <SectionCards.Header className={"row-span-1"}>
-        <img alt={"property Image"} src={data.image} />
-        <SectionCardTitle className={"font-semibold text-2xl pt-4"}>
+        <img alt={data.name + " Property"} src={data.image} />
+        <SectionCardTitle className={"pt-4 text-2xl font-semibold"}>
           {data.name}
         </SectionCardTitle>
         <SectionCardDescription className={"text-sgrey-60 laptop:h-14"}>
           {data.description}
-          <a href={"/"} className={"underline ml-1 text-white"}>
+          <a href={"/"} className={"ml-1 text-white underline"}>
             Read More
           </a>
         </SectionCardDescription>
@@ -36,10 +37,10 @@ export function PropertiesCard({ data }: props) {
 
       <SectionCardContent
         className={
-          "flex flex-wrap gap-y-5 laptop:gap-y-8 gap-x-3 justify-start justify-items-stretch pt-4"
+          "flex flex-wrap justify-start justify-items-stretch gap-x-3 gap-y-5 pt-4 laptop:gap-y-8"
         }
       >
-        <div className={"basis-full gap-1.5 laptop:gap-2 flex flex-wrap"}>
+        <div className={"flex basis-full flex-wrap gap-1.5 laptop:gap-2"}>
           <Badge variant={"card"} className={" border-sgrey-15"}>
             <img
               alt={"Bed Icon"}
@@ -62,16 +63,16 @@ export function PropertiesCard({ data }: props) {
           </Badge>
         </div>
 
-        <div className={"laptop:basis-1/3 text-sgrey-60"}>
+        <div className={"text-sgrey-60 laptop:basis-1/3"}>
           <p>Price</p>
-          <span className={"text-white text-xl 2xl:text-2xl font-semibold"}>
+          <span className={"text-xl font-semibold text-white 2xl:text-2xl"}>
             {data.price}
           </span>
         </div>
         <div className={"grow"}>
           <Button
             className={
-              "bg-pprimary-60 laptop:h-full laptop:w-full laptop:text-base"
+              "bg-pprimary-60 laptop:size-full laptop:text-base"
             }
             size={"responsive"}
           >

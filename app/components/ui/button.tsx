@@ -5,34 +5,34 @@ import * as React from "react";
 import { cn } from "@/lib/styles";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm laptop:text-lg font-small transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "font-small focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 laptop:text-lg",
   {
     variants: {
       variant: {
-        default: "text-primary-foreground border bg-sgrey-8 border-sgrey-15",
+        default: "text-primary-foreground border border-sgrey-15 bg-sgrey-8",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground border-sgrey-15",
+          "border-input bg-background hover:bg-accent hover:text-accent-foreground border border-sgrey-15 shadow-sm",
         primary:
-          "bg-pprimary-60 text-primary-foreground shadow-sm hover:bg-primary/90",
-        secondary: "text-primary-foreground border bg-sgrey-10 border-sgrey-15",
+          "text-primary-foreground hover:bg-primary/90 bg-pprimary-60 shadow-sm",
+        secondary: "text-primary-foreground border border-sgrey-15 bg-sgrey-10",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
 
         permlink:
-          "text-primary underline-offset-1 decoration-sgrey-50 underline font-regular",
-        active: "border bg-sgrey-8 border-sgrey-15",
+          "text-primary font-regular underline decoration-sgrey-50 underline-offset-1",
+        active: "border border-sgrey-15 bg-sgrey-8",
       },
       size: {
         default: "h-11 px-6 py-2",
         section: "h-14 px-6 py-2",
         nav: "h-14 px-6 text-lg",
         sm: "h-8 rounded-md px-1 text-xs",
-        lg: "laptop:h-10 rounded-md laptop:px-8",
-        icon: "h-6 w-6 laptop:h-9 laptop:w-9",
+        lg: "rounded-md laptop:h-10 laptop:px-8",
+        icon: "size-6 laptop:size-9",
         responsive:
-          "h-12 w-full laptop:w-fit py-2 laptop:h-11 laptop:px-6 laptop:py-2",
+          "h-12 w-full py-2 laptop:h-11 laptop:w-fit laptop:px-6 laptop:py-2",
       },
     },
     defaultVariants: {

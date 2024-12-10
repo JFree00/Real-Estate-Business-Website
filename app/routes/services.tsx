@@ -140,15 +140,15 @@ function NewComponent({ data, children, className }: props) {
 export default function Services() {
   return (
     <main>
-      <div className={" grid grid-cols-12 relative"}>
+      <div className={" relative grid grid-cols-12"}>
         <div
           className={
-            "bg-gradient-to-r grid grid-cols-subgrid  from-sgrey-15 to-30% to-sgrey-15/0 col-span-full  h-[285px] laptop:h-[315px] desktop:h-[390px]"
+            "col-span-full grid h-[285px]  grid-cols-subgrid bg-gradient-to-r from-sgrey-15 to-sgrey-15/0  to-30% laptop:h-[315px] desktop:h-[390px]"
           }
         >
           <SectionDesignation
             pagination={false}
-            className={"h-full mt-0 content-center"}
+            className={"h-full content-center pt-0"}
           >
             <div className={"my-auto contents"}>
               <SectionHeader icon={false} className={"text-wrap"}>
@@ -188,29 +188,29 @@ export default function Services() {
             <NewComponent data={servicesData}>
               <SectionCards
                 className={
-                  "bg-sgrey-10 overflow-hidden relative laptop:basis-2/3 laptop:mt-0 laptop:col-span-2"
+                  "relative overflow-hidden bg-sgrey-10 laptop:col-span-2 laptop:mt-0 laptop:basis-2/3"
                 }
               >
-                <div className={" size-full absolute"}>
+                <div className={" absolute size-full"}>
                   <div
                     className={
-                      "absolute w-[1422px] h-[950px] z-0 overflow-hidden bg-auto bg-waves opacity-20 -top-[632px]"
+                      "absolute top-[-632px] z-0 h-[950px] w-[1422px] overflow-hidden bg-waves bg-auto opacity-20"
                     }
                   ></div>
                 </div>
                 <SectionCards.Header
                   className={
-                    "z-20 laptop:flex-row laptop:flex-wrap laptop:justify-between"
+                    "z-20 gap-y-8 space-y-0 laptop:flex-row laptop:flex-wrap laptop:justify-between"
                   }
                 >
-                  <SectionCards.Header.Title className={"z-20 laptop:grow"}>
+                  <SectionCards.Header.Title className={"z-20 my-auto laptop:grow desktop:text-3xl"}>
                     Unlock the Value of Your Property Today
                   </SectionCards.Header.Title>
                   <Button
                     size={"responsive"}
                     variant={"primary"}
                     className={
-                      "bg-sgrey-8 z-20 border-sgrey-15 border laptop:py-6 desktop:py-8"
+                      "z-20 border border-sgrey-15 bg-sgrey-8 laptop:py-6 desktop:py-8"
                     }
                   >
                     Learn More
@@ -248,13 +248,13 @@ export default function Services() {
             <NewComponent data={data2}>
               <SectionCards
                 className={
-                  "bg-sgrey-10 overflow-hidden relative laptop:basis-2/3 laptop:mt-0 laptop:col-span-2 "
+                  "relative overflow-hidden bg-sgrey-10 laptop:col-span-2 laptop:mt-0 laptop:basis-2/3 "
                 }
               >
-                <div className={" size-full absolute"}>
+                <div className={" absolute size-full"}>
                   <div
                     className={
-                      "absolute w-[1422px] h-[950px] z-0  overflow-hidden bg-auto bg-waves opacity-20 -top-[632px]"
+                      "absolute top-[-632px] z-0 h-[950px]  w-[1422px] overflow-hidden bg-waves bg-auto opacity-20"
                     }
                   ></div>
                 </div>
@@ -263,14 +263,14 @@ export default function Services() {
                     "z-20 gap-y-5 laptop:flex-row laptop:flex-wrap laptop:justify-between"
                   }
                 >
-                  <SectionCards.Header.Title className={"z-20 laptop:grow"}>
+                  <SectionCards.Header.Title className={"z-20 my-auto laptop:grow desktop:text-3xl"}>
                     Experience Effortless Property Management
                   </SectionCards.Header.Title>
                   <Button
                     size={"responsive"}
                     variant={"primary"}
                     className={
-                      "bg-sgrey-8 z-20 border-sgrey-15 border laptop:py-6 desktop:py-8"
+                      "z-20 border border-sgrey-15 bg-sgrey-8 laptop:py-6 desktop:py-8"
                     }
                   >
                     Learn More
@@ -294,7 +294,7 @@ export default function Services() {
         >
           <div
             className={
-              "col-span-full laptop:col-span-4 laptop:shrink-0 flex flex-col justify-between"
+              "col-span-full flex flex-col justify-between laptop:col-span-4 laptop:shrink-0"
             }
           >
             <SectionHeader className={" tablet:w-full"}>
@@ -304,7 +304,7 @@ export default function Services() {
               Building a real estate portfolio requires a strategic approach.
             </SectionDescription>
             <SectionDescription
-              className={"hidden laptop:block tablet:w-full laptop:text-base"}
+              className={"hidden tablet:w-full laptop:block laptop:text-base"}
             >
               Building a real estate portfolio requires a strategic approach.
               Estatein's Investment Advisory Service empowers you to make smart
@@ -312,13 +312,13 @@ export default function Services() {
             </SectionDescription>
             <SectionCards
               className={
-                "bg-sgrey-10 overflow-hidden relative mt-5 shrink h-fit"
+                "relative mt-5 h-fit shrink overflow-hidden bg-sgrey-10"
               }
             >
-              <div className={" size-max absolute"}>
+              <div className={" absolute size-max"}>
                 <div
                   className={
-                    "absolute w-[1422px] h-[950px] z-0 bg-auto bg-waves opacity-20 -top-[632px] "
+                    "absolute top-[-632px] z-0 h-[950px] w-[1422px] bg-waves bg-auto opacity-20 "
                   }
                 ></div>
               </div>
@@ -330,14 +330,14 @@ export default function Services() {
                   size={"responsive"}
                   variant={"primary"}
                   className={
-                    "bg-sgrey-8 z-20 border-sgrey-15 border laptop:w-full order-last py-0 laptop:py-6 desktop:py-8"
+                    "z-20 order-last border border-sgrey-15 bg-sgrey-8 py-0 laptop:w-full laptop:py-6 desktop:py-8"
                   }
                 >
                   Learn More
                 </Button>
 
                 <SectionCards.Description
-                  className={"z-20 laptop:text-base pt-0"}
+                  className={"z-20 pt-0 laptop:text-base"}
                 >
                   Explore our Property Management Service categories and let us
                   handle the complexities while you enjoy the benefits of
@@ -350,7 +350,7 @@ export default function Services() {
           <SectionContent
             iterate={false}
             className={
-              "col-span-8 gap-2.5 bg-sgrey-10 p-2.5 rounded-xl mt-12 shrink laptop:mt-0 laptop:grid-cols-2"
+              "col-span-8 mt-12 shrink gap-2.5 rounded-xl bg-sgrey-10 p-2.5 laptop:mt-0 laptop:grid-cols-2"
             }
             amountToDisplay={4}
           >

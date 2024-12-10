@@ -13,16 +13,14 @@ export type nonAbbreviatedFilterKey = `${filterCategories}-${string}`;
 export type filteredData = [abbreviatedFilterKey, string[]][]; //parsed cursor KV value
 export type convertedFilter = Map<abbreviatedFilterKey, string[]>;
 export type rawFilterCursor = [filterCategories, string[]][];
-export type filterDataParams = {
-  [key in filterCategories]: string | number;
-} & namedUnknown;
+export type filterDataParams = Record<filterCategories, string | number> & namedUnknown;
 export interface namedUnknown {
   name: string;
   [key: string]: unknown;
 }
 
 export class Filter {
-  static readonly keys: { [key in filterCategories]: filterTypes } = {
+  static readonly keys: Record<filterCategories, filterTypes> = {
     property_type: "PT",
     location: "L",
     build_year: "BY",
@@ -66,7 +64,7 @@ export class Filter {
   ): filteredData {
     const filterValues: convertedFilter = new Map();
     const addFilterValue = (key: abbreviatedFilterKey, name: string) => {
-      const currentFilter = filterValues.get(key) || [];
+      const currentFilter = filterValues.get(key) ?? [];
       filterValues.set(key, [...currentFilter, name]);
     };
     data.forEach((property) => {
@@ -111,7 +109,7 @@ export class Filter {
     filters.forEach((filter) => {
       const abbrev = this.expandAbbreviate(filter)[0];
       const addToIndex = (value: string) => {
-        const current = dataIndexes.get(abbrev) || [];
+        const current = dataIndexes.get(abbrev) ?? [];
         dataIndexes.set(abbrev, [...current, value]);
       };
       const descendantIndexes = new Set<string>();
@@ -133,7 +131,7 @@ export class Filter {
     const filtersArray = new Map<filterCategories, string[]>();
     cursor.forEach(([filterName]) => {
       const [filterCategory, subcategories] = this.expandAbbreviate(filterName);
-      const existingSubcategories = filtersArray.get(filterCategory) || [];
+      const existingSubcategories = filtersArray.get(filterCategory) ?? [];
       filtersArray.set(filterCategory, [
         ...existingSubcategories,
         subcategories,

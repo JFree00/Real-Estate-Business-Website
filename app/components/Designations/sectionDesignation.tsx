@@ -37,7 +37,7 @@ export function SectionDesignation({
   return (
     <div
       className={cn(
-        "offset relative mt-20 grid col-span-full grid-cols-6 laptop:grid-cols-12",
+        "offset relative pt-20 grid col-span-full grid-cols-6 laptop:grid-cols-12",
         className,
       )}
       // style={{
@@ -49,7 +49,7 @@ export function SectionDesignation({
         <Button
           variant={"outline"}
           className={
-            " absolute right-0 top-20 py-8 bg-sgrey-10 font-medium hidden laptop:flex"
+            " absolute right-0 top-20 hidden bg-sgrey-10 py-8 font-medium laptop:flex"
           }
         >
           {buttonText}
@@ -71,16 +71,16 @@ export function SectionDesignation({
               <Await resolve={data.keys}>{children}</Await>
             </Suspense>
           )}
-          <Separator className={"mt-10 col-span-full"} />
+          <Separator className={"col-span-full mt-10"} />
           <Pagination
             setPage={(page) => setCurrentPage(page)}
             buttonText={buttonText}
           />
         </PaginationContext.Provider>
+      ) : data ? (
+        <DataContext.Provider value={data}>{children}</DataContext.Provider>
       ) : (
-        data && (
-          <DataContext.Provider value={data}>{children}</DataContext.Provider>
-        )
+        <>{children}</>
       )}
     </div>
   );

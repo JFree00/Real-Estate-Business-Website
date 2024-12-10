@@ -18,7 +18,7 @@ export function IconInput({ placeholder, className, children }: Props) {
       <Input
         size={1}
         className={
-          "bg-transparent focus:outline-0 grow shrink desktop:placeholder:text-lg desktop:text-lg border-0 h-full px-0"
+          "h-full shrink grow border-0 bg-transparent px-0 focus:outline-0 desktop:text-lg desktop:placeholder:text-lg"
         }
         placeholder={placeholder}
       />

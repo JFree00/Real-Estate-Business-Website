@@ -18,7 +18,7 @@ export function SectionHeader({ children, className, icon = true }: Props) {
         className,
       )}
     >
-      {icon && <SparklesIcon className={"  size-6  font-medium mb-4"} />}
+      {icon && <SparklesIcon className={"  mb-4  size-6 font-medium"} />}
 
       <p className={cn(`font-semibold text-balance h-fit title`, className)}>
         {children}

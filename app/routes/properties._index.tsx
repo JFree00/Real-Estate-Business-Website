@@ -91,7 +91,7 @@ const inputs: submitInfoProps[] = [
     className: "order-[20] col-span-full",
   },
 ];
-const filterIcons: { [k in filterCategories]: React.ReactNode } = {
+const filterIcons: Record<filterCategories, React.ReactNode> = {
   property_type: <HomeModernIcon />,
   location: <MapPinIcon />,
   build_year: <CalendarIcon />,
@@ -148,19 +148,19 @@ export default function PropertiesIndex() {
   const [searchParams, setSearchParams] = useSearchParams();
   return (
     <div>
-      <div className={" grid grid-cols-12 relative"}>
+      <div className={" relative grid grid-cols-12"}>
         <div
           className={
-            "bg-gradient-to-r grid grid-cols-subgrid from-sgrey-15 to-30% to-sgrey-15/0 col-span-full  h-[285px] laptop:h-[315px] desktop:h-[390px]"
+            "col-span-full grid h-[285px] grid-cols-subgrid bg-gradient-to-r from-sgrey-15 to-sgrey-15/0  to-30% laptop:h-[315px] desktop:h-[390px]"
           }
         >
           <SectionDesignation
             pagination={false}
-            className={"desktop:h-[370px] "}
+            className={"desktop:h-[370px]"}
           >
             <div
               className={
-                "h-full flex-col col-span-full content-center grid grid-cols-subgrid"
+                "col-span-full grid h-full grid-cols-subgrid flex-col content-center"
               }
             >
               <SectionHeader icon={false}>
@@ -175,22 +175,22 @@ export default function PropertiesIndex() {
               </SectionDescription>
             </div>
           </SectionDesignation>
-          <Separator className={"h-px"} />
+          <Separator className={"col-span-full h-px self-end"} />
         </div>
         <SectionDesignation
           pagination={false}
-          className={"mt-0  laptop:-top-32"}
+          className={"pt-0  laptop:-top-32"}
         >
-          <SectionContent className={"  bottom-0 overflow-visible shrink-0"}>
-            <div className={"basis-full flex w-full flex-wrap justify-center"}>
+          <SectionContent className={"  bottom-0 shrink-0 overflow-visible"}>
+            <div className={"flex w-full basis-full flex-wrap justify-center"}>
               <div
                 className={
-                  "w-full flex size-16 laptop:h-20 desktop:h-[100px] outline-sgrey-10 outline laptop:outline-8 rounded-xl p-2 laptop:p-4 desktop:p-5 border border-sgrey-15 bg-sgrey-8  laptop:w-[80%]"
+                  "flex size-16 w-full rounded-xl border border-sgrey-15 bg-sgrey-8 p-2 outline outline-sgrey-10 laptop:h-20 laptop:w-4/5 laptop:p-4 laptop:outline-8 desktop:h-[100px]  desktop:p-5"
                 }
               >
                 <input
                   className={
-                    "focus:outline-0 bg-transparent  rounded-xl basis-full ml-2 desktop:text-2xl  placeholder:text-sgrey-40"
+                    "ml-2 basis-full  rounded-xl bg-transparent placeholder:text-sgrey-40 focus:outline-0  desktop:text-2xl"
                   }
                   placeholder={"Search For A Property"}
                 />
@@ -198,17 +198,17 @@ export default function PropertiesIndex() {
                   size={"default"}
                   variant={"primary"}
                   className={
-                    "  laptop:shrink-0 laptop:h-full gap-x-2 hidden laptop:flex"
+                    "  hidden gap-x-2 laptop:flex laptop:h-full laptop:shrink-0"
                   }
                 >
                   <MagnifyingGlassIcon className={"size-2/3"} />
                   <p>Find Property</p>
-                </Button>{" "}
+                </Button>
                 <Button
                   size={"default"}
                   variant={"primary"}
                   className={
-                    "  laptop:shrink-0 laptop:h-full gap-x-2  laptop:hidden"
+                    "  gap-x-2 laptop:hidden laptop:h-full  laptop:shrink-0"
                   }
                 >
                   <MagnifyingGlassIcon className={"size-full"} />
@@ -216,7 +216,7 @@ export default function PropertiesIndex() {
               </div>
               <div
                 className={
-                  "basis-full flex flex-col laptop:flex-row gap-5 w-full  rounded-xl bg-sgrey-10 mt-5 laptop:mt-0 p-5 laptop:p-2.5"
+                  "mt-5 flex w-full basis-full flex-col gap-5  rounded-xl bg-sgrey-10 p-5 laptop:mt-0 laptop:flex-row laptop:p-2.5"
                 }
               >
                 {filters.map(([filterName, filterValue]) => {
@@ -255,14 +255,16 @@ export default function PropertiesIndex() {
             </div>
           </SectionContent>
         </SectionDesignation>
-        {properties && properties.length ? (
+        {properties?.length ? (
           <SectionDesignation
             displayAmount={3}
             pagination={true}
             data={properties}
           >
             <ArrowDownIcon
-              className={"animate-bounce size-14 -mt-10 mb-10 mx-auto"}
+              className={
+                "col-span-full mx-auto -mt-10 mb-10 size-14 animate-bounce"
+              }
             />
             <SectionHeader>Discover a World of Possibilities</SectionHeader>
             <SectionDescription>
@@ -288,7 +290,7 @@ export default function PropertiesIndex() {
               <div className={"grid grid-cols-subgrid  laptop:col-span-2"}>
                 <div className={"grid grid-cols-subgrid"}>
                   <Label
-                    className={"capitalize text-base pb-2.5 inline-block"}
+                    className={"inline-block pb-2.5 text-base capitalize"}
                     htmlFor={"contact"}
                   >
                     Preferred Contact Method
@@ -305,7 +307,7 @@ export default function PropertiesIndex() {
                 <div>
                   <Label
                     className={
-                      "capitalize text-base hidden laptop:inline-block "
+                      "hidden text-base capitalize laptop:inline-block "
                     }
                     htmlFor={"em"}
                   ></Label>

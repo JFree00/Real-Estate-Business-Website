@@ -10,12 +10,12 @@ export function Swirl({ children, className, size }: Props) {
     <div className={cn("size-12 laptop:size-20", size)}>
       <div
         className={
-          "size-full text-pprimary-75  bg-gradient-to-tr from-pprimary-75 from-0% via-transparent via-30% rounded-full"
+          "size-full rounded-full  bg-gradient-to-tr from-pprimary-75 from-0% via-transparent via-30% text-pprimary-75"
         }
       >
         <div
           className={
-            "flex size-full text-pprimary-75  bg-gradient-to-bl from-pprimary-75 from-0% via-transparent via-50% rounded-full"
+            "flex size-full rounded-full  bg-gradient-to-bl from-pprimary-75 from-0% via-transparent via-50% text-pprimary-75"
           }
         >
           <div
@@ -28,12 +28,12 @@ export function Swirl({ children, className, size }: Props) {
           >
             <div
               className={
-                "h-3/4 basis-3/4 mx-auto text-pprimary-75  bg-gradient-to-br from-pprimary-75 from-0% via-transparent via-30% rounded-full"
+                "mx-auto h-3/4 basis-3/4 rounded-full  bg-gradient-to-br from-pprimary-75 from-0% via-transparent via-30% text-pprimary-75"
               }
             >
               <div
                 className={
-                  "flex size-full text-pprimary-75  bg-gradient-to-tl from-pprimary-75 from-0% via-transparent via-50% rounded-full"
+                  "flex size-full rounded-full  bg-gradient-to-tl from-pprimary-75 from-0% via-transparent via-50% text-pprimary-75"
                 }
               >
                 <div

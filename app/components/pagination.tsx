@@ -21,16 +21,16 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
     });
   };
   return (
-    <div className={"col-span-full flex mt-5 justify-between "}>
+    <div className={"col-span-full mt-5 flex justify-between "}>
       {buttonText && (
         <Button
           variant={"outline"}
-          className={" bg-sgrey-10 font-medium laptop:hidden basis-1/3 h-12"}
+          className={" h-12 basis-1/3 bg-sgrey-10 font-medium laptop:hidden"}
         >
           {buttonText || "View All"}
         </Button>
       )}
-      <p className={"text-sgrey-60 basis-3/12 text-xl hidden laptop:flex"}>
+      <p className={"hidden basis-3/12 text-xl text-sgrey-60 laptop:flex"}>
         <span className={"text-white"}>
           0{context.current}
           {" of "}
@@ -39,16 +39,16 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
         {context.max}
       </p>
 
-      <div className={" grow flex gap-x-2 justify-end items-center"}>
+      <div className={" flex grow items-center justify-end gap-x-2"}>
         <Button
           size={"icon"}
-          className={"rounded-full w-10 h-10 laptop:h-14 laptop:w-14"}
+          className={"size-10 rounded-full laptop:size-14"}
           onClick={() => paginate(false)}
           disabled={context.current === 1}
         >
           <ArrowLeftIcon className={"size-6 "} />
         </Button>
-        <p className={"text-sgrey-60 my-auto text-xl laptop:hidden"}>
+        <p className={"my-auto text-xl text-sgrey-60 laptop:hidden"}>
           <span className={"text-white"}>
             0{context.current} {" of "}
           </span>
@@ -58,7 +58,7 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
         <Button
           size={"icon"}
           variant={"secondary"}
-          className={"rounded-full w-10 h-10 laptop:h-14 laptop:w-14"}
+          className={"size-10 rounded-full laptop:size-14"}
           onClick={() => paginate(true)}
           disabled={context.current === context.max}
         >

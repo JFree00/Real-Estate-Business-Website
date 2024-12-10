@@ -5,7 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
-  useRouteError,
+  useRouteError
 } from "react-router";
 
 import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
@@ -25,7 +25,7 @@ function App({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={"bg-sgrey-8 text-white box-border"}>
+      <body className={"box-border bg-sgrey-8 text-white"}>
         <GlobalPendingIndicator />
         <Header />
         {children}
@@ -63,7 +63,7 @@ export function ErrorBoundary() {
 
   return (
     <App>
-      <div className="container prose py-8">
+      <div className={"prose container py-8"}>
         <h1>{status}</h1>
         <p>{message}</p>
       </div>
