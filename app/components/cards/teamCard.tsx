@@ -12,22 +12,22 @@ import {
 } from "@/components/ui/card";
 import { teamProps } from "../../../KV/team";
 
-type props = {
+interface props {
   data?: teamProps;
-};
+}
 
 export function TeamCard({ data }: props) {
-  data = data as teamProps;
+  data = data!;
   return (
-    <Card className={"border rounded-xl border-sgrey-15 bg-sgrey-8 p-8"}>
+    <Card className={"rounded-xl border border-sgrey-15 bg-sgrey-8 p-8"}>
       <div className={"relative flex justify-center"}>
         <img alt={"sarah johnson"} src={data.image} />
         <div
-          className={"absolute -bottom-5 left-0 right-0 flex justify-center"}
+          className={"absolute inset-x-0 -bottom-5 flex justify-center"}
         >
           <Button
             size={"icon"}
-            className={"bg-pprimary-60 w-[18%] h-10 rounded-3xl"}
+            className={"h-10 w-[18%] rounded-3xl bg-pprimary-60"}
           >
             <img alt={"twitter"} src={twitter} />
           </Button>
@@ -35,28 +35,28 @@ export function TeamCard({ data }: props) {
       </div>
       <CardHeader
         className={
-          "text-center gap-y-1 laptop:gap-y-0 pt-10 laptop:pt-8 pb-5  text-lg font-semibold"
+          "gap-y-1 pb-5 pt-10 text-center text-lg font-semibold  laptop:gap-y-0 laptop:pt-8"
         }
       >
         <CardTitle className={"laptop:text-xl"}>{data.name}</CardTitle>
-        <CardDescription className={" text-sgrey-60 font-medium"}>
+        <CardDescription className={" font-medium text-sgrey-60"}>
           {data.role}
         </CardDescription>
       </CardHeader>
       <CardContent className={"mt-0"}>
         <div
           className={
-            "h-16 laptop:h-12 rounded-full basis-full border border-sgrey-15 bg-sgrey-10 flex px-2"
+            "flex h-16 basis-full rounded-full border border-sgrey-15 bg-sgrey-10 px-2 laptop:h-12"
           }
         >
           <input
-            className={"bg-transparent w-full basis-full px-6 focus:outline-0"}
+            className={"w-full basis-full bg-transparent px-6 focus:outline-0"}
             placeholder={"Say hello 👋"}
           />
           <Button
             size={"icon"}
             className={
-              "size-12  grow-0 shrink-0 rounded-full bg-pprimary-60 my-auto "
+              "my-auto  size-12 shrink-0 grow-0 rounded-full bg-pprimary-60 "
             }
           >
             <img

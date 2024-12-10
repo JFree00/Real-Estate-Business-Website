@@ -40,7 +40,7 @@ export function SubmitForm({ inputData, children, className }: props) {
     return (
       <div key={input.name} className={cn("col-span-1", input.className)}>
         <Label
-          className={"capitalize text-base pb-2.5 inline-block font-semibold"}
+          className={"inline-block pb-2.5 text-base font-semibold capitalize"}
           htmlFor={input.name}
         >
           {input.name}
@@ -58,7 +58,7 @@ export function SubmitForm({ inputData, children, className }: props) {
               id={input.name}
               name={input.name}
               className={
-                "h-12 bg-sgrey-10 desktop:placeholder:text-lg desktop:text-lg desktop:h-[70px]"
+                "h-12 bg-sgrey-10 desktop:h-[70px] desktop:text-lg desktop:placeholder:text-lg"
               }
             >
               <SelectValue placeholder={input.placeholder} />
@@ -82,7 +82,7 @@ export function SubmitForm({ inputData, children, className }: props) {
         ) : (
           <Input
             className={
-              "h-12 muted- bg-sgrey-10 desktop:placeholder:text-lg desktop:text-lg desktop:h-[70px]"
+              "muted- h-12 bg-sgrey-10 desktop:h-[70px] desktop:text-lg desktop:placeholder:text-lg"
             }
             id={input.name}
             name={input.name}
@@ -104,7 +104,7 @@ export function SubmitForm({ inputData, children, className }: props) {
         {children}
         <div
           className={
-            "laptop:col-span-full laptop:flex justify-between items-center order-last"
+            "order-last items-center justify-between laptop:col-span-full laptop:flex"
           }
         >
           <CheckboxWithText>
@@ -113,7 +113,7 @@ export function SubmitForm({ inputData, children, className }: props) {
           </CheckboxWithText>
           <Button
             size={"responsive"}
-            className={"bg-pprimary-60 laptop:h-14 mt-4"}
+            className={"mt-4 bg-pprimary-60 laptop:h-14"}
           >
             <span>Send Your Message</span>
           </Button>

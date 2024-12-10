@@ -17,11 +17,11 @@ export function NteeCard({ data, className }: props) {
   data = data!;
   return (
     <div className={cn("laptop:basis-1/4 flex flex-col grow", className)}>
-      <div className={"border-l border-l-pprimary-60 h-12 flex items-center"}>
-        <p className={"font-medium text-base px-7"}>Step 0{data.step}</p>
+      <div className={"flex h-12 items-center border-l border-l-pprimary-60"}>
+        <p className={"px-7 text-base font-medium"}>Step 0{data.step}</p>
       </div>
       <div
-        className={" w-full  border rounded-full border-transparent h-full"}
+        className={" size-full  rounded-full border border-transparent"}
         style={{
           padding: "1px, 1px, 1px, 1px",
           backgroundImage:
@@ -36,9 +36,9 @@ export function NteeCard({ data, className }: props) {
             "size-[99%]  bg-transparent bg-gradient-to-br from-pprimary-60/50 to-15%"
           }
         >
-          <Card className={" bg-transparent rounded-none border-0  p-7"}>
+          <Card className={" rounded-none border-0 bg-transparent  p-7"}>
             <CardHeader className={"justify-center"}>
-              <CardTitle className={"basis-1/3 font-semibold text-lg py-4"}>
+              <CardTitle className={"basis-1/3 py-4 text-lg font-semibold"}>
                 {data.name}
               </CardTitle>
               <CardDescription className={"text-base text-sgrey-60"}>

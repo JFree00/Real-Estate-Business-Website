@@ -5,11 +5,11 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
 
-export type valuesProps = {
+export interface valuesProps {
   name: string;
   description: string;
   icon: React.ReactNode;
-};
+}
 
 export const values = [
   {

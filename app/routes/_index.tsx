@@ -73,18 +73,18 @@ export default function Index() {
   const { properties, testimonials } = useLoaderData<typeof loader>();
   return (
     <main>
-      <div className={" grid grid-cols-12 relative "}>
+      <div className={" relative grid grid-cols-12 "}>
         <div
           className={
-            "offset-hero col-span-full row-start-2 laptop:row-start-1 laptop:col-span-6"
+            "offset-hero col-span-full row-start-2 laptop:col-span-6 laptop:row-start-1"
           }
         >
           <div
             className={
-              "w-full grid grid-cols-6 mt-14 laptop:mt-20 desktop:mt-36 gap-y-8 laptop:gap-y-12"
+              "mt-14 grid w-full grid-cols-6 gap-y-8 laptop:mt-20 laptop:gap-y-12 desktop:mt-36"
             }
           >
-            <div className={"font-semibold text-balance col-span-full h-1/4"}>
+            <div className={"col-span-full h-1/4 text-balance font-semibold"}>
               <p
                 className={
                   "text-3xl tablet:text-6xl laptop:text-5xl desktop:text-6xl"
@@ -96,21 +96,21 @@ export default function Index() {
             </div>
             <h5
               className={
-                "col-span-full self-center text-sgrey-60 -mt-5 text-lg"
+                "col-span-full -mt-5 self-center text-lg text-sgrey-60"
               }
             >
               Your journey to finding the perfect property begins here. Explore
               our listings to find the home that matches your dreams.
             </h5>
             <div className={"col-span-6 h-full"}>
-              <div className={"flex flex-wrap gap-3 items-center"}>
+              <div className={"flex flex-wrap items-center gap-3"}>
                 <div
-                  className={"basis-full tablet:basis-auto grow laptop:grow-0 "}
+                  className={"grow basis-full tablet:basis-auto laptop:grow-0 "}
                 >
                   <Button
                     variant={"active"}
                     size={"responsive"}
-                    className={"laptop:px-6 laptop:h-16"}
+                    className={"laptop:h-16 laptop:px-6"}
                   >
                     Learn More
                   </Button>
@@ -119,7 +119,7 @@ export default function Index() {
                   <Button
                     variant={"default"}
                     size={"responsive"}
-                    className={"bg-pprimary-60 laptop:px-6 laptop:h-16"}
+                    className={"bg-pprimary-60 laptop:h-16 laptop:px-6"}
                   >
                     Browse Properties
                   </Button>
@@ -128,11 +128,11 @@ export default function Index() {
             </div>
             <div
               className={
-                "flex col-span-full flex-wrap gap-y-4 laptop:text-left text-center"
+                "col-span-full flex flex-wrap gap-y-4 text-center laptop:text-left"
               }
             >
-              <div className={"basis-1/2 laptop:basis-1/3 px-2"}>
-                <Card className={"  p-4 pb-0 h-fit"}>
+              <div className={"basis-1/2 px-2 laptop:basis-1/3"}>
+                <Card className={"  h-fit p-4 pb-0"}>
                   <CardHeader>
                     <CardTitle className={"text-4xl"}>200+</CardTitle>
                   </CardHeader>
@@ -141,8 +141,8 @@ export default function Index() {
                   </CardFooter>
                 </Card>
               </div>
-              <div className={"basis-1/2  laptop:basis-1/3 px-2"}>
-                <Card className={" p-4 pb-0 h-fit"}>
+              <div className={"basis-1/2  px-2 laptop:basis-1/3"}>
+                <Card className={" h-fit p-4 pb-0"}>
                   <CardHeader>
                     <CardTitle className={"text-4xl"}>10k+</CardTitle>
                   </CardHeader>
@@ -151,8 +151,8 @@ export default function Index() {
                   </CardFooter>
                 </Card>
               </div>
-              <div className={"grow laptop:grow-0 laptop:basis-1/3 px-2"}>
-                <Card className={" p-4 pb-0 h-fit"}>
+              <div className={"grow px-2 laptop:grow-0 laptop:basis-1/3"}>
+                <Card className={" h-fit p-4 pb-0"}>
                   <CardHeader>
                     <CardTitle className={"text-4xl"}>16+</CardTitle>
                   </CardHeader>
@@ -166,18 +166,18 @@ export default function Index() {
         </div>
         <div
           className={
-            "row-start-1  m-4 laptop:m-0 col-span-full laptop:col-span-6 laptop:row-span-3  relative"
+            "relative  col-span-full row-start-1 m-4 laptop:col-span-6 laptop:row-span-3  laptop:m-0"
           }
           style={{ maxHeight: "100%%" }}
         >
           <div
             className={
-              "rounded-full bg-sgrey-8 border border-sgrey-15 size-32 laptop:size-40 absolute laptop:-left-20 -bottom-12 laptop:-bottom-20 laptop:top-40 flex"
+              "absolute -bottom-12 flex size-32 rounded-full border border-sgrey-15 bg-sgrey-8 laptop:-bottom-20 laptop:-left-20 laptop:top-40 laptop:size-40"
             }
           >
             <div
               className={
-                " bg-cover bg-no-repeat size-[80%] mx-auto my-auto flex"
+                " m-auto flex size-4/5 bg-cover bg-no-repeat"
               }
               style={{
                 backgroundImage: `url('${circle}')`,
@@ -185,16 +185,16 @@ export default function Index() {
             >
               <div
                 className={
-                  "rounded-full bg-sgrey-10 border border-sgrey-15 size-[50%] m-auto left-0 right-0 flex"
+                  "inset-x-0 m-auto flex size-1/2 rounded-full border border-sgrey-15 bg-sgrey-10"
                 }
               >
-                <ArrowUpRightIcon className={"m-auto size-[50%]"} />
+                <ArrowUpRightIcon className={"m-auto size-1/2"} />
               </div>
             </div>
           </div>
           <div
             className={
-              " size-full overflow-hidden border border-sgrey-15 rounded-xl laptop:border-0 laptop:rounded-none"
+              " size-full overflow-hidden rounded-xl border border-sgrey-15 laptop:rounded-none laptop:border-0"
             }
           >
             <img

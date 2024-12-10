@@ -13,17 +13,17 @@ export function TestimonialCards({ data }: props) {
   data = data!;
   return (
     <div className={"dataCard"}>
-      <Card className={"bg-sgrey-8 dataCardComponent"}>
+      <Card className={"dataCardComponent bg-sgrey-8"}>
         <CardHeader className={"mr-3"}>
           <Ratings amountOfRatings={5} ratings={data.rating} />
-          <p className={"text-xl laptop:text-2xl font-semibold"}>
+          <p className={"text-xl font-semibold laptop:text-2xl"}>
             {data.title}
           </p>
-          <p className={"pt-3 text-left min-h-32 max-h-32"}>
+          <p className={"max-h-32 min-h-32 pt-3 text-left"}>
             {data.testimonial}
           </p>
         </CardHeader>
-        <CardContent className={"flex justify-start items-center mt-5"}>
+        <CardContent className={"mt-5 flex items-center justify-start"}>
           {data.image ? (
             <img alt={"Customer Headshot"} src={data.image} />
           ) : (
@@ -32,7 +32,7 @@ export function TestimonialCards({ data }: props) {
           <div className={"px-2 text-xl"}>
             {data.name}
             <br />
-            <p className={"text-sgrey-60 text-lg"}> {data.location}</p>
+            <p className={"text-lg text-sgrey-60"}> {data.location}</p>
           </div>
         </CardContent>
       </Card>

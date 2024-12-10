@@ -84,23 +84,23 @@ export function FilterInput({
     >
       {icon ? (
         <>
-          <div className={"size-5 desktop:size-6 mr-2.5 text-sgrey-60 flex"}>
+          <div className={"mr-2.5 flex size-5 text-sgrey-60 desktop:size-6"}>
             {icon}
           </div>
-          <Separator orientation={"vertical"} className={"w-px h-1/3 mr-2.5"} />
+          <Separator orientation={"vertical"} className={"mr-2.5 h-1/3 w-px"} />
         </>
       ) : (
         <div className={"pl-5"} />
       )}
-      <div className={"hidden laptop:block basis-full h-full content-stretch"}>
+      <div className={"hidden h-full basis-full content-stretch laptop:block"}>
         <Popover>
           <PopoverTrigger asChild>
             <div
-              className={" flex flex-nowrap justify-start items-center h-full"}
+              className={" flex h-full flex-nowrap items-center justify-start"}
             >
               <Input
                 className={
-                  "pl-0 bg-transparent w-full h-full focus:outline-0 placeholder:text-sgrey-40 capitalize text-lg desktop:text-lg border-0"
+                  "size-full border-0 bg-transparent pl-0 text-lg capitalize placeholder:text-sgrey-40 focus:outline-0 desktop:text-lg"
                 }
                 id={filterName}
                 value={input.length ? input.join(", ") : ""}
@@ -110,7 +110,7 @@ export function FilterInput({
               <Button
                 size={"icon"}
                 className={
-                  "rounded-full bg-sgrey-10 laptop:size-8 desktop:size-7 shrink-0 grow-0 mr-3 flex items-center border-0"
+                  "mr-3 flex shrink-0 grow-0 items-center rounded-full border-0 bg-sgrey-10 laptop:size-8 desktop:size-7"
                 }
                 type={"button"}
               >
@@ -129,16 +129,16 @@ export function FilterInput({
           </PopoverContent>
         </Popover>
       </div>
-      <div className={"laptop:hidden basis-full w-full"}>
+      <div className={"w-full basis-full laptop:hidden"}>
         <Drawer>
           <DrawerTrigger asChild>
             <div
               className={
-                "flex flex-nowrap h-full justify-items-stretch items-center"
+                "flex h-full flex-nowrap items-center justify-items-stretch"
               }
             >
               <Input
-                className={"border-0 pl-0 h-full"}
+                className={"h-full border-0 pl-0"}
                 value={input.length ? input.join(", ") : ""}
                 placeholder={placeholder}
                 readOnly
@@ -147,7 +147,7 @@ export function FilterInput({
                 type={"button"}
                 size={"icon"}
                 className={
-                  "rounded-full bg-sgrey-10 size-7  shrink-0 grow-0 mr-3 flex items-center border-0"
+                  "mr-3 flex size-7  shrink-0 grow-0 items-center rounded-full border-0 bg-sgrey-10"
                 }
               >
                 <ChevronDownIcon className={"size-3/4"} />

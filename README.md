@@ -2,4 +2,4 @@ Based off of: https://www.figma.com/community/file/1314076616839640516/real-esta
 
 Figma design -> React web app
 
-All code hand crafted using tailwind and shadcn
+All code handcrafted using tailwind and shadcn

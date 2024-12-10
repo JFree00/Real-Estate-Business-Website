@@ -32,22 +32,22 @@ export function Header() {
 
   return (
     <header
-      className="bg-sgrey-10 flex flex-col"
+      className="flex flex-col bg-sgrey-10"
       style={{
         height: !opened ? "5rem" : "10rem",
       }}
     >
       {opened && (
-        <div className={" overflow-hidden relative basis-3/5 "}>
+        <div className={" relative basis-3/5 overflow-hidden "}>
           <div
             className={
-              " flex justify-between items-center h-full z-10 absolute w-full "
+              " absolute z-10 flex size-full items-center justify-between "
             }
           >
-            <div className={"basis-1/12 hidden lg:block"}></div>
+            <div className={"hidden basis-1/12 lg:block"}></div>
             <div
               className={
-                "grow flex justify-center items-center text-sm md:text-xl "
+                "flex grow items-center justify-center text-sm md:text-xl "
               }
             >
               <h3 className={"text-xs tablet:text-lg"}>
@@ -66,7 +66,7 @@ export function Header() {
             >
               <Button
                 size={"icon"}
-                className={"bg-opacity-30 bg-sgrey-40 rounded-full"}
+                className={"rounded-full bg-sgrey-40/30"}
                 onClick={() => {
                   toggle(!opened);
                 }}
@@ -77,14 +77,14 @@ export function Header() {
           </div>
           <div
             className={
-              "bg-waves bg-no-repeat bg-center desktop:bg-left bg-auto desktop:bg-cover  opacity-30 absolute size-full"
+              "absolute size-full bg-waves bg-auto bg-center bg-no-repeat  opacity-30 desktop:bg-cover desktop:bg-left"
             }
           />
         </div>
       )}
       <Separator />
       <div
-        className={"offset flex items-center justify-between basis-auto"}
+        className={"offset flex basis-auto items-center justify-between"}
         style={{
           height: !opened ? "100%" : "60%",
         }}
@@ -96,7 +96,7 @@ export function Header() {
         </div>
         <div
           className={
-            "hidden lg:visible basis-1/2 lg:flex space-x-2 justify-center"
+            "hidden basis-1/2 justify-center space-x-2 lg:visible lg:flex"
           }
         >
           {buttons}

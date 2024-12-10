@@ -38,7 +38,7 @@ export function Footer() {
     <footer>
       <div
         className={
-          " border-t border-sgrey-15 grid grid-cols-12 mt-20 *:col-span-full "
+          " mt-20 grid grid-cols-12 border-t border-sgrey-15 *:col-span-full "
         }
       >
         <div className={"relative grid grid-cols-subgrid"}>
@@ -47,13 +47,13 @@ export function Footer() {
               src={globeLeft}
               alt="globe"
               height={"100%"}
-              className={"absolute -z-10 bottom-0"}
+              className={"absolute bottom-0 -z-10"}
             />
             <img
               src={globeRight}
               alt="globe"
               height={"100%"}
-              className={"absolute -z-10 right-0 bottom-0"}
+              className={"absolute bottom-0 right-0 -z-10"}
             />
           </div>
           <div
@@ -63,7 +63,7 @@ export function Footer() {
             }
           >
             <div className={"col-span-8 "}>
-              <h3 className={"text-3xl desktop::text-5xl font-semibold mb-6"}>
+              <h3 className={"desktop::text-5xl mb-6 text-3xl font-semibold"}>
                 Start Your Real Estate Journey Today
               </h3>
               <p className={"text-sgrey-60"}>
@@ -80,7 +80,7 @@ export function Footer() {
               variant={"primary"}
               size={"responsive"}
               className={
-                " col-start-9 col-span-4 justify-self-end  right-0 laptop:h-12 desktop:h-14   laptop:py-0"
+                " right-0 col-span-4 col-start-9  justify-self-end laptop:h-12 laptop:py-0   desktop:h-14"
               }
             >
               Explore Properties
@@ -89,7 +89,7 @@ export function Footer() {
         </div>
         <div className={"offset laptop:pt-20"}>
           <div className={"grid grid-cols-12 laptop:gap-x-20"}>
-            <div className={"pt-10 col-span-full laptop:col-span-4"}>
+            <div className={"col-span-full pt-10 laptop:col-span-4"}>
               <img alt={"logo"} src={logoLg} />
               <FooterInput
                 className={"my-5"}
@@ -98,7 +98,7 @@ export function Footer() {
             </div>
             <div
               className={
-                " laptop:col-start-5 col-span-full grid grid-rows-[repeat(3,max)] grid-cols-[repeat(2,1fr)] laptop:grid-cols-[repeat(5,auto)] laptop:justify-items-end laptop:py-16 gap-x-5 "
+                " col-span-full grid grid-cols-[repeat(2,1fr)] grid-rows-[repeat(3,max)] gap-x-5 laptop:col-start-5 laptop:grid-cols-[repeat(5,auto)] laptop:justify-items-end laptop:py-16 "
               }
             >
               {Object.keys(subRoutes).map((route, index) => {
@@ -155,44 +155,44 @@ export function Footer() {
         <div className={" bg-sgrey-10 "}>
           <div
             className={
-              "py-2.5 desktop:py-8 flex offset flex-col-reverse gap-2 lg:flex-row h-full items-center"
+              "offset flex h-full flex-col-reverse items-center gap-2 py-2.5 lg:flex-row desktop:py-8"
             }
           >
-            <p className={"mx-5 order-3 laptop:order-1"}>
+            <p className={"order-3 mx-5 laptop:order-1"}>
               @2023 Estatein. All Rights Reserved.
             </p>
-            <p className={"mx-5 order-2"}>Terms & Conditions</p>
-            <div className={"grow order-3"}></div>
+            <p className={"order-2 mx-5"}>Terms & Conditions</p>
+            <div className={"order-3 grow"}></div>
             <div
               className={
-                " gap-x-2.5 flex justify-between *:laptop:size-10 *:desktop:size-14 [&_img]:size-1/2 order-4"
+                " order-4 flex justify-between gap-x-2.5 *:laptop:size-10 *:desktop:size-14 [&_img]:size-1/2"
               }
             >
               <Button
                 size={"icon"}
                 variant={"active"}
-                className={"rounded-full size-16 border-transparent"}
+                className={"size-16 rounded-full border-transparent"}
               >
                 <img alt={"facebook"} src={facebook} />
               </Button>
               <Button
                 size={"icon"}
                 variant={"active"}
-                className={"rounded-full size-16 lg:size-12 border-transparent"}
+                className={"size-16 rounded-full border-transparent lg:size-12"}
               >
                 <img alt={"linked in"} src={linkedIn} />
               </Button>
               <Button
                 size={"icon"}
                 variant={"active"}
-                className={"rounded-full size-16 lg:size-12 border-transparent"}
+                className={"size-16 rounded-full border-transparent lg:size-12"}
               >
                 <img alt={"twitter"} src={twitter} />
               </Button>
               <Button
                 size={"icon"}
                 variant={"active"}
-                className={"rounded-full size-16 lg:size-12 border-transparent"}
+                className={"size-16 rounded-full border-transparent lg:size-12"}
               >
                 <img alt={"youtube"} src={youtube} />
               </Button>

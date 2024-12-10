@@ -21,7 +21,8 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 function SectionIcon({ data, className }: Props) {
-  const cardData = data ?? useContext(SectionData);
+  const sectionData = useContext(SectionData);
+  const cardData = data ?? sectionData
   return <div className={className}>{cardData.icon}</div>;
 }
 function SectionCardContent({
@@ -31,7 +32,8 @@ function SectionCardContent({
   buttonText,
   variant,
 }: Props & Partial<sectionCardProps> & Partial<ButtonProps>) {
-  const cardData = data ?? useContext(SectionData);
+  const sectionData = useContext(SectionData);
+  const cardData = data ?? sectionData
   return (
     <CardContent className={cn("", className)}>
       {children}
@@ -39,7 +41,7 @@ function SectionCardContent({
         <Button
           size={"responsive"}
           variant={variant ?? "secondary"}
-          className={"text-lg  desktop:h-[60px] mt-5"}
+          className={"mt-5  text-lg desktop:h-[60px]"}
         >
           {typeof buttonText === "boolean"
             ? "Learn More"
@@ -50,7 +52,8 @@ function SectionCardContent({
   );
 }
 function SectionCardTitle({ data, className, children }: Props) {
-  const cardData = data ?? useContext(SectionData);
+  const sectionData = useContext(SectionData);
+  const cardData = data ?? sectionData
   return (
     <CardTitle
       className={cn(
@@ -63,7 +66,8 @@ function SectionCardTitle({ data, className, children }: Props) {
   );
 }
 function SectionCardDescription({ data, className, children }: Props) {
-  const cardData = data ?? useContext(SectionData);
+  const sectionData = useContext(SectionData);
+  const cardData = data ?? sectionData
   return (
     <p className={cn(" lg:text-left text-sgrey-60 ", className)}>
       {children ?? cardData.description}
@@ -72,7 +76,8 @@ function SectionCardDescription({ data, className, children }: Props) {
 }
 
 function SectionCardHeader({ data, className, children }: Props) {
-  const cardData = data ?? useContext(SectionData);
+  const sectionData = useContext(SectionData);
+  const cardData = data ?? sectionData
   return (
     <CardHeader className={cn("flex flex-col justify-between", className)}>
       {children ? (

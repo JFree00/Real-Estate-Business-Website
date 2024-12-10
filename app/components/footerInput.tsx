@@ -16,10 +16,10 @@ export function FooterInput({ placeholder, className }: Props) {
         className,
       )}
     >
-      <img src={emailIcon} className={"mr-4 "} />
+      <div className={'mr-4'}><img alt={'Email Icon'} src={emailIcon}/></div>
       <input
         size={1}
-        className={"bg-transparent focus:outline-0 grow shrink"}
+        className={"shrink grow bg-transparent focus:outline-0"}
         placeholder={placeholder}
       />
       <Button className={"flex-none"} size={"icon"} variant={"ghost"}>

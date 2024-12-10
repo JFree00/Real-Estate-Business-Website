@@ -1,8 +1,10 @@
-export type stepsProps = {
+import { namedUnknown } from "./filter";
+
+export interface stepsProps extends namedUnknown {
   step: number;
   name: string;
   description: string;
-};
+}
 
 export const steps: stepsProps[] = [
   {

@@ -19,7 +19,8 @@ export function SectionContent({
   amountToDisplay,
 }: Props) {
   const deferredData = useAsyncValue() as namedUnknown[];
-  const dataArray = deferredData ?? useContext(DataContext);
+  const dataContext = useContext(DataContext);
+  const dataArray = deferredData ?? dataContext
   const page = useContext(PaginationContext);
   return (
     <div
@@ -60,10 +61,9 @@ const childrenToDisplay = (
         .slice(page, amountToDisplay + page + fillerCards)
         .map((property, index) => {
           return (
-            <Suspense fallback={<div className={"dataCard"}></div>}>
+            <Suspense key={index} fallback={<div className={"dataCard"}></div>}>
               <Await resolve={data?.keys}>
                 {React.cloneElement(children, {
-                  key: index,
                   data: property,
                 })}
               </Await>
@@ -72,7 +72,7 @@ const childrenToDisplay = (
         })}
 
       {Array.from({ length: fillerCards }).map((_, i) => {
-        return <div className={"invisible dataCard"} key={i}></div>;
+        return <div className={"dataCard invisible"} key={i}></div>;
       })}
     </>
   );

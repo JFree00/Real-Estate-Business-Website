@@ -31,12 +31,12 @@ export const links: LinksFunction = () => {
 export default function AboutUs() {
   return (
     <div>
-      <div className={" grid grid-cols-12 relative "}>
+      <div className={" relative grid grid-cols-12 "}>
         <SectionDesignation className={"gap-x-20"} pagination={false}>
           <div className={"col-span-6 grid-cols-subgrid"}>
             <SectionHeader className={"mt-5"}>Our Journey</SectionHeader>
             <SectionDescription
-              className={"tablet:w-full text-base"}
+              className={"text-base tablet:w-full"}
               columns={12}
             >
               Our story is one of continuous growth and evolution. We started as
@@ -49,11 +49,11 @@ export default function AboutUs() {
             <SectionContent className={"col-span-full"}>
               <div
                 className={
-                  "flex col-span-full flex-wrap gap-y-4 laptop:text-left text-center"
+                  "col-span-full flex flex-wrap gap-y-4 text-center laptop:text-left"
                 }
               >
-                <div className={"basis-1/2 laptop:basis-1/3 px-2"}>
-                  <Card className={"  p-4 pb-0 h-fit"}>
+                <div className={"basis-1/2 px-2 laptop:basis-1/3"}>
+                  <Card className={"  h-fit p-4 pb-0"}>
                     <CardHeader>
                       <CardTitle className={"text-4xl"}>200+</CardTitle>
                     </CardHeader>
@@ -62,8 +62,8 @@ export default function AboutUs() {
                     </CardFooter>
                   </Card>
                 </div>
-                <div className={"basis-1/2  laptop:basis-1/3 px-2"}>
-                  <Card className={" p-4 pb-0 h-fit"}>
+                <div className={"basis-1/2  px-2 laptop:basis-1/3"}>
+                  <Card className={" h-fit p-4 pb-0"}>
                     <CardHeader>
                       <CardTitle className={"text-4xl"}>10k+</CardTitle>
                     </CardHeader>
@@ -72,8 +72,8 @@ export default function AboutUs() {
                     </CardFooter>
                   </Card>
                 </div>
-                <div className={"grow laptop:grow-0 laptop:basis-1/3 px-2"}>
-                  <Card className={" p-4 pb-0 h-fit"}>
+                <div className={"grow px-2 laptop:grow-0 laptop:basis-1/3"}>
+                  <Card className={" h-fit p-4 pb-0"}>
                     <CardHeader>
                       <CardTitle className={"text-4xl"}>16+</CardTitle>
                     </CardHeader>
@@ -87,13 +87,13 @@ export default function AboutUs() {
           </div>
           <div
             className={
-              "rounded-xl border relative border-sgrey-15 col-span-6 order-first laptop:order-none"
+              "relative order-first col-span-6 rounded-xl border border-sgrey-15 laptop:order-none"
             }
           >
             <img src={house} height={"100%"} alt={"House"} />
             <div
               className={
-                "bg-waves bg-auto size-full absolute opacity-10 -z-10  top-0"
+                "absolute top-0 -z-10 size-full bg-waves bg-auto  opacity-10"
               }
             />
           </div>
@@ -113,7 +113,7 @@ export default function AboutUs() {
           </div>
           <SectionContent
             iterate={false}
-            className={"overflow-visible col-start-6  "}
+            className={"col-start-6 overflow-visible  "}
           >
             <GroupedCard />
           </SectionContent>
@@ -127,12 +127,12 @@ export default function AboutUs() {
           </SectionDescription>
           <SectionContent
             className={
-              " gap-5 overflow-visible laptop:gap-10 laptop:grid grid-cols-1 laptop:grid-cols-3 [&_p]:w-[95%]"
+              " grid-cols-1 gap-5 overflow-visible laptop:grid laptop:grid-cols-3 laptop:gap-10 [&_p]:w-[95%]"
             }
           >
             <SectionCards
               className={
-                "outline outline-sgrey-10 laptop:outline-8 border border-sgrey-15 p-7 laptop:p-10 desktop:p-14"
+                "border border-sgrey-15 p-7 outline outline-sgrey-10 laptop:p-10 laptop:outline-8 desktop:p-14"
               }
             ></SectionCards>
           </SectionContent>
@@ -144,7 +144,7 @@ export default function AboutUs() {
             find and purchase your dream property with ease. Here's a
             step-by-step guide to how it all works.
           </SectionDescription>
-          <SectionContent className={"gap-y-8 grid-cols-1 laptop:grid-cols-3"}>
+          <SectionContent className={"grid-cols-1 gap-y-8 laptop:grid-cols-3"}>
             <NteeCard
               className={
                 "[&:nth-child(n+4)]:hidden [&:nth-child(n+4)]:laptop:flex"
@@ -176,7 +176,7 @@ export default function AboutUs() {
           </SectionDescription>
           <SectionContent
             className={
-              "laptop:data-[expanded=true]:grid-cols-2 gap-x-12 overflow-hidden laptop:overflow-visible p-1 rounded-xl "
+              "gap-x-12 overflow-hidden rounded-xl p-1 laptop:overflow-visible laptop:data-[expanded=true]:grid-cols-2 "
             }
           >
             <ClientsCard />
@@ -194,7 +194,7 @@ export default function AboutUs() {
             clients we've had the pleasure of serving
           </SectionDescription>
           <SectionContent
-            className={" data-[expanded=true]:laptop:grid-cols-2 gap-x-12"}
+            className={" gap-x-12 data-[expanded=true]:laptop:grid-cols-2"}
           >
             <ClientsCard />
           </SectionContent>
