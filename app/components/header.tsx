@@ -15,7 +15,7 @@ export function Header() {
 
   const buttons = routes.map((buttonRoute, index) => {
     return (
-      <Link key={buttonRoute} to={realRoutes[index]}>
+      <Link draggable={false} key={buttonRoute} to={realRoutes[index]}>
         <Button
           size={"nav"}
           variant={
