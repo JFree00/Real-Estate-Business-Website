@@ -227,21 +227,24 @@ export default function PropertiesIndex() {
                       data={filterValue}
                       icon={filterIcons[filterName]}
                       submit={(item: string) => {
-                        setSearchParams((prev) => {
-                          const abbreviatedItem = Filter.abbreviate(
-                            filterName,
-                            item,
-                          );
-                          const filters = searchParams.getAll("filter");
+                        setSearchParams(
+                          (prev) => {
+                            const abbreviatedItem = Filter.abbreviate(
+                              filterName,
+                              item,
+                            );
+                            const filters = searchParams.getAll("filter");
 
-                          if (filters.includes(abbreviatedItem)) {
-                            prev.delete("filter", abbreviatedItem);
-                          } else {
-                            prev.append("filter", abbreviatedItem);
-                          }
+                            if (filters.includes(abbreviatedItem)) {
+                              prev.delete("filter", abbreviatedItem);
+                            } else {
+                              prev.append("filter", abbreviatedItem);
+                            }
 
-                          return prev;
-                        });
+                            return prev;
+                          },
+                          { preventScrollReset: true },
+                        );
                       }}
                       selected={(item: string) => {
                         return searchParams
