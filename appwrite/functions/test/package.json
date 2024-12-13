@@ -1,0 +1,19 @@
+{
+  "name": "test-function",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "tsc": "tsc src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JFree00/Real-Estate-Business-Website.git"
+  },
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "node-appwrite": "^14.1.0",
+    "typescript": "^5.7.2"
+  }
+}
