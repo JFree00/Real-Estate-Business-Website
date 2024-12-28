@@ -4,25 +4,25 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/styles";
 import { createContext, useContext } from "react";
-
 import { namedUnknown } from "../../../KV/filter";
+import { DataContext } from "@/context/paginationContext";
 
 export interface sectionCardProps extends namedUnknown {
   name: string;
-  description: string;
+  description: string | boolean;
   buttonText?: string | boolean;
-  icon?: React.ReactNode;
+  icon?: React.ReactElement;
 }
 const SectionData = createContext({} as sectionCardProps);
 
-type Props = React.HTMLAttributes<HTMLDivElement> & {
+type Props = React.ComponentPropsWithoutRef<"div"> & {
   data?: sectionCardProps;
   wrap?: boolean;
 };
 
 function SectionIcon({ data, className }: Props) {
   const sectionData = useContext(SectionData);
-  const cardData = data ?? sectionData
+  const cardData = data ?? sectionData;
   return <div className={className}>{cardData.icon}</div>;
 }
 function SectionCardContent({
@@ -33,7 +33,7 @@ function SectionCardContent({
   variant,
 }: Props & Partial<sectionCardProps> & Partial<ButtonProps>) {
   const sectionData = useContext(SectionData);
-  const cardData = data ?? sectionData
+  const cardData = data ?? sectionData;
   return (
     <CardContent className={cn("", className)}>
       {children}
@@ -53,7 +53,7 @@ function SectionCardContent({
 }
 function SectionCardTitle({ data, className, children }: Props) {
   const sectionData = useContext(SectionData);
-  const cardData = data ?? sectionData
+  const cardData = data ?? sectionData;
   return (
     <CardTitle
       className={cn(
@@ -61,23 +61,23 @@ function SectionCardTitle({ data, className, children }: Props) {
         className,
       )}
     >
-      {children ?? cardData.name}
+      {children ?? cardData?.name ?? null}
     </CardTitle>
   );
 }
 function SectionCardDescription({ data, className, children }: Props) {
   const sectionData = useContext(SectionData);
-  const cardData = data ?? sectionData
+  const cardData = data ?? sectionData;
   return (
     <p className={cn(" lg:text-left text-sgrey-60 ", className)}>
-      {children ?? cardData.description}
+      {children ?? cardData?.description ?? null}
     </p>
   );
 }
 
 function SectionCardHeader({ data, className, children }: Props) {
   const sectionData = useContext(SectionData);
-  const cardData = data ?? sectionData
+  const cardData = data ?? sectionData;
   return (
     <CardHeader className={cn("flex flex-col justify-between", className)}>
       {children ? (
@@ -92,16 +92,18 @@ function SectionCardHeader({ data, className, children }: Props) {
   );
 }
 
-function SectionCards({ data, children, className }: Props) {
-  data = data!;
+function SectionCards({ data, children, className, ...props }: Props) {
+  const dataContext = useContext(DataContext) as sectionCardProps;
+  data = data ?? dataContext;
   return (
-    <SectionData.Provider value={data}>
+    <SectionData.Provider {...props} value={data}>
       {!children ? (
         <Card
           className={cn(
             "bg-sgrey-8 dataCardComponent dataCard grid auto-rows-auto gap-y-0 ",
             className,
           )}
+          {...props}
         >
           <SectionCardHeader data={data} />
           <SectionCardContent data={data} />
@@ -112,6 +114,7 @@ function SectionCards({ data, children, className }: Props) {
             " bg-sgrey-8 dataCardComponent dataCard grid grid-rows-subgrid row-span-2 col-span-1 gap-y-4  first:grid",
             className,
           )}
+          {...props}
         >
           {children}
         </Card>

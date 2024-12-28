@@ -118,7 +118,11 @@ export default function AboutUs() {
             <GroupedCard />
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation data={achievements} pagination={false}>
+        <SectionDesignation
+          displayAmount={3}
+          data={achievements}
+          pagination={false}
+        >
           <SectionHeader>Our Achievements</SectionHeader>
           <SectionDescription>
             Our story is one of continuous growth and evolution. We started as a
@@ -137,7 +141,7 @@ export default function AboutUs() {
             ></SectionCards>
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation pagination={false} data={steps}>
+        <SectionDesignation displayAmount={6} pagination={false} data={steps}>
           <SectionHeader>Navigating the Estatein Experience</SectionHeader>
           <SectionDescription>
             At Estatein, we've designed a straightforward process to help you

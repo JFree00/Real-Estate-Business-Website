@@ -104,14 +104,15 @@ const data3: sectionCardProps[] = [
     icon: <SunIcon />,
   },
 ];
-type props = React.HTMLAttributes<HTMLDivElement> & {
+type props = React.ComponentPropsWithoutRef<"div"> & {
   data: sectionCardProps[];
 };
 function NewComponent({ data, children, className }: props) {
-  const cards = data.map((item) => {
+  data = [data].flat();
+  const cards = data.map((item, index) => {
     return (
       <SectionCards
-        key={item.name}
+        key={index}
         data={item}
         className={"items-start laptop:p-10"}
       >

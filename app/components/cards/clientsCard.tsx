@@ -4,12 +4,16 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { clientsProps } from "../../../KV/clients";
 import { Button } from "@/components/ui/button";
 import { BoltIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
+import { useContext } from "react";
+import { DataContext } from "@/context/paginationContext";
 
 interface Props {
   data?: clientsProps;
 }
 
 export function ClientsCard({ data }: Props) {
+  const dataContext = useContext(DataContext) as clientsProps;
+  data = data ?? dataContext;
   return (
     <div className={"dataCard rounded-xl outline outline-8 outline-sgrey-10 "}>
       <Card
