@@ -113,7 +113,8 @@ export function SubmitForm({ inputData, children, className }: props) {
           </CheckboxWithText>
           <Button
             size={"responsive"}
-            className={"mt-4 bg-pprimary-60 laptop:h-14"}
+            variant={"primary"}
+            className={"mt-4 laptop:h-14"}
           >
             <span>Send Your Message</span>
           </Button>

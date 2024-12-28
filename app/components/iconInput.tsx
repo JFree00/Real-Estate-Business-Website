@@ -6,19 +6,31 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   placeholder?: string;
 };
 
-export function IconInput({ placeholder, className, children }: Props) {
+export function IconInput({
+  placeholder,
+  className,
+  children,
+  ...props
+}: Props) {
   return (
     <div
       className={cn(
-        "border border-sgrey-15 bg-transparent text-lg flex items-center rounded-md pl-5  py-0 h-12 desktop:h-[70px] bg-sgrey-10 desktop:text-sm my-2.5 laptop:my-0",
+        "relative border border-sgrey-15 bg-transparent text-lg flex items-center rounded-md  py-0 h-12 desktop:h-[70px] bg-sgrey-10 desktop:text-sm my-2.5 laptop:my-0",
         className,
       )}
     >
-      <div className={"mr-2 size-5"}>{children}</div>
+      <div
+        className={
+          "pl-5 absolute h-full w-5 pointer-events-none flex items-center"
+        }
+      >
+        {children}
+      </div>
       <Input
+        {...props}
         size={1}
         className={
-          "h-full shrink grow border-0 bg-transparent px-0 focus:outline-0 desktop:text-lg desktop:placeholder:text-lg"
+          "capitalize pl-12 h-full shrink grow border-0 bg-transparent pr-0 focus:outline-0 desktop:text-lg desktop:placeholder:text-lg"
         }
         placeholder={placeholder}
       />

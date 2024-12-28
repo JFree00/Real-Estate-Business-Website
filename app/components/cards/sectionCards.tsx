@@ -58,7 +58,7 @@ function SectionCardTitle({ data, className, children }: Props) {
     <CardTitle
       className={cn(
         "text-xl desktop:text-2xl font-semibold leading-normal",
-        className,
+        className ?? "desktop:text-3xl",
       )}
     >
       {children ?? cardData?.name ?? null}

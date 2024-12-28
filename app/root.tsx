@@ -5,16 +5,14 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
-  useRouteError
+  useRouteError,
 } from "react-router";
 
 import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
 import { Header } from "@/components/header";
 import "./tailwind.css";
 import { Footer } from "@/components/footer";
-import { Toaster } from "@/components/ui/toaster";
 import * as React from "react";
-
 function App({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -29,7 +27,6 @@ function App({ children }: { children: React.ReactNode }) {
         <GlobalPendingIndicator />
         <Header />
         {children}
-        <Toaster />
         <Footer />
         <ScrollRestoration />
         <Scripts />

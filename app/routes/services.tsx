@@ -204,7 +204,9 @@ export default function Services() {
                     "z-20 gap-y-8 space-y-0 laptop:flex-row laptop:flex-wrap laptop:justify-between"
                   }
                 >
-                  <SectionCards.Header.Title className={"z-20 my-auto laptop:grow desktop:text-3xl"}>
+                  <SectionCards.Header.Title
+                    className={"z-20 my-auto laptop:grow desktop:text-3xl"}
+                  >
                     Unlock the Value of Your Property Today
                   </SectionCards.Header.Title>
                   <Button
@@ -243,7 +245,7 @@ export default function Services() {
           </SectionDescription>
           <SectionContent
             iterate={false}
-            className={"laptop:grid-cols-3 gap-y-5"}
+            className={"laptop:grid-cols-3"}
             amountToDisplay={4}
           >
             <NewComponent data={data2}>
@@ -261,10 +263,12 @@ export default function Services() {
                 </div>
                 <SectionCards.Header
                   className={
-                    "z-20 gap-y-5 laptop:flex-row laptop:flex-wrap laptop:justify-between"
+                    "z-20 laptop:flex-row laptop:flex-wrap laptop:justify-between"
                   }
                 >
-                  <SectionCards.Header.Title className={"z-20 my-auto laptop:grow desktop:text-3xl"}>
+                  <SectionCards.Header.Title
+                    className={"z-20 my-auto laptop:grow desktop:text-3xl"}
+                  >
                     Experience Effortless Property Management
                   </SectionCards.Header.Title>
                   <Button

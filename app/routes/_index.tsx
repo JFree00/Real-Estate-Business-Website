@@ -186,9 +186,7 @@ export default function Index() {
             }
           >
             <div
-              className={
-                " m-auto flex size-4/5 bg-cover bg-no-repeat"
-              }
+              className={" m-auto flex size-4/5 bg-cover bg-no-repeat"}
               style={{
                 backgroundImage: `url('${circle}')`,
               }}

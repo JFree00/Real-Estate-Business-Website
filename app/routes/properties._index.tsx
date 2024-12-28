@@ -165,7 +165,7 @@ export default function PropertiesIndex() {
                 corner of our beautiful world. Explore our curated selection of
                 properties, each offering a unique story and a chance to
                 redefine your life. With categories to suit every dreamer, your
-                journey{" "}
+                journey
               </SectionDescription>
             </div>
           </SectionDesignation>
@@ -274,7 +274,7 @@ export default function PropertiesIndex() {
             </SectionContent>
           </SectionDesignation>
         ) : null}
-        <SectionDesignation pagination={false} className={"laptop:mt-0"}>
+        <SectionDesignation pagination={false} className={"laptop:pt-0"}>
           <SectionHeader>Let's Make it Happen</SectionHeader>
           <SectionDescription>
             Ready to take the first step toward your dream property? Fill out
@@ -298,16 +298,18 @@ export default function PropertiesIndex() {
                     name={"contact"}
                     type={"tel"}
                   >
-                    <PhoneIcon />
+                    <PhoneIcon className={"absolute size-full"} />
                   </IconInput>
                 </div>
                 <div>
                   <Label
                     className={
-                      "hidden text-base capitalize laptop:inline-block "
+                      "invisible text-base capitalize laptop:inline-block "
                     }
                     htmlFor={"em"}
-                  ></Label>
+                  >
+                    Enter Your Email
+                  </Label>
                   <IconInput
                     className={""}
                     id={"contact"}
@@ -315,7 +317,7 @@ export default function PropertiesIndex() {
                     type={"email"}
                     placeholder={"Enter Your Email"}
                   >
-                    <EnvelopeIcon />
+                    <EnvelopeIcon className={"absolute size-full"} />
                   </IconInput>
                 </div>
               </div>

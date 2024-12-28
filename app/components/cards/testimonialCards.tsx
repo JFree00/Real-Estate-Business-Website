@@ -16,7 +16,7 @@ export function TestimonialCards({ data }: props) {
   data = data ?? promiseValue?.metadata;
   return (
     <div className={"dataCard"}>
-      <Card className={"dataCardComponent bg-sgrey-8"}>
+      <Card className={"dataCardComponent laptop:space-y-10 bg-sgrey-8"}>
         <CardHeader className={"mr-3"}>
           {data ? (
             <Ratings amountOfRatings={5} ratings={data.rating} />

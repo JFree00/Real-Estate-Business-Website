@@ -92,7 +92,10 @@ function LocationCard() {
       >
         {buildings.map((building) => {
           return (
-            <SectionCards key={building.address} className={" row-span-3"}>
+            <SectionCards
+              key={building.address}
+              className={" row-span-3 laptop:gap-y-8 desktop:gap-y-10"}
+            >
               <SectionCards.Header className={"gap-3"}>
                 <SectionCards.Title
                   className={"text-sm font-medium desktop:text-sm"}
@@ -100,13 +103,13 @@ function LocationCard() {
                   {building.type}
                 </SectionCards.Title>
                 <SectionCards.Title>{building.address}</SectionCards.Title>
-                <SectionCards.Description className={""}>
+                <SectionCards.Description>
                   {building.description}
                 </SectionCards.Description>
               </SectionCards.Header>
               <SectionCards.Content
                 variant={"primary"}
-                className={"flex-wrap gap-2"}
+                className={"flex flex-wrap gap-2.5"}
               >
                 <Badge variant={"card"} className={"px-4"}>
                   <EnvelopeIcon className={"size-5"} />
@@ -123,7 +126,8 @@ function LocationCard() {
               </SectionCards.Content>{" "}
               <Button
                 size={"responsive"}
-                className={"bg-pprimary-60 laptop:w-full"}
+                variant={"primary"}
+                className={"laptop:w-full"}
               >
                 Get Directions
               </Button>
