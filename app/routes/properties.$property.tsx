@@ -60,6 +60,7 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
       return null;
     }
   });
+  console.log(previews);
   return { property, images: previews };
 };
 export default function NestedProperty({ loaderData }: Route.ComponentProps) {
