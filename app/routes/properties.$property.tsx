@@ -52,7 +52,7 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
   propertyImages.push(property.metadata.image);
   const previews = propertyImages.map(async (image) => {
     try {
-      return bucket
+      return await bucket
         .get(image)
         .then((response) => (response ? response.blob() : null));
     } catch (error) {
