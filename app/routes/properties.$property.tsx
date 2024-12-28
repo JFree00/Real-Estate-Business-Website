@@ -52,7 +52,7 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
   propertyImages.push(property.metadata.image);
   const previews = propertyImages.map(async (image) => {
     try {
-      return await bucket
+      return bucket
         .get(image)
         .then((response) => (response ? response.blob() : null));
     } catch (error) {
@@ -145,31 +145,29 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                 >
                   {images.map((image, index) => {
                     return (
-                      <ToggleGroupItem
-                        key={index}
-                        value={index.toString()}
-                        className={
-                          "h-12 w-20 brightness-50 transition-all data-[state=on]:h-14 data-[state=on]:w-24 data-[state=on]:brightness-100"
-                        }
-                      >
-                        <Suspense fallback={<div />}>
-                          <Await resolve={image as Promise<Blob | null>}>
-                            {(promiseData) => {
-                              console.log(promiseData);
-                              return (
-                                promiseData && (
-                                  <img
-                                    key={index}
-                                    alt={""}
-                                    className={"size-full rounded-lg"}
-                                    src={URL.createObjectURL(promiseData)}
-                                  />
-                                )
-                              );
-                            }}
-                          </Await>
-                        </Suspense>
-                      </ToggleGroupItem>
+                      <Suspense fallback={<div />}>
+                        <Await resolve={image as Promise<Blob | null>}>
+                          {(promiseData) => {
+                            console.log(promiseData);
+                            return promiseData ? (
+                              <ToggleGroupItem
+                                key={index}
+                                value={index.toString()}
+                                className={
+                                  "h-12 w-20 brightness-50 transition-all data-[state=on]:h-14 data-[state=on]:w-24 data-[state=on]:brightness-100"
+                                }
+                              >
+                                <img
+                                  key={index}
+                                  alt={""}
+                                  className={"size-full rounded-lg"}
+                                  src={URL.createObjectURL(promiseData)}
+                                />
+                              </ToggleGroupItem>
+                            ) : null;
+                          }}
+                        </Await>
+                      </Suspense>
                     );
                   })}
                 </ToggleGroup>
