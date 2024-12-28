@@ -5,6 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
 import { Env } from "./context";
 import { CfProperties } from "@cloudflare/workers-types";
+import vitePluginSvgr from "vite-plugin-svgr";
 
 export default defineConfig({
   plugins: [
@@ -21,6 +22,12 @@ export default defineConfig({
       },
     }),
     reactRouter(),
+    vitePluginSvgr({
+      svgrOptions: {
+        prettier: true,
+        replaceAttrValues: { white: "fill-inherit" },
+      },
+    }),
   ],
   test: {
     globals: true,

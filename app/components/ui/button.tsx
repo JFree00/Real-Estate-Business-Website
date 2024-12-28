@@ -9,20 +9,19 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "text-primary-foreground border border-sgrey-15 bg-sgrey-8",
+        default: "bg-sgrey-8",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
         outline:
-          "border-input bg-background hover:bg-accent hover:text-accent-foreground border border-sgrey-15 shadow-sm",
-        primary:
-          "text-primary-foreground hover:bg-primary/90 bg-pprimary-60 shadow-sm",
-        secondary: "text-primary-foreground border border-sgrey-15 bg-sgrey-10",
+          "border-input bg-background hover:bg-accent hover:text-accent-foreground shadow-sm",
+        primary: " bg-pprimary-60 hover:bg-pprimary-60/80",
+        secondary: " bg-sgrey-10",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
 
         permlink:
           "text-primary font-regular underline decoration-sgrey-50 underline-offset-1",
-        active: "border border-sgrey-15 bg-sgrey-8",
+        active: " bg-sgrey-8",
       },
       size: {
         default: "h-11 px-6 py-2",
@@ -35,6 +34,18 @@ const buttonVariants = cva(
           "h-12 w-full py-2 laptop:h-11 laptop:w-fit laptop:px-6 laptop:py-2",
       },
     },
+    compoundVariants: [
+      {
+        variant: ["default", "outline", "secondary", "active"],
+        size: ["default", "section", "nav", "responsive", "lg", "sm", "icon"],
+        className: "border border-sgrey-15",
+      },
+      {
+        variant: ["default", "outline", "secondary", "active", "permlink"],
+        size: ["default", "section", "nav", "responsive", "lg", "sm", "icon"],
+        className: "hover:bg-sgrey-10",
+      },
+    ],
     defaultVariants: {
       variant: "default",
       size: "default",

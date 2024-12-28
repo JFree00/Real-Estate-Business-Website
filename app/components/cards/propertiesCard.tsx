@@ -19,7 +19,8 @@ interface props {
 }
 
 export function PropertiesCard({ data }: props) {
-  data = data!;
+  const promiseValue = useAsyncValue() as Property | undefined;
+  data = data ?? promiseValue;
   return (
     <SectionCards key={data.name} className={"dataCard"}>
       <SectionCards.Header className={"row-span-1"}>
@@ -33,7 +34,7 @@ export function PropertiesCard({ data }: props) {
           <Skeleton variant={"image"} />
         )}
         <SectionCardTitle className={"pt-4 text-2xl font-semibold"}>
-          {data.name}
+          {data?.name ?? <Skeleton className={""} variant={"title"} />}
         </SectionCardTitle>
         <SectionCardDescription className={"text-sgrey-60"}>
           {data ? (

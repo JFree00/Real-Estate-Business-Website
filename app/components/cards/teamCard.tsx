@@ -11,13 +11,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { teamProps } from "../../../KV/team";
+import { useContext } from "react";
+import { DataContext } from "@/context/paginationContext";
 
 interface props {
   data?: teamProps;
 }
 
 export function TeamCard({ data }: props) {
-  data = data!;
+  const dataContext = useContext(DataContext) as teamProps;
+  data = data ?? dataContext;
   return (
     <Card className={"rounded-xl border border-sgrey-15 bg-sgrey-8 p-8"}>
       <div className={"relative flex justify-center"}>

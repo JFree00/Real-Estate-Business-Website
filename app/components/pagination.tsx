@@ -4,11 +4,18 @@ import { designationProps } from "@/components/Designations/sectionDesignation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { PaginationContext } from "@/context/paginationContext";
+import { cn } from "@/lib/styles";
 
-type paginationProps = Pick<designationProps, "buttonText"> & {
-  setPage: (page: () => number) => void;
-};
-export function Pagination({ buttonText, setPage }: paginationProps) {
+type paginationProps = Pick<designationProps, "buttonText"> &
+  React.ComponentPropsWithoutRef<"div"> & {
+    setPage: (page: () => number) => void;
+  };
+export function Pagination({
+  buttonText,
+  setPage,
+  className,
+  ...props
+}: paginationProps) {
   const context = React.useContext(PaginationContext);
   if (!context || context.amountToDisplay === 0) return null;
   const paginate = (forward: boolean) => {
@@ -21,7 +28,10 @@ export function Pagination({ buttonText, setPage }: paginationProps) {
     });
   };
   return (
-    <div className={"col-span-full mt-5 flex justify-between "}>
+    <div
+      className={cn("col-span-full mt-5 flex justify-between ", className)}
+      {...props}
+    >
       {buttonText && (
         <Button
           variant={"outline"}

@@ -8,6 +8,7 @@ import { cn } from "@/lib/styles";
 
 export function GroupedCard() {
   const data = useContext(DataContext) as valuesProps[];
+  if (!data) return null;
   return (
     <div
       className={
