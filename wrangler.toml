@@ -19,6 +19,6 @@ preview_id = "5783b807e42a40f6afe412da900a55ed"
 binding = "images"
 id = "b766a52fb35c4864a5e998a2c21fbec4"
 [[r2_buckets]]
-binding = 'BUCKET'
+binding = 'bucket'
 bucket_name = 'images'
 preview_bucket_name = 'images'
