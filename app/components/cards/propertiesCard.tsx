@@ -22,7 +22,7 @@ export function PropertiesCard({ data }: props) {
   const promiseValue = useAsyncValue() as Property | undefined;
   data = data ?? promiseValue;
   return (
-    <SectionCards key={data.name} className={"dataCard"}>
+    <SectionCards className={"dataCard"}>
       <SectionCards.Header className={"row-span-1"}>
         {data ? (
           <img

@@ -25,9 +25,7 @@ export function TeamCard({ data }: props) {
     <Card className={"rounded-xl border border-sgrey-15 bg-sgrey-8 p-8"}>
       <div className={"relative flex justify-center"}>
         <img alt={"sarah johnson"} src={data.image} />
-        <div
-          className={"absolute inset-x-0 -bottom-5 flex justify-center"}
-        >
+        <div className={"absolute inset-x-0 -bottom-5 flex justify-center"}>
           <Button
             size={"icon"}
             className={"h-10 w-[18%] rounded-3xl bg-pprimary-60"}

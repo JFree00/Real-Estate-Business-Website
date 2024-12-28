@@ -62,7 +62,7 @@ export function Footer() {
               " border-b border-sgrey-15 h-[367px] items-center offset"
             }
           >
-            <div className={"col-span-8 "}>
+            <div className={"col-span-full laptop:col-span-8 "}>
               <h3 className={"desktop::text-5xl mb-6 text-3xl font-semibold"}>
                 Start Your Real Estate Journey Today
               </h3>
@@ -80,7 +80,7 @@ export function Footer() {
               variant={"primary"}
               size={"responsive"}
               className={
-                " right-0 col-span-4 col-start-9  justify-self-end laptop:h-12 laptop:py-0   desktop:h-14"
+                "right-0 col-span-full justify-self-end laptop:col-span-4  laptop:col-start-9 laptop:h-12 laptop:py-0   desktop:h-14"
               }
             >
               Explore Properties

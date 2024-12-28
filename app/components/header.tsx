@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router";
+import { Link, NavLink } from "react-router";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { LogoSvg } from "@/components/ui/logoSvg";
@@ -10,23 +10,26 @@ import { Separator } from "@/components/ui/separator";
 const routes = ["Home", "About Us", "Properties", "Services"];
 const realRoutes = ["", "about-us", "properties", "services"];
 export function Header() {
-  const currentRoute = useLocation();
   const [opened, toggle] = useState(true);
 
   const buttons = routes.map((buttonRoute, index) => {
     return (
-      <Link draggable={false} key={buttonRoute} to={realRoutes[index]}>
+      <NavLink
+        className={"group"}
+        draggable={false}
+        key={buttonRoute}
+        to={realRoutes[index]}
+      >
         <Button
-          size={"nav"}
-          variant={
-            "/" + realRoutes[index] === currentRoute.pathname
-              ? "active"
-              : "ghost"
+          className={
+            " group-[.active]:border group-[.active]:border-sgrey-15 group-[.active]:bg-sgrey-8 group-[.active]:hover:bg-sgrey-8/60 "
           }
+          size={"nav"}
+          variant={"ghost"}
         >
           {buttonRoute}
         </Button>
-      </Link>
+      </NavLink>
     );
   });
 
@@ -103,15 +106,16 @@ export function Header() {
         </div>
         <MobileHeader className={"basis-1/12"} />
         <div className={" hidden basis-1/4 laptop:flex"}>
-          <Button
-            variant={
-              currentRoute.pathname === "/contact" ? "primary" : "active"
-            }
-            className={"h-14 "}
-            asChild
-          >
-            <Link to="/contact">Contact Us</Link>
-          </Button>
+          <NavLink className={"group"} to="/contact">
+            <Button
+              variant={"active"}
+              className={
+                "h-14 group-[.active]:hover:bg-pprimary-60/90 group-[.active]:bg-pprimary-60 group-[.active]:shadow-sm"
+              }
+            >
+              Contact Us
+            </Button>
+          </NavLink>
         </div>
       </div>
       <Separator />
