@@ -12,7 +12,9 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
     const existing = await metadata.get(cursorName);
     if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
       console.warn("Cursor is either stale or invalid, creating new cursor");
-      const newcursor = Filter.toCursor(defaultProperties);
+      const newcursor = Filter.toCursor(
+        defaultProperties.map((p) => p.metadata),
+      );
       await metadata.put(cursorName, JSON.stringify(newcursor));
       return newcursor;
     }

@@ -20,7 +20,7 @@ import { PropertiesCard } from "@/components/cards/propertiesCard";
 import { TestimonialCards } from "@/components/cards/testimonialCards";
 import { useLoaderData } from "react-router";
 import { defaultProperties } from "../../KV/properties";
-import { defaultTestimonials } from "../../KV/testimonials";
+import { defaultTestimonials, Testimonial } from "../../KV/testimonials";
 import { SectionCards } from "@/components/cards/sectionCards";
 import { faqCards } from "../../KV/faq";
 import { indexInfoCard } from "../../KV/info.ts";
@@ -28,33 +28,43 @@ import InfoCards from "@/components/cards/infoCards";
 import { namedUnknown } from "../../KV/filter";
 import { KVNamespace } from "@cloudflare/workers-types";
 import { Route } from "./+types/_index";
+import { Property } from "../../KV/propertyTypings";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: homeBuildings }];
 };
 
-function getInitialKeys(k: KVNamespace, template: namedUnknown[], limit = 10) {
-  const keys = template.map(async (key, index) => {
+function getInitialKeys(
+  k: KVNamespace,
+  template: Property[] | Testimonial[],
+  limit = 10,
+) {
+  const keys = template.map(async (item, index) => {
+    const key = item.metadata;
     if (index > limit) return Promise.resolve(undefined);
-    return await k.getWithMetadata(key.name).then(async (data) => {
+    return k.getWithMetadata(key.name).then(async (data) => {
       if (!data.metadata || !(data.metadata as string).length) {
-        if (data.value) return JSON.parse(data.value) as namedUnknown;
-        const prop = template.find((item) => item.name === key.name);
-        if (!prop) throw new Error(`${key.name} not found`);
+        if (data.value) return JSON.parse(data.value) as Property;
+        if (!item) throw new Error(`${key.name} not found`);
         await k
-          .put(key.name, "", { metadata: JSON.stringify(prop) })
-          .catch(() => k.put(key.name, JSON.stringify(prop)));
-        return prop;
+          .put(key.name, JSON.stringify(item), {
+            metadata: item.metadata,
+          })
+          .catch(() => k.put(key.name, JSON.stringify(item)));
+        return item;
       }
       return JSON.parse(data.metadata as string) as namedUnknown;
     });
   });
-  return { keys: Promise.all(keys), length: keys.length };
+  return { items: keys, length: keys.length };
 }
 export function loader({ context }: Route.LoaderArgs) {
   const env = context.env;
   const properties = getInitialKeys(env.properties, defaultProperties);
-  const testimonials = getInitialKeys(env.testimonials, defaultTestimonials);
+  const testimonials = getInitialKeys(
+    env.testimonials,
+    defaultTestimonials.map((item) => ({ metadata: item })),
+  );
   return {
     properties,
     testimonials,

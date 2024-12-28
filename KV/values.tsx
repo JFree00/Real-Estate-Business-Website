@@ -4,14 +4,14 @@ import {
   StarIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
+import { namedUnknown } from "./filter";
 
-export interface valuesProps {
-  name: string;
+export interface valuesProps extends namedUnknown {
   description: string;
   icon: React.ReactNode;
 }
 
-export const values = [
+export const values: valuesProps[] = [
   {
     name: "Trust",
     description:

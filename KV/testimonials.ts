@@ -3,13 +3,16 @@ import emelieThomson from "@/assets/emelieThomson.webp";
 import johnMans from "@/assets/johnMans.webp";
 import { namedUnknown } from "./filter";
 
-export type testimonialProps = namedUnknown & {
+export interface Testimonial {
+  metadata: testimonialProps;
+}
+export interface testimonialProps extends namedUnknown {
   location: string;
   title: string;
   testimonial: string;
-  image?: string;
+  image: string;
   rating: number;
-};
+}
 export const defaultTestimonials: testimonialProps[] = [
   {
     name: "Wade Warren",
