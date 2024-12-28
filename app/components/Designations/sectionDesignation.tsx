@@ -1,13 +1,10 @@
 // @flow
 import * as React from "react";
-import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/styles";
 import { Separator } from "@/components/ui/separator";
 import { Pagination } from "@/components/pagination";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
-import { Await } from "react-router";
-import { loaderData } from "@/routes/_index";
 import { namedUnknown } from "../../../KV/filter";
 import { Property } from "../../../KV/propertyTypings";
 import { Testimonial } from "../../../KV/testimonials";
@@ -57,7 +54,7 @@ export function SectionDesignation({
           {buttonText}
         </Button>
       )}
-      {pagination && data ? (
+      {data ? (
         <PaginationContext.Provider
           value={{
             current: currentPage,
@@ -72,6 +69,7 @@ export function SectionDesignation({
 
           <Separator className={"col-span-full mt-10"} />
           <Pagination
+            className={!pagination ? "hidden" : ""}
             setPage={(page) => setCurrentPage(page)}
             buttonText={buttonText}
           />
