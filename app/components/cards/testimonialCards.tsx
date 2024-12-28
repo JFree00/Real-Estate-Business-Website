@@ -3,22 +3,26 @@ import * as React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Ratings } from "@/components/ratings";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
-import { testimonialProps } from "../../../KV/testimonials";
 import { Testimonial } from "../../../KV/testimonials";
+import { useAsyncValue } from "react-router";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface props {
   data?: Testimonial["metadata"];
 }
 
 export function TestimonialCards({ data }: props) {
-  data = data!;
+  const promiseValue = useAsyncValue() as Testimonial | undefined;
   data = data ?? promiseValue?.metadata;
   return (
     <div className={"dataCard"}>
       <Card className={"dataCardComponent bg-sgrey-8"}>
         <CardHeader className={"mr-3"}>
-          <Ratings amountOfRatings={5} ratings={data.rating} />
+          {data ? (
             <Ratings amountOfRatings={5} ratings={data.rating} />
+          ) : (
+            <Skeleton />
+          )}
           <p className={"text-xl font-semibold laptop:text-2xl"}>
             {data?.title}
           </p>

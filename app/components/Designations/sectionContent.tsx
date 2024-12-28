@@ -2,12 +2,12 @@
 import * as React from "react";
 import { Suspense, useContext } from "react";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
-import { Await, useAsyncValue } from "react-router";
+import { Await } from "react-router";
 import { cn } from "@/lib/styles";
 import { namedUnknown } from "../../../KV/filter";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
-  children: React.ReactElement;
+  children: React.ComponentPropsWithoutRef<"div">;
   amountToDisplay?: number;
   iterate?: boolean;
 };
@@ -18,9 +18,9 @@ export function SectionContent({
   iterate = true,
   amountToDisplay,
 }: Props) {
-  const deferredData = useAsyncValue() as namedUnknown[];
-  const dataContext = useContext(DataContext);
-  const dataArray = deferredData ?? dataContext
+  const dataArray = useContext(DataContext) as
+    | namedUnknown[]
+    | Promise<unknown>[];
   const page = useContext(PaginationContext);
   return (
     <div
@@ -30,27 +30,27 @@ export function SectionContent({
       )}
       data-expanded={!!page?.paginate}
     >
-      {Array.isArray(dataArray) && dataArray.length > 0 && iterate
-        ? childrenToDisplay(
-            dataArray,
-            !page?.current ? 0 : page.current - 1,
-            amountToDisplay ?? page?.amountToDisplay ?? dataArray.length,
-            children,
-          )
-        : React.cloneElement(children, {
-            key: `SectionChild`,
-            data: dataArray,
-          })}
+      {Array.isArray(dataArray) && dataArray.length > 0 && iterate ? (
+        childrenToDisplay(
+          dataArray,
+          !page?.current ? 0 : page.current - 1,
+          amountToDisplay ?? page?.amountToDisplay ?? dataArray.length,
+          children,
+        )
+      ) : (
+        <>{children}</>
+      )}
     </div>
   );
 }
 
 const childrenToDisplay = (
-  data: namedUnknown[],
+  data: namedUnknown[] | Promise<unknown>[],
   page: number,
   amountToDisplay: number,
-  children: React.ReactElement,
+  children: Props["children"],
 ) => {
+  if (data.length === 0) return null;
   let fillerCards = 0;
   if (data.length < amountToDisplay + page + 1) {
     fillerCards = amountToDisplay + page - data.length;
@@ -60,15 +60,33 @@ const childrenToDisplay = (
       {data
         .slice(page, amountToDisplay + page + fillerCards)
         .map((property, index) => {
-          return (
-            <Suspense key={index} fallback={<div className={"dataCard"}></div>}>
-              <Await resolve={data?.keys}>
-                {React.cloneElement(children, {
-                  data: property,
-                })}
-              </Await>
-            </Suspense>
-          );
+          if (property instanceof Promise) {
+            return (
+              <Suspense
+                key={index}
+                fallback={
+                  <div className={"contents *:order-last"}>{children}</div>
+                }
+              >
+                <Await resolve={property}>
+                  {(promiseData) => {
+                    if (!promiseData) return null;
+                    return (
+                      <DataContext.Provider value={promiseData}>
+                        {children}
+                      </DataContext.Provider>
+                    );
+                  }}
+                </Await>
+              </Suspense>
+            );
+          } else {
+            return (
+              <DataContext.Provider value={property} key={index}>
+                {children}
+              </DataContext.Provider>
+            );
+          }
         })}
 
       {Array.from({ length: fillerCards }).map((_, i) => {

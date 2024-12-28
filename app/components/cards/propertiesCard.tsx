@@ -11,9 +11,9 @@ import {
   SectionCardTitle,
   SectionCards,
 } from "@/components/cards/sectionCards";
-import { Link } from "react-router";
-
+import { Link, useAsyncValue } from "react-router";
 import { Property } from "../../../KV/propertyTypings";
+import { Skeleton } from "@/components/ui/skeleton";
 interface props {
   data?: Property;
 }
@@ -23,27 +23,29 @@ export function PropertiesCard({ data }: props) {
   return (
     <SectionCards key={data.name} className={"dataCard"}>
       <SectionCards.Header className={"row-span-1"}>
-        <img alt={data.name + " Property"} src={data.image} />
+        {data ? (
           <img
             alt={data.name + " Property"}
             className={"aspect-[3/2]"}
             src={data.metadata.image}
           />
+        ) : (
+          <Skeleton variant={"image"} />
+        )}
         <SectionCardTitle className={"pt-4 text-2xl font-semibold"}>
           {data.name}
         </SectionCardTitle>
-        <SectionCardDescription className={"text-sgrey-60 laptop:h-14"}>
-          {data.description}
-          <a href={"/"} className={"ml-1 text-white underline"}>
-            Read More
-          </a>
         <SectionCardDescription className={"text-sgrey-60"}>
+          {data ? (
             <>
               {data?.metadata.description}
               <a href={"/"} className={"ml-1 text-white underline"}>
                 Read More
               </a>
             </>
+          ) : (
+            <Skeleton variant={"paragraph"} />
+          )}
         </SectionCardDescription>
       </SectionCards.Header>
 
@@ -59,8 +61,11 @@ export function PropertiesCard({ data }: props) {
               src={BedIcon}
               className={"mr-1 size-5 2xl:size-6"}
             />
-            {data.bedrooms}-Bedroom
+            {data ? (
               <>{data?.metadata.bedrooms}-Bedrooms</>
+            ) : (
+              <Skeleton variant={"badge"} />
+            )}
           </Badge>
           <Badge variant={"card"} className={" border-sgrey-15"}>
             <img
@@ -68,13 +73,19 @@ export function PropertiesCard({ data }: props) {
               src={BathroomIcon}
               className={"mr-1 size-5 2xl:size-6"}
             />
-            {data.bathrooms}-Bathroom
+            {data ? (
               <> {data?.metadata.bathrooms}-Bathroom</>
+            ) : (
+              <Skeleton variant={"badge"} />
+            )}
           </Badge>
           <Badge variant={"card"} className={" border-sgrey-15"}>
             <BuildingOfficeIcon className={"mr-1 size-5 2xl:size-6"} />
-            {data.property_type}
+            {data ? (
               <>{data?.metadata.property_type}</>
+            ) : (
+              <Skeleton variant={"badge"} className={"min-w-[3rem]"} />
+            )}
           </Badge>
         </div>
 
