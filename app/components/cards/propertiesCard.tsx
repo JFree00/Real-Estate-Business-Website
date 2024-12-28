@@ -5,7 +5,6 @@ import { BuildingOfficeIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/components/ui/button";
 import BedIcon from "@/assets/icons/bedIcon.svg";
 import BathroomIcon from "@/assets/icons/bathroomIcon.svg";
-import { propertyProps } from "../../../KV/properties";
 import {
   SectionCardContent,
   SectionCardDescription,
@@ -14,8 +13,9 @@ import {
 } from "@/components/cards/sectionCards";
 import { Link } from "react-router";
 
+import { Property } from "../../../KV/propertyTypings";
 interface props {
-  data?: propertyProps;
+  data?: Property;
 }
 
 export function PropertiesCard({ data }: props) {
@@ -24,6 +24,11 @@ export function PropertiesCard({ data }: props) {
     <SectionCards key={data.name} className={"dataCard"}>
       <SectionCards.Header className={"row-span-1"}>
         <img alt={data.name + " Property"} src={data.image} />
+          <img
+            alt={data.name + " Property"}
+            className={"aspect-[3/2]"}
+            src={data.metadata.image}
+          />
         <SectionCardTitle className={"pt-4 text-2xl font-semibold"}>
           {data.name}
         </SectionCardTitle>
@@ -32,6 +37,13 @@ export function PropertiesCard({ data }: props) {
           <a href={"/"} className={"ml-1 text-white underline"}>
             Read More
           </a>
+        <SectionCardDescription className={"text-sgrey-60"}>
+            <>
+              {data?.metadata.description}
+              <a href={"/"} className={"ml-1 text-white underline"}>
+                Read More
+              </a>
+            </>
         </SectionCardDescription>
       </SectionCards.Header>
 
@@ -48,6 +60,7 @@ export function PropertiesCard({ data }: props) {
               className={"mr-1 size-5 2xl:size-6"}
             />
             {data.bedrooms}-Bedroom
+              <>{data?.metadata.bedrooms}-Bedrooms</>
           </Badge>
           <Badge variant={"card"} className={" border-sgrey-15"}>
             <img
@@ -56,28 +69,36 @@ export function PropertiesCard({ data }: props) {
               className={"mr-1 size-5 2xl:size-6"}
             />
             {data.bathrooms}-Bathroom
+              <> {data?.metadata.bathrooms}-Bathroom</>
           </Badge>
           <Badge variant={"card"} className={" border-sgrey-15"}>
             <BuildingOfficeIcon className={"mr-1 size-5 2xl:size-6"} />
             {data.property_type}
+              <>{data?.metadata.property_type}</>
           </Badge>
         </div>
 
         <div className={"text-sgrey-60 laptop:basis-1/3"}>
           <p>Price</p>
           <span className={"text-xl font-semibold text-white 2xl:text-2xl"}>
-            {data.price}
+            {data?.metadata.price}
           </span>
         </div>
         <div className={"grow"}>
-          <Button
-            className={
-              "bg-pprimary-60 laptop:size-full laptop:text-base"
-            }
-            size={"responsive"}
-          >
-            View Property Details
-          </Button>
+          {data ? (
+            <Button
+              asChild
+              className={" laptop:size-full laptop:text-base"}
+              size={"responsive"}
+              variant={"primary"}
+            >
+              <Link to={`/properties/${data?.name}`}>
+                View Property Details
+              </Link>
+            </Button>
+          ) : (
+            <Skeleton variant={"button"} />
+          )}
         </div>
       </SectionCardContent>
     </SectionCards>

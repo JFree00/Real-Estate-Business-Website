@@ -12,7 +12,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { FilterInput } from "@/components/filterInput";
 import { useLoaderData, useOutletContext, useSearchParams } from "react-router";
-import { defaultProperties, propertyProps } from "../../KV/properties";
+import { defaultProperties } from "../../KV/properties";
 import {
   abbreviatedFilterKey,
   Filter,
@@ -33,6 +33,7 @@ import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { Label } from "@/components/ui/label";
 import { IconInput } from "@/components/iconInput";
 import { Route } from "./+types/properties._index";
+import { Property } from "../../KV/propertyTypings";
 
 const inputs: submitInfoProps[] = [
   {
@@ -105,7 +106,9 @@ export const loader = async ({ context, request }: Route.LoaderArgs) => {
     const existing = await metadata.get(cursorName);
     if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
       console.warn("Cursor is either stale or invalid, creating new cursor");
-      const newcursor = Filter.toCursor(defaultProperties);
+      const newcursor = Filter.toCursor(
+        defaultProperties.map((p) => p.metadata),
+      );
       await metadata.put(cursorName, JSON.stringify(newcursor));
       return newcursor;
     }
@@ -117,29 +120,20 @@ export const loader = async ({ context, request }: Route.LoaderArgs) => {
     .map((filter) => {
       return filter as abbreviatedFilterKey;
     });
-  const data = async () => {
-    if (filterParam.length === 0) return [];
-
-    return await Promise.all(
-      Filter.withEveryFilter(cursor, filterParam).map(async (f) => {
-        const data = await properties.getWithMetadata(f);
-        if (!data.metadata || !(data.metadata as string).length) {
-          if (data.value) return JSON.parse(data.value) as propertyProps;
-          const prop = defaultProperties.find(
-            (property) => property.name === f,
-          );
-          if (!prop) throw new Error(`${f} not found`);
-          await properties
-            .put(f, "", { metadata: JSON.stringify(prop) })
-            .catch(() => properties.put(f, JSON.stringify(prop)));
-          return prop;
-        }
-        return JSON.parse(data.metadata as string) as propertyProps;
-      }),
-    );
+  if (filterParam.length === 0)
+    return {
+      properties: null,
+    };
+  const data = () => {
+    return Filter.withEveryFilter(cursor, filterParam).map((f) => {
+      return properties
+        .get(f)
+        .then((data) => (data ? (JSON.parse(data) as Property) : undefined));
+    });
   };
+  console.log(data());
   return {
-    properties: await data(),
+    properties: { items: data(), length: cursor.length },
   };
 };
 export default function PropertiesIndex() {

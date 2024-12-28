@@ -9,6 +9,8 @@ import { DataContext, PaginationContext } from "@/context/paginationContext";
 import { Await } from "react-router";
 import { loaderData } from "@/routes/_index";
 import { namedUnknown } from "../../../KV/filter";
+import { Property } from "../../../KV/propertyTypings";
+import { Testimonial } from "../../../KV/testimonials";
 
 export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: React.ReactNode;
@@ -19,11 +21,11 @@ export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
   displayAmount?: number;
   data?:
     | {
-        [K in keyof loader[keyof loader]]: loader[keyof loader][Awaited<K>];
+        items: Promise<Property | Testimonial | namedUnknown | undefined>[];
+        length: number;
       }
     | namedUnknown[];
 };
-type loader = Awaited<ReturnType<loaderData>>;
 
 export function SectionDesignation({
   children,
@@ -64,21 +66,16 @@ export function SectionDesignation({
             paginate: pagination,
           }}
         >
-          {data && Array.isArray(data) ? (
-            <DataContext.Provider value={data}>{children}</DataContext.Provider>
-          ) : (
-            <Suspense>
-              <Await resolve={data.keys}>{children}</Await>
-            </Suspense>
-          )}
+          <DataContext.Provider value={Array.isArray(data) ? data : data.items}>
+            {children}
+          </DataContext.Provider>
+
           <Separator className={"col-span-full mt-10"} />
           <Pagination
             setPage={(page) => setCurrentPage(page)}
             buttonText={buttonText}
           />
         </PaginationContext.Provider>
-      ) : data ? (
-        <DataContext.Provider value={data}>{children}</DataContext.Provider>
       ) : (
         <>{children}</>
       )}
