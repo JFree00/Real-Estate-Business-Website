@@ -1,7 +1,13 @@
 // @flow
 import * as React from "react";
 import { Route } from "./+types/properties.$property";
-import { Await, isRouteErrorResponse, Link, useRouteError } from "react-router";
+import {
+  Await,
+  isRouteErrorResponse,
+  Link,
+  useMatches,
+  useRouteError,
+} from "react-router";
 import { SectionDesignation } from "@/components/Designations/sectionDesignation";
 import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
@@ -36,7 +42,7 @@ import AreaIcon from "@/assets/icons/areaIcon.svg?react";
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 
 export const loader = async ({ context, params }: Route.LoaderArgs) => {
-  const { properties, images, bucket } = context.env;
+  const { properties, images } = context.env;
   const propertyData = await properties.get(params.property).catch(() => {
     throw new Response(`Something went wrong`, { status: 502 });
   });
@@ -49,24 +55,12 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
   const propertyImages = previewImages
     ? (JSON.parse(previewImages) as string[])
     : [];
-  propertyImages.push(property.metadata.image);
-  const previews = propertyImages.map(async (image) => {
-    try {
-      return await bucket
-        .get(image)
-        .then((response) => (response ? response.blob() : null));
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  });
-  console.log(previews);
-  return { property, images: previews };
+  return { property, images: propertyImages };
 };
 export default function NestedProperty({ loaderData }: Route.ComponentProps) {
   const { property, images } = loaderData;
   const [selectedImage, setSelectedImage] = React.useState(0);
-
+  const matches = useMatches();
   const submitData: submitInfoProps[] = [
     {
       name: "First Name",
@@ -146,13 +140,12 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                 >
                   {images.map((image, index) => {
                     return (
-                      <Suspense fallback={<div />}>
-                        <Await resolve={image as Promise<Blob | null>}>
+                      <Suspense key={index} fallback={<div />}>
+                        <Await resolve={image}>
                           {(promiseData) => {
                             console.log(promiseData);
                             return promiseData ? (
                               <ToggleGroupItem
-                                key={index}
                                 value={index.toString()}
                                 className={
                                   "h-12 w-20 brightness-50 transition-all data-[state=on]:h-14 data-[state=on]:w-24 data-[state=on]:brightness-100"
@@ -162,7 +155,7 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                                   key={index}
                                   alt={""}
                                   className={"size-full rounded-lg"}
-                                  src={URL.createObjectURL(promiseData)}
+                                  src={matches[0].pathname + "assets/asset"}
                                 />
                               </ToggleGroupItem>
                             ) : null;
