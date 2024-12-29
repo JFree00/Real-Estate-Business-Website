@@ -155,7 +155,7 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                                   key={index}
                                   alt={""}
                                   className={"size-full rounded-lg"}
-                                  src={matches[0].pathname + "assets/asset"}
+                                  src={matches[0].pathname + "assets/" + image}
                                 />
                               </ToggleGroupItem>
                             ) : null;
