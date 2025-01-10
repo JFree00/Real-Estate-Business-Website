@@ -111,7 +111,7 @@ function SectionCards({ data, children, className, ...props }: Props) {
       ) : (
         <Card
           className={cn(
-            " bg-sgrey-8 dataCardComponent dataCard grid grid-rows-subgrid row-span-2 col-span-1 gap-y-4  first:grid",
+            " bg-sgrey-8 dataCardComponent dataCard grid grid-rows-subgrid row-span-2 col-span-1 gap-y-4 ",
             className,
           )}
           {...props}

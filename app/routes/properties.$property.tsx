@@ -27,7 +27,7 @@ import {
 import { SectionContent } from "@/components/Designations/sectionContent";
 import { Property } from "../../KV/propertyTypings";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Suspense } from "react";
+import { MouseEvent, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import {
   ArrowLeftIcon,
@@ -40,7 +40,58 @@ import BedIcon from "@/assets/icons/bedIcon.svg?react";
 import BathroomIcon from "@/assets/icons/bathroomIcon.svg?react";
 import AreaIcon from "@/assets/icons/areaIcon.svg?react";
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { faqCards } from "../../KV/faq";
 
+const format: Intl.NumberFormatOptions = {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+};
+
+type dataComponentProps = {
+  data: number | null;
+  name: string;
+} & React.ComponentPropsWithoutRef<"div">;
+
+export function DataComponent({
+  data,
+  name,
+  children,
+  className,
+  ...props
+}: dataComponentProps) {
+  return (
+    <div className={" border-t-sgrey-15 border-t pt-5"} {...props}>
+      <SectionCardDescription className={"col-span-full basis-full py-2.5"}>
+        {name}
+      </SectionCardDescription>
+      <div className={"flex flex-nowrap gap-x-5 items-center"}>
+        <SectionCardHeader className={" text-lg"}>
+          {typeof data === "number"
+            ? Intl.NumberFormat(undefined, format).format(data)
+            : children
+              ? "Varies"
+              : "Varies based on terms and interest rate"}
+        </SectionCardHeader>
+        {children && (
+          <div className={"col-span-6"}>
+            <SectionCards
+              className={cn(
+                " p-2.5 bg-sgrey-10  rounded-lg block h-auto w-fit",
+                className,
+              )}
+            >
+              <SectionCardDescription className={"w-auto"}>
+                {children}
+              </SectionCardDescription>
+            </SectionCards>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 export const loader = async ({ context, params }: Route.LoaderArgs) => {
   const { properties, images } = context.env;
   const propertyData = await properties.get(params.property).catch(() => {
@@ -55,6 +106,16 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
   const propertyImages = previewImages
     ? (JSON.parse(previewImages) as string[])
     : [];
+  propertyImages.push(property.metadata.image);
+  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
+  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
+  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
+  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
+  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
+  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
+  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
+  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
+  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
   return { property, images: propertyImages };
 };
 export default function NestedProperty({ loaderData }: Route.ComponentProps) {
@@ -66,41 +127,67 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
       name: "First Name",
       type: "text",
       placeholder: "Enter First Name",
+      className: "laptop:col-span-2",
     },
     {
       name: "Last Name",
       type: "text",
       placeholder: "Enter Last Name",
+      className: "laptop:col-span-2",
     },
     {
       name: "Email",
       type: "email",
       placeholder: "Enter your email",
+      className: "laptop:col-span-2",
     },
     {
       name: "Phone Number",
       type: "tel",
       placeholder: "Enter your phone number",
+      className: "laptop:col-span-2",
     },
     {
       name: "Selected Property",
       type: "dropdown",
       placeholder: "Which property are you interested in?",
       data: [property.name],
+      className: "laptop:col-span-full",
     },
     {
       name: "Message",
       type: "textArea",
       placeholder: "Enter your message here...",
+      className: "laptop:col-span-full",
     },
   ];
+  const changeImage = (e: MouseEvent, index: number) => {
+    e.currentTarget.scrollIntoView({
+      inline: "nearest",
+      behavior: "smooth",
+      block: "nearest",
+    });
+    setSelectedImage(index);
+    console.log(selectedImage);
+    console.log(images);
+  };
   return (
     <main>
       <div className={" relative grid grid-cols-12"}>
         <SectionDesignation>
-          <SectionHeader icon={false}>{property.name}</SectionHeader>
-          <SectionDescription>
-            <div className={"flex flex-nowrap items-center gap-x-5"}>
+          <div
+            className={
+              "contents laptop:flex col-span-full *:shrink-0 gap-x-5 items-center"
+            }
+          >
+            <SectionHeader icon={false} className={"shrink-0"}>
+              {property.name}
+            </SectionHeader>
+            <div
+              className={
+                "col-span-full flex flex-nowrap items-center gap-x-5 laptop:contents"
+              }
+            >
               <Badge
                 variant={"outline"}
                 className={
@@ -110,52 +197,68 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                 <MapPinIcon className={"size-5"} />
                 {property.metadata.location}
               </Badge>
-              <div className={" text-sm capitalize laptop:justify-self-end"}>
-                <span className={"sr-only"}>price</span>
+              <div className={"grow"} />
+              <div className={"text-sm capitalize laptop:justify-self-end"}>
                 <span
                   className={
-                    "pl-2.5 text-start text-lg font-semibold text-white before:pr-2 before:text-sm before:font-medium before:text-sgrey-60 before:content-['Price']"
+                    "sr-only laptop:not-sr-only text-sm font-medium text-sgrey-60"
+                  }
+                >
+                  price
+                </span>
+                <br className={"hidden laptop:block"} />
+                <span
+                  className={
+                    "pl-2.5 laptop:pl-0 text-start text-lg laptop:text-xl font-semibold text-white before:pr-2 laptop:before:pr-0 before:text-sm before:font-medium before:text-sgrey-60 before:content-['Price'] laptop:before:content-['']"
                   }
                 >
                   {property.metadata.price}
                 </span>
               </div>
             </div>
-          </SectionDescription>
-          <SectionContent iterate={false}>
-            <SectionCards className={"row-span-3 size-full bg-sgrey-10"}>
-              <SectionCards.Header
+          </div>
+          <SectionContent iterate={false} className={""}>
+            <div
+              className={
+                "row-span-3 size-full bg-sgrey-10 flex flex-col justify-center items-center rounded-xl p-5 gap-y-5 border border-sgrey-15"
+              }
+            >
+              <ScrollArea
                 className={
-                  "order-2 mb-2.5 rounded-xl border border-sgrey-15 bg-sgrey-8 p-4"
+                  " mb-2.5 rounded-xl border border-sgrey-15 bg-sgrey-8 order-2 laptop:order-first laptop:pb-2 pl-1 w-full"
                 }
               >
                 <ToggleGroup
-                  className={" h-8 justify-start laptop:h-24"}
+                  className={
+                    " justify-start scroll-px-10 gap-0 h-[70px] laptop:h-[100px]"
+                  }
                   type={"single"}
                   onValueChange={(value) => {
                     if (value && typeof value === "number") {
                       setSelectedImage(value);
                     }
                   }}
+                  value={selectedImage.toString()}
                 >
                   {images.map((image, index) => {
                     return (
                       <Suspense key={index} fallback={<div />}>
                         <Await resolve={image}>
                           {(promiseData) => {
-                            console.log(promiseData);
                             return promiseData ? (
                               <ToggleGroupItem
                                 value={index.toString()}
                                 className={
-                                  "h-12 w-20 brightness-50 transition-all data-[state=on]:h-14 data-[state=on]:w-24 data-[state=on]:brightness-100"
+                                  "px-1 rounded-xl shrink-0 snap-start h-12 laptop:h-[74px] w-20 laptop:w-[122px] brightness-50 transition-all data-[state=on]:h-14 laptop:data-[state=on]:h-20 data-[state=on]:w-24 laptop:data-[state=on]:w-36 data-[state=on]:brightness-100 scroll-mx-10"
                                 }
+                                onClick={(e) => changeImage(e, index)}
                               >
                                 <img
                                   key={index}
                                   alt={""}
-                                  className={"size-full rounded-lg"}
-                                  src={matches[0].pathname + "assets/" + image}
+                                  className={"size-full rounded-lg  "}
+                                  // src={matches[0].pathname + "assets/" + image}
+                                  src={matches[0].pathname + "assets/s"}
                                 />
                               </ToggleGroupItem>
                             ) : null;
@@ -165,34 +268,113 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                     );
                   })}
                 </ToggleGroup>
-              </SectionCards.Header>
-              <SectionCards.Header className={"max-h-[1000px]"}>
-                <div className={"flex justify-between gap-x-8"}>
-                  <img
-                    alt={""}
-                    className={"min-h-0 min-w-0 grow"}
-                    src={property.metadata.image}
-                  />
-                  <img
-                    alt={""}
-                    className={"hidden min-h-0 min-w-0 grow laptop:block"}
-                    src={property.metadata.image}
-                  />
+                <ScrollBar orientation={"horizontal"} className={""} />
+              </ScrollArea>
+              <SectionCards.Header className={" w-full"}>
+                <div className={"flex gap-x-8"}>
+                  {/* <picture>
+                    <source
+                      srcSet={"../assets/" + images[selectedImage] + "?size=s"}
+                      media={"(min-width: 700px)"}
+                    />
+                    <source
+                      srcSet={"../assets/" + images[selectedImage] + "?size=m"}
+                      media={"(min-width: 1245px)"}
+                    />
+                    <source
+                      srcSet={"../assets/" + images[selectedImage] + "?size=L"}
+                      media={"(min-width: 1700px)"}
+                    />
+                    <img
+                      alt={""}
+                      src={images[selectedImage]}
+                      onError={(e) => {
+                        console.log("errror");
+                        e.currentTarget.onerror = null;
+                      }}
+                      className={" aspect-[3/2] rounded-xl"}
+                    />
+                  </picture>*/}
+                  <picture className={"grow aspect-[3/2]"}>
+                    <source
+                      rel={"preload"}
+                      srcSet={"../assets/" + "s"}
+                      media={"(min-width: 1700px)"}
+                    />
+                    <source
+                      rel={"preload"}
+                      srcSet={"../assets/" + "m"}
+                      media={"(min-width: 1245px)"}
+                    />
+                    <source
+                      rel={"preload"}
+                      srcSet={"../assets/" + "l"}
+                      media={"(min-width: 700px)"}
+                    />
+                    <img
+                      rel={"preload"}
+                      alt={""}
+                      src={"../assets/FALLBACK"}
+                      onError={(e) => {
+                        console.log("errror");
+                        e.currentTarget.onerror = null;
+                      }}
+                      className={" aspect-[3/2] rounded-xl"}
+                    />
+                  </picture>
+                  <picture className={"hidden laptop:block grow aspect-[3/2]"}>
+                    <source
+                      rel={"preload"}
+                      srcSet={"../assets/" + "s"}
+                      media={"(min-width: 1700px)"}
+                    />
+                    <source
+                      rel={"preload"}
+                      srcSet={"../assets/" + "m"}
+                      media={"(min-width: 1245px)"}
+                    />
+                    <source
+                      rel={"preload"}
+                      srcSet={"../assets/" + "l"}
+                      media={"(min-width: 0px)"}
+                    />
+                    <img
+                      rel={"preload"}
+                      alt={""}
+                      src={"../assets/FALLBACK"}
+                      onError={(e) => {
+                        console.log("errror");
+                        e.currentTarget.onerror = null;
+                      }}
+                      className={" aspect-[3/2] rounded-xl"}
+                    />
+                  </picture>
                 </div>
               </SectionCards.Header>
               <SectionCards.Content
                 className={
-                  "order-3 flex h-16 w-full items-center justify-between rounded-full  border border-sgrey-15 bg-sgrey-8 p-2"
+                  "order-3 flex h-16 w-full laptop:w-1/4 items-center justify-between rounded-full  border border-sgrey-15 bg-sgrey-8 p-2"
                 }
               >
                 <Button
                   className={
-                    "order-first size-11 rounded-full border border-sgrey-15 p-0"
+                    "order-first size-11 shrink-0 rounded-full border border-sgrey-15 p-0"
+                  }
+                  onClick={() =>
+                    setSelectedImage(
+                      selectedImage !== 0
+                        ? selectedImage - 1
+                        : images.length - 1,
+                    )
                   }
                 >
                   <ArrowLeftIcon className={"size-6 stroke-sgrey-50"} />
                 </Button>
-                <div className={"flex items-center justify-between gap-x-1"}>
+                <div
+                  className={
+                    "flex items-center justify-between gap-x-1 px-5 shrink grow-0"
+                  }
+                >
                   <Suspense fallback={<div />}>
                     <Await resolve={images}>
                       {(promiseData) => {
@@ -202,11 +384,14 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                               key={index}
                               variant={"primary"}
                               className={cn(
-                                "h-px py-[1.4px] px-1.5",
+                                "h-px py-[1.4px] px-1.5  transition",
                                 index === selectedImage
                                   ? "bg-pprimary-60"
-                                  : "bg-sgrey-30",
+                                  : index === selectedImage + 1
+                                    ? "bg-pprimary-60/70"
+                                    : "bg-sgrey-30",
                               )}
+                              onClick={(e) => changeImage(e, index)}
                             ></Button>
                           );
                         });
@@ -217,19 +402,34 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
 
                 <Button
                   className={
-                    "order-last size-11 rounded-full border border-sgrey-15 p-0"
+                    "order-last size-11 rounded-full border shrink-0 border-sgrey-15 p-0"
+                  }
+                  onClick={() =>
+                    setSelectedImage(
+                      selectedImage !== images.length - 1
+                        ? selectedImage + 1
+                        : 0,
+                    )
                   }
                 >
                   <ArrowRightIcon className={"size-6 stroke-sgrey-50"} />
                 </Button>
               </SectionCards.Content>
-            </SectionCards>
+            </div>
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation className={"py-0"}>
-          <SectionContent className={"mt-5 flex"}>
-            <SectionCards className={"gap-y-5"}>
-              <SectionCardHeader>
+        <SectionDesignation
+          className={"py-0 laptop:col-span-6 laptop:col-start-1 laptop:mr-2.5"}
+        >
+          <SectionContent className={"mt-5 laptop:mt-5 flex h-min"}>
+            <SectionCards
+              className={
+                "gap-y-5 laptop:gap-y-2 grid-rows-none laptop:flex flex-col"
+              }
+            >
+              <SectionCardHeader
+                className={"border-b border-b-sgrey-15 pb-5 laptop:gap-y-2.5"}
+              >
                 <SectionCardTitle>Description</SectionCardTitle>
                 <SectionCardDescription>
                   Discover your own piece of paradise with the Seaside Serenity
@@ -238,8 +438,9 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                   this property is the epitome of coastal living.
                 </SectionCardDescription>
               </SectionCardHeader>
-              <Separator className={"h-px"} />
-              <SectionCardContent className={"grid grid-cols-2 gap-y-5"}>
+              <SectionCardContent
+                className={"grid grid-cols-2 laptop:grid-cols-3 gap-y-5"}
+              >
                 <div>
                   <span className={"inline-flex w-full gap-x-1 text-sgrey-60"}>
                     <BedIcon className={" size-5 fill-sgrey-60"} />
@@ -254,8 +455,12 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                   </span>
                   <p className={"text-lg"}>0{property.metadata.bathrooms}</p>
                 </div>
-                <Separator className={"col-span-2 h-px"} />
-                <div className={"col-span-2"}>
+                <div
+                  className={
+                    "col-span-2 laptop:col-span-1 laptop:border-l laptop:border-sgrey-15 laptop:pl-5"
+                  }
+                >
+                  <Separator className={"laptop:hidden mb-5"} />
                   <span className={"inline-flex w-full gap-x-1 text-sgrey-60"}>
                     <AreaIcon className={"size-5 fill-sgrey-60"} />
                     <h2 className={"text-sm"}>Area</h2>
@@ -271,8 +476,12 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
             </SectionCards>
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation className={"py-0"}>
-          <SectionContent className={"mt-5"}>
+        <SectionDesignation
+          className={
+            "py-0 laptop:col-span-5 laptop:col-start-7 laptop:-mr-10 laptop:ml-2.5 "
+          }
+        >
+          <SectionContent className={"mt-5 laptop:mt-5"}>
             <SectionCards>
               <SectionCards.Header className={"space-y-5"}>
                 <SectionCardTitle>Key Features and Amenities</SectionCardTitle>
@@ -281,7 +490,7 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                     <div
                       key={index}
                       className={
-                        "inline-grid w-full grid-cols-12 items-center gap-x-2.5 border-l border-l-pprimary-60 bg-sgrey-10 p-2.5 *:shrink-0"
+                        "inline-grid w-full grid-cols-12 items-center gap-x-2.5 border-l border-l-pprimary-60 bg-gradient-to-r from-sgrey-10 p-2.5 to-transparent *:shrink-0"
                       }
                     >
                       {feature.type === "security" ? (
@@ -305,14 +514,218 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
           </SectionContent>
         </SectionDesignation>
         <SectionDesignation className={"py-10"}>
-          <SectionHeader>Inquire About Seaside Serenity Villa</SectionHeader>
+          <div className={" laptop:col-span-4 laptop:mr-16 col-span-full"}>
+            <SectionHeader>Inquire About Seaside Serenity Villa</SectionHeader>
+            <SectionDescription>
+              Interested in this property? Fill out the form below, and our real
+              estate experts will get back to you with more details, including
+              scheduling a viewing and answering any questions you may have.
+            </SectionDescription>
+          </div>
+          <SectionContent className={"laptop:col-span-8 laptop:mt-0"}>
+            <SubmitForm inputData={submitData} />
+          </SectionContent>
+        </SectionDesignation>
+        <SectionDesignation>
+          <SectionHeader>Comprehensive Pricing Details</SectionHeader>
           <SectionDescription>
-            Interested in this property? Fill out the form below, and our real
-            estate experts will get back to you with more details, including
-            scheduling a viewing and answering any questions you may have.
+            At Estatein, transparency is key. We want you to have a clear
+            understanding of all costs associated with your property investment.
+            Below, we break down the pricing for Seaside Serenity Villa to help
+            you make an informed decision
+          </SectionDescription>
+          <SectionContent className={"grid-rows-2"}>
+            <SectionCards
+              className={
+                "laptop:px-10 laptop:py-8 bg-sgrey-10 laptop:items-center flex flex-nowrap flex-col laptop:flex-row justify-start gap-x-5"
+              }
+            >
+              <p className={"text-2xl"}>Note</p>
+              <Separator
+                orientation={"vertical"}
+                className={"hidden laptop:block"}
+              />
+              <Separator
+                orientation={"horizontal"}
+                className={"laptop:hidden"}
+              />
+              <SectionCards.Header.Description>
+                The figures provided above are estimates and may vary depending
+                on the property, location, and individual circumstances.
+              </SectionCards.Header.Description>
+            </SectionCards>
+          </SectionContent>
+          <div
+            className={
+              "col-span-full grid overflow-visible gap-5 grid-rows-1 laptop:gap-y-14 mt-16"
+            }
+          >
+            <div className={" col-span-1 laptop:row-span-full"}>
+              <SectionDescription>Listing Price</SectionDescription>
+              <SectionHeader className={"col-span-1"} icon={false}>
+                {Intl.NumberFormat(undefined, format).format(
+                  property.pricing.initialCost.listingPrice,
+                )}
+              </SectionHeader>
+            </div>
+            <div
+              className={
+                "contents  laptop:*:col-span-8 *: gap-y-5 laptop:*:col-start-2"
+              }
+            >
+              <SectionCards
+                className={
+                  "grid-rows-none *:*:border-l-sgrey-15 *:*:pl-5 first:*:border-l-0 laptop:grid-cols-2"
+                }
+              >
+                <SectionCards.Header className={"col-span-full"}>
+                  <SectionCards.Header.Title
+                    className={"flex items-center justify-between"}
+                  >
+                    <h2>Additional Fees</h2>
+                    <Button className={" bg-sgrey-10"}>Learn More</Button>
+                  </SectionCards.Header.Title>
+                </SectionCards.Header>
+                <DataComponent
+                  data={property.pricing.additionalFees.transfer}
+                  name={"Property Transfer Tax"}
+                >
+                  Based on the sale price and local regulations
+                </DataComponent>
+
+                <DataComponent
+                  data={property.pricing.additionalFees.legal}
+                  name={"Legal Fees"}
+                >
+                  Approximate cost for legal services, including title transfer
+                </DataComponent>
+                <DataComponent
+                  data={property.pricing.additionalFees.inspection}
+                  name={"Home Inspection"}
+                  className={"rounded-full"}
+                >
+                  Recommended for due diligence
+                </DataComponent>
+                <DataComponent
+                  data={property.pricing.additionalFees.insurance}
+                  name={"Property Insurance"}
+                >
+                  Annual cost for comprehensive property insurance
+                </DataComponent>
+                <DataComponent
+                  data={property.pricing.additionalFees.mortgage}
+                  name={"Mortgage Fees"}
+                >
+                  If applicable, consult with your lender for specific details
+                </DataComponent>
+                <div className={" border-t-sgrey-15 border-t pt-5"} />
+              </SectionCards>
+              <SectionCards className={"grid-rows-none"}>
+                <SectionCards.Header className={"col-span-full"}>
+                  <SectionCards.Header.Title
+                    className={"flex items-center justify-between"}
+                  >
+                    <h2>Monthly Costs</h2>
+                    <Button className={" bg-sgrey-10"}>Learn More</Button>
+                  </SectionCards.Header.Title>
+                </SectionCards.Header>
+                <DataComponent
+                  data={property.pricing.monthlyCost.propertyTax}
+                  name={"Property Taxes"}
+                >
+                  Approximate monthly property tax based on the sale price and
+                  local rates
+                </DataComponent>
+
+                <DataComponent
+                  data={property.pricing.monthlyCost.hoa}
+                  name={"Homeowners' Association Fee"}
+                >
+                  Monthly fee for common area maintenance and security
+                </DataComponent>
+              </SectionCards>
+              <SectionCards className={"grid-rows-none laptop:grid-cols-2"}>
+                <SectionCards.Header className={"col-span-full"}>
+                  <SectionCards.Header.Title
+                    className={"flex items-center justify-between"}
+                  >
+                    <h2>Total Initial Costs</h2>
+                    <Button className={"bg-sgrey-10"}>Learn More</Button>
+                  </SectionCards.Header.Title>
+                </SectionCards.Header>
+                <DataComponent
+                  data={property.pricing.initialCost.listingPrice}
+                  name={"Listing Price"}
+                />
+
+                <DataComponent
+                  data={property.pricing.monthlyCost.hoa}
+                  name={"Homeowners' Association Fee"}
+                >
+                  Property transfer tax, legal fees, inspection, insurance
+                </DataComponent>
+                <DataComponent
+                  data={property.pricing.initialCost.downPayment}
+                  name={"Down Payment"}
+                  className={"rounded-full"}
+                >
+                  20%
+                </DataComponent>
+                <DataComponent
+                  data={property.pricing.initialCost.mortgage}
+                  name={"Mortgage Amount"}
+                  className={"rounded-full"}
+                >
+                  If applicable
+                </DataComponent>
+              </SectionCards>
+              <SectionCards className={"grid-rows-none laptop:grid-cols-2"}>
+                <SectionCards.Header className={"col-span-full"}>
+                  <SectionCards.Header.Title
+                    className={"flex items-center justify-between"}
+                  >
+                    <h2>Monthly Expenses</h2>
+                    <Button className={"bg-sgrey-10"}>Learn More</Button>
+                  </SectionCards.Header.Title>
+                </SectionCards.Header>
+                <DataComponent
+                  data={property.pricing.monthlyCost.propertyTax}
+                  name={"Property Taxes"}
+                />
+                <DataComponent
+                  data={property.pricing.monthlyCost.hoa}
+                  name={"Homeowners' Association Fee"}
+                />
+
+                <DataComponent
+                  data={property.pricing.monthlyExpenses.mortgage}
+                  name={"Mortgage Payment"}
+                ></DataComponent>
+                <DataComponent
+                  data={property.pricing.monthlyExpenses.insurance}
+                  name={"Property Insurance"}
+                  className={"rounded-full"}
+                >
+                  Approximate monthly cost
+                </DataComponent>
+              </SectionCards>
+            </div>
+          </div>
+        </SectionDesignation>
+        <SectionDesignation
+          rows={3}
+          buttonText={"View All FAQ’s"}
+          displayAmount={3}
+          data={faqCards}
+        >
+          <SectionHeader>Frequently Asked Questions</SectionHeader>
+          <SectionDescription>
+            Find answers to common questions about Estatein's services, property
+            listings, and the real estate process. We're here to provide clarity
+            and assist you every step of the way.
           </SectionDescription>
           <SectionContent>
-            <SubmitForm inputData={submitData} />
+            <SectionCards />
           </SectionContent>
         </SectionDesignation>
       </div>
