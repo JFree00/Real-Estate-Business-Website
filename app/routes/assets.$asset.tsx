@@ -8,12 +8,27 @@ export const loader = async ({
 }: Route.LoaderArgs) => {
   const bucket = context.env.bucket;
   const url = new URL(request.url);
+  const size: Record<string, string> = {
+    s: "small",
+    m: "medium",
+    l: "large",
+  };
   try {
     const image = await bucket.get(
-      params.asset + "?" + url.searchParams.get("size"),
+      params.asset + "?" + size[url.searchParams.get("size") ?? "s"],
     );
     if (!image) {
-      return new Response("Not found", { status: 404 });
+      const fallback = await bucket.get(params.asset);
+      if (!fallback) {
+        return new Response("Not found", { status: 404 });
+      }
+      // @ts-expect-error - image.body is a ReadableStream
+      return new Response(fallback.body, {
+        headers: {
+          "Content-Type":
+            fallback.httpMetadata?.contentType ?? "application/octet-stream",
+        },
+      });
     } else {
       // @ts-expect-error - image.body is a ReadableStream
       return new Response(image.body, {

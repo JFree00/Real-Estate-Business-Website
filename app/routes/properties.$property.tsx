@@ -106,7 +106,6 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
   const propertyImages = previewImages
     ? (JSON.parse(previewImages) as string[])
     : [];
-  propertyImages.push(property.metadata.image);
   return { property, images: propertyImages.reverse() };
 };
 export default function NestedProperty({ loaderData }: Route.ComponentProps) {
