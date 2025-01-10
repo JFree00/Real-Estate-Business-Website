@@ -16,7 +16,11 @@ export const loader = async ({
   const searchparams = url.searchParams.get("size");
   try {
     const image = await bucket.get(
-      params.asset + "?" + (searchparams ? size[searchparams] : searchparams),
+      params.asset +
+        "?" +
+        (searchparams
+          ? (size[searchparams] ?? searchparams.split("?")[0])
+          : ""),
     );
     if (!image) {
       const fallback = await bucket.get(params.asset);
