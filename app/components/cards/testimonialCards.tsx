@@ -1,11 +1,16 @@
 // @flow
 import * as React from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CardHeader } from "@/components/ui/card";
 import { Ratings } from "@/components/ratings";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Testimonial } from "../../../KV/testimonials";
 import { useAsyncValue } from "react-router";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  SectionCardContent,
+  SectionCardHeader,
+  SectionCards,
+} from "@/components/cards/sectionCards";
 
 interface props {
   data?: Testimonial["metadata"];
@@ -15,8 +20,8 @@ export function TestimonialCards({ data }: props) {
   const promiseValue = useAsyncValue() as Testimonial | undefined;
   data = data ?? promiseValue?.metadata;
   return (
-    <div className={"dataCard"}>
-      <Card className={"dataCardComponent laptop:space-y-10 bg-sgrey-8"}>
+    <SectionCards className={"dataCard"}>
+      <SectionCardHeader className={" bg-sgrey-8"}>
         <CardHeader className={"mr-3"}>
           {data ? (
             <Ratings amountOfRatings={5} ratings={data.rating} />
@@ -28,9 +33,13 @@ export function TestimonialCards({ data }: props) {
           </p>
           <p className={"pt-3 text-left"}>{data?.testimonial}</p>
         </CardHeader>
-        <CardContent className={" flex items-center justify-start"}>
+        <SectionCardContent className={" flex items-center justify-start"}>
           {data?.image ? (
-            <img alt={"Customer Headshot"} src={data?.image} />
+            <img
+              className={"size-12 desktop:size-16"}
+              alt={"Customer Headshot"}
+              src={data?.image}
+            />
           ) : (
             <UserCircleIcon className="size-16" />
           )}
@@ -39,8 +48,8 @@ export function TestimonialCards({ data }: props) {
             <br />
             <p className={"text-lg text-sgrey-60"}> {data?.location}</p>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </SectionCardContent>
+      </SectionCardHeader>
+    </SectionCards>
   );
 }
