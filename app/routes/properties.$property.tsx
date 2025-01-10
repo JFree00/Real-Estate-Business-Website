@@ -263,11 +263,6 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                   <picture className={"grow aspect-[3/2]"}>
                     <source
                       rel={"preload"}
-                      srcSet={`../assets/${images[selectedImage]}?size=small`}
-                      media={"(min-width: 1700px)"}
-                    />
-                    <source
-                      rel={"preload"}
                       srcSet={`../assets/${images[selectedImage]}?size=medium`}
                       media={"(min-width: 1245px)"}
                     />
@@ -284,11 +279,6 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                     />
                   </picture>
                   <picture className={"hidden laptop:block grow aspect-[3/2]"}>
-                    <source
-                      rel={"preload"}
-                      srcSet={`../assets/${images[selectedImage + 1] ?? images[0]}?size=small`}
-                      media={"(min-width: 1700px)"}
-                    />
                     <source
                       rel={"preload"}
                       srcSet={`../assets/${images[selectedImage + 1] ?? images[0]}?size=medium`}
