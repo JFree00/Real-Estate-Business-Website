@@ -1,10 +1,17 @@
 // @flow
 import { Route } from "../../.react-router/types/app/routes/+types/assets.$asset";
 
-export const loader = async ({ context, params }: Route.LoaderArgs) => {
+export const loader = async ({
+  context,
+  params,
+  request,
+}: Route.LoaderArgs) => {
   const bucket = context.env.bucket;
+  const url = new URL(request.url);
   try {
-    const image = await bucket.get(params.asset);
+    const image = await bucket.get(
+      params.asset + "?" + url.searchParams.get("size"),
+    );
     if (!image) {
       return new Response("Not found", { status: 404 });
     } else {

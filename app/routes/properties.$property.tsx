@@ -107,21 +107,11 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
     ? (JSON.parse(previewImages) as string[])
     : [];
   propertyImages.push(property.metadata.image);
-  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
-  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
-  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
-  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
-  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
-  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
-  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
-  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
-  propertyImages.push((Math.random() * 100).toString().split(".")[0]);
-  return { property, images: propertyImages };
+  return { property, images: propertyImages.reverse() };
 };
 export default function NestedProperty({ loaderData }: Route.ComponentProps) {
   const { property, images } = loaderData;
   const [selectedImage, setSelectedImage] = React.useState(0);
-  const matches = useMatches();
   const submitData: submitInfoProps[] = [
     {
       name: "First Name",
@@ -257,8 +247,7 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                                   key={index}
                                   alt={""}
                                   className={"size-full rounded-lg  "}
-                                  // src={matches[0].pathname + "assets/" + image}
-                                  src={matches[0].pathname + "assets/s"}
+                                  src={`../assets/${image}?size=s`}
                                 />
                               </ToggleGroupItem>
                             ) : null;
@@ -272,76 +261,49 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
               </ScrollArea>
               <SectionCards.Header className={" w-full"}>
                 <div className={"flex gap-x-8"}>
-                  {/* <picture>
-                    <source
-                      srcSet={"../assets/" + images[selectedImage] + "?size=s"}
-                      media={"(min-width: 700px)"}
-                    />
-                    <source
-                      srcSet={"../assets/" + images[selectedImage] + "?size=m"}
-                      media={"(min-width: 1245px)"}
-                    />
-                    <source
-                      srcSet={"../assets/" + images[selectedImage] + "?size=L"}
-                      media={"(min-width: 1700px)"}
-                    />
-                    <img
-                      alt={""}
-                      src={images[selectedImage]}
-                      onError={(e) => {
-                        console.log("errror");
-                        e.currentTarget.onerror = null;
-                      }}
-                      className={" aspect-[3/2] rounded-xl"}
-                    />
-                  </picture>*/}
                   <picture className={"grow aspect-[3/2]"}>
                     <source
                       rel={"preload"}
-                      srcSet={"../assets/" + "s"}
+                      srcSet={`../assets/${images[selectedImage]}?size=small`}
                       media={"(min-width: 1700px)"}
                     />
                     <source
                       rel={"preload"}
-                      srcSet={"../assets/" + "m"}
+                      srcSet={`../assets/${images[selectedImage]}?size=medium`}
                       media={"(min-width: 1245px)"}
                     />
                     <source
                       rel={"preload"}
-                      srcSet={"../assets/" + "l"}
+                      srcSet={`../assets/${images[selectedImage]}?size=large`}
                       media={"(min-width: 700px)"}
                     />
                     <img
                       rel={"preload"}
                       alt={""}
-                      src={"../assets/FALLBACK"}
-                      onError={(e) => {
-                        console.log("errror");
-                        e.currentTarget.onerror = null;
-                      }}
+                      src={`../assets/${images[selectedImage]}`}
                       className={" aspect-[3/2] rounded-xl"}
                     />
                   </picture>
                   <picture className={"hidden laptop:block grow aspect-[3/2]"}>
                     <source
                       rel={"preload"}
-                      srcSet={"../assets/" + "s"}
+                      srcSet={`../assets/${images[selectedImage + 1] ?? images[0]}?size=small`}
                       media={"(min-width: 1700px)"}
                     />
                     <source
                       rel={"preload"}
-                      srcSet={"../assets/" + "m"}
+                      srcSet={`../assets/${images[selectedImage + 1] ?? images[0]}?size=medium`}
                       media={"(min-width: 1245px)"}
                     />
                     <source
                       rel={"preload"}
-                      srcSet={"../assets/" + "l"}
+                      srcSet={`../assets/${images[selectedImage + 1] ?? images[0]}?size=large`}
                       media={"(min-width: 0px)"}
                     />
                     <img
                       rel={"preload"}
                       alt={""}
-                      src={"../assets/FALLBACK"}
+                      src={`../assets/${images[selectedImage + 1] ?? images[0]}`}
                       onError={(e) => {
                         console.log("errror");
                         e.currentTarget.onerror = null;
