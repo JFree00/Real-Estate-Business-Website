@@ -3,7 +3,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { LogoSvg } from "@/components/ui/logoSvg";
 import { useState } from "react";
-import background from "@/assets/waves.png";
+import wavesComponent from "@/assets/waves.svg";
 const routes = ["Home", "About Us", "Properties", "Services"];
 export function Header() {
   const [route] = useState("Home");
@@ -11,6 +11,7 @@ export function Header() {
     return (
       <Button
         key={buttonRoute}
+        size={"nav"}
         variant={route === buttonRoute ? "active" : "secondary"}
       >
         {buttonRoute}
@@ -19,25 +20,38 @@ export function Header() {
   });
 
   return (
-    <header className=" py-0 md:py-0 bg-sgrey-10 h-40 flex-row">
-      <div className={"overflow-hidden relative h-1/3"}>
+    <header className="bg-sgrey-10 h-40">
+      <div
+        className={"overflow-hidden relative "}
+        style={{
+          height: "40%",
+        }}
+      >
+        <div className={"flex justify-center h-full z-10 absolute w-full "}>
+          <h3 className={"font-medium text-lg self-center"}>
+            ✨Discover Your Dream Property with Estatein
+          </h3>
+          <Button variant={"permlink"} className={"h-full text-lg"}>
+            Learn More
+          </Button>
+        </div>
         <div
-          className={" bg-cover bg-no-repeat w-full absolute -top-48 z-10"}
+          className={" bg-contain  w-full absolute -top-48"}
           style={{
-            backgroundImage: `url('${background}')`,
+            backgroundImage: `url('${wavesComponent}')`,
             paddingTop: "99%",
             top: "calc(50% - 1282px/2 - 0.5px)",
-            //backgroundRepeat: "no-repeat",
           }}
         ></div>
       </div>
       <div
-        className={
-          "flex items-center justify-between  border-b border-t border-sgrey-15 h-2/3"
-        }
+        className={"flex items-center  border-b border-t border-sgrey-15"}
+        style={{
+          height: "60%",
+        }}
       >
-        <div className="items-center basis-1/4 pl-40">
-          <Link className="flex items-center space-x-2" to="/">
+        <div className="basis-1/4">
+          <Link className="flex justify-center space-x-2" to="/">
             <LogoSvg size={"lg"} />
           </Link>
         </div>
@@ -45,7 +59,7 @@ export function Header() {
           {buttons}
         </div>
         <div className={"basis-1/4 flex justify-center"}>
-          <Button variant={"active"} className={"h-12"}>
+          <Button variant={"active"} className={"h-14"}>
             Contact Us
           </Button>
         </div>
