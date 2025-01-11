@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { teamProps } from "../../../KV/team";
+import { teamProps } from "../../../data/team";
 import { useContext } from "react";
 import { DataContext } from "@/context/paginationContext";
 

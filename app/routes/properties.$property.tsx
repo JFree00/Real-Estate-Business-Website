@@ -25,7 +25,7 @@ import {
   SectionCardTitle,
 } from "@/components/cards/sectionCards";
 import { SectionContent } from "@/components/Designations/sectionContent";
-import { Property } from "../../KV/propertyTypings";
+import { Property } from "../../data/propertyTypings";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { MouseEvent, Suspense } from "react";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ import BathroomIcon from "@/assets/icons/bathroomIcon.svg?react";
 import AreaIcon from "@/assets/icons/areaIcon.svg?react";
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { faqCards } from "../../KV/faq";
+import { faqCards } from "../../data/faq";
 
 const format: Intl.NumberFormatOptions = {
   style: "currency",

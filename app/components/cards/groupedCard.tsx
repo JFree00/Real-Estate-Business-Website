@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useContext } from "react";
 import { DataContext } from "@/context/paginationContext";
-import { valuesProps } from "../../../KV/values";
+import { valuesProps } from "../../../data/values";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/styles";
 

@@ -5,9 +5,9 @@ import { cn } from "@/lib/styles";
 import { Separator } from "@/components/ui/separator";
 import { Pagination } from "@/components/pagination";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
-import { namedUnknown } from "../../../KV/filter";
-import { Property } from "../../../KV/propertyTypings";
-import { Testimonial } from "../../../KV/testimonials";
+import { namedUnknown } from "../../../data/filter";
+import { Property } from "../../../data/propertyTypings";
+import { Testimonial } from "../../../data/testimonials";
 import { Link } from "react-router";
 
 export type designationProps = React.HTMLAttributes<HTMLDivElement> & {

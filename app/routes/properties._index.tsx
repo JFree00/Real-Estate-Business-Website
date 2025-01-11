@@ -12,13 +12,13 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { FilterInput } from "@/components/filterInput";
 import { useLoaderData, useOutletContext, useSearchParams } from "react-router";
-import { defaultProperties } from "../../KV/properties";
+import { defaultProperties } from "../../data/properties";
 import {
   abbreviatedFilterKey,
   Filter,
   filterCategories,
   rawFilterCursor,
-} from "../../KV/filter";
+} from "../../data/filter";
 import { PropertiesCard } from "@/components/cards/propertiesCard";
 import {
   BanknotesIcon,
@@ -33,7 +33,7 @@ import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { Label } from "@/components/ui/label";
 import { IconInput } from "@/components/iconInput";
 import { Route } from "./+types/properties._index";
-import { Property } from "../../KV/propertyTypings";
+import { Property } from "../../data/propertyTypings";
 
 const inputs: submitInfoProps[] = [
   {

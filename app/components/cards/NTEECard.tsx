@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { stepsProps } from "../../../KV/steps";
+import { stepsProps } from "../../../data/steps";
 import { cn } from "@/lib/styles";
 import { useContext } from "react";
 import { DataContext } from "@/context/paginationContext";

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/styles";
 import { createContext, useContext } from "react";
-import { namedUnknown } from "../../../KV/filter";
+import { namedUnknown } from "../../../data/filter";
 import { DataContext } from "@/context/paginationContext";
 
 export interface sectionCardProps extends namedUnknown {

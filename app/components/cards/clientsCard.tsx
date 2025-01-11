@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { clientsProps } from "../../../KV/clients";
+import { clientsProps } from "../../../data/clients";
 import { Button } from "@/components/ui/button";
 import { BoltIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
 import { useContext } from "react";

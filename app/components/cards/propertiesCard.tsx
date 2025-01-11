@@ -12,7 +12,7 @@ import {
   SectionCards,
 } from "@/components/cards/sectionCards";
 import { Link, useAsyncValue } from "react-router";
-import { Property } from "../../../KV/propertyTypings";
+import { Property } from "../../../data/propertyTypings";
 import { Skeleton } from "@/components/ui/skeleton";
 interface props {
   data?: Property;

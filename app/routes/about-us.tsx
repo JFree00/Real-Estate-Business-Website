@@ -14,14 +14,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { GroupedCard } from "@/components/cards/groupedCard";
-import { values } from "../../KV/values";
+import { values } from "../../data/values";
 import { SectionCards } from "@/components/cards/sectionCards";
-import { achievements } from "../../KV/achievements";
+import { achievements } from "../../data/achievements";
 import { NteeCard } from "@/components/cards/NTEECard";
-import { steps } from "../../KV/steps";
+import { steps } from "../../data/steps";
 import { TeamCard } from "@/components/cards/teamCard";
-import { team } from "../../KV/team";
-import { clientsData } from "../../KV/clients";
+import { team } from "../../data/team";
+import { clientsData } from "../../data/clients";
 import { ClientsCard } from "@/components/cards/clientsCard";
 
 export const links: LinksFunction = () => {

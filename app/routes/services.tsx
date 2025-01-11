@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import InfoCards from "@/components/cards/infoCards";
-import { indexInfoCard } from "../../KV/info.ts";
+import { indexInfoCard } from "../../data/info.ts";
 import { SectionDesignation } from "@/components/Designations/sectionDesignation";
 import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";

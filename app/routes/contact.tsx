@@ -13,7 +13,7 @@ import {
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { SectionContent } from "@/components/Designations/sectionContent";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { companyEmail, companyPhone, locations } from "../../KV/locations";
+import { companyEmail, companyPhone, locations } from "../../data/locations";
 import { SectionCards } from "@/components/cards/sectionCards";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

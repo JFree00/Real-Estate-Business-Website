@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import { Outlet, useLoaderData } from "react-router";
-import { Filter } from "../../KV/filter";
-import { defaultProperties } from "../../KV/properties";
+import { Filter } from "../../data/filter";
+import { defaultProperties } from "../../data/properties";
 import { Route } from "./+types/properties";
 
 export const loader = async ({ context }: Route.LoaderArgs) => {

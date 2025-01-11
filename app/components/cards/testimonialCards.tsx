@@ -3,7 +3,7 @@ import * as React from "react";
 import { CardHeader } from "@/components/ui/card";
 import { Ratings } from "@/components/ratings";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
-import { Testimonial } from "../../../KV/testimonials";
+import { Testimonial } from "../../../data/testimonials";
 import { useAsyncValue } from "react-router";
 import { Skeleton } from "@/components/ui/skeleton";
 import {

@@ -1,6 +1,6 @@
 import { test } from "vitest";
-import { Filter } from "../KV/filter";
-import { defaultProperties } from "../KV/properties";
+import { Filter } from "../data/filter";
+import { defaultProperties } from "../data/properties";
 
 describe("filter", () => {
   const array = Filter.toCursor(defaultProperties);

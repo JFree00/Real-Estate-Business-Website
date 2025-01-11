@@ -19,16 +19,16 @@ import { SectionContent } from "@/components/Designations/sectionContent";
 import { PropertiesCard } from "@/components/cards/propertiesCard";
 import { TestimonialCards } from "@/components/cards/testimonialCards";
 import { useLoaderData } from "react-router";
-import { defaultProperties } from "../../KV/properties";
-import { defaultTestimonials, Testimonial } from "../../KV/testimonials";
+import { defaultProperties } from "../../data/properties";
+import { defaultTestimonials, Testimonial } from "../../data/testimonials";
 import { SectionCards } from "@/components/cards/sectionCards";
-import { faqCards } from "../../KV/faq";
-import { indexInfoCard } from "../../KV/info.ts";
+import { faqCards } from "../../data/faq";
+import { indexInfoCard } from "../../data/info.ts";
 import InfoCards from "@/components/cards/infoCards";
-import { namedUnknown } from "../../KV/filter";
+import { namedUnknown } from "../../data/filter";
 import { KVNamespace } from "@cloudflare/workers-types";
 import { Route } from "./+types/_index";
-import { Property } from "../../KV/propertyTypings";
+import { Property } from "../../data/propertyTypings";
 
 export const links: LinksFunction = () => {
   return [{ rel: "preload", as: "image", href: homeBuildings }];

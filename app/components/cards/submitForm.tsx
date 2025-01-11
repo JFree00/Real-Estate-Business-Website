@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import * as React from "react";
 import { FilterInput } from "@/components/filterInput";
-import { rawFilterCursor } from "../../../KV/filter";
+import { rawFilterCursor } from "../../../data/filter";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckboxWithText } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
