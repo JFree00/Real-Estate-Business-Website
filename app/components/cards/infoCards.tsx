@@ -22,9 +22,8 @@ function InfoCardArea({
   gap,
   ...props
 }: InfoCardAreaProps) {
-  console.log(cardData);
-  const cards = cardData?.map((data) => {
-    return <InfoCards {...data} {...props} />;
+  const cards = cardData?.map((data, index) => {
+    return <InfoCards key={index} {...data} {...props} />;
   });
   return (
     <div

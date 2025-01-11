@@ -29,13 +29,13 @@ const CardTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => (
-  <h4
+  <div
     ref={ref}
     className={cn("font-bold leading-none tracking-tight title", className)}
     {...props}
   >
     {children}
-  </h4>
+  </div>
 ));
 CardTitle.displayName = "CardTitle";
 

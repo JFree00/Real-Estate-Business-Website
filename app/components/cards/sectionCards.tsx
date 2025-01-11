@@ -69,9 +69,9 @@ function SectionCardDescription({ data, className, children }: Props) {
   const sectionData = useContext(SectionData);
   const cardData = data ?? sectionData;
   return (
-    <p className={cn(" lg:text-left text-sgrey-60 ", className)}>
+    <div className={cn(" lg:text-left text-sgrey-60 ", className)}>
       {children ?? cardData?.description ?? null}
-    </p>
+    </div>
   );
 }
 

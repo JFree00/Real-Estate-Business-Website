@@ -20,7 +20,6 @@ export function NteeCard({ data, className }: props) {
   data = data ?? dataContext;
 
   if (!data) return null;
-  console.log(data);
   return (
     <div className={cn("laptop:basis-1/4 flex flex-col grow", className)}>
       <div className={"flex h-12 items-center border-l border-l-pprimary-60"}>

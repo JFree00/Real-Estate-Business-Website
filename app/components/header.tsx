@@ -15,6 +15,7 @@ export function Header() {
   const buttons = routes.map((buttonRoute, index) => {
     return (
       <Button
+          key={index}
         className={" transition-all focus:border-0"}
         size={"nav"}
         variant={"ghost"}
