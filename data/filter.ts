@@ -1,8 +1,9 @@
-//cloud flares free tier limit is 1k list() calls per day, and 100k read() calls per day (1:100 ratio), and will error if exceeded
-//using these two functions, the only way to provide filter options to the user would be to list() the entire namespace everytime
+//cloudflares free tier limit is 1k list() calls per day, and 100k read() calls per day (1:100 ratio), and will error if exceeded
+//using the two provided functions, the only way to provide filter options to the user would be to list() the entire namespace everytime
 //the options are needed, and everytime the user applies filters, which with so many list() calls, can quickly exceed the free tier limits
-//approx. (1 initial list() call for filter options) + (1 list() whenever the filters are changed) equivalent to 200 get() calls as per ratio
-//using this class, no list() calls are needed, and are both replaced with get() calls
+//approx. (1 initial list() call to display filter options) + (1 list() whenever the filters are changed)
+// (1 + (1 * number of filters))
+//using this class, all lists calls are replaced with get calls, thus no list() calls are needed
 
 //TODO implement multiple filter cursors
 type filterTypes = "L" | "PT" | "PR" | "S" | "BY"; //abbreviations stored in the cursor to reduce the total length (ex. "build_year: 1997" -> "BY-1997")
@@ -13,11 +14,12 @@ export type nonAbbreviatedFilterKey = `${filterCategories}-${string}`;
 export type filteredData = [abbreviatedFilterKey, string[]][]; //parsed cursor KV value
 export type convertedFilter = Map<abbreviatedFilterKey, string[]>;
 export type rawFilterCursor = [filterCategories, string[]][];
-export type filterDataParams = Record<filterCategories, string | number> & namedUnknown;
+export type filterDataParams = Record<filterCategories, string | number> &
+  namedUnknown;
 export interface namedUnknown {
   name: string;
   [key: string]: unknown;
-}
+} //base interface extended by all data stored in KV
 
 export class Filter {
   static readonly keys: Record<filterCategories, filterTypes> = {
@@ -29,6 +31,9 @@ export class Filter {
   } as const;
   static readonly cursor: string = "filter_cursor" as const;
 
+  /**
+   * Abbreviate a filter key
+   */
   static abbreviate( //client -> server
     nonAbbreviated: nonAbbreviatedFilterKey,
   ): abbreviatedFilterKey;
@@ -43,6 +48,9 @@ export class Filter {
     }
     return `${this.keys[filter as filterCategories]}-${value}`;
   }
+  /**
+   * Expand an abbreviated filter key
+   */
   static expandAbbreviate(
     abbreviated: abbreviatedFilterKey,
   ): [filterCategories, string] {
@@ -54,10 +62,16 @@ export class Filter {
       value,
     ];
   }
+  /**
+   * simple parser for the cursor
+   */
   static fromCursor(cursor: string): filteredData {
     return JSON.parse(cursor) as filteredData;
   }
 
+  /**
+   * Convert a filteredData array to a cursor string
+   */
   static toCursor<P extends Partial<filterCategories>>(
     data: Pick<filterDataParams, P | "name">[],
     filter?: P[],
