@@ -14,22 +14,23 @@ export function Header() {
 
   const buttons = routes.map((buttonRoute, index) => {
     return (
-      <NavLink
-        className={"group"}
-        draggable={false}
-        key={buttonRoute}
-        to={realRoutes[index]}
+      <Button
+        className={" transition-all focus:border-0"}
+        size={"nav"}
+        variant={"ghost"}
+        asChild
       >
-        <Button
+        <NavLink
           className={
-            " group-[.active]:border group-[.active]:border-sgrey-15 group-[.active]:bg-sgrey-8 group-[.active]:hover:bg-sgrey-8/60 "
+            " border-sgrey-15 group aria-[current]:border aria-[current]:bg-sgrey-8 aria-[current]:hover:bg-sgrey-8/60"
           }
-          size={"nav"}
-          variant={"ghost"}
+          draggable={false}
+          key={buttonRoute}
+          to={realRoutes[index]}
         >
           {buttonRoute}
-        </Button>
-      </NavLink>
+        </NavLink>
+      </Button>
     );
   });
 
@@ -60,6 +61,7 @@ export function Header() {
                 size={"sm"}
                 variant={"permlink"}
                 className={"text-xs sm:pl-2 md:text-lg"}
+                asChild
               >
                 Learn More
               </Button>
@@ -73,6 +75,7 @@ export function Header() {
                 onClick={() => {
                   toggle(!opened);
                 }}
+                aria-label={"Close Banner"}
               >
                 <XMarkIcon className={"size-2/3"} />
               </Button>
@@ -106,16 +109,15 @@ export function Header() {
         </div>
         <MobileHeader className={"basis-1/12"} />
         <div className={" hidden basis-1/4 laptop:flex"}>
-          <NavLink className={"group"} to="/contact">
-            <Button
-              variant={"active"}
-              className={
-                "h-14 group-[.active]:hover:bg-pprimary-60/90 group-[.active]:bg-pprimary-60 group-[.active]:shadow-sm"
-              }
-            >
-              Contact Us
-            </Button>
-          </NavLink>
+          <Button
+            variant={"active"}
+            className={
+              "h-14 aria-[current]:hover:bg-pprimary-60/90 aria-[current]:bg-pprimary-60 aria-[current]:shadow-sm"
+            }
+            asChild
+          >
+            <NavLink to="/contact">Contact Us</NavLink>
+          </Button>
         </div>
       </div>
       <Separator />
@@ -133,8 +135,9 @@ const MobileHeader = React.forwardRef<
         size={"icon"}
         variant={"ghost"}
         className={"size-full justify-end"}
+        aria-label={"Open Navigation"}
       >
-        <img alt={"navigation Button"} src={burgerIcon} />
+        <img alt={"navigation Icon"} src={burgerIcon} />
       </Button>
     </div>
   );
