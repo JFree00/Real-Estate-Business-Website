@@ -25,6 +25,7 @@ export function ClientsCard({ data }: Props) {
           <p className={"text-sgrey-60"}>Since {data?.startYear}</p>
           <p className={"pb-4 text-xl font-semibold"}>{data?.name}</p>
           <Button
+            disabled
             className={" h-14 bg-sgrey-10 laptop:absolute laptop:right-0"}
           >
             Visit Website

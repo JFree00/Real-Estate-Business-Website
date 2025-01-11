@@ -219,6 +219,7 @@ export default function Index() {
           rows={3}
           displayAmount={3}
           data={properties}
+          linkTo={"/properties"}
         >
           <SectionHeader>Featured Properties</SectionHeader>
           <SectionDescription>
@@ -236,6 +237,7 @@ export default function Index() {
           rows={2}
           displayAmount={3}
           data={testimonials}
+          disabled
         >
           <SectionHeader>What Our Clients Say</SectionHeader>
           <SectionDescription>
@@ -253,6 +255,7 @@ export default function Index() {
           buttonText={"View All FAQ’s"}
           displayAmount={3}
           data={faqCards}
+          disabled
         >
           <SectionHeader>Frequently Asked Questions</SectionHeader>
           <SectionDescription>

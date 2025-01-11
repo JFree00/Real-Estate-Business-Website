@@ -8,6 +8,7 @@ import { DataContext, PaginationContext } from "@/context/paginationContext";
 import { namedUnknown } from "../../../KV/filter";
 import { Property } from "../../../KV/propertyTypings";
 import { Testimonial } from "../../../KV/testimonials";
+import { Link } from "react-router";
 
 export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: React.ReactNode;
@@ -22,6 +23,8 @@ export type designationProps = React.HTMLAttributes<HTMLDivElement> & {
         length: number;
       }
     | namedUnknown[];
+  disabled?: boolean;
+  linkTo?: string;
 };
 
 export function SectionDesignation({
@@ -31,6 +34,8 @@ export function SectionDesignation({
   displayAmount = 1,
   pagination = true,
   data,
+  disabled,
+  linkTo,
 }: designationProps) {
   const [currentPage, setCurrentPage] = React.useState(1);
   return (
@@ -50,8 +55,10 @@ export function SectionDesignation({
           className={
             " absolute right-0 top-20 hidden bg-sgrey-10 py-8 font-medium laptop:flex"
           }
+          disabled={disabled}
+          asChild={!!linkTo}
         >
-          {buttonText}
+          {linkTo ? <Link to={linkTo}>{buttonText}</Link> : buttonText}
         </Button>
       )}
       {data ? (

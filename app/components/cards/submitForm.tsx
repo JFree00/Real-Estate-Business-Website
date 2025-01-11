@@ -115,6 +115,7 @@ export function SubmitForm({ inputData, children, className }: props) {
             size={"responsive"}
             variant={"primary"}
             className={"mt-4 laptop:h-14"}
+            disabled
           >
             <span>Send Your Message</span>
           </Button>

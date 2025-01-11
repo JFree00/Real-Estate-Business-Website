@@ -534,7 +534,9 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                     className={"flex items-center justify-between"}
                   >
                     <h2>Additional Fees</h2>
-                    <Button className={" bg-sgrey-10"}>Learn More</Button>
+                    <Button disabled className={" bg-sgrey-10"}>
+                      Learn More
+                    </Button>
                   </SectionCards.Header.Title>
                 </SectionCards.Header>
                 <DataComponent
@@ -577,7 +579,9 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                     className={"flex items-center justify-between"}
                   >
                     <h2>Monthly Costs</h2>
-                    <Button className={" bg-sgrey-10"}>Learn More</Button>
+                    <Button disabled className={" bg-sgrey-10"}>
+                      Learn More
+                    </Button>
                   </SectionCards.Header.Title>
                 </SectionCards.Header>
                 <DataComponent
@@ -601,7 +605,9 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                     className={"flex items-center justify-between"}
                   >
                     <h2>Total Initial Costs</h2>
-                    <Button className={"bg-sgrey-10"}>Learn More</Button>
+                    <Button disabled className={"bg-sgrey-10"}>
+                      Learn More
+                    </Button>
                   </SectionCards.Header.Title>
                 </SectionCards.Header>
                 <DataComponent
@@ -636,7 +642,9 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                     className={"flex items-center justify-between"}
                   >
                     <h2>Monthly Expenses</h2>
-                    <Button className={"bg-sgrey-10"}>Learn More</Button>
+                    <Button disabled className={"bg-sgrey-10"}>
+                      Learn More
+                    </Button>
                   </SectionCards.Header.Title>
                 </SectionCards.Header>
                 <DataComponent
@@ -667,6 +675,7 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
           rows={3}
           buttonText={"View All FAQ’s"}
           displayAmount={3}
+          disabled
           data={faqCards}
         >
           <SectionHeader>Frequently Asked Questions</SectionHeader>
