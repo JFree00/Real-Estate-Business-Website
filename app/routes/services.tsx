@@ -168,7 +168,11 @@ export default function Services() {
           className={"m-0 rounded-none"}
           gap={""}
         />
-        <SectionDesignation pagination={false} data={servicesData}>
+        <SectionDesignation
+          id={"unlock-value"}
+          pagination={false}
+          data={servicesData}
+        >
           <SectionHeader>Unlock Property Value</SectionHeader>
           <SectionDescription className={"laptop:hidden"}>
             Selling your property should be a rewarding experience, and at
@@ -229,7 +233,11 @@ export default function Services() {
             </NewComponent>
           </SectionContent>
         </SectionDesignation>
-        <SectionDesignation pagination={false} data={data2}>
+        <SectionDesignation
+          id={"property-management"}
+          pagination={false}
+          data={data2}
+        >
           <SectionHeader>Effortless Property Management</SectionHeader>
           <SectionDescription className={"laptop:hidden"}>
             Owning a property should be a pleasure, not a hassle. Estatein's
@@ -296,6 +304,7 @@ export default function Services() {
           pagination={false}
           data={data3}
           className={" laptop:gap-12 "}
+          id={"smart-investments"}
         >
           <div
             className={

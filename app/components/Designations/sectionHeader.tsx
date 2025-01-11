@@ -20,9 +20,9 @@ export function SectionHeader({ children, className, icon = true }: Props) {
     >
       {icon && <SparklesIcon className={"  mb-4  size-6 font-medium"} />}
 
-      <p className={cn(`font-semibold text-balance h-fit title`, className)}>
+      <h2 className={cn(`font-semibold text-balance h-fit title`, className)}>
         {children}
-      </p>
+      </h2>
     </div>
   );
 }

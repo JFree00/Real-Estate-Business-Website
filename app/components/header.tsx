@@ -63,7 +63,7 @@ export function Header() {
                 className={"text-xs sm:pl-2 md:text-lg"}
                 asChild
               >
-                Learn More
+                <Link to={"/about-us"}>Learn More</Link>
               </Button>
             </div>
             <div

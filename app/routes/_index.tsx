@@ -1,5 +1,4 @@
-import { title } from "@/config.shared";
-import { LinksFunction, MetaFunction } from "react-router";
+import { Link, LinksFunction, MetaFunction } from "react-router";
 import homeBuildings from "@/assets/homeBuildings.webp";
 import { Button } from "@/components/ui/button";
 import {
@@ -75,8 +74,10 @@ export type loaderData = typeof loader;
 
 export const meta: MetaFunction = () => {
   return [
-    { title: title() },
-    { name: "description", content: "Welcome to Remix!" },
+    {
+      name: "description",
+      content: "Discover Your Dream Property with Estatein",
+    },
   ];
 };
 export default function Index() {
@@ -95,23 +96,23 @@ export default function Index() {
             }
           >
             <div className={"col-span-full h-1/4 text-balance font-semibold"}>
-              <p
+              <h1
                 className={
                   "text-3xl tablet:text-6xl laptop:text-5xl desktop:text-6xl"
                 }
                 style={{ lineHeight: "1.2" }}
               >
                 Discover Your Dream Property with Estatein
-              </p>
+              </h1>
             </div>
-            <h5
+            <h2
               className={
                 "col-span-full -mt-5 self-center text-lg text-sgrey-60"
               }
             >
               Your journey to finding the perfect property begins here. Explore
               our listings to find the home that matches your dreams.
-            </h5>
+            </h2>
             <div className={"col-span-6 h-full"}>
               <div className={"flex flex-wrap items-center gap-3"}>
                 <div
@@ -122,7 +123,7 @@ export default function Index() {
                     size={"responsive"}
                     className={"laptop:h-16 laptop:px-6"}
                   >
-                    Learn More
+                    <Link to={"/about-us"}>Learn More</Link>
                   </Button>
                 </div>
                 <div className={"grow "}>
@@ -131,7 +132,7 @@ export default function Index() {
                     size={"responsive"}
                     className={"bg-pprimary-60 laptop:h-16 laptop:px-6"}
                   >
-                    Browse Properties
+                    <Link to={"/properties"}>Browse Properties</Link>
                   </Button>
                 </div>
               </div>

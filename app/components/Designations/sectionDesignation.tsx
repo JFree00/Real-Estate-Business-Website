@@ -36,6 +36,7 @@ export function SectionDesignation({
   data,
   disabled,
   linkTo,
+  ...props
 }: designationProps) {
   const [currentPage, setCurrentPage] = React.useState(1);
   return (
@@ -44,10 +45,7 @@ export function SectionDesignation({
         "offset relative pt-20 grid col-span-full grid-cols-6 laptop:grid-cols-12",
         className,
       )}
-      // style={{
-      //   gridRow: `span ${rows} / span ${rows}`,
-      //   gridColumn: ` 1 / span ${columns}`,
-      // }}
+      {...props}
     >
       {buttonText && (
         <Button

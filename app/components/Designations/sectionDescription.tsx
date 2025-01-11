@@ -9,13 +9,13 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 
 export function SectionDescription({ children, className }: Props) {
   return (
-    <h5
+    <h3
       className={cn(
         `text-sgrey-60 text-sm 2xl:text-lg pt-4 w-full col-span-full laptop:col-span-10`,
         className,
       )}
     >
       {children}
-    </h5>
+    </h3>
   );
 }

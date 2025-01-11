@@ -21,19 +21,21 @@ const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn(" space-y-1.5", className)} {...props} />
+  <header ref={ref} className={cn(" space-y-1.5", className)} {...props} />
 ));
 CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
+>(({ className, children, ...props }, ref) => (
+  <h4
     ref={ref}
     className={cn("font-bold leading-none tracking-tight title", className)}
     {...props}
-  />
+  >
+    {children}
+  </h4>
 ));
 CardTitle.displayName = "CardTitle";
 

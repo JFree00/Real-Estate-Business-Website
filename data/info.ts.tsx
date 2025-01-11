@@ -10,17 +10,25 @@ export const indexInfoCard: infoCardProps[] = [
   {
     text: "Find Your Dream Home",
     icon: <BuildingStorefrontIcon />,
+    id: "find-home",
+    path: "/properties",
   },
   {
     text: "Unlock Property Value",
     icon: <BanknotesIcon />,
+    id: "unlock-value",
+    path: "/services",
   },
   {
     text: "Effortless Property Management",
     icon: <BuildingOffice2Icon />,
+    id: "property-management",
+    path: "/services",
   },
   {
     text: "Smart Investments, Informed Decisions",
     icon: <SunIcon />,
+    id: "smart-investments",
+    path: "/services",
   },
 ];

@@ -3,13 +3,14 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { cn } from "@/lib/styles";
+import { Link } from "react-router";
 
 export type infoCardProps = React.HTMLAttributes<HTMLDivElement> & {
   text: string;
   icon: React.ReactNode;
+  path?: string;
 };
 type InfoCardAreaProps = React.HTMLAttributes<HTMLDivElement> & {
-  children?: React.ReactNode;
   cardData?: infoCardProps[];
   gap?: string;
 };
@@ -19,9 +20,11 @@ function InfoCardArea({
   cardData = [],
   className,
   gap,
+  ...props
 }: InfoCardAreaProps) {
+  console.log(cardData);
   const cards = cardData?.map((data) => {
-    return <InfoCards key={data.text} text={data.text} icon={data.icon} />;
+    return <InfoCards {...data} {...props} />;
   });
   return (
     <div
@@ -43,20 +46,24 @@ function InfoCardArea({
   );
 }
 
-function InfoCards({ text, icon, className }: infoCardProps) {
+function InfoCards({ text, icon, className, id, path }: infoCardProps) {
   return (
     <div
       className={cn(
         "  tablet:shrink h-full tablet:h-full bg-sgrey-10 border-sgrey-15 border px-2 tablet:py-4 rounded-xl relative",
         className,
       )}
+      id={"#"}
     >
       <Button
         size={"icon"}
         variant={"ghost"}
         className={"absolute right-2 top-2 text-sgrey-30"}
+        asChild
       >
-        <ArrowUpRightIcon />
+        <Link to={`${path ?? ""}#${id ?? ""}`}>
+          <ArrowUpRightIcon />
+        </Link>
       </Button>
       <div
         className={
