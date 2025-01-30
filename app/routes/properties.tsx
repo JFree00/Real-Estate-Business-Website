@@ -2,19 +2,30 @@
 import * as React from "react";
 import { Outlet, useLoaderData } from "react-router";
 import { Filter } from "../../data/filter";
-import { defaultProperties } from "../../data/properties";
 import { Route } from "./+types/properties";
+import { Property } from "../../data/propertyTypings";
 
 export const loader = async ({ context }: Route.LoaderArgs) => {
-  const { metadata } = context.env;
+  const { metadata, properties } = context.env;
 
   const getCursor = async (cursorName = Filter.cursor) => {
     const existing = await metadata.get(cursorName);
     if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
       console.warn("Cursor is either stale or invalid, creating new cursor");
-      const newcursor = Filter.toCursor(
-        defaultProperties.map((p) => p.metadata),
+      const propertieslist = await properties.list();
+      const propertiesfromKV = await Promise.all(
+        propertieslist.keys.map(async (key) => {
+          try {
+            const value = properties.get(key.name) as Promise<string>;
+            return (JSON.parse(await value) as Property).metadata;
+          } catch (error) {
+            console.error(`Failed to process property ${key.name}:`, error);
+            return null;
+          }
+        }),
       );
+      const results = propertiesfromKV.filter((p) => p !== null);
+      const newcursor = Filter.toCursor(results);
       await metadata.put(cursorName, JSON.stringify(newcursor));
       return newcursor;
     }
