@@ -16,8 +16,11 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
       const propertiesfromKV = await Promise.all(
         propertieslist.keys.map(async (key) => {
           try {
-            const value = properties.get(key.name) as Promise<string>;
-            return (JSON.parse(await value) as Property).metadata;
+            const value = (await properties.get(key.name))!;
+            const propertyMetadata = JSON.parse(value) as Property;
+            propertyMetadata.metadata.name =
+              propertyMetadata.metadata.name ?? value; //fail-safe
+            return propertyMetadata.metadata;
           } catch (error) {
             console.error(`Failed to process property ${key.name}:`, error);
             return null;
