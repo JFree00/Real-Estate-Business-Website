@@ -7,6 +7,11 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import burgerIcon from "@/assets/icons/burger.svg";
 import { cn } from "@/lib/styles";
 import { Separator } from "@/components/ui/separator";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 const routes = ["Home", "About Us", "Properties", "Services"];
 const realRoutes = ["", "about-us", "properties", "services"];
 export function Header() {
@@ -15,7 +20,7 @@ export function Header() {
   const buttons = routes.map((buttonRoute, index) => {
     return (
       <Button
-          key={index}
+        key={index}
         className={" transition-all focus:border-0"}
         size={"nav"}
         variant={"ghost"}
@@ -23,7 +28,7 @@ export function Header() {
       >
         <NavLink
           className={
-            " border-sgrey-15 group aria-[current]:border aria-[current]:bg-sgrey-8 aria-[current]:hover:bg-sgrey-8/60"
+            "rounded-none laptop:rounded-lg border-sgrey-15 group aria-[current]:border aria-[current]:bg-sgrey-8 aria-[current]:hover:bg-sgrey-8/60"
           }
           draggable={false}
           key={buttonRoute}
@@ -108,7 +113,7 @@ export function Header() {
         >
           {buttons}
         </div>
-        <MobileHeader className={"basis-1/12"} />
+        <MobileHeader className={"basis-1/12"}>{buttons}</MobileHeader>
         <div className={" hidden basis-1/4 laptop:flex"}>
           <Button
             variant={"active"}
@@ -126,20 +131,31 @@ export function Header() {
   );
 }
 
-const MobileHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className }, ref) => {
+const MobileHeader = ({
+  className,
+  children,
+}: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div ref={ref} className={cn("lg:hidden", className)}>
-      <Button
-        size={"icon"}
-        variant={"ghost"}
-        className={"size-full justify-end"}
-        aria-label={"Open Navigation"}
-      >
-        <img alt={"navigation Icon"} src={burgerIcon} />
-      </Button>
+    <div className={cn("lg:hidden", className)}>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            size={"icon"}
+            variant={"ghost"}
+            className={"size-full justify-end"}
+            aria-label={"Open Navigation"}
+          >
+            <img alt={"navigation Icon"} src={burgerIcon} />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className={"p-0"} asChild>
+          <div
+            className={" bg-sgrey-10 flex flex-col max-w-[40vw] p-0 border-x-0"}
+          >
+            {children}
+          </div>
+        </PopoverContent>
+      </Popover>
     </div>
   );
-});
+};
