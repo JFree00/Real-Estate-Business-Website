@@ -288,7 +288,7 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                       alt={""}
                       src={`../assets/${images[selectedImage + 1] ?? images[0]}`}
                       onError={(e) => {
-                        console.log("errror");
+                        console.error("couldnt load image");
                         e.currentTarget.onerror = null;
                       }}
                       className={" aspect-[3/2] rounded-xl"}
