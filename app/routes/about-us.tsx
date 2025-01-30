@@ -103,7 +103,7 @@ export default function AboutUs() {
           pagination={false}
           className={"gap-x-20"}
         >
-          <div className={"col-span-5 content-center"}>
+          <div className={"col-span-full laptop:col-span-5 content-center"}>
             <SectionHeader>Our Values</SectionHeader>
             <SectionDescription className={"tablet:w-full"}>
               Our story is one of continuous growth and evolution. We started as
@@ -113,7 +113,7 @@ export default function AboutUs() {
           </div>
           <SectionContent
             iterate={false}
-            className={"col-start-6 overflow-visible  "}
+            className={"laptop:col-start-6 overflow-visible  "}
           >
             <GroupedCard />
           </SectionContent>
