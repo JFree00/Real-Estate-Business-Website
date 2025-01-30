@@ -112,7 +112,7 @@ export const loader = async ({ context, request }: Route.LoaderArgs) => {
             const value = (await properties.get(key.name))!;
             const propertyMetadata = JSON.parse(value) as Property;
             propertyMetadata.metadata.name =
-              propertyMetadata.metadata.name ?? value; //fail-safe
+              propertyMetadata.metadata.name ?? propertyMetadata.name; //fail-safe
             return propertyMetadata.metadata;
           } catch (error) {
             console.error(`Failed to process property ${key.name}:`, error);
