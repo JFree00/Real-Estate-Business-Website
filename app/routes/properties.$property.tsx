@@ -1,12 +1,7 @@
 // @flow
 import * as React from "react";
 import { Route } from "./+types/properties.$property";
-import {
-  Await,
-  isRouteErrorResponse,
-  Link,
-  useRouteError,
-} from "react-router";
+import { Await, isRouteErrorResponse, Link, useRouteError } from "react-router";
 import { SectionDesignation } from "@/components/Designations/sectionDesignation";
 import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";

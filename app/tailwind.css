@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'urbanist';
-  src: url('./assets/fonts/Urbanist-VariableFont_wght.ttf');
+  font-family: "urbanist";
+  src: url("./assets/fonts/Urbanist-VariableFont_wght.ttf");
   font-display: swap;
 }
 
@@ -29,13 +29,12 @@ body::-webkit-scrollbar {
     @apply px-4 tablet:px-20 desktop:pl-40;
   }
   .title {
-    @apply text-2xl laptop:text-3xl desktop:text-5xl
+    @apply text-2xl laptop:text-3xl desktop:text-5xl;
   }
   .dataCardComponent {
-    @apply  p-6 tablet:p-10 laptop:p-8 desktop:p-12
+    @apply p-6 tablet:p-10 laptop:p-8 desktop:p-12;
   }
   .dataCard {
-    @apply basis-full shrink-0 laptop:shrink
+    @apply basis-full shrink-0 laptop:shrink;
   }
-
 }
