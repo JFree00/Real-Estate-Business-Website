@@ -12,7 +12,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { FilterInput } from "@/components/filterInput";
 import { useLoaderData, useOutletContext, useSearchParams } from "react-router";
-import { defaultProperties } from "../../data/properties";
 import {
   abbreviatedFilterKey,
   Filter,
@@ -106,9 +105,20 @@ export const loader = async ({ context, request }: Route.LoaderArgs) => {
     const existing = await metadata.get(cursorName);
     if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
       console.warn("Cursor is either stale or invalid, creating new cursor");
-      const newcursor = Filter.toCursor(
-        defaultProperties.map((p) => p.metadata),
+      const propertieslist = await properties.list();
+      const propertiesfromKV = await Promise.all(
+        propertieslist.keys.map(async (key) => {
+          try {
+            const value = properties.get(key.name) as Promise<string>;
+            return (JSON.parse(await value) as Property).metadata;
+          } catch (error) {
+            console.error(`Failed to process property ${key.name}:`, error);
+            return null;
+          }
+        }),
       );
+      const results = propertiesfromKV.filter((p) => p !== null);
+      const newcursor = Filter.toCursor(results);
       await metadata.put(cursorName, JSON.stringify(newcursor));
       return newcursor;
     }

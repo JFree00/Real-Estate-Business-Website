@@ -82,21 +82,15 @@ export const defaultProperties: Property[] = [
       "Enjoy the best of city living with the Metropolitan Haven. This chic and fully-furnished 2-bedroom apartment offers panoramic city views, a spacious open-concept layout, and a prime location in the heart of the city.",
     features: [
       {
-        description: "2 bedrooms",
-        type: "amenity",
+        description: "Floor-to-ceiling windows with panoramic views",
+        type: "luxury",
       },
       {
-        description: "2 bathrooms",
-        type: "amenity",
+        description: "Modern open-concept living space",
+        type: "luxury",
       },
-      {
-        description: "1500 sq ft",
-        type: "amenity",
-      },
-      {
-        description: "Built in 2015",
-        type: "location",
-      },
+      { description: "24/7 security and access control", type: "security" },
+      { description: "High-speed fiber optic connectivity", type: "amenity" },
     ],
     previewImages: "Metropolitan Haven",
     metadata: {
