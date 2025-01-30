@@ -17,7 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 interface props {
   data?: Property;
 }
-
+//679b50f5000c9b6e186f
 export function PropertiesCard({ data }: props) {
   const promiseValue = useAsyncValue() as Property | undefined;
   data = data ?? promiseValue;
@@ -28,7 +28,11 @@ export function PropertiesCard({ data }: props) {
           <img
             alt={data.name + " Property"}
             className={"aspect-[3/2]"}
-            src={data.metadata.image}
+            src={
+              import.meta.env.DEV
+                ? data.metadata.image
+                : `../assets/${data.metadata.image}?size=medium`
+            }
           />
         ) : (
           <Skeleton variant={"image"} />
