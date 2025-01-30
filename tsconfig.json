@@ -1,6 +1,6 @@
 {
   "exclude": ["node_modules", "/cloudflare/**/*"],
-  "include": ["**/*.ts", "**/*.tsx", "*.config.js", "server.js", ".react-router/types/**/*", "*.env", "*.config.mjs"],
+  "include": ["**/*.ts", "**/*.tsx", "*.config.js", ".react-router/types/**/*", "*.env", "*.config.mjs"],
   "compilerOptions": {
     "rootDirs": [".", "./.react-router/types"],
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
