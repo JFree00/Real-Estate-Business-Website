@@ -11,6 +11,7 @@ export interface sectionCardProps extends namedUnknown {
   name: string;
   description: string | boolean;
   buttonText?: string | boolean;
+  disabled?: boolean;
   icon?: React.ReactElement;
 }
 const SectionData = createContext({} as sectionCardProps);
@@ -42,6 +43,7 @@ function SectionCardContent({
           size={"responsive"}
           variant={variant ?? "secondary"}
           className={"mt-5  text-lg desktop:h-[60px]"}
+          disabled={cardData?.disabled}
         >
           {typeof buttonText === "boolean"
             ? "Learn More"
