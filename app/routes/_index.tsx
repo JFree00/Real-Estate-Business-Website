@@ -1,4 +1,4 @@
-import { Link, LinksFunction, MetaFunction } from "react-router";
+import { Link, LinksFunction, MetaFunction, useLoaderData } from "react-router";
 import homeBuildings from "@/assets/homeBuildings.webp";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +17,6 @@ import { SectionDescription } from "@/components/Designations/sectionDescription
 import { SectionContent } from "@/components/Designations/sectionContent";
 import { PropertiesCard } from "@/components/cards/propertiesCard";
 import { TestimonialCards } from "@/components/cards/testimonialCards";
-import { useLoaderData } from "react-router";
 import { defaultProperties } from "../../data/properties";
 import { defaultTestimonials, Testimonial } from "../../data/testimonials";
 import { SectionCards } from "@/components/cards/sectionCards";
@@ -57,9 +56,26 @@ function getInitialKeys(
   });
   return { items: keys, length: keys.length };
 }
-export function loader({ context }: Route.LoaderArgs) {
+export async function loader({ context }: Route.LoaderArgs) {
   const env = context.env;
-  const properties = getInitialKeys(env.properties, defaultProperties);
+  let props;
+  try {
+    const listed = await env.properties.list({ limit: 15 });
+    props = listed.keys.map((property) => {
+      return property.metadata
+        ? (Promise.resolve(property) as Promise<Property>)
+        : env.properties.get(property.name).then((data) => {
+            const prop = JSON.parse(data!) as Property;
+            prop.metadata.name = prop.metadata.name ?? property.name;
+            return prop;
+          });
+    });
+  } catch (e) {
+    console.error(e);
+  }
+  const properties = props
+    ? { items: props, length: props.length }
+    : getInitialKeys(env.properties, defaultProperties);
   const testimonials = getInitialKeys(
     env.testimonials,
     defaultTestimonials.map((item) => ({ metadata: item })),

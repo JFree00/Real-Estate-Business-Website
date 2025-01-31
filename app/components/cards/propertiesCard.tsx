@@ -26,7 +26,7 @@ export function PropertiesCard({ data }: props) {
       <SectionCards.Header className={"row-span-1"}>
         {data ? (
           <img
-            alt={data.name + " Property"}
+            alt={data.metadata.name + " Property"}
             className={"aspect-[3/2]"}
             src={
               import.meta.env.DEV
@@ -38,7 +38,7 @@ export function PropertiesCard({ data }: props) {
           <Skeleton variant={"image"} />
         )}
         <SectionCardTitle className={"pt-4 text-2xl font-semibold"}>
-          {data?.name ?? <Skeleton className={""} variant={"title"} />}
+          {data?.metadata.name ?? <Skeleton className={""} variant={"title"} />}
         </SectionCardTitle>
         <SectionCardDescription className={"text-sgrey-60"}>
           {data ? (
@@ -89,7 +89,7 @@ export function PropertiesCard({ data }: props) {
             {data ? (
               <>{data?.metadata.property_type}</>
             ) : (
-              <Skeleton variant={"badge"} className={"min-w-[3rem]"} />
+              <Skeleton variant={"badge"} className={"min-w-12"} />
             )}
           </Badge>
         </div>
@@ -108,7 +108,10 @@ export function PropertiesCard({ data }: props) {
               size={"responsive"}
               variant={"primary"}
             >
-              <Link prefetch={"viewport"} to={`/properties/${data?.name}`}>
+              <Link
+                prefetch={"viewport"}
+                to={`/properties/${data?.metadata.name}`}
+              >
                 View Property Details
               </Link>
             </Button>
