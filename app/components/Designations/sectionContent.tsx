@@ -88,10 +88,6 @@ const childrenToDisplay = (
             );
           }
         })}
-
-      {Array.from({ length: fillerCards }).map((_, i) => {
-        return <div className={"dataCard invisible"} key={i}></div>;
-      })}
     </>
   );
 };

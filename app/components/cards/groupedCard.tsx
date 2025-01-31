@@ -12,7 +12,7 @@ export function GroupedCard() {
   return (
     <div
       className={
-        "col-span-full rounded-xl border border-sgrey-15 outline outline-[6px] outline-sgrey-10"
+        "col-span-full rounded-xl border border-sgrey-15 outline outline-[0.375rem] outline-sgrey-10"
       }
     >
       <div

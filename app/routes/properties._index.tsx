@@ -11,7 +11,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { Separator } from "@/components/ui/separator";
 import { FilterInput } from "@/components/filterInput";
-import { useLoaderData, useOutletContext, useSearchParams } from "react-router";
+import {
+  Link,
+  useLoaderData,
+  useOutletContext,
+  useSearchParams,
+} from "react-router";
 import {
   abbreviatedFilterKey,
   Filter,
@@ -33,6 +38,7 @@ import { Label } from "@/components/ui/label";
 import { IconInput } from "@/components/iconInput";
 import { Route } from "./+types/properties._index";
 import { Property } from "../../data/propertyTypings";
+import { useState } from "react";
 
 const inputs: submitInfoProps[] = [
   {
@@ -149,6 +155,47 @@ export const loader = async ({ context, request }: Route.LoaderArgs) => {
     properties: { items: data(), length: cursor.length },
   };
 };
+
+function SearchBar() {
+  const [ref, setref] = useState<string>("");
+  return (
+    <div
+      className={
+        "flex size-16 w-full rounded-xl border border-sgrey-15 bg-sgrey-8 p-2 outline outline-sgrey-10 laptop:h-20 laptop:w-4/5 laptop:p-4 laptop:outline-8 desktop:h-[100px]  desktop:p-5"
+      }
+    >
+      <input
+        className={
+          "ml-2 basis-full  rounded-xl bg-transparent placeholder:text-sgrey-40 focus:outline-0  desktop:text-2xl"
+        }
+        placeholder={"Search For A Property"}
+        onChange={(e) => setref(e.target.value)}
+        value={ref}
+      />
+
+      <Button
+        size={"default"}
+        variant={"primary"}
+        className={"  hidden gap-x-2 laptop:flex laptop:h-full laptop:shrink-0"}
+      >
+        <Link className={"contents"} discover={"none"} to={`./${ref}`}>
+          <MagnifyingGlassIcon className={"size-2/3"} />
+          <p>Find Property</p>
+        </Link>
+      </Button>
+      <Button
+        size={"default"}
+        variant={"primary"}
+        className={"  gap-x-2 laptop:hidden laptop:h-full  laptop:shrink-0"}
+      >
+        <Link discover={"none"} className={"contents"} to={`./${ref}`}>
+          <MagnifyingGlassIcon className={"size-full"} />
+        </Link>
+      </Button>
+    </div>
+  );
+}
+
 export default function PropertiesIndex() {
   const filters = useOutletContext<rawFilterCursor>();
   const { properties } = useLoaderData<typeof loader>();
@@ -163,7 +210,7 @@ export default function PropertiesIndex() {
         >
           <SectionDesignation
             pagination={false}
-            className={"desktop:h-[370px]"}
+            className={"desktop:h-[23rem]"}
           >
             <div
               className={
@@ -173,12 +220,20 @@ export default function PropertiesIndex() {
               <SectionHeader icon={false}>
                 Find Your Dream Property
               </SectionHeader>
-              <SectionDescription className={"mb-14"}>
+              <SectionDescription className={"mb-14 hidden laptop:block"}>
                 Welcome to Estatein, where your dream property awaits in every
                 corner of our beautiful world. Explore our curated selection of
                 properties, each offering a unique story and a chance to
                 redefine your life. With categories to suit every dreamer, your
-                journey
+                journey to finding the perfect property begins here. Let us
+                guide you through an exceptional selection of estates and
+                lifestyle opportunities that match your unique vision.
+              </SectionDescription>
+              <SectionDescription className={"mb-14 laptop:hidden"}>
+                Welcome to Estatein, where your dream property awaits in every
+                corner of our beautiful world. Explore our curated selection of
+                properties, each offering a unique story and a chance to
+                redefine your life.
               </SectionDescription>
             </div>
           </SectionDesignation>
@@ -190,37 +245,7 @@ export default function PropertiesIndex() {
         >
           <SectionContent className={"  bottom-0 shrink-0 overflow-visible"}>
             <div className={"flex w-full basis-full flex-wrap justify-center"}>
-              <div
-                className={
-                  "flex size-16 w-full rounded-xl border border-sgrey-15 bg-sgrey-8 p-2 outline outline-sgrey-10 laptop:h-20 laptop:w-4/5 laptop:p-4 laptop:outline-8 desktop:h-[100px]  desktop:p-5"
-                }
-              >
-                <input
-                  className={
-                    "ml-2 basis-full  rounded-xl bg-transparent placeholder:text-sgrey-40 focus:outline-0  desktop:text-2xl"
-                  }
-                  placeholder={"Search For A Property"}
-                />
-                <Button
-                  size={"default"}
-                  variant={"primary"}
-                  className={
-                    "  hidden gap-x-2 laptop:flex laptop:h-full laptop:shrink-0"
-                  }
-                >
-                  <MagnifyingGlassIcon className={"size-2/3"} />
-                  <p>Find Property</p>
-                </Button>
-                <Button
-                  size={"default"}
-                  variant={"primary"}
-                  className={
-                    "  gap-x-2 laptop:hidden laptop:h-full  laptop:shrink-0"
-                  }
-                >
-                  <MagnifyingGlassIcon className={"size-full"} />
-                </Button>
-              </div>
+              <SearchBar />
               <div
                 className={
                   "mt-5 flex w-full basis-full flex-col gap-5  rounded-xl bg-sgrey-10 p-5 laptop:mt-0 laptop:flex-row laptop:p-2.5"

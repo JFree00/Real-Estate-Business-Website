@@ -80,9 +80,7 @@ function SectionCardHeader({ data, className, children }: Props) {
   const cardData = data ?? sectionData;
   return (
     <CardHeader className={cn("flex flex-col justify-between", className)}>
-      {children ? (
-        children
-      ) : (
+      {children ?? (
         <>
           <SectionCardTitle data={cardData} />
           <SectionCardDescription data={cardData} />

@@ -27,7 +27,7 @@ export function PropertiesCard({ data }: props) {
         {data ? (
           <img
             alt={data.metadata.name + " Property"}
-            className={"aspect-[3/2]"}
+            className={"aspect-[3/2] rounded-lg"}
             src={
               import.meta.env.DEV
                 ? data.metadata.image
@@ -43,8 +43,11 @@ export function PropertiesCard({ data }: props) {
         <SectionCardDescription className={"text-sgrey-60"}>
           {data ? (
             <>
-              {data?.metadata.description}
-              <a href={"/"} className={"ml-1 text-white underline"}>
+              {data?.metadata.description}...
+              <a
+                href={`/properties/${data?.metadata.name}`}
+                className={"ml-1 text-white underline"}
+              >
                 Read More
               </a>
             </>

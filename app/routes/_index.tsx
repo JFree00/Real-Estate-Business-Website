@@ -155,35 +155,39 @@ export default function Index() {
             </div>
             <div
               className={
-                "col-span-full flex flex-wrap gap-y-4 text-center laptop:text-left"
+                "col-span-full grid grid-cols-2 laptop:grid-cols-3  gap-y-4 text-center laptop:text-left"
               }
             >
               <div className={"basis-1/2 px-2 laptop:basis-1/3"}>
-                <Card className={"  h-fit p-4 pb-0"}>
+                <Card className={"  p-4"}>
                   <CardHeader>
                     <CardTitle className={"text-4xl"}>200+</CardTitle>
                   </CardHeader>
-                  <CardFooter className={"min-h-14"}>
+                  <CardFooter className={""}>
                     <CardDescription>Happy Customers</CardDescription>
                   </CardFooter>
                 </Card>
               </div>
               <div className={"basis-1/2  px-2 laptop:basis-1/3"}>
-                <Card className={" h-fit p-4 pb-0"}>
+                <Card className={"p-4"}>
                   <CardHeader>
                     <CardTitle className={"text-4xl"}>10k+</CardTitle>
                   </CardHeader>
-                  <CardFooter className={"min-h-14"}>
+                  <CardFooter className={""}>
                     <CardDescription>Properties For Clients</CardDescription>
                   </CardFooter>
                 </Card>
               </div>
-              <div className={"grow px-2 laptop:grow-0 laptop:basis-1/3"}>
-                <Card className={" h-fit p-4 pb-0"}>
+              <div
+                className={
+                  "grow px-2 laptop:grow-0 laptop:basis-1/3 col-span-full laptop:col-span-1"
+                }
+              >
+                <Card className={" p-4 "}>
                   <CardHeader>
                     <CardTitle className={"text-4xl"}>16+</CardTitle>
                   </CardHeader>
-                  <CardFooter className={"min-h-14"}>
+                  <CardFooter className={""}>
                     <CardDescription>Years Of Experience</CardDescription>
                   </CardFooter>
                 </Card>
