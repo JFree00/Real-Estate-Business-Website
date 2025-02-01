@@ -64,11 +64,16 @@ export async function loader({ context }: Route.LoaderArgs) {
     props = listed.keys.map((property) => {
       return property.metadata
         ? (Promise.resolve(property) as Promise<Property>)
-        : env.properties.get(property.name).then((data) => {
-            const prop = JSON.parse(data!) as Property;
-            prop.metadata.name = prop.metadata.name ?? property.name;
-            return prop;
-          });
+        : env.properties
+            .get(property.name)
+            .then((data) => {
+              const prop = JSON.parse(data!) as Property;
+              prop.metadata.name = prop.metadata.name ?? property.name;
+              return prop;
+            })
+            .catch(() => {
+              return Promise.resolve(undefined);
+            });
     });
   } catch (e) {
     console.error(e);
