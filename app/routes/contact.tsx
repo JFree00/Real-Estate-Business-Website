@@ -17,6 +17,12 @@ import { companyEmail, companyPhone, locations } from "../../data/locations";
 import { SectionCards } from "@/components/cards/sectionCards";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import img from "app/assets/Image.webp";
+import img1 from "app/assets/Image-1.webp";
+import img2 from "app/assets/Image-2.webp";
+import img3 from "app/assets/Image-3.webp";
+import img4 from "app/assets/Image-4.webp";
+import img5 from "app/assets/Image-5.webp";
 
 const infoCards: infoCardProps[] = [
   {
@@ -239,23 +245,19 @@ export default function Contact() {
                   "col-span-full grid grid-cols-subgrid space-y-0 *:z-0 *:w-full *:rounded-lg"
                 }
               >
+                <img alt={"Estatein Team"} className={"col-span-2"} src={img} />
                 <img
                   alt={"Estatein Team"}
                   className={"col-span-2"}
-                  src={"app/assets/Image.webp"}
+                  src={img2}
                 />
                 <img
                   alt={"Estatein Team"}
                   className={"col-span-2"}
-                  src={"app/assets/Image-2.webp"}
+                  src={img1}
                 />
-                <img
-                  alt={"Estatein Team"}
-                  className={"col-span-2"}
-                  src={"app/assets/Image-1.webp"}
-                />
-                <img alt={"Estatein Team"} src={"app/assets/Image-3.webp"} />
-                <img alt={"Estatein Team"} src={"app/assets/Image-4.webp"} />
+                <img alt={"Estatein Team"} src={img3} />
+                <img alt={"Estatein Team"} src={img4} />
               </SectionCards.Header>
 
               <div className={" col-span-full block laptop:col-span-2"}>
@@ -269,7 +271,7 @@ export default function Contact() {
               </div>
               <img
                 alt={"People shaking Hand"}
-                src={"app/assets/Image-5.webp"}
+                src={img5}
                 className={"col-span-4 w-full laptop:col-span-2"}
               />
             </SectionCards>
