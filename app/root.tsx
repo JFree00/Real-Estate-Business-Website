@@ -13,7 +13,8 @@ import { Header } from "@/components/header";
 import "./tailwind.css";
 import { Footer } from "@/components/footer";
 import * as React from "react";
-function App({ children }: { children: React.ReactNode }) {
+
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -36,11 +37,7 @@ function App({ children }: { children: React.ReactNode }) {
 }
 
 export default function Root() {
-  return (
-    <App>
-      <Outlet />
-    </App>
-  );
+  return <Outlet />;
 }
 
 export function ErrorBoundary() {
@@ -59,11 +56,15 @@ export function ErrorBoundary() {
   }
 
   return (
-    <App>
-      <div className={"prose container py-8"}>
-        <h1>{status}</h1>
-        <p>{message}</p>
+    <div
+      className={
+        "mx-auto flex min-h-[25vw] flex-col gap-y-10 pt-20 text-center capitalize"
+      }
+    >
+      <div>
+        <h2 className={"text-8xl font-bold"}>{status}</h2>
+        <h2 className={"text-5xl font-bold pt-10"}>{message}</h2>
       </div>
-    </App>
+    </div>
   );
 }

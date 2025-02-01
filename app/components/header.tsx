@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 const routes = ["Home", "About Us", "Properties", "Services"];
-const realRoutes = ["", "about-us", "properties", "services"];
+const realRoutes = ["/", "about-us", "properties", "services"];
 export function Header() {
   const [opened, toggle] = useState(true);
 
