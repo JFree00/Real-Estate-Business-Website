@@ -13,7 +13,7 @@ import { Header } from "@/components/header";
 import "./tailwind.css";
 import { Footer } from "@/components/footer";
 import * as React from "react";
-
+import * as Sentry from "@sentry/react";
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -52,7 +52,7 @@ export function ErrorBoundary() {
         break;
     }
   } else {
-    console.error(error);
+    Sentry.captureException(error);
   }
 
   return (
