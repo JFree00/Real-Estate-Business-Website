@@ -59,6 +59,7 @@ function getInitialKeys(
 export async function loader({ context }: Route.LoaderArgs) {
   const env = context.env;
   let props;
+  let emptyPromises = 0;
   try {
     const listed = await env.properties.list({ limit: 15 });
     props = listed.keys.map((property) => {
@@ -72,6 +73,7 @@ export async function loader({ context }: Route.LoaderArgs) {
               return prop;
             })
             .catch(() => {
+              emptyPromises++;
               return Promise.resolve(undefined);
             });
     });
@@ -79,7 +81,7 @@ export async function loader({ context }: Route.LoaderArgs) {
     console.error(e);
   }
   const properties = props
-    ? { items: props, length: props.length }
+    ? { items: props, length: props.length - emptyPromises }
     : getInitialKeys(env.properties, defaultProperties);
   const testimonials = getInitialKeys(
     env.testimonials,
