@@ -60,9 +60,15 @@ export function ErrorBoundary() {
 
   return (
     <App>
-      <div className={"prose container py-8"}>
-        <h1>{status}</h1>
-        <p>{message}</p>
+      <div
+        className={
+          "mx-auto flex min-h-[25vw] flex-col gap-y-10 pt-20 text-center capitalize"
+        }
+      >
+        <div>
+          <h2 className={"text-8xl font-bold"}>{status}</h2>
+          <h2 className={"text-5xl font-bold pt-10"}>{message}</h2>
+        </div>
       </div>
     </App>
   );

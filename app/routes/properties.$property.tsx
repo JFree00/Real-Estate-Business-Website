@@ -1,7 +1,13 @@
 // @flow
 import * as React from "react";
 import { Route } from "./+types/properties.$property";
-import { Await, isRouteErrorResponse, Link, useRouteError } from "react-router";
+import {
+  Await,
+  ErrorResponse,
+  isRouteErrorResponse,
+  Link,
+  useRouteError,
+} from "react-router";
 import { SectionDesignation } from "@/components/Designations/sectionDesignation";
 import { SectionHeader } from "@/components/Designations/sectionHeader";
 import { SectionDescription } from "@/components/Designations/sectionDescription";
@@ -685,25 +691,27 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
 }
 
 export function ErrorBoundary() {
-  const error = useRouteError();
-  if (isRouteErrorResponse(error)) {
-    return (
-      <div>
-        <div
-          className={
-            "mx-auto flex min-h-[25vw] flex-col gap-y-10 pt-20 text-center capitalize"
-          }
-        >
-          <div>
-            <h2 className={"text-8xl font-bold"}>{error.status}</h2>
-            <h2 className={"text-5xl font-bold"}>{error.data}</h2>
-          </div>
-          <Link to={"/properties"} className={"underline"}>
-            back to properties
-          </Link>
+  const error = useRouteError() as Error | ErrorResponse;
+
+  return (
+    <div>
+      <div
+        className={
+          "mx-auto flex min-h-[25vw] flex-col gap-y-10 pt-20 text-center capitalize"
+        }
+      >
+        <div>
+          <h2 className={"text-8xl font-bold"}>
+            {isRouteErrorResponse(error) ? error.status : "Error"}
+          </h2>
+          <h2 className={"text-5xl font-bold pt-10"}>
+            {isRouteErrorResponse(error) ? error.data : "Something went wrong"}
+          </h2>
         </div>
+        <Link to={"/properties"} className={"underline"}>
+          back to properties
+        </Link>
       </div>
-    );
-  }
-  return <div>Something went wrong!</div>;
+    </div>
+  );
 }
