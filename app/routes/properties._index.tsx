@@ -150,7 +150,6 @@ export const loader = async ({ context, request }: Route.LoaderArgs) => {
         .then((data) => (data ? (JSON.parse(data) as Property) : undefined));
     });
   };
-  console.log(data());
   return {
     properties: { items: data(), length: cursor.length },
   };

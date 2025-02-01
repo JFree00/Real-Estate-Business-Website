@@ -6,8 +6,11 @@ import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
 import { Env } from "./context";
 import { CfProperties } from "@cloudflare/workers-types";
 import vitePluginSvgr from "vite-plugin-svgr";
-
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 export default defineConfig({
+  build: {
+    sourcemap: true,
+  },
   plugins: [
     envOnly(),
     tsconfigPaths(),
@@ -27,6 +30,11 @@ export default defineConfig({
         prettier: true,
         replaceAttrValues: { white: "fill-inherit" },
       },
+    }),
+    sentryVitePlugin({
+      org: process.env.SENTRY_ORG,
+      project: process.env.SENTRY_PROJECT,
+      authToken: process.env.SENTRY_ORG_TOKEN,
     }),
   ],
 });

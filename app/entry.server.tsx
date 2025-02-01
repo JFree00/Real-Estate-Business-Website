@@ -8,6 +8,7 @@ import type { AppLoadContext, EntryContext } from "react-router";
 import { ServerRouter } from "react-router";
 import { isbot } from "isbot";
 import ReactDOM from "react-dom/server";
+import * as Sentry from "@sentry/cloudflare";
 
 export default async function handleRequest(
   request: Request,
@@ -20,14 +21,15 @@ export default async function handleRequest(
   loadContext: AppLoadContext,
 ) {
   let status = responseStatusCode;
-  const headers = new Headers(responseHeaders);
-  headers.set("Content-Type", "text/html; charset=utf-8");
-
+  responseHeaders.set("Content-Type", "text/html; charset=utf-8");
+  responseHeaders.append("Access-Control-Allow-Headers", "sentry-trace");
+  responseHeaders.append("Access-Control-Allow-Headers", "baggage");
   const body = await ReactDOM.renderToReadableStream(
     <ServerRouter context={reactRouterContext} url={request.url} />,
     {
       signal: request.signal,
       onError(error: unknown) {
+        Sentry.captureException(error);
         // Log streaming rendering errors from inside the shell
         console.error(error);
         status = 500;
@@ -40,7 +42,7 @@ export default async function handleRequest(
   }
 
   return new Response(body, {
-    headers,
+    headers: responseHeaders,
     status,
   });
 }

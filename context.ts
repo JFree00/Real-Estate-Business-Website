@@ -7,6 +7,11 @@ export interface Env {
   properties: KVNamespace;
   metadata: KVNamespace;
   images: KVNamespace;
+  ENVIRONMENT: string;
+  SENTRY_ORG_TOKEN: string;
+  SENTRY_BE_DSN: string;
+  SENTRY_ORG: string;
+  SENTRY_PROJECT: string;
   bucket: R2Bucket;
 }
 declare module "react-router" {
