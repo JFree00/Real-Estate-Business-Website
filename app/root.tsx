@@ -7,8 +7,6 @@ import {
   isRouteErrorResponse,
   useRouteError,
 } from "react-router";
-
-import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
 import { Header } from "@/components/header";
 import "./tailwind.css";
 import { Footer } from "@/components/footer";
@@ -25,7 +23,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className={"box-border bg-sgrey-8 text-white"}>
-        <GlobalPendingIndicator />
         <Header />
         {children}
         <Footer />
