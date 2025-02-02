@@ -29,7 +29,15 @@ import { Route } from "./+types/_index";
 import { Property } from "../../data/propertyTypings";
 
 export const links: LinksFunction = () => {
-  return [{ rel: "preload", as: "image", href: homeBuildings }];
+  return [
+    {
+      rel: "preload",
+      fetchpriority: "high",
+      as: "image",
+      href: homeBuildings,
+      type: "image/webp",
+    },
+  ];
 };
 
 function getInitialKeys(
