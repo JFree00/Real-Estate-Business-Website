@@ -157,8 +157,6 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
       block: "nearest",
     });
     setSelectedImage(index);
-    console.log(selectedImage);
-    console.log(images);
   };
   return (
     <main>
