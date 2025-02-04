@@ -13,6 +13,8 @@ export interface Env {
   SENTRY_ORG: string;
   SENTRY_PROJECT: string;
   bucket: R2Bucket;
+  SENTRY_PROJECT_ID: string;
+  SENTRY_FE_HOST: string;
 }
 declare module "react-router" {
   interface AppLoadContext {

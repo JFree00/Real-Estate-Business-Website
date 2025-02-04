@@ -16,6 +16,7 @@ Sentry.init({
   tracesSampleRate: 1.0, //import.meta.env.DEV ? 1.0 : 0.5,
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
+  tunnel: "/tunnel",
 });
 
 startTransition(() => {

@@ -10,7 +10,8 @@ SENTRY_ORG = "jason-freeman"
 SENTRY_BE_DSN = "https://846fe4475ab43c51cf997aed9a9262cd@o4508662853074944.ingest.us.sentry.io/4508744497889280"
 VITE_SENTRY_FE_DSN = "https://7cf8e848adb25b49bdc41eb8ceeee96a@o4508662853074944.ingest.us.sentry.io/4508750979792896"
 ENVIRONMENT = "production"
-
+SENTRY_PROJECT_ID="4508750979792896"
+SENTRY_FE_HOST="o4508662853074944.ingest.us.sentry.io"
 
 [[kv_namespaces]]
 binding = "testimonials"
