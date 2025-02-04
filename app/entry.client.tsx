@@ -11,12 +11,14 @@ Sentry.init({
     Sentry.replayIntegration(),
     Sentry.captureConsoleIntegration(),
     Sentry.browserSessionIntegration(),
+    Sentry.browserProfilingIntegration(),
   ],
   environment: import.meta.env.DEV ? "development" : "production",
   tracesSampleRate: 1.0, //import.meta.env.DEV ? 1.0 : 0.5,
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
   tunnel: "/tunnel",
+  profilesSampleRate: 1.0,
 });
 
 startTransition(() => {

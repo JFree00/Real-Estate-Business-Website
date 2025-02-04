@@ -24,6 +24,7 @@ export default async function handleRequest(
   responseHeaders.set("Content-Type", "text/html; charset=utf-8");
   responseHeaders.append("Access-Control-Allow-Headers", "sentry-trace");
   responseHeaders.append("Access-Control-Allow-Headers", "baggage");
+  responseHeaders.append("Document-Policy", "js-profiling");
   const body = await ReactDOM.renderToReadableStream(
     <ServerRouter context={reactRouterContext} url={request.url} />,
     {
