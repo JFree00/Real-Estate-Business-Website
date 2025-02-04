@@ -1,5 +1,10 @@
 // @flow
 import { Route } from "../../.react-router/types/app/routes/+types/assets.$asset";
+import { HeadersFunction } from "react-router";
+
+export const headers: HeadersFunction = () => ({
+  "Cache-Control": "max-age=604800, s-maxage=3600",
+});
 import * as Sentry from "@sentry/cloudflare";
 
 export const loader = async ({
