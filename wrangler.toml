@@ -12,6 +12,7 @@ VITE_SENTRY_FE_DSN = "https://7cf8e848adb25b49bdc41eb8ceeee96a@o4508662853074944
 ENVIRONMENT = "production"
 SENTRY_PROJECT_ID="4508750979792896"
 SENTRY_FE_HOST="o4508662853074944.ingest.us.sentry.io"
+CACHETTL = "3600"
 
 [[kv_namespaces]]
 binding = "testimonials"

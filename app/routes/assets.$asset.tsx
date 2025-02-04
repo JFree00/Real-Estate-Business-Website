@@ -1,5 +1,12 @@
 // @flow
 import { Route } from "../../.react-router/types/app/routes/+types/assets.$asset";
+import { HeadersFunction } from "react-router";
+
+export const headers: HeadersFunction = ({
+  loaderHeaders,
+}: Route.HeadersArgs) => ({
+  "Cache-Control": loaderHeaders.get("Cache-Control") ?? "",
+});
 import * as Sentry from "@sentry/cloudflare";
 
 export const loader = async ({
@@ -9,7 +16,7 @@ export const loader = async ({
 }: Route.LoaderArgs) => {
   return await Sentry.startSpanManual(
     {
-      name: "KV Request",
+      name: "R2 Request",
     },
     async (span) => {
       const bucket = context.env.bucket;
@@ -28,6 +35,15 @@ export const loader = async ({
               ? (size[searchparams] ?? searchparams.split("?")[0])
               : ""),
         );
+        if (import.meta.env.DEV) {
+          const image = await fetch("https://picsum.photos/1000");
+          return new Response(image.body, {
+            headers: {
+              ...image.headers,
+              "Content-Type": image.headers.get("Content-Type") ?? "image/png",
+            },
+          });
+        }
         if (!image) {
           const fallback = await bucket.get(params.asset);
           if (!fallback) {
@@ -36,17 +52,16 @@ export const loader = async ({
           // @ts-expect-error - image.body is a ReadableStream
           return new Response(fallback.body, {
             headers: {
-              "Content-Type":
-                fallback.httpMetadata?.contentType ??
-                "application/octet-stream",
+              "Content-Type": fallback.httpMetadata?.contentType ?? "image/png",
+              "Cache-Control": `max-age=${context.env.CACHETTL}, s-maxage=86400`,
             },
           });
         } else {
           // @ts-expect-error - image.body is a ReadableStream
           return new Response(image.body, {
             headers: {
-              "Content-Type":
-                image.httpMetadata?.contentType ?? "application/octet-stream",
+              "Content-Type": image.httpMetadata?.contentType ?? "image/webp",
+              "Cache-Control": `max-age=${context.env.CACHETTL}, s-maxage=86400`,
             },
           });
         }

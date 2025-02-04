@@ -1,6 +1,5 @@
 // @flow
 import * as React from "react";
-import { Route } from "./+types/properties.$property";
 import {
   Await,
   ErrorResponse,
@@ -43,6 +42,7 @@ import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { faqCards } from "../../data/faq";
 import * as Sentry from "@sentry/cloudflare";
+import { Route } from "./+types/properties.$property";
 
 export const loader = async ({ context, params }: Route.LoaderArgs) => {
   const { properties, images } = context.env;
@@ -52,7 +52,7 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
     },
     async (span) => {
       const propertyData = await properties
-        .get(params.property, { cacheTtl: 3600 })
+        .get(params.property, { cacheTtl: Number(context.env.CACHETTL) })
         .finally(() => {
           span.setAttribute("Property", params.property);
           span.end();
@@ -68,7 +68,7 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
         name: "Image Request",
       });
       const previewImages = await images
-        .get(property.previewImages)
+        .get(property.previewImages, { cacheTtl: Number(context.env.CACHETTL) })
         .finally(() => {
           span.setAttribute("Property", params.property);
           traceRequestLength2.end();
@@ -76,7 +76,12 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
       const propertyImages = previewImages
         ? (JSON.parse(previewImages) as string[])
         : [];
-      return { property, images: propertyImages.reverse() };
+      return {
+        property,
+        images: import.meta.env.DEV
+          ? propertyImages.concat(Array.from("devimages"))
+          : propertyImages.reverse(),
+      };
     },
   );
 };
@@ -251,28 +256,21 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                 >
                   {images.map((image, index) => {
                     return (
-                      <Suspense key={index} fallback={<div />}>
-                        <Await resolve={image}>
-                          {(promiseData) => {
-                            return promiseData ? (
-                              <ToggleGroupItem
-                                value={index.toString()}
-                                className={
-                                  "px-1 rounded-xl shrink-0 snap-start h-12 laptop:h-[74px] w-20 laptop:w-[122px] brightness-50 transition-all data-[state=on]:h-14 laptop:data-[state=on]:h-20 data-[state=on]:w-24 laptop:data-[state=on]:w-36 data-[state=on]:brightness-100 scroll-mx-10"
-                                }
-                                onClick={(e) => changeImage(e, index)}
-                              >
-                                <img
-                                  key={index}
-                                  alt={""}
-                                  className={"size-full rounded-lg  "}
-                                  src={`../assets/${image}?size=s`}
-                                />
-                              </ToggleGroupItem>
-                            ) : null;
-                          }}
-                        </Await>
-                      </Suspense>
+                      <ToggleGroupItem
+                        value={index.toString()}
+                        className={
+                          "px-1 rounded-xl shrink-0 snap-start h-12 laptop:h-[74px] w-20 laptop:w-[122px] brightness-50 transition-all data-[state=on]:h-14 laptop:data-[state=on]:h-20 data-[state=on]:w-24 laptop:data-[state=on]:w-36 data-[state=on]:brightness-100 scroll-mx-10"
+                        }
+                        onClick={(e) => changeImage(e, index)}
+                        key={index}
+                      >
+                        <img
+                          key={index}
+                          alt={""}
+                          className={"size-full rounded-lg  "}
+                          src={`../assets/${image}?size=s`}
+                        />
+                      </ToggleGroupItem>
                     );
                   })}
                 </ToggleGroup>
@@ -282,17 +280,14 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                 <div className={"flex gap-x-8"}>
                   <picture className={"grow aspect-[3/2]"}>
                     <source
-                      rel={"preload"}
                       srcSet={`../assets/${images[selectedImage]}?size=medium`}
                       media={"(min-width: 1245px)"}
                     />
                     <source
-                      rel={"preload"}
                       srcSet={`../assets/${images[selectedImage]}?size=large`}
                       media={"(min-width: 700px)"}
                     />
                     <img
-                      rel={"preload"}
                       alt={""}
                       src={`../assets/${images[selectedImage]}`}
                       className={" aspect-[3/2] rounded-xl"}
@@ -300,17 +295,14 @@ export default function NestedProperty({ loaderData }: Route.ComponentProps) {
                   </picture>
                   <picture className={"hidden laptop:block grow aspect-[3/2]"}>
                     <source
-                      rel={"preload"}
                       srcSet={`../assets/${images[selectedImage + 1] ?? images[0]}?size=medium`}
                       media={"(min-width: 1245px)"}
                     />
                     <source
-                      rel={"preload"}
                       srcSet={`../assets/${images[selectedImage + 1] ?? images[0]}?size=large`}
                       media={"(min-width: 0px)"}
                     />
                     <img
-                      rel={"preload"}
                       alt={""}
                       src={`../assets/${images[selectedImage + 1] ?? images[0]}`}
                       onError={(e) => {
