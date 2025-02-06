@@ -12,6 +12,27 @@ import "./tailwind.css";
 import { Footer } from "@/components/footer";
 import * as React from "react";
 import * as Sentry from "@sentry/react";
+import { Route } from "./+types/root";
+
+export const meta = ({ data }: Route.MetaArgs) => {
+  return [
+    {
+      name: "sentry-trace",
+      content: data.sentryTrace,
+    },
+    {
+      name: "baggage",
+      content: data.sentryBaggage,
+    },
+  ];
+};
+export function loader() {
+  const rootSpan =
+    Sentry.getActiveSpan() ?? Sentry.startInactiveSpan({ name: "root" });
+  const sentryTrace = Sentry.spanToBaggageHeader(rootSpan);
+  const sentryBaggage = Sentry.spanToBaggageHeader(rootSpan);
+  return { sentryTrace: sentryTrace, sentryBaggage: sentryBaggage };
+}
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">

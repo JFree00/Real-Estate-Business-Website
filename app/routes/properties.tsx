@@ -16,7 +16,7 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
       const propertiesfromKV = await Promise.all(
         propertieslist.keys.map(async (key) => {
           try {
-            const value = (await properties.get(key.name))!;
+            const value = (await properties.get(key.name, { cacheTtl: 3600 }))!;
             const propertyMetadata = JSON.parse(value) as Property;
             propertyMetadata.metadata.name =
               propertyMetadata.metadata.name ?? propertyMetadata.name; //fail-safe

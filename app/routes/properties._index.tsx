@@ -39,6 +39,7 @@ import { IconInput } from "@/components/iconInput";
 import { Route } from "./+types/properties._index";
 import { Property } from "../../data/propertyTypings";
 import { useState } from "react";
+import * as Sentry from "@sentry/cloudflare";
 
 const inputs: submitInfoProps[] = [
   {
@@ -115,7 +116,7 @@ export const loader = async ({ context, request }: Route.LoaderArgs) => {
       const propertiesfromKV = await Promise.all(
         propertieslist.keys.map(async (key) => {
           try {
-            const value = (await properties.get(key.name))!;
+            const value = (await properties.get(key.name, { cacheTtl: 3600 }))!;
             const propertyMetadata = JSON.parse(value) as Property;
             propertyMetadata.metadata.name =
               propertyMetadata.metadata.name ?? propertyMetadata.name; //fail-safe
@@ -145,9 +146,19 @@ export const loader = async ({ context, request }: Route.LoaderArgs) => {
     };
   const data = () => {
     return Filter.withEveryFilter(cursor, filterParam).map((f) => {
-      return properties
-        .get(f)
-        .then((data) => (data ? (JSON.parse(data) as Property) : undefined));
+      return Sentry.startSpanManual(
+        {
+          name: "KV Request",
+        },
+        async (span) => {
+          try {
+            const data = await properties.get(f);
+            return data ? (JSON.parse(data) as Property) : undefined;
+          } finally {
+            span.end();
+          }
+        },
+      );
     });
   };
   return {

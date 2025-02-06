@@ -27,6 +27,7 @@ import { namedUnknown } from "../../data/filter";
 import { KVNamespace } from "@cloudflare/workers-types";
 import { Route } from "./+types/_index";
 import { Property } from "../../data/propertyTypings";
+import * as Sentry from "@sentry/cloudflare";
 
 export const links: LinksFunction = () => {
   return [
@@ -48,19 +49,38 @@ function getInitialKeys(
   const keys = template.map(async (item, index) => {
     const key = item.metadata;
     if (index > limit) return Promise.resolve(undefined);
-    return k.getWithMetadata(key.name).then(async (data) => {
-      if (!data.metadata || !(data.metadata as string).length) {
-        if (data.value) return JSON.parse(data.value) as Property;
-        if (!item) throw new Error(`${key.name} not found`);
-        await k
-          .put(key.name, JSON.stringify(item), {
-            metadata: item.metadata,
-          })
-          .catch(() => k.put(key.name, JSON.stringify(item)));
-        return item;
-      }
-      return JSON.parse(data.metadata as string) as namedUnknown;
-    });
+    return Sentry.startSpanManual(
+      {
+        name: "KV Request",
+      },
+      (span) => {
+        try {
+          return k.getWithMetadata(key.name).then(async (data) => {
+            if (!data.metadata || !(data.metadata as string).length) {
+              if (data.value) {
+                return JSON.parse(data.value) as Property;
+              }
+              if (!item) throw new Error(`${key.name} not found`);
+              await k
+                .put(key.name, JSON.stringify(item), {
+                  metadata: item.metadata,
+                })
+                .catch(() => k.put(key.name, JSON.stringify(item)));
+              return item;
+            }
+            return JSON.parse(data.metadata as string) as namedUnknown;
+          });
+        } catch (e) {
+          span.setAttribute("Property", key.name);
+          span.end();
+          console.error(e);
+          return item;
+        } finally {
+          span.setAttribute("Property", key.name);
+          span.end();
+        }
+      },
+    );
   });
   return { items: keys, length: keys.length };
 }
@@ -71,19 +91,30 @@ export async function loader({ context }: Route.LoaderArgs) {
   try {
     const listed = await env.properties.list({ limit: 15 });
     props = listed.keys.map((property) => {
-      return property.metadata
-        ? (Promise.resolve(property) as Promise<Property>)
-        : env.properties
-            .get(property.name)
-            .then((data) => {
-              const prop = JSON.parse(data!) as Property;
-              prop.metadata.name = prop.metadata.name ?? property.name;
-              return prop;
-            })
-            .catch(() => {
-              emptyPromises++;
-              return Promise.resolve(undefined);
-            });
+      return Sentry.startSpanManual(
+        {
+          name: "KV Request",
+        },
+        (span) => {
+          return property.metadata
+            ? (Promise.resolve(property) as Promise<Property>)
+            : env.properties
+                .get(property.name)
+                .then((data) => {
+                  const prop = JSON.parse(data!) as Property;
+                  prop.metadata.name = prop.metadata.name ?? property.name;
+                  return prop;
+                })
+                .finally(() => {
+                  span.setAttribute("Property", property.name);
+                  span.end();
+                })
+                .catch(() => {
+                  emptyPromises++;
+                  return Promise.resolve(undefined);
+                });
+        },
+      );
     });
   } catch (e) {
     console.error(e);

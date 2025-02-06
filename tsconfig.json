@@ -1,5 +1,5 @@
 {
-  "exclude": ["node_modules", "/cloudflare/**/*"],
+  "exclude": ["/cloudflare/**/*"],
   "include": ["**/*.ts", "**/*.tsx", "*.config.js", ".react-router/types/**/*", "*.env", "*.config.mjs"],
   "compilerOptions": {
     "rootDirs": [".", "./.react-router/types"],
@@ -22,7 +22,6 @@
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "composite": true,
     "pretty": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,

@@ -42,6 +42,44 @@ import AreaIcon from "@/assets/icons/areaIcon.svg?react";
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { faqCards } from "../../data/faq";
+import * as Sentry from "@sentry/cloudflare";
+
+export const loader = async ({ context, params }: Route.LoaderArgs) => {
+  const { properties, images } = context.env;
+  return await Sentry.startSpanManual(
+    {
+      name: "KV Request",
+    },
+    async (span) => {
+      const propertyData = await properties
+        .get(params.property, { cacheTtl: 3600 })
+        .finally(() => {
+          span.setAttribute("Property", params.property);
+          span.end();
+        })
+        .catch(() => {
+          throw new Response(`Something went wrong`, { status: 502 });
+        });
+      if (!propertyData) {
+        throw new Response(`Property not found`, { status: 404 });
+      }
+      const property = JSON.parse(propertyData) as Property;
+      const traceRequestLength2 = Sentry.startInactiveSpan({
+        name: "Image Request",
+      });
+      const previewImages = await images
+        .get(property.previewImages)
+        .finally(() => {
+          span.setAttribute("Property", params.property);
+          traceRequestLength2.end();
+        });
+      const propertyImages = previewImages
+        ? (JSON.parse(previewImages) as string[])
+        : [];
+      return { property, images: propertyImages.reverse() };
+    },
+  );
+};
 
 const format: Intl.NumberFormatOptions = {
   style: "currency",
@@ -92,22 +130,6 @@ export function DataComponent({
     </div>
   );
 }
-export const loader = async ({ context, params }: Route.LoaderArgs) => {
-  const { properties, images } = context.env;
-  const propertyData = await properties.get(params.property).catch(() => {
-    throw new Response(`Something went wrong`, { status: 502 });
-  });
-
-  if (!propertyData) {
-    throw new Response(`Property not found`, { status: 404 });
-  }
-  const property = JSON.parse(propertyData) as Property;
-  const previewImages = await images.get(property.previewImages);
-  const propertyImages = previewImages
-    ? (JSON.parse(previewImages) as string[])
-    : [];
-  return { property, images: propertyImages.reverse() };
-};
 export default function NestedProperty({ loaderData }: Route.ComponentProps) {
   const { property, images } = loaderData;
   const [selectedImage, setSelectedImage] = React.useState(0);
