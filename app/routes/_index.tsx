@@ -27,6 +27,7 @@ import { namedUnknown } from "../../data/filter";
 import { KVNamespace } from "@cloudflare/workers-types";
 import { Route } from "./+types/_index";
 import { Property } from "../../data/propertyTypings";
+import * as Sentry from "@sentry/cloudflare";
 
 export const links: LinksFunction = () => {
   return [
@@ -48,19 +49,30 @@ function getInitialKeys(
   const keys = template.map(async (item, index) => {
     const key = item.metadata;
     if (index > limit) return Promise.resolve(undefined);
-    return k.getWithMetadata(key.name).then(async (data) => {
-      if (!data.metadata || !(data.metadata as string).length) {
-        if (data.value) return JSON.parse(data.value) as Property;
-        if (!item) throw new Error(`${key.name} not found`);
-        await k
-          .put(key.name, JSON.stringify(item), {
-            metadata: item.metadata,
-          })
-          .catch(() => k.put(key.name, JSON.stringify(item)));
-        return item;
-      }
-      return JSON.parse(data.metadata as string) as namedUnknown;
-    });
+    const traceRequestLength = Sentry.startInactiveSpan({ name: "KV Request" });
+    try {
+      return k.getWithMetadata(key.name).then(async (data) => {
+        if (!data.metadata || !(data.metadata as string).length) {
+          if (data.value) {
+            return JSON.parse(data.value) as Property;
+          }
+          if (!item) throw new Error(`${key.name} not found`);
+          await k
+            .put(key.name, JSON.stringify(item), {
+              metadata: item.metadata,
+            })
+            .catch(() => k.put(key.name, JSON.stringify(item)));
+          traceRequestLength.end();
+          return item;
+        }
+        traceRequestLength.end();
+        return JSON.parse(data.metadata as string) as namedUnknown;
+      });
+    } catch (e) {
+      traceRequestLength.end();
+      console.error(e);
+      return item;
+    }
   });
   return { items: keys, length: keys.length };
 }

@@ -39,6 +39,7 @@ import { IconInput } from "@/components/iconInput";
 import { Route } from "./+types/properties._index";
 import { Property } from "../../data/propertyTypings";
 import { useState } from "react";
+import * as Sentry from "@sentry/cloudflare";
 
 const inputs: submitInfoProps[] = [
   {
@@ -145,9 +146,15 @@ export const loader = async ({ context, request }: Route.LoaderArgs) => {
     };
   const data = () => {
     return Filter.withEveryFilter(cursor, filterParam).map((f) => {
+      const traceRequestLength = Sentry.startInactiveSpan({
+        name: "KV Request",
+      });
       return properties
         .get(f)
-        .then((data) => (data ? (JSON.parse(data) as Property) : undefined));
+        .then((data) => (data ? (JSON.parse(data) as Property) : undefined))
+        .finally(() => {
+          traceRequestLength?.end();
+        });
     });
   };
   return {

@@ -42,18 +42,22 @@ import AreaIcon from "@/assets/icons/areaIcon.svg?react";
 import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { faqCards } from "../../data/faq";
+import * as Sentry from "@sentry/cloudflare";
 
 export const loader = async ({ context, params }: Route.LoaderArgs) => {
   const { properties, images } = context.env;
+  const traceRequestLength = Sentry.startInactiveSpan({ name: "KV Request" });
   const propertyData = await properties
     .get(params.property, { cacheTtl: 3600 })
     .catch(() => {
+      traceRequestLength.end();
       throw new Response(`Something went wrong`, { status: 502 });
     });
-
   if (!propertyData) {
+    traceRequestLength.end();
     throw new Response(`Property not found`, { status: 404 });
   }
+  traceRequestLength.end();
   const property = JSON.parse(propertyData) as Property;
   const previewImages = await images.get(property.previewImages);
   const propertyImages = previewImages
