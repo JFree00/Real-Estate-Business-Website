@@ -111,10 +111,7 @@ export function PropertiesCard({ data }: props) {
               size={"responsive"}
               variant={"primary"}
             >
-              <Link
-                prefetch={"viewport"}
-                to={`/properties/${data?.metadata.name}`}
-              >
+              <Link to={`/properties/${data?.metadata.name}`}>
                 View Property Details
               </Link>
             </Button>
