@@ -3,7 +3,7 @@ import { Route } from "../../.react-router/types/app/routes/+types/assets.$asset
 import { HeadersFunction } from "react-router";
 
 export const headers: HeadersFunction = () => ({
-  "Cache-Control": "max-age=604800, s-maxage=3600",
+  "Cache-Control": "max-age=360, s-maxage=360",
 });
 import * as Sentry from "@sentry/cloudflare";
 
@@ -14,7 +14,7 @@ export const loader = async ({
 }: Route.LoaderArgs) => {
   return await Sentry.startSpanManual(
     {
-      name: "KV Request",
+      name: "R2 Request",
     },
     async (span) => {
       const bucket = context.env.bucket;
@@ -41,17 +41,14 @@ export const loader = async ({
           // @ts-expect-error - image.body is a ReadableStream
           return new Response(fallback.body, {
             headers: {
-              "Content-Type":
-                fallback.httpMetadata?.contentType ??
-                "application/octet-stream",
+              "Content-Type": fallback.httpMetadata?.contentType ?? "image/png",
             },
           });
         } else {
           // @ts-expect-error - image.body is a ReadableStream
           return new Response(image.body, {
             headers: {
-              "Content-Type":
-                image.httpMetadata?.contentType ?? "application/octet-stream",
+              "Content-Type": image.httpMetadata?.contentType ?? "image/webp",
             },
           });
         }

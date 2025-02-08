@@ -1,6 +1,5 @@
 // @flow
 import * as React from "react";
-import { Route } from "./+types/properties.$property";
 import {
   Await,
   ErrorResponse,
@@ -43,6 +42,7 @@ import { SubmitForm, submitInfoProps } from "@/components/cards/submitForm";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { faqCards } from "../../data/faq";
 import * as Sentry from "@sentry/cloudflare";
+import { Route } from "./+types/properties.$property";
 
 export const loader = async ({ context, params }: Route.LoaderArgs) => {
   const { properties, images } = context.env;
@@ -52,7 +52,7 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
     },
     async (span) => {
       const propertyData = await properties
-        .get(params.property, { cacheTtl: 3600 })
+        .get(params.property, { cacheTtl: context.env.CACHETTL })
         .finally(() => {
           span.setAttribute("Property", params.property);
           span.end();
@@ -68,7 +68,7 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
         name: "Image Request",
       });
       const previewImages = await images
-        .get(property.previewImages)
+        .get(property.previewImages, { cacheTtl: context.env.CACHETTL })
         .finally(() => {
           span.setAttribute("Property", params.property);
           traceRequestLength2.end();
