@@ -52,7 +52,7 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
     },
     async (span) => {
       const propertyData = await properties
-        .get(params.property, { cacheTtl: context.env.CACHETTL })
+        .get(params.property, { cacheTtl: Number(context.env.CACHETTL) })
         .finally(() => {
           span.setAttribute("Property", params.property);
           span.end();
@@ -68,7 +68,7 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
         name: "Image Request",
       });
       const previewImages = await images
-        .get(property.previewImages, { cacheTtl: context.env.CACHETTL })
+        .get(property.previewImages, { cacheTtl: Number(context.env.CACHETTL) })
         .finally(() => {
           span.setAttribute("Property", params.property);
           traceRequestLength2.end();

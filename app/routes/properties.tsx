@@ -17,7 +17,7 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
         propertieslist.keys.map(async (key) => {
           try {
             const value = (await properties.get(key.name, {
-              cacheTtl: context.env.CACHETTL,
+              cacheTtl: Number(context.env.CACHETTL),
             }))!;
             const propertyMetadata = JSON.parse(value) as Property;
             propertyMetadata.metadata.name =
