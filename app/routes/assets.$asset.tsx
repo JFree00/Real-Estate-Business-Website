@@ -2,8 +2,10 @@
 import { Route } from "../../.react-router/types/app/routes/+types/assets.$asset";
 import { HeadersFunction } from "react-router";
 
-export const headers: HeadersFunction = () => ({
-  "Cache-Control": "max-age=360, s-maxage=360",
+export const headers: HeadersFunction = ({
+  loaderHeaders,
+}: Route.HeadersArgs) => ({
+  "Cache-Control": loaderHeaders.get("Cache-Control") ?? "",
 });
 import * as Sentry from "@sentry/cloudflare";
 
@@ -42,6 +44,7 @@ export const loader = async ({
           return new Response(fallback.body, {
             headers: {
               "Content-Type": fallback.httpMetadata?.contentType ?? "image/png",
+              "Cache-Control": "max-age=360, s-maxage=3600",
             },
           });
         } else {
@@ -49,6 +52,7 @@ export const loader = async ({
           return new Response(image.body, {
             headers: {
               "Content-Type": image.httpMetadata?.contentType ?? "image/webp",
+              "Cache-Control": "max-age=360, s-maxage=3600",
             },
           });
         }
