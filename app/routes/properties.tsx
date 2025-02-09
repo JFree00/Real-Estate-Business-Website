@@ -8,7 +8,7 @@ import { Property } from "../../data/propertyTypings";
 export const loader = async ({ context }: Route.LoaderArgs) => {
   const { metadata, properties } = context.env;
 
-  const getCursor = async (cursorName = Filter.cursor) => {
+  const getCursor = async (cursorName = Filter.CURSOR) => {
     const existing = await metadata.get(cursorName);
     if (!existing || !Filter.validate(Filter.fromCursor(existing))) {
       console.warn("Cursor is either stale or invalid, creating new cursor");

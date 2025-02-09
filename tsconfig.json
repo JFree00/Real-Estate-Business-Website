@@ -4,7 +4,7 @@
   "compilerOptions": {
     "rootDirs": [".", "./.react-router/types"],
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["@react-router/cloudflare", "node", "vite/client"],
+    "types": ["@react-router/cloudflare", "node", "vite/client", "vitest/globals"],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",

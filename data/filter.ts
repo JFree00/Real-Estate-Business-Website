@@ -29,7 +29,7 @@ export class Filter {
     price: "PR",
     size: "S",
   } as const;
-  static readonly cursor: string = "filter_cursor" as const;
+  static readonly CURSOR: string = "filter_cursor" as const;
 
   /**
    * Abbreviate a filter key

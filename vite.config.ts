@@ -1,5 +1,5 @@
+import { defineConfig } from "vitest/config";
 import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
 import envOnly from "vite-env-only";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
@@ -31,10 +31,21 @@ export default defineConfig({
         replaceAttrValues: { white: "fill-inherit" },
       },
     }),
-    sentryVitePlugin({
-      org: process.env.SENTRY_ORG,
-      project: process.env.SENTRY_PROJECT,
-      authToken: process.env.SENTRY_ORG_TOKEN,
-    }),
+    process.env.VITEST
+      ? null
+      : sentryVitePlugin({
+          org: process.env.SENTRY_ORG,
+          project: process.env.SENTRY_PROJECT,
+          authToken: process.env.SENTRY_ORG_TOKEN,
+        }),
   ],
+  test: {
+    globals: true,
+    environment: "jsdom",
+    coverage: {
+      enabled: true,
+      provider: "v8",
+      reporter: ["text", "json", "html"],
+    },
+  },
 });
