@@ -21,18 +21,15 @@ export function TestimonialCards({ data }: props) {
   data = data ?? promiseValue?.metadata;
   return (
     <SectionCards className={"dataCard"}>
-      <SectionCardHeader className={" bg-sgrey-8"}>
-        <CardHeader className={"mr-3"}>
-          {data ? (
-            <Ratings amountOfRatings={5} ratings={data.rating} />
-          ) : (
-            <Skeleton />
-          )}
-          <p className={"text-xl font-semibold laptop:text-2xl"}>
-            {data?.title}
-          </p>
-          <p className={"pt-3 text-left"}>{data?.testimonial}</p>
-        </CardHeader>
+      <SectionCardHeader className={" bg-sgrey-8 mr-3 space-y-0"}>
+        {data ? (
+          <Ratings amountOfRatings={5} ratings={data.rating} />
+        ) : (
+          <Skeleton />
+        )}
+        <p className={"text-xl font-semibold laptop:text-2xl"}>{data?.title}</p>
+        <p className={"pt-3 text-left"}>{data?.testimonial}</p>
+
         <SectionCardContent className={" flex items-center justify-start"}>
           {data?.image ? (
             <img
@@ -43,11 +40,11 @@ export function TestimonialCards({ data }: props) {
           ) : (
             <UserCircleIcon className="size-16" />
           )}
-          <div className={"px-2 text-xl"}>
+          <address className={"px-2 text-xl"}>
             {data?.name}
             <br />
             <p className={"text-lg text-sgrey-60"}> {data?.location}</p>
-          </div>
+          </address>
         </SectionCardContent>
       </SectionCardHeader>
     </SectionCards>

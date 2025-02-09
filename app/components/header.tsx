@@ -19,33 +19,31 @@ export function Header() {
 
   const buttons = routes.map((buttonRoute, index) => {
     return (
-      <Button
-        key={index}
-        className={" transition-all focus:border-0"}
-        size={"nav"}
-        variant={"ghost"}
-        asChild
-      >
-        <NavLink
-          className={
-            "rounded-none laptop:rounded-lg border-sgrey-15 group aria-[current]:border aria-[current]:bg-sgrey-8 aria-[current]:hover:bg-sgrey-8/60"
-          }
-          draggable={false}
-          key={buttonRoute}
-          to={realRoutes[index]}
+      <li key={index}>
+        <Button
+          className={" transition-all focus:border-0 w-full"}
+          size={"nav"}
+          variant={"ghost"}
+          asChild
         >
-          {buttonRoute}
-        </NavLink>
-      </Button>
+          <NavLink
+            className={
+              "rounded-none laptop:rounded-lg border-sgrey-15 group aria-[current]:border aria-[current]:bg-sgrey-8 aria-[current]:hover:bg-sgrey-8/60"
+            }
+            draggable={false}
+            key={buttonRoute}
+            to={realRoutes[index]}
+          >
+            {buttonRoute}
+          </NavLink>
+        </Button>
+      </li>
     );
   });
 
   return (
     <header
-      className="flex flex-col bg-sgrey-10"
-      style={{
-        height: !opened ? "5rem" : "10rem",
-      }}
+      className={cn("flex flex-col bg-sgrey-10", opened ? "h-40" : "h-20")}
     >
       {opened && (
         <div className={" relative basis-3/5 overflow-hidden "}>
@@ -54,14 +52,15 @@ export function Header() {
               " absolute z-10 flex size-full items-center justify-between "
             }
           >
-            <div className={"hidden basis-1/12 lg:block"}></div>
-            <div
+            <div className={"hidden basis-1/12 lg:block"} />
+            <section
               className={
                 "flex grow items-center justify-center text-sm md:text-xl "
               }
             >
               <h3 className={"text-xs tablet:text-lg"}>
-                ✨Discover Your Dream Property with Estatein
+                ✨Discover Your Dream Property
+                <span className={"hidden sm:contents"}> with Estatein</span>
               </h3>
               <Button
                 size={"sm"}
@@ -71,13 +70,13 @@ export function Header() {
               >
                 <Link to={"/about-us"}>Learn More</Link>
               </Button>
-            </div>
+            </section>
             <div
               className={"flex basis-1/12 justify-center laptop:justify-center"}
             >
               <Button
                 size={"icon"}
-                className={"rounded-full bg-sgrey-40/30"}
+                className={"rounded-full bg-sgrey-40/30 "}
                 onClick={() => {
                   toggle(!opened);
                 }}
@@ -95,24 +94,25 @@ export function Header() {
         </div>
       )}
       <Separator />
-      <div
-        className={"offset flex basis-auto items-center justify-between"}
-        style={{
-          height: !opened ? "100%" : "60%",
-        }}
+      <nav
+        title={"Main Navigation"}
+        className={cn(
+          "offset flex basis-auto items-center justify-between",
+          opened ? "h-full" : "h-3/5",
+        )}
       >
         <div className="basis-1/4">
-          <Link className="flex  space-x-2" to="/">
+          <Link className="flex space-x-2" to="/">
             <LogoSvg size={"lg"} />
           </Link>
         </div>
-        <div
+        <menu
           className={
             "hidden basis-1/2 justify-center space-x-2 lg:visible lg:flex"
           }
         >
           {buttons}
-        </div>
+        </menu>
         <MobileHeader className={"basis-1/12"}>{buttons}</MobileHeader>
         <div className={" hidden basis-1/4 laptop:flex"}>
           <Button
@@ -125,7 +125,7 @@ export function Header() {
             <NavLink to="/contact">Contact Us</NavLink>
           </Button>
         </div>
-      </div>
+      </nav>
       <Separator />
     </header>
   );
@@ -136,7 +136,7 @@ const MobileHeader = ({
   children,
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("lg:hidden", className)}>
+    <nav className={cn("lg:hidden", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -149,13 +149,13 @@ const MobileHeader = ({
           </Button>
         </PopoverTrigger>
         <PopoverContent className={"p-0"} asChild>
-          <div
+          <menu
             className={" bg-sgrey-10 flex flex-col max-w-[40vw] p-0 border-x-0"}
           >
             {children}
-          </div>
+          </menu>
         </PopoverContent>
       </Popover>
-    </div>
+    </nav>
   );
 };

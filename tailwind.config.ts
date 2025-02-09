@@ -7,6 +7,7 @@ export default {
     extend: {
       backgroundImage: {
         waves: "url('./assets/waves.svg')",
+        landingDecoration: "url('./assets/circleText.svg')",
       },
       fontFamily: {
         sans: "Urbanist, sans-serif",

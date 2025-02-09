@@ -213,168 +213,158 @@ export default function PropertiesIndex() {
   const { properties } = useLoaderData<typeof loader>();
   const [searchParams, setSearchParams] = useSearchParams();
   return (
-    <div>
-      <div className={" relative grid grid-cols-12"}>
-        <div
-          className={
-            "col-span-full grid h-[285px] grid-cols-subgrid bg-gradient-to-r from-sgrey-15 to-sgrey-15/0  to-30% laptop:h-[315px] desktop:h-[390px]"
-          }
-        >
-          <SectionDesignation
-            pagination={false}
-            className={"desktop:h-[23rem]"}
+    <main className={" relative grid grid-cols-12"}>
+      <div
+        className={
+          "col-span-full grid h-[285px] grid-cols-subgrid bg-gradient-to-r from-sgrey-15 to-sgrey-15/0  to-30% laptop:h-[315px] desktop:h-[390px]"
+        }
+      >
+        <SectionDesignation pagination={false} className={"desktop:h-[23rem]"}>
+          <div
+            className={
+              "col-span-full grid h-full grid-cols-subgrid flex-col content-center"
+            }
           >
+            <SectionHeader icon={false}>Find Your Dream Property</SectionHeader>
+            <SectionDescription className={"mb-14 hidden laptop:block"}>
+              Welcome to Estatein, where your dream property awaits in every
+              corner of our beautiful world. Explore our curated selection of
+              properties, each offering a unique story and a chance to redefine
+              your life. With categories to suit every dreamer, your journey to
+              finding the perfect property begins here. Let us guide you through
+              an exceptional selection of estates and lifestyle opportunities
+              that match your unique vision.
+            </SectionDescription>
+            <SectionDescription className={"mb-14 laptop:hidden"}>
+              Welcome to Estatein, where your dream property awaits in every
+              corner of our beautiful world. Explore our curated selection of
+              properties, each offering a unique story and a chance to redefine
+              your life.
+            </SectionDescription>
+          </div>
+        </SectionDesignation>
+        <Separator className={"col-span-full h-px self-end"} />
+      </div>
+      <SectionDesignation pagination={false} className={"pt-0  laptop:-top-32"}>
+        <SectionContent className={"  bottom-0 shrink-0 overflow-visible"}>
+          <div className={"flex w-full basis-full flex-wrap justify-center"}>
+            <SearchBar />
             <div
               className={
-                "col-span-full grid h-full grid-cols-subgrid flex-col content-center"
+                "mt-5 flex w-full basis-full flex-col gap-5  rounded-xl bg-sgrey-10 p-5 laptop:mt-0 laptop:flex-row laptop:p-2.5"
               }
             >
-              <SectionHeader icon={false}>
-                Find Your Dream Property
-              </SectionHeader>
-              <SectionDescription className={"mb-14 hidden laptop:block"}>
-                Welcome to Estatein, where your dream property awaits in every
-                corner of our beautiful world. Explore our curated selection of
-                properties, each offering a unique story and a chance to
-                redefine your life. With categories to suit every dreamer, your
-                journey to finding the perfect property begins here. Let us
-                guide you through an exceptional selection of estates and
-                lifestyle opportunities that match your unique vision.
-              </SectionDescription>
-              <SectionDescription className={"mb-14 laptop:hidden"}>
-                Welcome to Estatein, where your dream property awaits in every
-                corner of our beautiful world. Explore our curated selection of
-                properties, each offering a unique story and a chance to
-                redefine your life.
-              </SectionDescription>
+              {filters.map(([filterName, filterValue]) => {
+                return (
+                  <FilterInput
+                    key={filterName}
+                    filterName={filterName}
+                    data={filterValue}
+                    icon={filterIcons[filterName]}
+                    submit={(item: string) => {
+                      setSearchParams(
+                        (prev) => {
+                          const abbreviatedItem = Filter.abbreviate(
+                            filterName,
+                            item,
+                          );
+                          const filters = searchParams.getAll("filter");
+
+                          if (filters.includes(abbreviatedItem)) {
+                            prev.delete("filter", abbreviatedItem);
+                          } else {
+                            prev.append("filter", abbreviatedItem);
+                          }
+
+                          return prev;
+                        },
+                        { preventScrollReset: true },
+                      );
+                    }}
+                    selected={(item: string) => {
+                      return searchParams
+                        .getAll("filter")
+                        .includes(Filter.abbreviate(filterName, item));
+                    }}
+                  ></FilterInput>
+                );
+              })}
             </div>
-          </SectionDesignation>
-          <Separator className={"col-span-full h-px self-end"} />
-        </div>
+          </div>
+        </SectionContent>
+      </SectionDesignation>
+      {properties?.length ? (
         <SectionDesignation
-          pagination={false}
-          className={"pt-0  laptop:-top-32"}
+          displayAmount={3}
+          pagination={true}
+          data={properties}
         >
-          <SectionContent className={"  bottom-0 shrink-0 overflow-visible"}>
-            <div className={"flex w-full basis-full flex-wrap justify-center"}>
-              <SearchBar />
-              <div
-                className={
-                  "mt-5 flex w-full basis-full flex-col gap-5  rounded-xl bg-sgrey-10 p-5 laptop:mt-0 laptop:flex-row laptop:p-2.5"
-                }
-              >
-                {filters.map(([filterName, filterValue]) => {
-                  return (
-                    <FilterInput
-                      key={filterName}
-                      filterName={filterName}
-                      data={filterValue}
-                      icon={filterIcons[filterName]}
-                      submit={(item: string) => {
-                        setSearchParams(
-                          (prev) => {
-                            const abbreviatedItem = Filter.abbreviate(
-                              filterName,
-                              item,
-                            );
-                            const filters = searchParams.getAll("filter");
-
-                            if (filters.includes(abbreviatedItem)) {
-                              prev.delete("filter", abbreviatedItem);
-                            } else {
-                              prev.append("filter", abbreviatedItem);
-                            }
-
-                            return prev;
-                          },
-                          { preventScrollReset: true },
-                        );
-                      }}
-                      selected={(item: string) => {
-                        return searchParams
-                          .getAll("filter")
-                          .includes(Filter.abbreviate(filterName, item));
-                      }}
-                    ></FilterInput>
-                  );
-                })}
+          <ArrowDownIcon
+            className={
+              "col-span-full mx-auto -mt-10 mb-10 size-14 animate-bounce"
+            }
+          />
+          <SectionHeader>Discover a World of Possibilities</SectionHeader>
+          <SectionDescription>
+            Our portfolio of properties is as diverse as your dreams. Explore
+            the following categories to find the perfect property that resonates
+            with your vision of home
+          </SectionDescription>
+          <SectionContent>
+            <PropertiesCard />
+          </SectionContent>
+        </SectionDesignation>
+      ) : null}
+      <SectionDesignation pagination={false} className={"laptop:pt-0"}>
+        <SectionHeader>Let's Make it Happen</SectionHeader>
+        <SectionDescription>
+          Ready to take the first step toward your dream property? Fill out the
+          form below, and our real estate wizards will work their magic to find
+          your perfect match. Don't wait; let's embark on this exciting journey
+          together.
+        </SectionDescription>
+        <SectionContent iterate={false}>
+          <SubmitForm inputData={inputs}>
+            <div className={"grid grid-cols-subgrid  laptop:col-span-2"}>
+              <div className={"grid grid-cols-subgrid"}>
+                <Label
+                  className={"inline-block pb-2.5 text-base capitalize"}
+                  htmlFor={"contact"}
+                >
+                  Preferred Contact Method
+                </Label>
+                <IconInput
+                  placeholder={"Enter your Phone Number"}
+                  id={"contact"}
+                  name={"contact"}
+                  type={"tel"}
+                >
+                  <PhoneIcon className={"absolute size-full"} />
+                </IconInput>
+              </div>
+              <div>
+                <Label
+                  className={
+                    "invisible text-base capitalize laptop:inline-block "
+                  }
+                  htmlFor={"em"}
+                >
+                  Enter Your Email
+                </Label>
+                <IconInput
+                  className={""}
+                  id={"contact"}
+                  name={"em"}
+                  type={"email"}
+                  placeholder={"Enter Your Email"}
+                >
+                  <EnvelopeIcon className={"absolute size-full"} />
+                </IconInput>
               </div>
             </div>
-          </SectionContent>
-        </SectionDesignation>
-        {properties?.length ? (
-          <SectionDesignation
-            displayAmount={3}
-            pagination={true}
-            data={properties}
-          >
-            <ArrowDownIcon
-              className={
-                "col-span-full mx-auto -mt-10 mb-10 size-14 animate-bounce"
-              }
-            />
-            <SectionHeader>Discover a World of Possibilities</SectionHeader>
-            <SectionDescription>
-              Our portfolio of properties is as diverse as your dreams. Explore
-              the following categories to find the perfect property that
-              resonates with your vision of home
-            </SectionDescription>
-            <SectionContent>
-              <PropertiesCard />
-            </SectionContent>
-          </SectionDesignation>
-        ) : null}
-        <SectionDesignation pagination={false} className={"laptop:pt-0"}>
-          <SectionHeader>Let's Make it Happen</SectionHeader>
-          <SectionDescription>
-            Ready to take the first step toward your dream property? Fill out
-            the form below, and our real estate wizards will work their magic to
-            find your perfect match. Don't wait; let's embark on this exciting
-            journey together.
-          </SectionDescription>
-          <SectionContent iterate={false}>
-            <SubmitForm inputData={inputs}>
-              <div className={"grid grid-cols-subgrid  laptop:col-span-2"}>
-                <div className={"grid grid-cols-subgrid"}>
-                  <Label
-                    className={"inline-block pb-2.5 text-base capitalize"}
-                    htmlFor={"contact"}
-                  >
-                    Preferred Contact Method
-                  </Label>
-                  <IconInput
-                    placeholder={"Enter your Phone Number"}
-                    id={"contact"}
-                    name={"contact"}
-                    type={"tel"}
-                  >
-                    <PhoneIcon className={"absolute size-full"} />
-                  </IconInput>
-                </div>
-                <div>
-                  <Label
-                    className={
-                      "invisible text-base capitalize laptop:inline-block "
-                    }
-                    htmlFor={"em"}
-                  >
-                    Enter Your Email
-                  </Label>
-                  <IconInput
-                    className={""}
-                    id={"contact"}
-                    name={"em"}
-                    type={"email"}
-                    placeholder={"Enter Your Email"}
-                  >
-                    <EnvelopeIcon className={"absolute size-full"} />
-                  </IconInput>
-                </div>
-              </div>
-            </SubmitForm>
-          </SectionContent>
-        </SectionDesignation>
-      </div>
-    </div>
+          </SubmitForm>
+        </SectionContent>
+      </SectionDesignation>
+    </main>
   );
 }

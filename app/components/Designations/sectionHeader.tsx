@@ -2,8 +2,9 @@
 import * as React from "react";
 import { cn } from "@/lib/styles";
 import { SparklesIcon } from "@heroicons/react/24/solid";
+import { ComponentProps } from "@/components/ui/card";
 
-type Props = React.HTMLAttributes<HTMLDivElement> & {
+type Props = ComponentProps<React.HTMLAttributes<HTMLDivElement>> & {
   children: React.ReactNode;
   columns?: number;
   initial?: boolean;
@@ -12,7 +13,7 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 
 export function SectionHeader({ children, className, icon = true }: Props) {
   return (
-    <div
+    <header
       className={cn(
         `font-semibold text-balance h-fit col-span-full`,
         className,
@@ -23,6 +24,6 @@ export function SectionHeader({ children, className, icon = true }: Props) {
       <h2 className={cn(`font-semibold text-balance h-fit title`, className)}>
         {children}
       </h2>
-    </div>
+    </header>
   );
 }

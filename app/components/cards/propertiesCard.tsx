@@ -40,9 +40,9 @@ export function PropertiesCard({ data }: props) {
         <SectionCardTitle className={"pt-4 text-2xl font-semibold"}>
           {data?.metadata.name ?? <Skeleton className={""} variant={"title"} />}
         </SectionCardTitle>
-        <SectionCardDescription className={"text-sgrey-60"}>
+        <div className={"text-sgrey-60"}>
           {data ? (
-            <>
+            <SectionCardDescription>
               {data?.metadata.description}...
               <a
                 href={`/properties/${data?.metadata.name}`}
@@ -50,11 +50,11 @@ export function PropertiesCard({ data }: props) {
               >
                 Read More
               </a>
-            </>
+            </SectionCardDescription>
           ) : (
             <Skeleton variant={"paragraph"} />
           )}
-        </SectionCardDescription>
+        </div>
       </SectionCards.Header>
 
       <SectionCardContent
@@ -62,7 +62,7 @@ export function PropertiesCard({ data }: props) {
           "flex flex-wrap justify-start justify-items-stretch gap-x-3 gap-y-5 pt-4 laptop:gap-y-8"
         }
       >
-        <div className={"flex basis-full flex-wrap gap-1.5 laptop:gap-2"}>
+        <ul className={"flex basis-full flex-wrap gap-1.5 laptop:gap-2"}>
           <Badge variant={"card"} className={" border-sgrey-15"}>
             <img
               alt={"Bed Icon"}
@@ -95,33 +95,35 @@ export function PropertiesCard({ data }: props) {
               <Skeleton variant={"badge"} className={"min-w-12"} />
             )}
           </Badge>
-        </div>
+        </ul>
 
-        <div className={"text-sgrey-60 laptop:basis-1/3"}>
-          <p>Price</p>
-          <span className={"text-xl font-semibold text-white 2xl:text-2xl"}>
-            {data?.metadata.price}
-          </span>
-        </div>
-        <div className={"grow"}>
-          {data ? (
-            <Button
-              asChild
-              className={" laptop:size-full laptop:text-base"}
-              size={"responsive"}
-              variant={"primary"}
-            >
-              <Link
-                prefetch={"viewport"}
-                to={`/properties/${data?.metadata.name}`}
+        <footer className={"contents"}>
+          <div className={"text-sgrey-60 laptop:basis-1/3"}>
+            <p>Price</p>
+            <span className={"text-xl font-semibold text-white 2xl:text-2xl"}>
+              {data?.metadata.price}
+            </span>
+          </div>
+          <div className={"grow"}>
+            {data ? (
+              <Button
+                asChild
+                className={" laptop:size-full laptop:text-base"}
+                size={"responsive"}
+                variant={"primary"}
               >
-                View Property Details
-              </Link>
-            </Button>
-          ) : (
-            <Skeleton variant={"button"} />
-          )}
-        </div>
+                <Link
+                  prefetch={"viewport"}
+                  to={`/properties/${data?.metadata.name}`}
+                >
+                  View Property Details
+                </Link>
+              </Button>
+            ) : (
+              <Skeleton variant={"button"} />
+            )}
+          </div>
+        </footer>
       </SectionCardContent>
     </SectionCards>
   );

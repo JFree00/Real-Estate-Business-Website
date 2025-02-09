@@ -28,7 +28,7 @@ export function Pagination({
     });
   };
   return (
-    <div
+    <section
       className={cn("col-span-full mt-5 flex justify-between ", className)}
       {...props}
     >
@@ -55,6 +55,7 @@ export function Pagination({
           className={"size-10 rounded-full laptop:size-14"}
           onClick={() => paginate(false)}
           disabled={context.current === 1}
+          title={"Previous Page"}
         >
           <ArrowLeftIcon className={"size-6 "} />
         </Button>
@@ -71,10 +72,11 @@ export function Pagination({
           className={"size-10 rounded-full laptop:size-14"}
           onClick={() => paginate(true)}
           disabled={context.current === context.max}
+          title={"Next Page"}
         >
           <ArrowRightIcon className={"size-6"} />
         </Button>
       </div>
-    </div>
+    </section>
   );
 }

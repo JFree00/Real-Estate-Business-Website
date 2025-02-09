@@ -11,7 +11,7 @@ export function Ratings({ amountOfRatings, ratings }: Props) {
   const ratingButtons = [];
   for (let i = 0; i < amountOfRatings; i++) {
     ratingButtons.push(
-      <div
+      <li
         key={i}
         className="mr-2 rounded-full border border-sgrey-15 bg-sgrey-10"
       >
@@ -22,8 +22,8 @@ export function Ratings({ amountOfRatings, ratings }: Props) {
               : " m-2.5 size-6"
           }
         />
-      </div>,
+      </li>,
     );
   }
-  return <div className={"mb-3 flex laptop:mb-7"}>{ratingButtons}</div>;
+  return <ul className={"mb-3 flex laptop:mb-7"}>{ratingButtons}</ul>;
 }

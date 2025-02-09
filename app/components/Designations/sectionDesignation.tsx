@@ -40,7 +40,7 @@ export function SectionDesignation({
 }: designationProps) {
   const [currentPage, setCurrentPage] = React.useState(1);
   return (
-    <div
+    <article
       className={cn(
         "offset relative pt-20 grid col-span-full grid-cols-6 laptop:grid-cols-12",
         className,
@@ -82,6 +82,6 @@ export function SectionDesignation({
       ) : (
         <>{children}</>
       )}
-    </div>
+    </article>
   );
 }
