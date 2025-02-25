@@ -1,17 +1,10 @@
-Figma design -> React web app
-
 Based on https://www.figma.com/community/file/1314076616839640516/real-estate-business-website-ui-template-dark-theme-produce-ui
 ## Stack:
 - Typescript
 - React
 - Tailwind
-- Shadcn
-- React Router 7
-- Vite
-- Heroicons
-- Cloudfare Workers/Kv
+- Cloudfare Workers/KV/R2
 - [Custom KV filter/search wrapper](https://github.com/JFree00/Real-Estate-Business-Website/blob/master/data/filter.ts)
-- Cloudflare R2
 - Sentry
 
 # Real Estate Business Website
@@ -29,7 +22,6 @@ fetch fresh data during the initial page load, reducing cold starts and improvin
 - **Cloudflare KV**: Performant and zero-cost initially. Considered other options like a serverless database, but combining serverless
 function cold starts with a serverless database cold start would introduce a significant startup time. A cloud managed database or a VPS would
 add unnecessary costs and latency.
-- **Shadcn**: Pre-configured accessibility via Radix UI.
 
 
 ## Focuses and Priorities
