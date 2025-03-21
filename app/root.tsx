@@ -15,16 +15,18 @@ import * as Sentry from "@sentry/react";
 import { Route } from "./+types/root";
 
 export const meta = ({ data }: Route.MetaArgs) => {
-  return [
-    {
-      name: "sentry-trace",
-      content: data.sentryTrace,
-    },
-    {
-      name: "baggage",
-      content: data.sentryBaggage,
-    },
-  ];
+  return data?.sentryTrace && data?.sentryBaggage
+    ? [
+        {
+          name: "sentry-trace",
+          content: data.sentryTrace,
+        },
+        {
+          name: "baggage",
+          content: data.sentryBaggage,
+        },
+      ]
+    : undefined;
 };
 export function loader() {
   const rootSpan =
