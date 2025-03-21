@@ -43,7 +43,7 @@ export function Header() {
 
   return (
     <header
-      className={cn("flex flex-col bg-sgrey-10", opened ? "h-40" : "h-20")}
+      className={cn("flex flex-col bg-sgrey-10", opened ? "h-40" : "h-fit")}
     >
       {opened && (
         <div className={" relative basis-3/5 overflow-hidden "}>
@@ -97,7 +97,7 @@ export function Header() {
       <nav
         title={"Main Navigation"}
         className={cn(
-          "offset flex basis-auto items-center justify-between",
+          "offset flex basis-auto items-center justify-between my-2",
           opened ? "h-full" : "h-3/5",
         )}
       >
