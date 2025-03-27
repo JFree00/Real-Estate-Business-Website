@@ -40,7 +40,7 @@ export function PropertiesCard({ data }: props) {
         <SectionCardTitle className={"pt-4 text-2xl font-semibold"}>
           {data?.metadata.name ?? <Skeleton className={""} variant={"title"} />}
         </SectionCardTitle>
-        <div className={"text-sgrey-60"}>
+        <div className={"text-sgrey-60 min-h-24"}>
           {data ? (
             <SectionCardDescription>
               {data?.metadata.description}...
