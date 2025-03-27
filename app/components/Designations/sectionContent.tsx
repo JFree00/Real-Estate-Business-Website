@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { Suspense, useContext } from "react";
+import { Suspense, useContext, useMemo } from "react";
 import { DataContext, PaginationContext } from "@/context/paginationContext";
 import { Await } from "react-router";
 import { cn } from "@/lib/styles";
@@ -22,6 +22,23 @@ export function SectionContent({
     | namedUnknown[]
     | Promise<unknown>[];
   const page = useContext(PaginationContext);
+  const currentPage = page?.current ? page.current - 1 : 0;
+  amountToDisplay =
+    amountToDisplay ?? page?.amountToDisplay ?? dataArray.length;
+  const dataChildren = useMemo(
+    () =>
+      childrenToDisplay(
+        dataArray,
+        currentPage,
+        amountToDisplay ?? page?.amountToDisplay ?? dataArray.length,
+        children,
+      ),
+    [dataArray],
+  );
+  let fillerCards = 0;
+  if (dataChildren.length < amountToDisplay + currentPage + 1) {
+    fillerCards = amountToDisplay + currentPage - dataArray.length;
+  }
   return (
     <section
       className={cn(
@@ -31,11 +48,9 @@ export function SectionContent({
       data-expanded={!!page?.paginate}
     >
       {Array.isArray(dataArray) && dataArray.length > 0 && iterate ? (
-        childrenToDisplay(
-          dataArray,
-          !page?.current ? 0 : page.current - 1,
-          amountToDisplay ?? page?.amountToDisplay ?? dataArray.length,
-          children,
+        dataChildren.slice(
+          currentPage,
+          amountToDisplay + currentPage + fillerCards,
         )
       ) : (
         <>{children}</>
@@ -50,44 +65,31 @@ const childrenToDisplay = (
   amountToDisplay: number,
   children: Props["children"],
 ) => {
-  if (data.length === 0) return null;
-  let fillerCards = 0;
-  if (data.length < amountToDisplay + page + 1) {
-    fillerCards = amountToDisplay + page - data.length;
-  }
-  return (
-    <>
-      {data
-        .slice(page, amountToDisplay + page + fillerCards)
-        .map((property, index) => {
-          if (property instanceof Promise) {
-            return (
-              <Suspense
-                key={index}
-                fallback={
-                  <div className={"contents *:order-last"}>{children}</div>
-                }
-              >
-                <Await resolve={property}>
-                  {(promiseData) => {
-                    if (!promiseData) return null;
-                    return (
-                      <DataContext.Provider value={promiseData}>
-                        {children}
-                      </DataContext.Provider>
-                    );
-                  }}
-                </Await>
-              </Suspense>
-            );
-          } else {
-            return (
-              <DataContext.Provider value={property} key={index}>
-                {children}
-              </DataContext.Provider>
-            );
-          }
-        })}
-    </>
-  );
+  return data.map((property, index) => {
+    if (property instanceof Promise) {
+      return (
+        <Suspense
+          key={index}
+          fallback={<div className={"contents *:order-last"}>{children}</div>}
+        >
+          <Await resolve={property}>
+            {(promiseData) => {
+              if (!promiseData) return null;
+              return (
+                <DataContext.Provider value={promiseData}>
+                  {children}
+                </DataContext.Provider>
+              );
+            }}
+          </Await>
+        </Suspense>
+      );
+    } else {
+      return (
+        <DataContext.Provider value={property} key={index}>
+          {children}
+        </DataContext.Provider>
+      );
+    }
+  });
 };
