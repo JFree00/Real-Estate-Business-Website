@@ -65,31 +65,35 @@ const childrenToDisplay = (
   amountToDisplay: number,
   children: Props["children"],
 ) => {
-  return data.map((property, index) => {
-    if (property instanceof Promise) {
-      return (
-        <Suspense
-          key={index}
-          fallback={<div className={"contents *:order-last"}>{children}</div>}
-        >
-          <Await resolve={property}>
-            {(promiseData) => {
-              if (!promiseData) return null;
-              return (
-                <DataContext.Provider value={promiseData}>
-                  {children}
-                </DataContext.Provider>
-              );
-            }}
-          </Await>
-        </Suspense>
-      );
-    } else {
-      return (
-        <DataContext.Provider value={property} key={index}>
-          {children}
-        </DataContext.Provider>
-      );
-    }
-  });
+  return Array.isArray(data)
+    ? data.map((property, index) => {
+        if (property instanceof Promise) {
+          return (
+            <Suspense
+              key={index}
+              fallback={
+                <div className={"contents *:order-last"}>{children}</div>
+              }
+            >
+              <Await resolve={property}>
+                {(promiseData) => {
+                  if (!promiseData) return null;
+                  return (
+                    <DataContext.Provider value={promiseData}>
+                      {children}
+                    </DataContext.Provider>
+                  );
+                }}
+              </Await>
+            </Suspense>
+          );
+        } else {
+          return (
+            <DataContext.Provider value={property} key={index}>
+              {children}
+            </DataContext.Provider>
+          );
+        }
+      })
+    : data;
 };
