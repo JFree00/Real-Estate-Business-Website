@@ -120,9 +120,12 @@ export function FilterInput({
           </PopoverTrigger>
           <PopoverContent>
             <Command>
-              <CommandInput placeholder={"Location"} />
+              <CommandInput
+                className={"capitalize"}
+                placeholder={`${placeholder}`}
+              />
               <CommandList>
-                <CommandEmpty>No Location Found</CommandEmpty>
+                <CommandEmpty>No matching {placeholder} found</CommandEmpty>
                 <CommandGroup>{children ?? dataItems}</CommandGroup>
               </CommandList>
             </Command>
